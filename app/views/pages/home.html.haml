@@ -1,0 +1,116 @@
+- content_for :title, "Home"
+
+.py-5.text-center
+  %img.d-block.mx-auto.mb-4{:alt => "", :height => "57", :src => "https://getbootstrap.com/docs/5.0/assets/brand/bootstrap-logo.svg", :width => "72"}/
+  %h2 Checkout form
+  %p.lead Below is an example form built entirely with Bootstrap’s form controls.
+.row.g-5
+  .col-md-5.col-lg-4.order-md-last
+    %h4.d-flex.justify-content-between.align-items-center.mb-3
+      %span.text-primary Your cart
+      %span.badge.bg-primary.rounded-pill 3
+    %ul.list-group.mb-3
+      %li.list-group-item.d-flex.justify-content-between.lh-sm
+        %div
+          %h6.my-0 Product name
+          %small.text-muted Brief description
+        %span.text-muted £12
+      %li.list-group-item.d-flex.justify-content-between.lh-sm
+        %div
+          %h6.my-0 Second product
+          %small.text-muted Brief description
+        %span.text-muted £8
+      %li.list-group-item.d-flex.justify-content-between.lh-sm
+        %div
+          %h6.my-0 Third item
+          %small.text-muted Brief description
+        %span.text-muted £5
+      %li.list-group-item.d-flex.justify-content-between.bg-light
+        .text-success
+          %h6.my-0 Promo code
+          %small EXAMPLECODE
+        %span.text-success −£5
+      %li.list-group-item.d-flex.justify-content-between
+        %span Total (USD)
+        %strong £20
+    %form.card.p-2
+      .input-group
+        %input.form-control{:placeholder => "Promo code", :type => "text"}
+        %button.btn.btn-secondary{:type => "submit"} Redeem
+  .col-md-7.col-lg-8
+    %h4.mb-3 Billing address
+    %form.needs-validation{:novalidate => ""}
+      .row.g-3
+        .col-sm-6
+          %label.form-label{:for => "firstName"} First name
+          %input#firstName.form-control{:required => "", :type => "text", :value => ""}
+        .col-sm-6
+          %label.form-label{:for => "lastName"} Last name
+          %input#lastName.form-control{:required => "", :type => "text", :value => ""}
+        .col-12
+          %label.form-label{:for => "username"} Username
+          .input-group.has-validation
+            %span.input-group-text @
+            %input#username.form-control{:placeholder => "Username", :required => "", :type => "text"}
+        .col-12
+          %label.form-label{:for => "email"}
+            Email
+            %span.text-muted (Optional)
+          %input#email.form-control{:placeholder => "you@example.com", :type => "email"}
+        .col-12
+          %label.form-label{:for => "address"} Address
+          %input#address.form-control{:placeholder => "1234 Main St", :required => "", :type => "text"}
+        .col-12
+          %label.form-label{:for => "address2"}
+            Address 2
+            %span.text-muted (Optional)
+          %input#address2.form-control{:placeholder => "Apartment or suite", :type => "text"}
+        .col-md-5
+          %label.form-label{:for => "country"} Country
+          %select#country.form-select{:required => ""}
+            %option{:value => ""} Choose...
+            %option United Kingdom
+        .col-md-4
+          %label.form-label{:for => "county"} County
+          %select#county.form-select{:required => ""}
+            %option{:value => ""} Choose...
+            %option South Yorkshire
+        .col-md-3
+          %label.form-label{:for => "zip"} Zip
+          %input#zip.form-control{:required => "", :type => "text"}
+      %hr.my-4
+      .form-check
+        %input#same-address.form-check-input{:type => "checkbox"}
+        %label.form-check-label{:for => "same-address"} Shipping address is the same as my billing address
+      .form-check
+        %input#save-info.form-check-input{:type => "checkbox"}
+        %label.form-check-label{:for => "save-info"} Save this information for next time
+      %hr.my-4
+      %h4.mb-3 Payment
+      .my-3
+        .form-check
+          %input#credit.form-check-input{:checked => "checked", :name => "paymentMethod", :required => "", :type => "radio"}
+          %label.form-check-label{:for => "credit"} Credit card
+        .form-check
+          %input#debit.form-check-input{:name => "paymentMethod", :required => "", :type => "radio"}
+          %label.form-check-label{:for => "debit"} Debit card
+        .form-check
+          %input#paypal.form-check-input{:name => "paymentMethod", :required => "", :type => "radio"}
+          %label.form-check-label{:for => "paypal"} PayPal
+      .row.gy-3
+        .col-md-6
+          %label.form-label{:for => "cc-name"} Name on card
+          %input#cc-name.form-control{:required => "", :type => "text"}
+          %small.text-muted Full name as displayed on card
+        .col-md-6
+          %label.form-label{:for => "cc-number"} Credit card number
+          %input#cc-number.form-control{:required => "", :type => "text"}
+        .col-md-3
+          %label.form-label{:for => "cc-expiration"} Expiration
+          %input#cc-expiration.form-control{:required => "", :type => "text"}
+        .col-md-3
+          %label.form-label{:for => "cc-cvv"} CVV
+          %input#cc-cvv.form-control{:required => "", :type => "text"}
+      %hr.my-4
+      %button.w-100.btn.btn-primary.btn-lg{:type => "submit"}
+        Continue to checkout
