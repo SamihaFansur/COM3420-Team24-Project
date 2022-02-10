@@ -1,0 +1,9 @@
+development:
+  adapter: sqlite3
+  database: db/development.sqlite3
+  min_messages: warning
+
+test:
+  adapter: sqlite3
+  database: db/test.sqlite3
+  min_messages: warning

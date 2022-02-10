@@ -1,0 +1,19 @@
+en:
+  date:
+    order:
+      - :day
+      - :month
+      - :year    
+    formats:
+      default: "%d/%m/%Y"
+      full: "%a %e %B %Y"
+  time:
+    formats:
+      full: "%a %e %B %Y at %H:%M"
+      compact: "%d/%m/%y at %H:%M"
+      short: "%d/%m/%Y %H:%M"
+      time_24: "%H:%M"
+  number:
+    currency:
+      format:
+        unit: "&pound;"
