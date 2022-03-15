@@ -36,6 +36,9 @@ gem 'daemons'
 gem 'sentry-ruby'
 gem 'sentry-rails'
 
+gem 'ed25519', '>= 1.2', '< 2.0'
+gem 'bcrypt_pbkdf', '>= 1.0', '< 2.0'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'byebug'
