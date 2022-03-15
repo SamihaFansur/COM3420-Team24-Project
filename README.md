@@ -1,7 +1,7 @@
 # App name
 ---
 ## Git Push Checks
-# Samiha, Euan
+# Samiha, Euan, Jakub
 ## App / Project Info
 
 ### URLs
