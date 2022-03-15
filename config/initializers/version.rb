@@ -1,1 +1,1 @@
-APP_VERSION = '8'
+APP_VERSION = '9'
