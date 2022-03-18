@@ -1,0 +1,17 @@
+= simple_form_for(@ecf) do |f|
+
+  = f.input :date, as: :date
+  = f.input :is_serious_short_term, as: :boolean
+  = f.input :is_deterioration_of_disability, as: :boolean
+  = f.input :is_bereavement, as: :boolean
+  = f.input :is_significant_adverse_personal, as: :boolean
+  = f.input :is_other_exceptional_factors, as: :boolean
+  = f.input :is_frequent_absence, as: :boolean
+
+  = f.input :details, as: :text
+  = f.input :start_of_circumstances, as: :date
+  = f.input :end_of_circumstances, as: :date
+  = f.input :is_ongoing, as: :boolean
+
+  .form-actions
+    = f.button :submit

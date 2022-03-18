@@ -1,0 +1,27 @@
+%h1 Listing ecfs
+
+%p There are #{@ecfs.size} ecfs.
+
+= link_to 'New Ecf', new_ecf_path
+
+%table
+  %thead
+    %tr
+      %th Status
+      %th Date
+      %th Start
+      %th End
+
+  %tbody
+    - @ecfs.each do |ecf|
+      %tr
+        %td= ecf.status
+        %td= ecf.date
+        %td= ecf.start_of_circumstances
+        %td= ecf.end_of_circumstances
+        %td= ecf.details
+        %td= link_to 'Show', ecf
+        %td= link_to 'Edit', edit_ecf_path(ecf)
+        -# %td= link_to 'Destroy', ecf, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
