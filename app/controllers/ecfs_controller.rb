@@ -1,7 +1,14 @@
 class EcfsController < ApplicationController
+  #before_action :set_ecf
+
   # GET /ecfs
   def index
     @ecfs = Ecf.all
+  end
+
+  # GET /ecfs/1
+  def show
+    set_ecf
   end
 
   def new
