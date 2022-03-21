@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_18_153406) do
+ActiveRecord::Schema.define(version: 2022_03_21_215509) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "affected_units", force: :cascade do |t|
+    t.string "unit_code"
+    t.string "assessment_type"
+    t.date "date_from"
+    t.date "date_to"
+    t.string "requested_action"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "ecf_id"
+    t.index ["ecf_id"], name: "index_affected_units_on_ecf_id"
+  end
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer "priority", default: 0, null: false

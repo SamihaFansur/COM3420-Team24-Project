@@ -13,5 +13,16 @@
   = f.input :end_of_circumstances, as: :date
   = f.input :is_ongoing, as: :boolean
 
+  %strong [Sorry the affected_unit entry is massive. Need to change CSS or go from simple_form_for to form_for?]
+  Still needs a button to remove a given 'affected_unit' entry (may be front end, may be outside ability of simple_form_for)
+  = f.fields_for :affected_units, AffectedUnit.new do |unit_f|
+    = unit_f.input :unit_code, as: :text
+    = unit_f.input :assessment_type, as: :text
+    = unit_f.input :date_from, as: :date
+    = unit_f.input :date_to, as: :date
+    = unit_f.input :requested_action, as: :text
+
+    = unit_f.button :submit
+
   .form-actions
     = f.button :submit

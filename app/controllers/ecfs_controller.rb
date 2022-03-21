@@ -6,6 +6,7 @@ class EcfsController < ApplicationController
 
   def new
     @ecf = Ecf.new
+    @ecf.affected_units.build
   end
 
   def create
@@ -25,6 +26,10 @@ class EcfsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def ecf_params
-      params.require(:ecf).permit(:date, :is_bereavement, :is_deterioration_of_disability, :is_frequent_absence, :is_ongoing, :is_other_exceptional_factors, :is_serious_short_term, :is_significant_adverse_personal, :details, :start_of_circumstances, :end_of_circumstances, :is_ongoing)
+      params
+        #review tagged changes; taken from guide
+        .require(:ecf)
+        .permit(:date, :is_bereavement, :is_deterioration_of_disability, :is_frequent_absence, :is_ongoing, :is_other_exceptional_factors, :is_serious_short_term, :is_significant_adverse_personal, :details, :start_of_circumstances, :end_of_circumstances, :is_ongoing,
+          affected_units_attributes: [:id, :assessment_type, :date_from, :date_to, :requested_action, :unit_code])
     end
 end
