@@ -6,3 +6,14 @@
   
   %b Details:
   = @ecf.details
+
+%p
+  %b Affected Units:
+  - @affected_units.each do |affected_unit|
+    %p
+      %b Assessment type:
+      = affected_unit.assessment_type
+      %b Requested action:
+      = affected_unit.requested_action 
+      %b ECF ID:
+      = affected_unit.ecf_id

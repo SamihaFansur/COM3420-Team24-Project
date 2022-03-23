@@ -9,6 +9,7 @@ class EcfsController < ApplicationController
   # GET /ecfs/1
   def show
     set_ecf
+    set_affected_units
   end
 
   def new
@@ -29,6 +30,10 @@ class EcfsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_ecf
       @ecf = Ecf.find(params[:id])
+    end
+
+    def set_affected_units
+      @affected_units = @ecf.affected_units
     end
 
     # Only allow a trusted parameter "white list" through.
