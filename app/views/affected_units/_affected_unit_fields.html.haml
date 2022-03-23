@@ -1,0 +1,11 @@
+
+.wrapper-div
+  = form.input :unit_code, as: :text
+  = form.input :assessment_type, as: :text
+  = form.input :date_from, as: :date
+  = form.input :date_to, as: :date
+  = form.input :requested_action, as: :text
+
+  = link_to_remove_nested(form)
+
+-# = unit_f.button :submit

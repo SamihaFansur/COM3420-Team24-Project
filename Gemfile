@@ -16,6 +16,7 @@ gem 'hamlit'
 gem 'hamlit-rails'
 
 gem 'simple_form'
+gem 'vanilla_nested'
 gem 'draper'
 gem 'ransack'
 

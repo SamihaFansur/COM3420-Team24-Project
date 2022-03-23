@@ -339,6 +339,7 @@ GEM
     tilt (2.0.10)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
+    vanilla_nested (1.6.1)
     warden (1.2.9)
       rack (>= 2.0.9)
     web-console (4.2.0)
@@ -409,6 +410,7 @@ DEPENDENCIES
   simple_form
   simplecov
   sqlite3
+  vanilla_nested
   web-console
   webdrivers
   webpacker

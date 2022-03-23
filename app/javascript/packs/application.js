@@ -5,5 +5,6 @@
 
 import Rails from "@rails/ujs";
 import "bootstrap";
+import "vanilla-nested";
 
 Rails.start();
