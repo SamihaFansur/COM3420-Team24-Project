@@ -29,5 +29,5 @@ class Ecf < ApplicationRecord
     accepts_nested_attributes_for :affected_units, allow_destroy: true
 
 
-    has_one_attached :upload_medical_evidence
+    has_many_attached :upload_medical_evidence
 end

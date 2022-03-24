@@ -7,8 +7,14 @@
   %b Details:
   = @ecf.details
 
-  %b Uploaded Medical Evidence:
-  = link_to 'View file', @ecf.upload_medical_evidence, target: :_blank if @ecf.upload_medical_evidence.attached?
+  %p  <strong>Uploaded Medical Evidence:</strong>
+  - if @ecf.upload_medical_evidence.size == 0
+    %body None 
+  - else
+    - @ecf.upload_medical_evidence.each do |medical_evidence|
+      %p
+      = link_to medical_evidence.filename, medical_evidence, target: :_blank 
+      -# if medical_evidence.attached?
 
 %p
   %b Affected Units:

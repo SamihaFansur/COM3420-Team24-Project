@@ -20,7 +20,7 @@
 
   %div
     = f.label :upload_medical_evidence, style: "display: block"
-    = f.file_field :upload_medical_evidence
+    = f.file_field :upload_medical_evidence, multiple: true
 
   .form-actions
     = f.button :submit
