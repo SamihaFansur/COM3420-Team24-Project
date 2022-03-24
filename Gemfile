@@ -37,6 +37,11 @@ gem 'daemons'
 gem 'sentry-ruby'
 gem 'sentry-rails'
 
+gem "image_processing", "~> 1.2"
+gem "poppler"
+gem "glib2"
+gem "cairo-gobject"
+gem "gobject-introspection"
 
 group :development, :test do
   gem 'rspec-rails'

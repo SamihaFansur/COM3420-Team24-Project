@@ -7,6 +7,9 @@
   %b Details:
   = @ecf.details
 
+  %b Uploaded Medical Evidence:
+  = link_to 'View file', @ecf.upload_medical_evidence, target: :_blank if @ecf.upload_medical_evidence.attached?
+
 %p
   %b Affected Units:
   - @affected_units.each do |affected_unit|
