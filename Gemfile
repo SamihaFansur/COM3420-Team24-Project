@@ -44,6 +44,7 @@ gem "cairo-gobject"
 gem "gobject-introspection"
 # gem 'activestorage-validator'
 gem 'active_storage_validations'
+gem 'activestorage-database-service', github: 'TitovDigital/activestorage-database-service'
 
 group :development, :test do
   gem 'rspec-rails'

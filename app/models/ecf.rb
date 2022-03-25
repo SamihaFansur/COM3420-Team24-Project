@@ -28,7 +28,7 @@ class Ecf < ApplicationRecord
     # test for this]
     accepts_nested_attributes_for :affected_units, allow_destroy: true
 
-    has_many_attached :upload_medical_evidence
+    has_many_attached :upload_medical_evidence, service: :db
 
     validates :upload_medical_evidence,content_type: {in: 'application/pdf', message: 'Please upload .pdf files only'} 
     #  presence: true, content_type: { in: 'application/pdf', message: 'is not a PDF' }

@@ -11,6 +11,13 @@ GIT
       sheffield_ldap_lookup (>= 0.0.4)
 
 GIT
+  remote: https://github.com/TitovDigital/activestorage-database-service.git
+  revision: ccecd1a741334efda770af783549f948a81a7eea
+  specs:
+    activestorage-database-service (1.0.0)
+      rails (>= 6.1.0)
+
+GIT
   remote: https://github.com/epigenesys/epi_deploy.git
   revision: 5aea3810487bec1f5e287303df32f152a9b135e3
   specs:
@@ -407,6 +414,7 @@ PLATFORMS
 DEPENDENCIES
   active_storage_validations
   activerecord-session_store
+  activestorage-database-service!
   annotate
   bcrypt_pbkdf (>= 1.0, < 2.0)
   bootsnap
