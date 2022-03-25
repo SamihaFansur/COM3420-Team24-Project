@@ -31,7 +31,7 @@ class Ecf < ApplicationRecord
     has_many_attached :upload_medical_evidence, service: :db
 
     validates :upload_medical_evidence,content_type: {in: 'application/pdf', message: 'Please upload .pdf files only'} 
-    #  presence: true, content_type: { in: 'application/pdf', message: 'is not a PDF' }
+    #  presenceupload_medical_evidence in: 'application/pdf', message: 'is not a PDF' }
     # blob: { content_type: ['application/pdf'], message: 'not allowed'}
     
 

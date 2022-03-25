@@ -1,11 +1,13 @@
 
 .wrapper-div
-  = form.input :unit_code, as: :text
-  = form.input :assessment_type, as: :text
-  = form.input :date_from, as: :date
-  = form.input :date_to, as: :date
-  = form.input :requested_action, as: :text
-
-  = link_to_remove_nested(form)
+  %table
+    %tbody
+      %tr
+        %td= form.input :unit_code, as: :string
+        %td= form.input :assessment_type, as: :string
+        %td= form.input :date_from, as: :date
+        %td= form.input :date_to, as: :date
+        %td= form.input :requested_action, :collection => %w(Mike Nick Jason Tim)
+        %td= link_to_remove_nested(form, link_text: "Remove", fields_wrapper_selector: '.wrapper-div')
 
 -# = unit_f.button :submit

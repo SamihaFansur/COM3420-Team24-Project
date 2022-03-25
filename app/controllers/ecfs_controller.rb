@@ -30,6 +30,13 @@ class EcfsController < ApplicationController
     if @ecf.save
       redirect_to ecfs_path, notice: 'Form was successfully created.'
     else
+      puts "Failed"
+      puts @ecf.errors.full_messages
+      flash.each do |name, msg|
+        puts name
+        puts msg
+      end
+      puts "End of flask"
       render :new
     end
   end
