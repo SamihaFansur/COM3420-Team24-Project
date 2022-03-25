@@ -1,5 +1,5 @@
 class EcfsController < ApplicationController
-  #before_action :set_ecf
+  before_action :set_ecf, only:  [:show, :edit, :update, :destroy]
 
   # GET /ecfs
   def index
@@ -15,6 +15,14 @@ class EcfsController < ApplicationController
   def new
     @ecf = Ecf.new
     @ecf.affected_units.build
+  end
+
+  def update
+    if @ecf.update(ecf_params)
+      redirect_to ecfs_path, notice: 'Form was successfully updated.'
+    else
+      render :edit
+    end
   end
 
   def create

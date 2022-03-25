@@ -18,6 +18,10 @@
     = f.fields_for :affected_units do |affected_unit_f| 
       = render 'affected_units/affected_unit_fields', form: affected_unit_f
 
+  - @ecf.upload_medical_evidence.each do |medical_evidence|
+    %p
+    = link_to medical_evidence.filename, medical_evidence, target: :_blank 
+
   %div
     = f.label :upload_medical_evidence, style: "display: block"
     = f.file_field :upload_medical_evidence, multiple: true, accept: 'application/pdf'
