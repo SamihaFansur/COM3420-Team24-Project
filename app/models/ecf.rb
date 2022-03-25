@@ -28,6 +28,21 @@ class Ecf < ApplicationRecord
     # test for this]
     accepts_nested_attributes_for :affected_units, allow_destroy: true
 
-
     has_many_attached :upload_medical_evidence
+
+    validates :upload_medical_evidence,content_type: {in: 'application/pdf', message: 'Please upload .pdf files only'} 
+    #  presence: true, content_type: { in: 'application/pdf', message: 'is not a PDF' }
+    # blob: { content_type: ['application/pdf'], message: 'not allowed'}
+    
+
+    # private
+    # def upload_medical_evidence_file_type input
+    #     upload_medical_evidence.each do |file|
+    #         if !file.content_type.in?(%w(application/pdf))
+    #             errors.add(:upload_medical_evidence, 'Please upload .pdf files only')
+    #         end
+    #     end
+    # end
+
+
 end

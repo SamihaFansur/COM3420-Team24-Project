@@ -42,6 +42,8 @@ gem "poppler"
 gem "glib2"
 gem "cairo-gobject"
 gem "gobject-introspection"
+# gem 'activestorage-validator'
+gem 'active_storage_validations'
 
 group :development, :test do
   gem 'rspec-rails'
