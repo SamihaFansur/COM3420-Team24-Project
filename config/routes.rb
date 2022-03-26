@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  get 'login/index'
   mount EpiCas::Engine, at: "/"
 
   resources :ecfs
