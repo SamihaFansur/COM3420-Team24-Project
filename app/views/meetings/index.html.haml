@@ -1,0 +1,25 @@
+%h1 Meeting Schedule
+
+%table
+  %thead
+    %tr
+      %th Title
+      %th Date
+      %th Time
+      %th
+      %th
+      %th
+
+  %tbody
+    - @meetings.each do |meeting|
+      %tr
+        %td= meeting.title
+        %td= meeting.date
+        %td= meeting.time
+        %td= link_to 'Show', meeting
+        %td= link_to 'Edit', edit_meeting_path(meeting)
+        %td= link_to 'Destroy', meeting, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Meeting', new_meeting_path

@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_10_125738) do
+ActiveRecord::Schema.define(version: 2022_03_25_163319) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "affected_units", force: :cascade do |t|
+    t.string "unit_code"
+    t.string "assessment_type"
+    t.date "date_from"
+    t.date "date_to"
+    t.string "requested_action"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "ecf_id"
+    t.index ["ecf_id"], name: "index_affected_units_on_ecf_id"
+  end
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer "priority", default: 0, null: false
@@ -28,6 +40,32 @@ ActiveRecord::Schema.define(version: 2022_02_10_125738) do
     t.datetime "created_at", precision: 6
     t.datetime "updated_at", precision: 6
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
+  end
+
+  create_table "ecfs", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "email"
+    t.string "status"
+    t.date "date"
+    t.boolean "is_serious_short_term"
+    t.boolean "is_deterioration_of_disability"
+    t.boolean "is_bereavement"
+    t.boolean "is_significant_adverse_personal"
+    t.boolean "is_frequent_absence"
+    t.string "details"
+    t.date "start_of_circumstances"
+    t.date "end_of_circumstances"
+    t.boolean "is_ongoing"
+    t.boolean "is_other_exceptional_factors"
+  end
+
+  create_table "meetings", force: :cascade do |t|
+    t.string "title"
+    t.date "date"
+    t.time "time"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "sessions", force: :cascade do |t|
