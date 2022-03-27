@@ -24,14 +24,15 @@
   %div
     = f.label :upload_medical_evidence, style: "display: block"
     = f.file_field :upload_medical_evidence, multiple: true, accept: 'application/pdf'
+    = f.object.errors[:upload_medical_evidence].first
 
   - @ecf.upload_medical_evidence.each do |medical_evidence|
     %p
     = link_to medical_evidence.filename, medical_evidence, target: :_blank 
 
-  - @ecf.errors.each do |error|
-    %p
-    = error.message
+  -# - @ecf.errors.each do |error|
+  -#   %p
+  -#   = error.message
 
   .form-actions
     = f.button :submit
