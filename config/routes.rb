@@ -9,6 +9,14 @@ Rails.application.routes.draw do
 
   get :ie_warning, to: 'errors#ie_warning'
 
+  #Google Calendar API
+  get '/redirect', to: 'meetings#redirect', as: 'redirect'
+  get '/callback', to: 'meetings#callback', as: 'callback'
+  get '/meetings', to: 'meetings#calendars', as: 'calendars'
+
+  get '/events/:calendar_id', to: 'meetings#events', as: 'events', calendar_id: /[^\/]+/
+  post '/events/:calendar_id', to: 'meetings#new_event', as: 'new_event', calendar_id: /[^\/]+/
+
   root to: "pages#home"
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
