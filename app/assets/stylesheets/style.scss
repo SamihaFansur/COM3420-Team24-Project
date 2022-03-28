@@ -3,7 +3,7 @@
 @import '../../../node_modules/bootstrap/scss/mixins';
 
 $font-primary: 'Lato',Arial, sans-serif;
-$primary: RGB(183,224,247);
+$primary: RGB(95, 124, 202);
 
 
 body{
@@ -47,7 +47,7 @@ h1, h2, h3, h4, h5,
 }
 //HEADING SECTION
 .heading-section{
-	font-size: 28px;
+	font-size: 35px;
 	color: $black;
 }
 
@@ -57,9 +57,27 @@ h1, h2, h3, h4, h5,
 	background-repeat: no-repeat;
 	background-position: center center;
 
-
 }
 
+//NAVBAR
+.nav-link-2{
+	text-decoration: none;
+	font-family: $font-primary;
+	font-size: 20px;
+	line-height: 1.8;
+	font-weight: bold;
+	padding: 14px 25px;
+	color: $black;
+}
+
+
+.p-3.mb-3.border-bottom{
+	background: linear-gradient(0deg, #bcdcf6 0%, #82b2ff 100%);
+}
+
+.border-bottom {
+    border-bottom: 1px solid #236bb4 !important;
+}
 .login-wrap{
 
 	position: relative;
@@ -218,14 +236,14 @@ h1, h2, h3, h4, h5,
 //BUTTON
 .btn {
 	cursor: pointer;
-	@include border-radius(40px);
+	@include border-radius(100px);
 	box-shadow: none!important;
-	font-size: 15px;
+	font-size: 20px;
 	&:hover, &:active, &:focus {
 		outline: none;
 	}
 	&.btn-primary {
-		background: $primary !important;
+		background: rgb(95, 124, 202) !important;
 		border: 1px solid $primary !important;
 		color: $white !important;
 		&:hover {
@@ -246,3 +264,67 @@ h1, h2, h3, h4, h5,
 	}
 }
 
+header.masthead {
+  position: relative;
+  overflow: hidden;
+  padding-top: calc(7rem );
+  padding-bottom: 7rem;
+  background: linear-gradient(0deg, #ffffff 0%, #00b7ff 100%);
+  background-repeat: repeat;
+  background-position: center center;
+  background-attachment: scroll;
+  background-size: cover;
+}
+header.masthead .masthead-content {
+  z-index: 1;
+  position: relative;
+}
+header.masthead .masthead-content .masthead-heading {
+  font-size: 4rem;
+}
+header.masthead .masthead-content .masthead-subheading {
+  font-size: 2rem;
+}
+header.masthead .bg-circle {
+  z-index: 0;
+  position: absolute;
+  border-radius: 100%;
+  background: linear-gradient(0deg, #a0edf0 0%, #82b2ff 100%);
+}
+header.masthead .bg-circle-1 {
+  height: 90rem;
+  width: 90rem;
+  bottom: -55rem;
+  left: -55rem;
+}
+header.masthead .bg-circle-2 {
+  height: 50rem;
+  width: 50rem;
+  top: -25rem;
+  right: -25rem;
+}
+header.masthead .bg-circle-3 {
+  height: 20rem;
+  width: 20rem;
+  bottom: -10rem;
+  right: 5%;
+}
+header.masthead .bg-circle-4 {
+  height: 30rem;
+  width: 30rem;
+  top: -5rem;
+  right: 35%;
+}
+
+@media (min-width: 992px) {
+  header.masthead {
+    padding-top: calc(10rem + 55px);
+    padding-bottom: 10rem;
+  }
+  header.masthead .masthead-content .masthead-heading {
+    font-size: 6rem;
+  }
+  header.masthead .masthead-content .masthead-subheading {
+    font-size: 4rem;
+  }
+}

@@ -17,20 +17,18 @@
       .container
         .d-flex.flex-wrap.align-items-center.justify-content-center.justify-content-lg-start
           %a.d-flex.align-items-center.mb-2.mb-lg-0.text-dark.text-decoration-none{:href => "/"}
-            %svg.bi.me-2{"aria-label" => "Bootstrap", :height => "32", :role => "img", :width => "40"}
-              %use{"xlink:href" => "#bootstrap"}
           %ul.nav.col-12.col-lg-auto.me-lg-auto.mb-2.justify-content-center.mb-md-0
             %li
-              = link_to 'Home', root_path, title: 'Go to the home page', class: 'nav-link px-2 link-secondary'
+              = link_to 'HOME', root_path, title: 'Go to the home page', class: 'nav-link-2'
             %li
-              = link_to 'Ecfs', ecfs_path, title: 'Go to the ECFs page', class: 'nav-link px-2 link-secondary'
+              = link_to 'ECF', ecfs_path, title: 'Go to the ECFs page', class: 'nav-link-2'
             %li
-              = link_to 'Login', login_index_path, title: 'Go to the Login page', class: 'nav-link px-2 link-secondary'
+              = link_to 'LOGIN', login_index_path, title: 'Go to the Login page', class: 'nav-link-2'
           %form.col-12.col-lg-auto.mb-3.mb-lg-0.me-lg-3
             %input.form-control{"aria-label" => "Search", :placeholder => "Search...", :type => "search"}
           .dropdown.text-end
             %a#dropdownUser1.d-block.link-dark.text-decoration-none.dropdown-toggle{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", :href => "#"}
-              %img.rounded-circle{:alt => "mdo", :height => "32", :src => "https://github.com/epigenesys.png", :width => "32"}
+              %img.rounded-circle{:alt => "mdo", :height => "32", :src => "https://img.icons8.com/nolan/75/unchecked-circle.png", :width => "32"}
             %ul.dropdown-menu.text-small{"aria-labelledby" => "dropdownUser1", :style => ""}
               %li
                 %a.dropdown-item{:href => "#"} New project...
