@@ -4,11 +4,12 @@
   %b Title:
   = @meeting.title
 %p
-  %b Date:
-  = @meeting.date
-%p
   %b Time:
   = @meeting.time
+
+%p
+  %b Attendees:
+  = @meeting.attendees
 
 = link_to 'Edit', edit_meeting_path(@meeting)
 \|

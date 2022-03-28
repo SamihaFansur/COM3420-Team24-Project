@@ -1,11 +1,11 @@
 %h1 Meeting Schedule
 
-%table
+%table.table.table-hover
   %thead
     %tr
       %th Title
-      %th Date
       %th Time
+      %th Attendees
       %th
       %th
       %th
@@ -15,8 +15,8 @@
     - @meetings.each do |meeting|
       %tr
         %td= meeting.title
-        %td= meeting.date
         %td= meeting.time
+        %td= meeting.attendees
         %td= link_to 'Show', meeting
         %td= link_to 'Edit', edit_meeting_path(meeting)
         %td= link_to 'Destroy', meeting, :method => :delete, :data => { :confirm => 'Are you sure?' }
