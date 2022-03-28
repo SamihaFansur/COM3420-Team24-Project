@@ -1,13 +1,11 @@
 -# frozen_string_literal: true
-= simple_form_for(@meeting) do |f|
+= simple_form_for(@user) do |f|
   = f.error_notification
   = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
 
   .form-inputs
-    = f.input :title
-    = f.input :time
-    = f.input :attendees
+    = f.input :name
+    = f.input :email
 
   .form-actions
     = f.button :submit
-    = f.button :meeting_email[:emails => :attendees]
