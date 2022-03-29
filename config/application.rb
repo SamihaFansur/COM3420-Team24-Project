@@ -1,63 +1,61 @@
-!!!
-%html
-  %head
-    %title Team24 - #{content_for(:title)}
-    %meta{ name: "viewport", content: "width=device-width, initial-scale=1.0" }
-    %meta{ :'http-equiv' => 'X-UA-Compatible', content: 'IE=edge' }
-    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "content-type"}
-    = stylesheet_pack_tag "styles", media: :all
-    = javascript_pack_tag "application"
-    = favicon_link_tag '/favicon.ico'
-    = csrf_meta_tags
+require_relative "boot"
 
-  %body.bg-light
-    = render 'layouts/svg_logo'
+require "rails/all"
 
-    %header.p-3.mb-3.border-bottom#nav
-      .container
-        .d-flex.flex-wrap.align-items-center.justify-content-center.justify-content-lg-start
-          = image_tag 'pear.png'
-          %a.d-flex.align-items-center.mb-2.mb-lg-0.text-dark.text-decoration-none{:href => "/"}
-          %ul.nav.col-12.col-lg-auto.me-lg-auto.mb-2.justify-content-center.mb-md-0
-            %li
-              = link_to 'HOME', root_path, title: 'Go to the home page', class: 'nav-link-2'
-            %li
-              = link_to 'ECF', ecfs_path, title: 'Go to the ECFs page', class: 'nav-link-2'
-            %li
-              = link_to 'LOGIN', login_index_path, title: 'Go to the Login page', class: 'nav-link-2'
-          %form.col-12.col-lg-auto.mb-3.mb-lg-0.me-lg-3
-          .dropdown.text-end
-            %a#dropdownUser1.d-block.link-dark.text-decoration-none.dropdown-toggle{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", :href => "#"}
-              %img.rounded-circle{:alt => "mdo", :height => "32", :src => "https://img.icons8.com/nolan/75/unchecked-circle.png", :width => "32"}
-            %ul.dropdown-menu.text-small{"aria-labelledby" => "dropdownUser1", :style => ""}
-              %li
-                %a.dropdown-item{:href => "#"} New project...
-              %li
-                %a.dropdown-item{:href => "#"} Settings
-              %li
-                %a.dropdown-item{:href => "#"} Profile
-              %li
-                %hr.dropdown-divider/
-              %li
-                %a.dropdown-item{:href => "#"} Sign out
+# Require the gems listed in Gemfile, including any gems
+# you've limited to :test, :development, or :production.
+Bundler.require(*Rails.groups)
 
-    .flash-messages
-      - flash.each do |name, msg|
-        - next unless name == 'alert' || name == 'notice'
-        .alert.alert-info
-          .container
-            = msg
-            %a{ href: '#', title: 'Hide this message', data: { bs_dismiss: :alert } } Dismiss
+# Require gems used by epi_cas
+require 'devise'
+require 'devise_cas_authenticatable'
+require "devise_ldap_authenticatable"
+require 'sheffield_ldap_lookup'
+require 'rack-cas/session_store/active_record'
+module Team24
+  class Application < Rails::Application
+    # Send queued jobs to delayed_job
+    config.active_job.queue_adapter = :delayed_job
+    config.rack_cas.session_store = RackCAS::ActiveRecordStore
+    config.rack_cas.server_url = 'https://login.shef.ac.uk/cas' # replace with your server URL
+    config.rack_cas.service = "/users/service" # If your user model isn't called User, change this
+    # This points to our own routes middleware to handle exceptions
+    config.exceptions_app = self.routes
 
-    %main
-      .container= yield
+    I18n.enforce_available_locales = false
+    config.generators do |g|
+      g.orm                 :active_record
+      g.template_engine     :haml
+      g.fixture_replacement :factory_bot,
+                              dir: 'spec/factories'
+      g.test_framework      :rspec,
+                              fixture: true,
+                              helper_specs: true,
+                              routing_specs: false,
+                              controller_specs: false,
+                              view_specs: false,
+                              integration_tool: false
+    end
 
-    %footer.mt-auto.my-5.pt-5.text-muted.text-center.text-small
-      %p.mb-1 &copy; epiGenesys #{Date.today.year}
-      %ul.list-inline
-        %li.list-inline-item
-          = link_to 'epiGenesys', 'https://www.epigenesys.org.uk', target: '_blank', title: 'Go to the epiGenesys website'
-        %li.list-inline-item
-          %a{:href => "#"} Terms
-        %li.list-inline-item
-          %a{:href => "#"} Support
+    config.action_mailer.smtp_settings = {
+      address:              'mailhost.shef.ac.uk',
+      port:                 587,
+      enable_starttls_auto: true,
+      openssl_verify_mode:  OpenSSL::SSL::VERIFY_PEER,
+      openssl_verify_depth: 3,
+      ca_file:              '/etc/ssl/certs/ca-certificates.crt',
+      domain:               'student-app.demo.shefcompsci.org.uk',
+    }
+
+    # Initialize configuration defaults for originally generated Rails version.
+    config.load_defaults 6.1
+
+    # Configuration for the application, engines, and railties goes here.
+    #
+    # These settings can be overridden in specific environments using the files
+    # in config/environments, which are processed later.
+    #
+    # config.time_zone = "Central Time (US & Canada)"
+    # config.eager_load_paths << Rails.root.join("extras")
+  end
+end
