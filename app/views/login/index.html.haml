@@ -8,7 +8,7 @@
     %link{:href => "app/javascript/styles/style.scss", :rel => "stylesheet"}/
   %body-1
     %section.ftco-section
-      .container
+      .container.animate__animated.animate__flipInX
         .row.justify-content-center
           .col-md-6.text-center.mb-5
             %h2.heading-section ECF Login
@@ -30,6 +30,6 @@
                   .w-100.text-md-right
                     %a{:href => "#"} Forgot Password
                 .form-group
-                  %button.btn.form-control.btn-primary.rounded.submit.px-3{:type => "submit"} Login
+                  %button.btn.form-control.btn-primary.rounded.submit.px-3.btn_effect_shakeY{:type => "submit"} Login
               .w-100.text-center.mt-4.text
                 %p.text-center Please use your University MUSE credentials.

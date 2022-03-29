@@ -1,7 +1,7 @@
 @import '../../../node_modules/bootstrap/scss/bootstrap';
 @import '../../../node_modules/bootstrap/scss/variables';
 @import '../../../node_modules/bootstrap/scss/mixins';
-
+@import "animate.css";
 $font-primary: 'Lato',Arial, sans-serif;
 $primary: RGB(95, 124, 202);
 
@@ -60,6 +60,7 @@ h1, h2, h3, h4, h5,
 	background-repeat: no-repeat;
 	background-position: center center;
 
+
 }
 
 //NAVBAR
@@ -100,12 +101,14 @@ h1, h2, h3, h4, h5,
 		color: rgba(255,255,255,.5);
 	}
 	.img{
+
 		width: 150px;
 		height: 150px;
-
 		margin: 0 auto;
 		margin-bottom: 20px;
 		background-image: url('../images/the-university-of-sheffield-logo.png');
+		cursor: pointer;
+
 	}
 }
 
@@ -242,16 +245,14 @@ h1, h2, h3, h4, h5,
 	font-size: 20px;
 	&:hover, &:active, &:focus {
 		outline: none;
+
+
 	}
 	&.btn-primary {
 		background: rgb(95, 124, 202) !important;
 		border: 1px solid $primary !important;
 		color: $white !important;
-		&:hover {
-			border: 1px solid $primary;
-			background: transparent;
-			color :$primary;
-		}
+
 		&.btn-outline-primary {
 			border: 1px solid $primary;
 			background: transparent;
@@ -262,6 +263,20 @@ h1, h2, h3, h4, h5,
 				color :$white;
 			}
 		}
+	}
+}
+.btn_effect_swing{
+	&:hover {
+		background: transparent;
+		animation: swing; /* referring directly to the animation's @keyframe declaration */
+		animation-duration: 2s;
+	}
+}
+.btn_effect_shakeY{
+	&:hover {
+		background: transparent;
+		animation: shakeY; /* referring directly to the animation's @keyframe declaration */
+		animation-duration: 2s;
 	}
 }
 
