@@ -66,7 +66,7 @@ h1, h2, h3, h4, h5,
 	font-size: 20px;
 	line-height: 1.8;
 	font-weight: bold;
-	padding: 14px 25px;
+	padding: 15% 50px;
 	color: $black;
 }
 
@@ -104,14 +104,6 @@ h1, h2, h3, h4, h5,
 		margin-bottom: 20px;
 		background-image: url('../images/the-university-of-sheffield-logo.png');
 	}
-}
-
-.img{
-	width: 30px;
-	height: 30px;
-	margin: 0 auto;
-	margin-bottom: 1px;
-	background-image: url('../images/the-university-of-sheffield-logo.png');
 }
 
 .form-group{
@@ -270,6 +262,10 @@ h1, h2, h3, h4, h5,
 	}
 }
 
+.p-3.mb-3.border-bottom#nav{
+    padding: 0.5rem !important;
+}
+
 header.masthead {
   position: relative;
   overflow: hidden;
@@ -349,5 +345,14 @@ header.masthead .bg-circle-4 {
 		vertical-align: top;
 		margin-top: 0.5rem !important;
 	
+	}
+	.nav-link-2{
+		text-decoration: none;
+		font-family: $font-primary;
+		font-size: 20px;
+		line-height: 1.8;
+		font-weight: bold;
+		padding: 15% 5px;
+		color: $black;
 	}
   }
