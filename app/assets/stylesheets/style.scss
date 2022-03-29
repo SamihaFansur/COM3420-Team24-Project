@@ -326,3 +326,20 @@ header.masthead .bg-circle-4 {
     font-size: 4rem;
   }
 }
+
+//MOBILE VIEW
+/* If the screen size is 601px wide or more, set the font-size of <div> to 80px */
+@media screen and (max-width: 600px) {
+	header.masthead .masthead-content .masthead-heading {
+	  font-size: 2rem;
+	}
+	header.masthead .masthead-content .masthead-subheading{
+	  font-size: 1rem;
+	}
+	.btn.btn-primary.btn-xl.rounded-pill.mt-5#learn_more{
+		padding: 0.1rem 0.75rem;
+		vertical-align: top;
+		margin-top: 0.5rem !important;
+	
+	}
+  }
