@@ -52,7 +52,7 @@ defaults: &defaults
   # Users must also exist in the app, or be allowed to be created automatically in the app
   # (see groups_allowed_to_be_created and departments_allowed_to_be_created).
   departments_allowed_to_log_in:
-  
+
   # Users in the following departments are created automatically in the app when logging in (specify CiCS department codes; leave empty for all).
   # Users must also be in a group that is allowed to be created automatically in the app (see groups_allowed_to_be_created).
   departments_allowed_to_be_created:
