@@ -15,6 +15,15 @@ class UsersController < ApplicationController
 
   def show
     set_user
+    set_user_modules
+  end
+
+  def update
+    if @user.update(user_params)
+      redirect_to users_path, notice: 'User was successfully updated.'
+    else
+      render :edit
+    end
   end
 
   private
@@ -22,10 +31,15 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
     end
 
+    def set_user_modules
+      @user_modules = @user.user_modules
+    end
+    
     # incomplete method. admin should only add/edit/remove modules
     # and update 'role' enum (once we have this)
     def user_params
       params
         .require(:user)
+        .permit(user_modules_attributes: [:id, :user_id, :module, :_destroy])
     end
 end

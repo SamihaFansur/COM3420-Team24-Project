@@ -1,0 +1,14 @@
+= simple_form_for(@user) do |f|
+
+  = f.error_notification
+
+  %p  Edit role stuff here
+
+  = link_to_add_nested(f, :user_modules, '#user_modules', partial: 'user_modules/user_module_fields')
+
+  #user_modules
+    = f.fields_for :user_modules do |user_module_f| 
+      = render 'user_modules/user_module_fields', form: user_module_f
+
+  .form-actions
+    = f.button :submit

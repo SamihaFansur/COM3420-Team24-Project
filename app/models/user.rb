@@ -27,6 +27,10 @@
 class User < ApplicationRecord
   include EpiCas::DeviseHelper
 
+  has_many :user_modules
+  accepts_nested_attributes_for :user_modules, allow_destroy: true
+
+
   def generate_attributes_from_ldap
     self.username = self.uid
     self.email = self.mail
