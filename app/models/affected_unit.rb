@@ -18,4 +18,8 @@
 #
 class AffectedUnit < ApplicationRecord
     belongs_to :ecf
+
+    validates :unit_code, :assessment_type,:requested_action, presence: true
+    validates :date_to, presence: true, date: { after_or_equal_to:  :date_from}
+
 end

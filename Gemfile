@@ -48,6 +48,8 @@ gem 'activestorage-database-service', github: 'TitovDigital/activestorage-databa
 
 gem 'sass-rails'
 
+gem 'date_validator'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'byebug'
