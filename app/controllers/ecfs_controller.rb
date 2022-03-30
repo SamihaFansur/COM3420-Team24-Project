@@ -4,6 +4,7 @@ class EcfsController < ApplicationController
   # GET /ecfs
   def index
     @ecfs = Ecf.all
+    @users = User.all
   end
 
   # def purge_avatar

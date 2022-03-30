@@ -27,23 +27,23 @@ defaults: &defaults
     - staff_visiting
     # - staff_retired
     # - external
-    # - student_pg_research
-    # - student_pg_taught
+    - student_pg_research
+    - student_pg_taught
     - student_undergraduate
-    # - role
+    - role
     # - public
 
   # Users in the following groups are created automatically in the app when logging in (comment/uncomment as necessary).
   # Users must also be in a department that is allowed to be created automatically in the app (see departments_allowed_to_be_created).
   groups_allowed_to_be_created:
-    - staff
-    - staff_honorary
-    - staff_visiting
+    # - staff
+    # - staff_honorary
+    # - staff_visiting
     # - staff_retired
     # - external
     # - student_pg_research
     # - student_pg_taught
-    - student_undergraduate
+    # - student_undergraduate
     # - role
     # - public
 
@@ -52,9 +52,103 @@ defaults: &defaults
   # Users must also exist in the app, or be allowed to be created automatically in the app
   # (see groups_allowed_to_be_created and departments_allowed_to_be_created).
   departments_allowed_to_log_in:
-    # - EPG
-    # - COM
-    # - etc
+    - SDE
+    - ALS
+    - LTS
+    - MDE
+    - ACC
+    - AAP
+    - ACS
+    - AQU
+    - FIL
+    - ALU
+    - COR
+    - CAS
+    - CHA
+    - CPE
+    - CHM
+    - CIV
+    - COM
+    - EXR
+    - COU
+    - ACE
+    - DDS
+    - ECN
+    - EEE
+    - ESM
+    - ELT
+    - EST
+    - EFF
+    - EDS
+    - FCA
+    - FCE
+    - FEN
+    - IPE
+    - FCM
+    - FCP
+    - FCS
+    - FIN
+    - GEO
+    - SIL
+    - SAF
+    - HES
+    - UHS
+    - HST
+    - HCS
+    - HUR
+    - HRI
+    - CDL
+    - INF
+    - CIC
+    - JNL
+    - LSC
+    - LIB
+    - MGT
+    - MAT
+    - MEC
+    - MED
+    - MLT
+    - MEE
+    - MUS
+    - NEU
+    - NUR
+    - VCO
+    - OCP
+    - OPH
+    - PUB
+    - DRA
+    - PHI
+    - PHY
+    - PBI
+    - POL
+    - PRI
+    - PRS
+    - PSY
+    - RIS
+    - ARC
+    - BIS
+    - DEN
+    - EAS
+    - EDU
+    - EGH
+    - HAR
+    - MDL
+    - LAW
+    - MAS
+    - SES
+    - SMI
+    - IFS
+    - SCS
+    - USP
+    - USS
+    - SSG
+    - RAO
+    - SID
+    - SSW
+    - TRN
+    - RSO
+    - TRP
+    - WRC
 
   # Users in the following departments are created automatically in the app when logging in (specify CiCS department codes; leave empty for all).
   # Users must also be in a group that is allowed to be created automatically in the app (see groups_allowed_to_be_created).

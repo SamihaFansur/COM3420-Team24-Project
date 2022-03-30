@@ -26,6 +26,15 @@
 #
 class User < ApplicationRecord
   include EpiCas::DeviseHelper
+
+  def generate_attributes_from_ldap
+    self.username = self.uid
+    self.email = self.mail
+    self.first_name = self.givenname
+    self.last_name = self.sn
+    self.department_code = self.ou
+    super
+  end
   
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   end
