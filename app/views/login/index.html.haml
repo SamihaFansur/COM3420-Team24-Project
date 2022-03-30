@@ -1,12 +1,18 @@
 %html{:lang => "en"}
   %head
+  !!!
+%html
+  %head
+    %meta{:charset => "utf-8"}/
     %title Login
     %meta{:charset => "utf-8"}/
     %meta{:content => "width=device-width, initial-scale=1, shrink-to-fit=no", :name => "viewport"}/
     %link{:href => "https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap", :rel => "stylesheet"}/
-    %link{:href => "app/javascript/styles/style.scss", :rel => "stylesheet"}/
+    = javascript_pack_tag "login_btn"
   %body-1
     %section.ftco-section
+
+
       .container.animate__animated.animate__flipInX
         .row.justify-content-center
           .col-md-6.text-center.mb-5
@@ -20,15 +26,15 @@
                 .form-group
                   .icon.d-flex.align-items-center.justify-content-center
                     %span.fa.fa-user
-                  %input.form-control{:placeholder => "Username", :required => "", :type => "text"}/
+                  %input.form-control#username{:placeholder => "Username", :required => "", :type => "text", :value =>""}/
                 .form-group
                   .icon.d-flex.align-items-center.justify-content-center
                     %span.fa.fa-lock
-                  %input.form-control{:placeholder => "Password", :required => "", :type => "password"}/
+                  %input.form-control#password{:placeholder => "Password", :required => "", :type => "password"}/
                 .form-group.d-md-flex
                   .w-100.text-md-right
                     %a{:href => "#"} Forgot Password
                 .form-group
-                  %button.btn.form-control.btn-primary.rounded.submit.px-3.btn_effect_shakeY{:type => "submit"} Login
+                  %button.btn.form-control.btn-primary.rounded.submit.px-3.btn_effect_shakeY#btn{:type => "submit"} Login
               .w-100.text-center.mt-4.text
                 %p.text-center Please use your University MUSE credentials.
