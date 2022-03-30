@@ -36,15 +36,15 @@ defaults: &defaults
   # Users in the following groups are created automatically in the app when logging in (comment/uncomment as necessary).
   # Users must also be in a department that is allowed to be created automatically in the app (see departments_allowed_to_be_created).
   groups_allowed_to_be_created:
-    # - staff
-    # - staff_honorary
-    # - staff_visiting
+    - staff
+    - staff_honorary
+    - staff_visiting
     # - staff_retired
     # - external
-    # - student_pg_research
-    # - student_pg_taught
-    # - student_undergraduate
-    # - role
+    - student_pg_research
+    - student_pg_taught
+    - student_undergraduate
+    - role
     # - public
 
   # Users in the following departments can log in (specify CiCS department codes; leave empty for all).
