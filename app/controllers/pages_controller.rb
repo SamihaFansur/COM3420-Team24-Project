@@ -6,4 +6,5 @@ class PagesController < ApplicationController
     @current_nav_identifier = :home
   end
 
+
 end

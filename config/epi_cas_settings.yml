@@ -29,7 +29,7 @@ defaults: &defaults
     # - external
     # - student_pg_research
     # - student_pg_taught
-    # - student_undergraduate
+    - student_undergraduate
     # - role
     # - public
 
@@ -43,7 +43,7 @@ defaults: &defaults
     # - external
     # - student_pg_research
     # - student_pg_taught
-    # - student_undergraduate
+    - student_undergraduate
     # - role
     # - public
 

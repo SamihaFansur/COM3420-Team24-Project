@@ -39,7 +39,7 @@
               %li
                 %hr.dropdown-divider/
               %li
-                %a.dropdown-item{:href => "#"} Sign out
+                = link_to 'Sign out', destroy_user_session_path, class: 'dropdown-item', method: :delete, title: "Log out of the system"
 
     .flash-messages
       - flash.each do |name, msg|
