@@ -1,0 +1,34 @@
+%strong Showing user
+
+%p
+  %p
+    %b User ID:
+    %br
+    = @user.uid
+  
+  %p
+    %b Email:
+    %br
+    = @user.mail
+
+  %p
+    %b Given Name:
+    %br
+    = @user.givenname
+  
+  %p
+    %b Surname:
+    %br
+    = @user.sn
+
+  %p
+    %b Department:
+    %br
+    = @user.ou
+
+  %p
+    %b Group:
+    %br
+    = ((@user.dn).split( /, */ )[2]).chars.last((((@user.dn).split( /, */ )[2]).length)-3).join
+%p
+  %b Modules

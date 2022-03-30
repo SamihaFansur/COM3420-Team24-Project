@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   resources :ecfs
   resources :affected_units
+  resources :users
 
   # resources :posts do
   #   member do
