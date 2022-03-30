@@ -46,6 +46,8 @@ gem "gobject-introspection"
 gem 'active_storage_validations'
 gem 'activestorage-database-service', github: 'TitovDigital/activestorage-database-service'
 
+gem 'sass-rails'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'byebug'
