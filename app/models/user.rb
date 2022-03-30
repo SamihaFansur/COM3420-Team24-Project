@@ -33,6 +33,7 @@ class User < ApplicationRecord
     self.first_name = self.givenname
     self.last_name = self.sn
     self.department_code = self.ou
+    self.person_code = self.dn
     super
   end
   
