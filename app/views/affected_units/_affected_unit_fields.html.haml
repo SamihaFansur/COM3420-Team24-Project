@@ -7,7 +7,7 @@
         %td= form.input :assessment_type, as: :string
         %td= form.input :date_from, as: :date
         %td= form.input :date_to, as: :date
-        %td= form.input :requested_action, :collection => %w(Mike Nick Jason Tim)
+        %td= form.input :requested_action, :collection => ["NA  - Not assessed (Another attempt permitted without capping grade)", "NP  - No penalty for late submission","DEX - Deadline Extension", "AU  - Authorized Absence"]
         %td= link_to_remove_nested(form, link_text: "Remove", fields_wrapper_selector: '.wrapper-div')
 
 -# = unit_f.button :submit
