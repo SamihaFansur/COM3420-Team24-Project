@@ -285,7 +285,13 @@ h1, h2, h3, h4, h5,
 		animation-duration: 2s;
 	}
 }
+.btn_effect_beat{
+	&:hover{
+		animation: bounce;
+		animation-duration: 1s;
 
+	}
+}
 .p-3.mb-3.border-bottom#nav{
 	padding: 0.5rem !important;
 }
