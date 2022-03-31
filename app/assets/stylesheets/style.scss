@@ -86,7 +86,8 @@ h1, h2, h3, h4, h5,
 }
 
 
-.card.card-light{
+.login-wrap{
+
 	position: relative;
 	background: #ffffff;
 	border-radius: 5px;
@@ -135,17 +136,17 @@ h1, h2, h3, h4, h5,
 }
 
 //FORM CONTROL
-.card-header{
+.form-control {
 	height: 48px;
 	background: white;
 	color: #112A46 !important;
-	font-size: 25px;
-	text-align: center;
+	font-size: 14px;
+
 	box-shadow: none;
 	border-radius: 0;
 	border: none;
 	border-bottom: 1px solid $primary;
-	padding-left: 0px;
+	padding-left: 30px;
 	padding-right: 0;
 	letter-spacing: 1px;
 	@include transition();
@@ -167,10 +168,6 @@ h1, h2, h3, h4, h5,
 		background: $primary;
 		border-color: $primary;
 	}
-}
-
-.card-footer{
-	background-color: white !important;
 }
 
 .text{
@@ -290,87 +287,87 @@ h1, h2, h3, h4, h5,
 }
 
 .p-3.mb-3.border-bottom#nav{
-    padding: 0.5rem !important;
+	padding: 0.5rem !important;
 }
 
 header.masthead {
-  position: relative;
-  overflow: hidden;
-//   padding-top: calc(7rem );
-//   padding-bottom: 7rem;
-  background-repeat: repeat;
-  background-position: center center;
-  background-attachment: scroll;
-  background-size: cover;
+	position: relative;
+	overflow: hidden;
+	//   padding-top: calc(7rem );
+	//   padding-bottom: 7rem;
+	background-repeat: repeat;
+	background-position: center center;
+	background-attachment: scroll;
+	background-size: cover;
 }
 header.masthead .masthead-content {
-  z-index: 1;
-  position: relative;
+	z-index: 1;
+	position: relative;
 }
 header.masthead .masthead-content .masthead-heading {
-  font-size: 4rem;
+	font-size: 4rem;
 }
 header.masthead .masthead-content .masthead-subheading {
-  font-size: 2rem;
+	font-size: 2rem;
 }
 header.masthead .bg-circle {
-  z-index: 0;
-  position: absolute;
-  border-radius: 100%;
-  background: linear-gradient(0deg, #ffffff 0%, #82b2ff 100%);
+	z-index: 0;
+	position: absolute;
+	border-radius: 100%;
+	background: linear-gradient(0deg, #ffffff 0%, #82b2ff 100%);
 }
 header.masthead .bg-circle-1 {
-  height: 90rem;
-  width: 90rem;
-  bottom: -55rem;
-  left: -55rem;
+	height: 90rem;
+	width: 90rem;
+	bottom: -55rem;
+	left: -55rem;
 }
 header.masthead .bg-circle-2 {
-  height: 50rem;
-  width: 50rem;
-  top: -25rem;
-  right: -25rem;
+	height: 50rem;
+	width: 50rem;
+	top: -25rem;
+	right: -25rem;
 }
 header.masthead .bg-circle-3 {
-  height: 20rem;
-  width: 20rem;
-  bottom: -10rem;
-  right: 5%;
+	height: 20rem;
+	width: 20rem;
+	bottom: -10rem;
+	right: 5%;
 }
 header.masthead .bg-circle-4 {
-  height: 30rem;
-  width: 30rem;
-  top: -5rem;
-  right: 35%;
+	height: 30rem;
+	width: 30rem;
+	top: -5rem;
+	right: 35%;
 }
 
 @media (min-width: 992px) {
-  header.masthead {
-    padding-top: calc(10rem + 55px);
-    padding-bottom: 10rem;
-  }
-  header.masthead .masthead-content .masthead-heading {
-    font-size: 6rem;
-  }
-  header.masthead .masthead-content .masthead-subheading {
-    font-size: 4rem;
-  }
+	header.masthead {
+		padding-top: calc(10rem + 55px);
+		padding-bottom: 10rem;
+	}
+	header.masthead .masthead-content .masthead-heading {
+		font-size: 6rem;
+	}
+	header.masthead .masthead-content .masthead-subheading {
+		font-size: 4rem;
+	}
 }
 
 //MOBILE VIEW
 /* If the screen size is 601px wide or more, set the font-size of <div> to 80px */
 @media screen and (max-width: 600px) {
 	header.masthead .masthead-content .masthead-heading {
-	  font-size: 2rem;
+		font-size: 2rem;
 	}
 	header.masthead .masthead-content .masthead-subheading{
-	  font-size: 1rem;
+		font-size: 1rem;
 	}
 	.btn.btn-primary.btn-xl.rounded-pill.mt-5#learn_more{
 		padding: 0.1rem 0.75rem;
 		vertical-align: top;
 		margin-top: 0.5rem !important;
-	
+
 	}
 	.nav-link-2{
 		text-decoration: none;
@@ -381,4 +378,4 @@ header.masthead .bg-circle-4 {
 		padding: 15% 5px;
 		color: $black;
 	}
-  }
+}
