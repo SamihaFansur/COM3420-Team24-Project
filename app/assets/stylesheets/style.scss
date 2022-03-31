@@ -86,8 +86,7 @@ h1, h2, h3, h4, h5,
 }
 
 
-.login-wrap{
-
+.card.card-light{
 	position: relative;
 	background: #ffffff;
 	border-radius: 5px;
@@ -136,17 +135,17 @@ h1, h2, h3, h4, h5,
 }
 
 //FORM CONTROL
-.form-control {
+.card-header{
 	height: 48px;
 	background: white;
 	color: #112A46 !important;
-	font-size: 14px;
-
+	font-size: 25px;
+	text-align: center;
 	box-shadow: none;
 	border-radius: 0;
 	border: none;
 	border-bottom: 1px solid $primary;
-	padding-left: 30px;
+	padding-left: 0px;
 	padding-right: 0;
 	letter-spacing: 1px;
 	@include transition();
@@ -168,6 +167,10 @@ h1, h2, h3, h4, h5,
 		background: $primary;
 		border-color: $primary;
 	}
+}
+
+.card-footer{
+	background-color: white !important;
 }
 
 .text{

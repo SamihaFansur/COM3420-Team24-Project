@@ -6,10 +6,13 @@
       = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
         .card-header
           Log In
+          -# .row.justify-content-center
+          -#   .col-md-6.col-lg-4
+          -#     .img
         .card-body
           = f.input :username, autofocus: true, required: true
           = f.input :password, required: true
         .card-footer
-          %button.btn.btn-primary{ type: :submit }
+          %button.btn.form-control.btn-primary.rounded.submit.px-3.btn_effect_shakeY#btn{ type: :submit }
             Log in
           .mt-3= render "devise/shared/links"
