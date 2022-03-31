@@ -379,3 +379,26 @@ header.masthead .bg-circle-4 {
 		color: $black;
 	}
 }
+
+//preview ecfs
+.ecf-preview{
+	font-weight: bold;
+	color: $black;
+	position: relative;
+	background: #ffffff;
+	border-radius: 5px;
+	padding-left: 30px;
+	padding-right: 30px;
+	-webkit-box-shadow: 0px 10px 34px -15px rgba(0,0,0,0.24);
+	-moz-box-shadow: 0px 10px 34px -15px rgba(0,0,0,0.24);
+	box-shadow: 0px 10px 34px -15px rgba(0,0,0,0.24);
+}
+.txt-centre{
+	text-align: center;
+}
+.num_colour{
+	color: #82b2ff;
+}
+.test_1{
+	color :red;
+}

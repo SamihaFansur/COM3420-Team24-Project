@@ -1,37 +1,69 @@
-%h1 Listing ecfs
+%html{:lang => "en"}
+  %head
+!!!
+%html
+  %head
+    %meta{:charset => "utf-8"}/
+    %title Login
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "width=device-width, initial-scale=1, shrink-to-fit=no", :name => "viewport"}/
+    %link{:href => "https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap", :rel => "stylesheet"}/
+    = javascript_pack_tag "ecf_preview"
+  %body-1
+    %section.ftco-section
 
-%p There are #{@ecfs.size} ecfs.
-%p There are #{@users.size} users.
 
-= link_to 'New Ecf', new_ecf_path
+      .container.animate__animated.animate__fadeIn
+        .row.justify-content-center
+          .col-md-6.text-center.mb-5
+            %h2.heading-section Listing ecfs
+            %a.btn.btn-primary{:href => new_ecf_path} Creat New
+        .row.justify-content-center
+          .ecf-preview
+            .row
+              .col
+                %p.txt-centre#col1
+                  There are
+                  %span#num1 #{@ecfs.size}
+                  ecfs.
+              .col
+                %p.txt-centre#col2
+                  There are
+                  %span#num2 #{@users.size}
+                  users.
+              %table.table
+                %thead
+                  %tr
+                    %th{:scope => "col"} Status
+                    %th{:scope => "col"} Date
+                    %th{:scope => "col"} Start
+                    %th{:scope => "col"} End
+                %tbody
+                  - @ecfs.each do |ecf|
+                    %tr
+                      %td= ecf.status
+                      %td= ecf.date
+                      %td= ecf.start_of_circumstances
+                      %td= ecf.end_of_circumstances
+                      %td= ecf.details
+                      %td= link_to 'Show', ecf
+                      %td= link_to 'Edit', edit_ecf_path(ecf)
 
-%table
-  %thead
-    %tr
-      %th Status
-      %th Date
-      %th Start
-      %th End
-
-  %tbody
-    - @ecfs.each do |ecf|
-      %tr
-        %td= ecf.status
-        %td= ecf.date
-        %td= ecf.start_of_circumstances
-        %td= ecf.end_of_circumstances
-        %td= ecf.details
-        %td= link_to 'Show', ecf
-        %td= link_to 'Edit', edit_ecf_path(ecf)
-        -# %td= link_to 'Destroy', ecf, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-    - @users.each do |user|
-      %tr
-        %td= user.uid
-        %td= user.mail
-        %td= user.givenname
-        %td= user.sn
-        %td= user.ou
-        %td= ((user.dn).split( /, */ )[2]).chars.last((((user.dn).split( /, */ )[2]).length)-3).join
-
-%br
+              %table.table
+                %thead
+                  %tr
+                    %th{:scope => "col"} Username
+                    %th{:scope => "col"} Email
+                    %th{:scope => "col"} First_Name
+                    %th{:scope => "col"} Last_Name
+                    %th{:scope => "col"} Department
+                    %th{:scope => "col"} Role
+                %tbody
+                  - @users.each do |user|
+                    %tr
+                      %td= user.uid
+                      %td= user.mail
+                      %td= user.givenname
+                      %td= user.sn
+                      %td= user.ou
+                      %td= ((user.dn).split( /, */ )[2]).chars.last((((user.dn).split( /, */ )[2]).length)-3).join
