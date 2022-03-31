@@ -26,12 +26,17 @@
 #
 FactoryBot.define do
   factory :user do
-    uid { "arb20eg" }
-    mail { "test@test.com" }
-    givenname { "test" }
-    sn { "test "}
-    ou { "Undergraduates" }
-    dn { "Students" }
+      uid { "arb20eg" }
+      mail { "test@test.com" }
+      givenname { "test" }
+      sn { "test "}
+      ou { "Undergraduates" }
 
+    factory :student do
+      dn {"Student"}
+    end
+    factory :staff do
+      dn {"Staff"}
+    end
   end
 end
