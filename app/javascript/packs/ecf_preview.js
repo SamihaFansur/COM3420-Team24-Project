@@ -1,4 +1,4 @@
-window.onload = function(){ // the function that check if user input is blank
+window.onload = function(){
     //check if there is ecfs
     if(document.getElementById('num1').innerText != 0) {
         document.getElementById('num1').classList.add('num_colour');

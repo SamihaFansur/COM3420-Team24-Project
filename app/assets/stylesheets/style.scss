@@ -292,6 +292,7 @@ h1, h2, h3, h4, h5,
 
 	}
 }
+
 .p-3.mb-3.border-bottom#nav{
 	padding: 0.5rem !important;
 }
@@ -405,6 +406,23 @@ header.masthead .bg-circle-4 {
 .num_colour{
 	color: #82b2ff;
 }
-.test_1{
-	color :red;
+//CREATE NEW ECFs
+.cursor_hover{
+	&:hover{
+		cursor: pointer;
+
+	}
+}
+.no_underline{
+	text-decoration: none;
+}
+
+.select_without_background{
+	&:focus{
+	background: #DCE2F1;
+	}
+}
+
+.btn-color{
+	color: white;
 }
