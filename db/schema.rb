@@ -96,11 +96,6 @@ ActiveRecord::Schema.define(version: 2022_04_02_205110) do
     t.boolean "is_other_exceptional_factors"
   end
 
-  create_table "modules", force: :cascade do |t|
-    t.string "user_id"
-    t.string "module"
-  end
-
   create_table "sessions", force: :cascade do |t|
     t.string "session_id", null: false
     t.text "data"

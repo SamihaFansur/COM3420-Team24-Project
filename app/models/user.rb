@@ -42,6 +42,15 @@ class User < ApplicationRecord
     self.person_code = self.dn
     super
   end
+
+  # this sets role before a database CREATE executes. can't set role in controllers before saving for some reason.
+  before_create do
+    # i've done .contains rather than our .split for obtaining the Student/Staff section,
+    # because the user group might not always be in the same place in the dn hash
+    if self.dn.include? "ou=Students"
+      self.role = 1
+    end
+  end
   
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   end
