@@ -40,6 +40,6 @@ class UsersController < ApplicationController
     def user_params
       params
         .require(:user)
-        .permit(user_modules_attributes: [:id, :user_id, :module, :_destroy])
+        .permit(user_modules_attributes: [:id, :user_id, :module_code, :_destroy])
     end
 end
