@@ -30,6 +30,11 @@
     %b Group:
     %br
     = ((@user.dn).split( /, */ )[2]).chars.last((((@user.dn).split( /, */ )[2]).length)-3).join
+
+  %p
+    %b Role:
+    %br
+    = @user.role
 %p
   %b Modules
   - @user_modules.each do |user_module|
