@@ -24,7 +24,7 @@ end
 
 
 describe "the page links" do
-    #through navigation go to sign up page
+    #through navigation go to home page
     it "home is accessible from the ECF page" do
         visit"/users/sign_in"
         click_link "HOME"
@@ -33,7 +33,7 @@ describe "the page links" do
 end
 
 describe "the page links" do
-    #through navigation go to sign up page
+    #through navigation go to home page
     it "home is accessible from the login page" do
         visit"/"
         click_link "HOME"
