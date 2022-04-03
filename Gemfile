@@ -16,6 +16,7 @@ gem 'hamlit'
 gem 'hamlit-rails'
 
 gem 'simple_form'
+gem 'vanilla_nested'
 gem 'draper'
 gem 'ransack'
 
@@ -37,6 +38,18 @@ gem 'sentry-ruby'
 gem 'sentry-rails'
 
 gem 'google-api-client', require: 'google/apis/calendar_v3'
+gem "image_processing", "~> 1.2"
+gem "poppler"
+gem "glib2"
+gem "cairo-gobject"
+gem "gobject-introspection"
+# gem 'activestorage-validator'
+gem 'active_storage_validations'
+gem 'activestorage-database-service', github: 'TitovDigital/activestorage-database-service'
+
+gem 'sass-rails'
+
+gem 'date_validator'
 
 group :development, :test do
   gem 'rspec-rails'

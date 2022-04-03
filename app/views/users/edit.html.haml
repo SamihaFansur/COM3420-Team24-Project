@@ -1,7 +1,35 @@
-%h1 Editing user
+%strong Showing user
 
-= render 'form'
+%p
+  %p
+    %b User ID:
+    %br
+    = @user.uid
+  
+  %p
+    %b Email:
+    %br
+    = @user.mail
 
-= link_to 'Show', @user
-\|
-= link_to 'Back', users_path
+  %p
+    %b Given Name:
+    %br
+    = @user.givenname
+  
+  %p
+    %b Surname:
+    %br
+    = @user.sn
+
+  %p
+    %b Department:
+    %br
+    = @user.ou
+
+  %p
+    %b Group:
+    %br
+    = ((@user.dn).split( /, */ )[2]).chars.last((((@user.dn).split( /, */ )[2]).length)-3).join
+%p
+  %b Modules
+  =render 'form'

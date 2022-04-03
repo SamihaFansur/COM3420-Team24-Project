@@ -8,7 +8,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :update_headers_to_disable_caching
   before_action :ie_warning
-
+  before_action :authenticate_user!, except: [:home]
+  # skip_before_action :authenticate_user!, :only => [:index]
   # Catch NotFound exceptions and handle them neatly, when URLs are mistyped or mislinked
   rescue_from ActiveRecord::RecordNotFound do
     render template: 'errors/error_404', status: 404

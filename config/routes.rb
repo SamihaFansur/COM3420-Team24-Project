@@ -1,10 +1,24 @@
 Rails.application.routes.draw do
 
+  devise_for :users
+  get 'login/index'
+  mount EpiCas::Engine, at: "/"
+
+  resources :ecfs
+  resources :affected_units
   resources :users
   resources :meetings
   resources :emails
   
-  mount EpiCas::Engine, at: "/"
+
+  # resources :posts do
+  #   member do
+  #     delete :purge_avatar
+  #   end
+  # end
+
+  delete "attachments/:id/purge", to: "attachments#purge", as: "purge_attachment"
+
   match "/403", to: "errors#error_403", via: :all
   match "/404", to: "errors#error_404", via: :all
   match "/422", to: "errors#error_422", via: :all

@@ -1,0 +1,11 @@
+
+.wrapper-div
+    %ul.list-group
+    %li= form.input :unit_code, as: :string ,class:"list-group-item "
+    %li= form.input :assessment_type, as: :string ,class:"list-group-item"
+    %li= form.input :date_from, as: :date ,class:"list-group-item"
+    %li= form.input :date_to, as: :date ,class:"list-group-item"
+    %li= form.input :requested_action, :collection => ["NA  - Not assessed (Another attempt permitted without capping grade)", "NP  - No penalty for late submission","DEX - Deadline Extension", "AU  - Authorized Absence"] ,class:"list-group-item"
+    %li= link_to_remove_nested(form, link_text: "Remove", fields_wrapper_selector: '.wrapper-div',link_classes: "cursor_hover btn btn-outline-danger ")
+-# = unit_f.button :submit
+

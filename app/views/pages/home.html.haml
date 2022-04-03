@@ -1,116 +1,200 @@
-- content_for :title, "Home"
+!!!
+%html{:lang => "en"}
+  %head
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "width=device-width, initial-scale=1, shrink-to-fit=no", :name => "viewport"}/
+    %meta{:content => "", :name => "description"}/
+    %meta{:content => "", :name => "author"}/
+    %title Extended Circumstances Form
+    -# %link{:href => "assets/favicon.ico", :rel => "icon", :type => "image/x-icon"}/
+    / Font Awesome icons (free version)
+    %script{:crossorigin => "anonymous", :src => "https://use.fontawesome.com/releases/v6.1.0/js/all.js"}
+    / Google fonts
+    %link{:href => "https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900", :rel => "stylesheet"}/
+    %link{:href => "https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i", :rel => "stylesheet"}/
+    / Core theme CSS (includes Bootstrap)
 
-.py-5.text-center
-  %img.d-block.mx-auto.mb-4{:alt => "", :height => "57", :src => "https://getbootstrap.com/docs/5.0/assets/brand/bootstrap-logo.svg", :width => "72"}/
-  %h2 Checkout form
-  %p.lead Below is an example form built entirely with Bootstrap’s form controls.
-.row.g-5
-  .col-md-5.col-lg-4.order-md-last
-    %h4.d-flex.justify-content-between.align-items-center.mb-3
-      %span.text-primary Your cart
-      %span.badge.bg-primary.rounded-pill 3
-    %ul.list-group.mb-3
-      %li.list-group-item.d-flex.justify-content-between.lh-sm
-        %div
-          %h6.my-0 Product name
-          %small.text-muted Brief description
-        %span.text-muted £12
-      %li.list-group-item.d-flex.justify-content-between.lh-sm
-        %div
-          %h6.my-0 Second product
-          %small.text-muted Brief description
-        %span.text-muted £8
-      %li.list-group-item.d-flex.justify-content-between.lh-sm
-        %div
-          %h6.my-0 Third item
-          %small.text-muted Brief description
-        %span.text-muted £5
-      %li.list-group-item.d-flex.justify-content-between.bg-light
-        .text-success
-          %h6.my-0 Promo code
-          %small EXAMPLECODE
-        %span.text-success −£5
-      %li.list-group-item.d-flex.justify-content-between
-        %span Total (USD)
-        %strong £20
-    %form.card.p-2
-      .input-group
-        %input.form-control{:placeholder => "Promo code", :type => "text"}
-        %button.btn.btn-secondary{:type => "submit"} Redeem
-  .col-md-7.col-lg-8
-    %h4.mb-3 Billing address
-    %form.needs-validation{:novalidate => ""}
-      .row.g-3
-        .col-sm-6
-          %label.form-label{:for => "firstName"} First name
-          %input#firstName.form-control{:required => "", :type => "text", :value => ""}
-        .col-sm-6
-          %label.form-label{:for => "lastName"} Last name
-          %input#lastName.form-control{:required => "", :type => "text", :value => ""}
-        .col-12
-          %label.form-label{:for => "username"} Username
-          .input-group.has-validation
-            %span.input-group-text @
-            %input#username.form-control{:placeholder => "Username", :required => "", :type => "text"}
-        .col-12
-          %label.form-label{:for => "email"}
-            Email
-            %span.text-muted (Optional)
-          %input#email.form-control{:placeholder => "you@example.com", :type => "email"}
-        .col-12
-          %label.form-label{:for => "address"} Address
-          %input#address.form-control{:placeholder => "1234 Main St", :required => "", :type => "text"}
-        .col-12
-          %label.form-label{:for => "address2"}
-            Address 2
-            %span.text-muted (Optional)
-          %input#address2.form-control{:placeholder => "Apartment or suite", :type => "text"}
-        .col-md-5
-          %label.form-label{:for => "country"} Country
-          %select#country.form-select{:required => ""}
-            %option{:value => ""} Choose...
-            %option United Kingdom
-        .col-md-4
-          %label.form-label{:for => "county"} County
-          %select#county.form-select{:required => ""}
-            %option{:value => ""} Choose...
-            %option South Yorkshire
-        .col-md-3
-          %label.form-label{:for => "zip"} Zip
-          %input#zip.form-control{:required => "", :type => "text"}
-      %hr.my-4
-      .form-check
-        %input#same-address.form-check-input{:type => "checkbox"}
-        %label.form-check-label{:for => "same-address"} Shipping address is the same as my billing address
-      .form-check
-        %input#save-info.form-check-input{:type => "checkbox"}
-        %label.form-check-label{:for => "save-info"} Save this information for next time
-      %hr.my-4
-      %h4.mb-3 Payment
-      .my-3
-        .form-check
-          %input#credit.form-check-input{:checked => "checked", :name => "paymentMethod", :required => "", :type => "radio"}
-          %label.form-check-label{:for => "credit"} Credit card
-        .form-check
-          %input#debit.form-check-input{:name => "paymentMethod", :required => "", :type => "radio"}
-          %label.form-check-label{:for => "debit"} Debit card
-        .form-check
-          %input#paypal.form-check-input{:name => "paymentMethod", :required => "", :type => "radio"}
-          %label.form-check-label{:for => "paypal"} PayPal
-      .row.gy-3
-        .col-md-6
-          %label.form-label{:for => "cc-name"} Name on card
-          %input#cc-name.form-control{:required => "", :type => "text"}
-          %small.text-muted Full name as displayed on card
-        .col-md-6
-          %label.form-label{:for => "cc-number"} Credit card number
-          %input#cc-number.form-control{:required => "", :type => "text"}
-        .col-md-3
-          %label.form-label{:for => "cc-expiration"} Expiration
-          %input#cc-expiration.form-control{:required => "", :type => "text"}
-        .col-md-3
-          %label.form-label{:for => "cc-cvv"} CVV
-          %input#cc-cvv.form-control{:required => "", :type => "text"}
-      %hr.my-4
-      %button.w-100.btn.btn-primary.btn-lg{:type => "submit"}
-        Continue to checkout
+  %body#page-top
+    
+    / Header
+    %header.masthead.text-center.text-white
+      .masthead-content
+        .container.px-5
+          %h1.masthead-heading.mb-0.title_colour Extenuating Circumstances Form
+          %h2.masthead-subheading.mb-0.title_colour Information
+          %a.btn.btn-primary.btn-xl.rounded-pill.mt-5.btn_effect_swing{:href => "#scroll"} Learn More
+      .bg-circle-1.bg-circle
+      .bg-circle-2.bg-circle
+      .bg-circle-3.bg-circle
+      .bg-circle-4.bg-circle
+
+    / Content section 1
+    %section#scroll
+      .container.px-5
+        .row.gx-5.align-items-center
+          .col-lg-6.order-lg-2
+            .p-5
+              -# %img.img-fluid.rounded-circle{:alt => "...", :src => "/app/assets/images/01.jpg"}/
+              .login-wrap.py-5
+                .img
+          .col-lg-6.order-lg-1
+            .p-5
+              %h2.display-4 Overview
+              %p.zoomIn If extenuating circumstances are affecting your ability to engage with your course, you can submit a form to your department requesting they be taken into consideration when grading you. You should notify your academic department of any extenuating circumstances at the earliest possible opportunity. Before applying for extenuating circumstances you must read the relevant information below. We seek to respond in an equitable and consistent way to all requests for extenuating circumstances. As well as considering your needs, we also consider academic integrity and fairness to other students.
+
+    / Content section 2
+    %section
+      .container.px-5
+        .row.gx-5.align-items-center
+          .col-lg-6
+            .p-5
+              -# %img.img-fluid.rounded-circle{:alt => "...", :src => "/app/assets/images/01.jpg"}/
+              .login-wrap.py-5
+                .img
+          .col-lg-6
+            .p-5
+              %h2.display-4 What are extenuating circumstances?
+              %p.zoomIn Extenuating circumstances are exceptional, short-term events (eg personal or health problems) which are outside of your control and have a negative impact on your ability to prepare for or take (sit) an assessment.  To meet the criteria of extenuating circumstances, they must also: be non-academic (problems with the management of your course or academic staff should be dealt with via the student complaints procedure)  be out of your control (ie you couldn’t reasonably have done anything to prevent them from happening); and have occurred at the time of the assessment or in the period immediately leading up to the assessment It’s your responsibility to notify your tutor, supervisor or other appropriate departmental staff if there are any extenuating circumstances that may have a bearing on your ability to perform for your exams/assessments.
+
+    / Content section 3
+    %section
+      .container.px-5
+        .row.gx-5.align-items-center
+          .col-lg-6.order-lg-2
+            .p-5
+              -# %img.img-fluid.rounded-circle{:alt => "...", :src => "/app/assets/images/01.jpg"}/
+              .login-wrap.py-5
+                .img
+          .col-lg-6.order-lg-1
+            .p-5
+              %h2.display-4 Examples likely to be accepted as extenuating circumstances
+              %p
+              %ul
+              %li.zoomIn Bereavement – death of close relative/significant other (which in an employment context would have led to a period of compassionate leave).
+              %li.zoomIn Serious short term illness/accident/hospitalisation (which in an employment context would have led to a period of sickness absence).
+              %li.zoomIn Deterioration or fluctuation of a disability or long term health condition.
+              %li.zoomIn Significant adverse personal/family circumstances.
+              %li.zoomIn Other significant exceptional factors for which there is evidence of stress caused, eg being a victim of crime. We’ll likely require evidence of any of these (eg police crime reference, letter from hospital/doctor treating condition, social worker letter).
+
+    / Content section 4
+    %section
+      .container.px-5
+        .row.gx-5.align-items-center
+          .col-lg-6
+            .p-5
+              -# %img.img-fluid.rounded-circle{:alt => "...", :src => "/app/assets/images/01.jpg"}/
+              .login-wrap.py-5
+                .img
+          .col-lg-6.order-lg-1
+            .p-5
+              %h2.display-4 Not Accepted Circumstances 
+              %p 
+
+              %ul
+              %li.zoomIn Medical circumstances which don’t relate to the assessment period in question.
+              %li.zoomIn Minor illness, which is unlikely to lead to absence from work.
+              %li.zoomIn A sleepless night.
+              %li.zoomIn If there’s a reasonable case that the circumstances were foreseeable and/or preventable.
+              %li.zoomIn Financial issues.
+              %li.zoomIn Religious observance. There’s a separate process for this, please see religious observance and exams.
+              %li.zoomIn Holidays/family events.
+              %li.zoomIn Transport difficulties eg delayed flights, strikes or traffic jams.
+              %li.zoomIn Late disclosure of extenuating circumstances.
+              %li.zoomIn Poor time management (eg pressure of work, conflicting assessment deadlines, unavailability of books).
+              %li.zoomIn Missing your exam because you overslept or misread the exam timetable.
+              %li.zoomIn Submitting the wrong work or a draft version of the work for assessment.
+              %li.zoomIn A long-term condition where treatment or additional support/arrangements are in place to mitigate.
+
+    / Content section 5
+    %section
+      .container.px-5
+        .row.gx-5.align-items-center
+          .col-lg-6.order-lg-2
+            .p-5
+              -# %img.img-fluid.rounded-circle{:alt => "...", :src => "/app/assets/images/01.jpg"}/
+              .login-wrap.py-5
+                .img
+          .col-lg-6.order-lg-1
+            .p-5
+              %h2.display-4 How are they taken into account?
+              %p.zoomIn Academic staff (eg the exam board) will take your extenuating circumstances into account when deciding your academic outcomes. If your circumstances are deemed to be appropriately and genuinely extenuating, academic staff can suggest the following:
+              %ul
+              %li.zoomIn No further action.
+              %li.zoomIn Disregarding penalties for late submission of coursework.
+              %li.zoomIn Not Assessing (NA) the exam/module in question and providing you another attempt without academic penalty. This would only happen if you failed or didn’t attend your exam and evidence strongly suggests that you’ve been seriously disadvantaged by your circumstances.
+              %li.zoomIn Disregarding a missing component and deriving an overall mark/grade from completed work.
+              %li.zoomIn Disregarding an unreliable component and deriving an overall mark from completed work (if it will benefit you).
+              %li.zoomIn Submitting the missing assessment if you fail your course.
+              %li.zoomIn Sitting an alternative assessment if you fail your course.
+    
+    / Content section 6
+    %section
+      .container.px-5
+        .row.gx-5.align-items-center
+          .col-lg-6
+            .p-5
+              -# %img.img-fluid.rounded-circle{:alt => "...", :src => "/app/assets/images/01.jpg"}/
+              .login-wrap.py-5
+                .img
+          .col-lg-6.order-lg-1
+            .p-5
+              %h2.display-4 Disability, disabling conditions and specific learning difficulties
+              %p.zoomIn If you have a physical or mental impairment which has a substantial and long-term adverse effect on your ability to carry out normal day-to-day activities, the Disability and Dyslexia Support Service (DDSS) may be able to provide support and reasonable adjustments.  You don’t need to provide additional medical evidence if you submit an extenuating circumstances form based on:
+              %ul
+              %li.zoomIn the impact of a condition/impairment that’s outlined on your Learning Support Plan from DDSS
+              %li.zoomIn the deterioration/fluctuation of a disability and your Learning Support Plan from DDSS outlines that your disability is variable
+              %p If you’re submitting an extenuating circumstances form based on a condition/impairment documented in your Learning Support Plan, you should provide clear information about the impact this has had on the modules/assessments. You do need to provide additional medical evidence if you’re on a professional course (eg Medicine). 
+
+    / Content section 7
+    %section
+      .container.px-5
+        .row.gx-5.align-items-center
+          .col-lg-6.order-lg-2
+            .p-5
+              -# %img.img-fluid.rounded-circle{:alt => "...", :src => "/app/assets/images/01.jpg"}/
+              .login-wrap.py-5
+                .img
+          .col-lg-6.order-lg-1
+            .p-5
+              %h2.display-4 Religious observance and exams
+              %p.zoomIn If you’re observing religious festivals around the time of a deadline, it’s your responsibility to plan your work so it’s completed and submitted before the deadline. We’ll give you assessment dates and deadlines in advanceIf you know that attendance/work is prohibited on certain dates, or that major festivals might fall on potentially relevant dates, please contact the Student Administration Service by 31 October in the academic year to seek consideration of this.  For information on what to do if exams/invigilated assessments may coincide with religious festivals/holidays, visit:
+  
+    / Content section 8
+    %section
+      .container.px-5
+        .row.gx-5.align-items-center
+          .col-lg-6
+            .p-5
+              -# %img.img-fluid.rounded-circle{:alt => "...", :src => "/app/assets/images/01.jpg"}/
+              .login-wrap.py-5
+                .img
+          .col-lg-6.order-lg-1
+            .p-5
+              %h2.display-4 Prolonged absences
+              %p.zoomIn If any absence is likely to be prolonged, eg your illness/medical condition may last for several weeks or months, you’re strongly advised to apply for an official leave of absence. If you’re planning to take time off from your studies in the future you must apply for an official Leave of Absence, eg to undertake a non-compulsory work placement or if there are other personal circumstances where a prolonged period of absence will be necessar
+    
+    / Content section 9
+    %section
+      .container.px-5
+        .row.gx-5.align-items-center
+          .col-lg-6.order-lg-2
+            .p-5
+              -# %img.img-fluid.rounded-circle{:alt => "...", :src => "/app/assets/images/01.jpg"}/
+              .login-wrap.py-5
+                .img
+          .col-lg-6.order-lg-1
+            .p-5
+              %h2.display-4 Accademic Appeal for Late Submission
+              %p.zoomIn An academic appeal is unlikely to be upheld without:
+              %li.zoomIn evidence to support any claims you make (eg medical evidence, which is not currently required)
+              %li.zoomIn detail and evidence to support why you couldn’t submit an extenuating circumstances form at the correct time
+              %p.zoomIn We won’t consider the following as valid reasons for academic appeal:
+              %ul
+              %li.zoomIn You submitted late because you didn’t feel comfortable notifying your department of your circumstances prior to the relevant meetings/boards.
+              %li.zoomIn You wanted to await your results before presenting this information.
+              %p The process is confidential, but your academic appeals form and any supporting evidence will be shared with: 
+              %ul 
+              %li.zoomIn your Head of Department(s) or delegate
+              %li.zoomIn other University staff whose input is deemed necessary to consider your case
+              %li.zoomIn a Faculty Officer and the administrators of the process
+              %p.zoomIn An extenuating circumstance form will only be seen by a small number of staff in your department.

@@ -1,11 +1,18 @@
--# frozen_string_literal: true
 = simple_form_for(@user) do |f|
-  = f.error_notification
-  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
 
-  .form-inputs
-    = f.input :name
-    = f.input :email
+  = f.error_notification
+
+  %p  Edit role stuff here
+
+  = f.select :role, options_for_select(User.roles.map {|key, value| [key.humanize, key]}, @user.role)
+
+  = link_to_add_nested(f, :user_modules, '#user_modules', partial: 'user_modules/user_module_fields')
+
+  %p
+
+  #user_modules
+    = f.fields_for :user_modules do |user_module_f| 
+      = render 'user_modules/user_module_fields', form: user_module_f
 
   .form-actions
     = f.button :submit

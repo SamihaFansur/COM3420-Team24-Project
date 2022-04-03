@@ -1,15 +1,37 @@
 - content_for :title, 'Log In'
+%html{:lang => "en"}
+  %head
+!!!
+%html
+  %head
+    %meta{:charset => "utf-8"}/
+    %title Login
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "width=device-width, initial-scale=1, shrink-to-fit=no", :name => "viewport"}/
+    %link{:href => "https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap", :rel => "stylesheet"}/
+    = javascript_pack_tag "login_btn"
+  %body-1
+    %section.ftco-section
 
-.row.justify-content-center
-  .col-sm-6.col-lg-4
-    .card.card-light
-      = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-        .card-header
-          Log In
-        .card-body
-          = f.input :email, autofocus: true, required: true
-          = f.input :password, required: true
-        .card-footer
-          %button.btn.btn-primary{ type: :submit }
-            Log in
-          .mt-3= render "devise/shared/links"
+
+      .container.animate__animated.animate__flipInX
+        .row.justify-content-center
+          .col-md-6.text-center.mb-5
+            %h2.heading-section ECF Login
+        .row.justify-content-center
+          .col-md-6.col-lg-4
+            .login-wrap.py-5
+              .img
+              %h3.text-center.mb-0 Welcome
+              = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+                .form-group
+                  %span.fa.fa-user
+                  #username= f.input :username, autofocus: true, required: true
+                .form-group
+                  %span.fa.fa-lock
+                  #password= f.input :password, required: true
+                .form-group.d-md-flex
+                  .w-100.text-md-right
+                    %a{:href => "#"} Forgot Password
+                .form-group
+                  %button.btn.form-control.btn-primary.rounded.submit.px-3.btn_effect_shakeY#btn{:type => "submit"} Login

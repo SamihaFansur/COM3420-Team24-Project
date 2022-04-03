@@ -1,23 +1,29 @@
 %h1 Listing users
 
+%p There are #{@users.size} users.
+
 %table
   %thead
     %tr
-      %th Name
+      %th User ID
       %th Email
-      %th
-      %th
-      %th
+      %th Given name
+      %th Surname
+      %th Department
+      %th Group
+      %th Role
 
   %tbody
     - @users.each do |user|
       %tr
-        %td= user.name
-        %td= user.email
+        %td= user.uid
+        %td= user.mail
+        %td= user.givenname
+        %td= user.sn
+        %td= user.ou
+        %td= ((user.dn).split( /, */ )[2]).chars.last((((user.dn).split( /, */ )[2]).length)-3).join
+        %td= user.role
         %td= link_to 'Show', user
         %td= link_to 'Edit', edit_user_path(user)
-        %td= link_to 'Destroy', user, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
-
-= link_to 'New User', new_user_path

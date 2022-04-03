@@ -1,0 +1,14 @@
+%b DEBUGGING PAGE. WE DON'T NEED THIS IN THE END (The 'affected unit' entries should appear in the related ecf)
+
+%p There are #{@affected_units.size} affected units.
+
+- @affected_units.each do |affected_unit|
+  %p
+    %b Assessment type:
+    = affected_unit.assessment_type
+    %b Requested action:
+    = affected_unit.requested_action 
+    %b ECF ID:
+    = affected_unit.ecf_id
+
+%br
