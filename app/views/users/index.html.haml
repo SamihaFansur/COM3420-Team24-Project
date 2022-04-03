@@ -2,6 +2,9 @@
 
 %p There are #{@users.size} users.
 
+%p To assign a role to a staff member not already in this users table: 
+= link_to 'New User', new_user_path
+
 %table
   %thead
     %tr

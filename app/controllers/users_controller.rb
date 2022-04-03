@@ -18,6 +18,11 @@ class UsersController < ApplicationController
     set_user_modules
   end
 
+  def new
+    @user = User.new
+    # user.modules.build here?
+  end
+
   def update
     if @user.update(user_params)
       redirect_to users_path, notice: 'User was successfully updated.'
