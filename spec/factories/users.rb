@@ -32,12 +32,8 @@ FactoryBot.define do
       givenname { "test" }
       sn { "test "}
       ou { "Undergraduates" }
-
-    factory :student do
       dn {"Student"}
-    end
-    factory :staff do
-      dn {"Staff"}
-    end
+
+
   end
 end

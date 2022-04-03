@@ -43,6 +43,7 @@ RSpec.describe "/users", type: :request do
 
   describe "GET /new" do
     it "renders a successful response" do
+      login_as(FactoryBot.create(:user))
       get new_user_url
       expect(response).to be_successful
     end
