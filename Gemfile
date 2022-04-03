@@ -36,6 +36,7 @@ gem 'daemons'
 gem 'sentry-ruby'
 gem 'sentry-rails'
 
+gem 'google-api-client', require: 'google/apis/calendar_v3'
 
 group :development, :test do
   gem 'rspec-rails'
