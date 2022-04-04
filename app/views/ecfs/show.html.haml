@@ -1,11 +1,12 @@
-%strong VERY RUDIMENTARY ECF SHOW. Just testing M:1 can be pulled.
+= javascript_pack_tag "show_ecf"
+
 
 %p
   %b Date:
   = @ecf.date
-
+.form-group
   %b Details:
-  = @ecf.details
+  %textarea#exampleFormControlTextarea1.form-control.rounded-0{:readonly => "readonly", :rows => "10"}= @ecf.details
 
   %p  <strong>Uploaded Medical Evidence:</strong>
   - if @ecf.upload_medical_evidence.size == 0
@@ -13,30 +14,53 @@
   - else
     - @ecf.upload_medical_evidence.each do |medical_evidence|
       %p
-      = link_to medical_evidence.filename, medical_evidence, target: :_blank
-      = link_to "Delete attachment", purge_attachment_path(medical_evidence), method: :delete
 
-%p
-  %b Affected Units:
-  - @affected_units.each do |affected_unit|
-    %p
-      %b Assessment type:
-      = affected_unit.assessment_type
-      %b Unit code:
-      = affected_unit.unit_code
-      %b Requested action:
-      = affected_unit.requested_action
-      %b ECF ID:
-      = affected_unit.ecf_id
-%p
-  %b ECF duration:
-  - @affected_units.each do |affected_unit|
-    %p
-      %b date_from:
-      = affected_unit.assessment_type
-      %b date_to:
-      = affected_unit.unit_code
-      %b Requested action:
-      = affected_unit.requested_action
-      %b ECF ID:
-      = affected_unit.ecf_id
+      = link_to medical_evidence.filename, medical_evidence, target: :_blank ,class:"btn btn-outline-primary"
+      = link_to "Delete attachment", purge_attachment_path(medical_evidence), method: :delete ,class: "btn btn-outline-danger"
+
+  %p
+    %h4 Affected Units:
+    - @affected_units.each do |affected_unit|
+      %p
+        .form-group
+        %b Assessment type:
+        = affected_unit.assessment_type
+        .form-group
+        %b Unit code:
+        = affected_unit.unit_code
+        .form-group
+        %b Requested action:
+        = affected_unit.requested_action
+        .form-group
+        %b ECF ID:
+        = affected_unit.ecf_id
+  %p
+    %h4 ECF duration:
+    - @affected_units.each do |affected_unit|
+      %p
+        %b date_from:
+        = affected_unit.date_from
+        .form-group
+        %b date_to:
+        = affected_unit.date_to
+        -# todo waiting for further controller method to read from ecfs table
+        .form-group
+        %b is ongoing (belows : todo waiting for further controller method to read from ecfs table)
+        .form-group
+        %b is serious short term
+        .form-group
+        %b Is deterioration of disability
+        .form-group
+        %b Is bereavement
+        .form-group
+        %b is significant adverse personal
+        .form-group
+        %b Is other exceptional factors
+        .form-group
+        %b Is frequent absence
+
+
+
+
+
+
