@@ -32,8 +32,14 @@ FactoryBot.define do
       givenname { "test" }
       sn { "test "}
       ou { "Undergraduates" }
-      dn {"Student"}
 
+    factory :student do
+      dn {"uid=aca20sf,ou=Undergraduates,ou=Students,ou=Users,dc=sheffield,dc=ac,dc=uk"}
 
+    end
+    factory :staff do
+      dn {"uid=aca20sf,ou=Undergraduates,ou=Staff,ou=Users,dc=sheffield,dc=ac,dc=uk"}
+
+    end
   end
 end

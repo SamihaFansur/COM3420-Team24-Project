@@ -43,7 +43,7 @@ RSpec.describe "/meetings", type: :request do
 
   describe "GET /new" do
     it "renders a successful response" do
-      login_as(FactoryBot.create(:user))
+      login_as(FactoryBot.create(:staff))
       get new_meeting_url
       expect(response).to be_successful
     end

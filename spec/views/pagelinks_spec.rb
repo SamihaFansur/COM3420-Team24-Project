@@ -1,4 +1,5 @@
 require_relative "../spec_helper"
+require 'rails_helper'
 
 #Logged out Link Tests
 
@@ -48,7 +49,18 @@ describe "the page links" do
     #log in as a user
     it "ECF is accessible from the login page" do
         visit"/users/sign_in"
-        login_as(FactoryBot.create(:user))
-        expect(page).to have_content "New"
+        login_as(FactoryBot.create(:student))
+        visit"/ecfs"
+        expect(page).to have_content "Listing"
+    end
+end
+
+describe "the page links" do
+    #log in as a user
+    it "ECF is accessible from the login page" do
+        visit"/users/sign_in"
+        login_as(FactoryBot.create(:staff))
+        visit"/ecfs"
+        expect(page).to have_content "Listing"
     end
 end
