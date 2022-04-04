@@ -2,6 +2,7 @@
 = simple_form_for(@ecf, :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
 
   = f.error_notification
+  = f.input :user_id, as: :hidden, input_html: {value: current_user.id}
 
   = f.input :date, as: :date
   = f.input :is_serious_short_term, as: :boolean

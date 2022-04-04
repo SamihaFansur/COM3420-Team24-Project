@@ -18,8 +18,15 @@
 #  status                          :string
 #  created_at                      :datetime         not null
 #  updated_at                      :datetime         not null
+#  user_id                         :integer
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
 #
 class Ecf < ApplicationRecord
+    belongs_to :user
+
     # the many-to-one relation between unit codes and an ECF
     has_many :affected_units
     validates :affected_units, presence: true
