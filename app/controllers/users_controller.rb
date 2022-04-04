@@ -18,12 +18,15 @@ class UsersController < ApplicationController
     set_user_modules
   end
 
+  # Generates a user using only their email.
   def ldap_user
     user = User.new(email: params[:email])
     user.get_info_from_ldap
     if user.username.nil?
       # render :new
-      redirect_to new_user_path, alert: "User could not be found with email #{params[:email]}" 
+      redirect_to new_user_path, alert: "User could not be found with email #{params[:email]}"
+    elsif User.exists?(username: user.username)
+      redirect_to new_user_path, alert: "This user already exists in the database."
     else 
       user.role = params[:role]
       user.save
