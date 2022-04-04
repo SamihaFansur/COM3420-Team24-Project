@@ -28,6 +28,7 @@
 class User < ApplicationRecord
   include EpiCas::DeviseHelper
 
+  has_many :ecfs
   has_many :user_modules
   accepts_nested_attributes_for :user_modules, allow_destroy: true
 
