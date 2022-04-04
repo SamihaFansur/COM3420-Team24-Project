@@ -13,7 +13,7 @@
 
   = f.input :details, as: :text
   = f.input :start_of_circumstances, as: :date
-  = f.input :end_of_circumstances, as: :date
+  #end_date= f.input :end_of_circumstances, as: :date
   = f.input :is_ongoing, as: :boolean
 
   = link_to_add_nested(f, :affected_units, '#affected-units',link_classes: "btn-primary btn-lg cursor_hover active no_underline",partial: 'affected_units/affected_unit_fields')

@@ -3,17 +3,17 @@
 %p
   %b Date:
   = @ecf.date
-  
+
   %b Details:
   = @ecf.details
 
   %p  <strong>Uploaded Medical Evidence:</strong>
   - if @ecf.upload_medical_evidence.size == 0
-    %body None 
+    %body None
   - else
     - @ecf.upload_medical_evidence.each do |medical_evidence|
       %p
-      = link_to medical_evidence.filename, medical_evidence, target: :_blank 
+      = link_to medical_evidence.filename, medical_evidence, target: :_blank
       = link_to "Delete attachment", purge_attachment_path(medical_evidence), method: :delete
 
 %p
@@ -22,7 +22,21 @@
     %p
       %b Assessment type:
       = affected_unit.assessment_type
+      %b Unit code:
+      = affected_unit.unit_code
       %b Requested action:
-      = affected_unit.requested_action 
+      = affected_unit.requested_action
+      %b ECF ID:
+      = affected_unit.ecf_id
+%p
+  %b ECF duration:
+  - @affected_units.each do |affected_unit|
+    %p
+      %b date_from:
+      = affected_unit.assessment_type
+      %b date_to:
+      = affected_unit.unit_code
+      %b Requested action:
+      = affected_unit.requested_action
       %b ECF ID:
       = affected_unit.ecf_id
