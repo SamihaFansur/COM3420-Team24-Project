@@ -42,10 +42,18 @@
     .flash-messages
       - flash.each do |name, msg|
         - next unless name == 'alert' || name == 'notice'
-        .alert.alert-info
-          .container
-            = msg
-            %a{ href: '#', title: 'Hide this message', data: { bs_dismiss: :alert } } Dismiss
+        .alert
+          - if name == "notice"
+            .alert-info
+              .container
+                = msg
+                %a{ href: '#', title: 'Hide this message', data: { bs_dismiss: :alert } } Dismiss
+          - else
+            .alert-danger
+              .container
+                = msg
+                %a{ href: '#', title: 'Hide this message', data: { bs_dismiss: :alert } } Dismiss
+        
 
     %main
       .container= yield

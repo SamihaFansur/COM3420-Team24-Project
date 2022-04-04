@@ -18,6 +18,19 @@ class UsersController < ApplicationController
     set_user_modules
   end
 
+  def ldap_user
+    user = User.new(email: params[:email])
+    user.get_info_from_ldap
+    if user.username.nil?
+      # render :new
+      redirect_to new_user_path, alert: "User could not be found with email #{params[:email]}" 
+    else 
+      user.role = params[:role]
+      user.save
+      redirect_to users_path, notice: "User was successfully created wtih role #{params[:role]}."
+    end
+  end
+
   def new
     @user = User.new
     # user.modules.build here?
