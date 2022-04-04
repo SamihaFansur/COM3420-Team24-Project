@@ -10,7 +10,7 @@
 
   %p  <strong>Uploaded Medical Evidence:</strong>
   - if @ecf.upload_medical_evidence.size == 0
-    %body None
+    %p.alert.alert-primary There is no uploaded evidence file!
   - else
     - @ecf.upload_medical_evidence.each do |medical_evidence|
       %p
