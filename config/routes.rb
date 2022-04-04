@@ -36,6 +36,8 @@ Rails.application.routes.draw do
 
   get :meeting_email, to: 'emails#meeting_email', as: :meeting_email
 
+  post '/user/ldap_user', to: 'users#ldap_user'
+
   root to: "pages#home"
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

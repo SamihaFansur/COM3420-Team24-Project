@@ -21,4 +21,23 @@ window.onload = function(){ // the function that check if user input is blank
     var requested_action = document.getElementById("ecf_affected_units_attributes_0_requested_action");
     requested_action.classList.add("w-25")
 
+//if condition is ongoing then delete the end of circumstance
+    var isChecked = document.getElementById("ecf_is_ongoing");
+    if(isChecked.checked){ //this is for editing ecf page
+        var end_date = document.getElementById("end_date");
+        end_date.style.display = "none"
+    }
+    isChecked.onclick = function (){
+        if(isChecked.checked){
+            var end_date = document.getElementById("end_date");
+            end_date.style.display = "none"
+        }
+        else {
+            var end_date = document.getElementById("end_date");
+            end_date.style.display = "initial"
+        }
+    }
+
+
+
 }

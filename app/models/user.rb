@@ -47,7 +47,7 @@ class User < ApplicationRecord
   before_create do
     # i've done .contains rather than our .split for obtaining the Student/Staff section,
     # because the user group might not always be in the same place in the dn hash
-    if self.dn.include? "ou=Students"
+    if self.dn.include? "ou=Students" and self.role == 0
       self.role = 1
     end
   end

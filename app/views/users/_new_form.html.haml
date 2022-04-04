@@ -1,13 +1,13 @@
-= simple_form_for(@user) do |f|
+= form_with url:"/user/ldap_user" do |f|
 
-  = f.error_notification
+  -#= f.error_notification
 
   %p Creating new user
   %p If you wish to assign modules to this new user, please find the user in index and edit.
 
-  = f.input :email, as: :string
+  = f.text_field  :email, as: :string
   %p Role: 
-  = f.select :role, options_for_select(User.roles.map {|key, value| [key.humanize, key]}, @user.role)
+  = f.select :role, options_for_select(User.roles.map {|key, value| [key.humanize, key]})
 
   .form-actions
     = f.button :submit
