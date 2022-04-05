@@ -37,6 +37,13 @@ window.onload = function(){ // the function that check if user input is blank
             end_date.style.display = "initial"
         }
     }
+//show alert when file type wrong
+
+    var warning=document.getElementById("typeWarning").innerText.trim();
+    if(warning!=""){
+        alert(warning);
+    }
+
 
 
 
