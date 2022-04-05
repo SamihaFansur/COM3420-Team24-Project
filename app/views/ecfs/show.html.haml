@@ -1,9 +1,22 @@
 = javascript_pack_tag "show_ecf"
 
 
+%b Student Details
+%p Username:
+= @ecf.user.uid
+%p First Name:
+= @ecf.user.givenname
+%p Last Name:
+= @ecf.user.sn
+%p Email:
+= @ecf.user.mail
+%p Department:
+= @ecf.user.ou
+
 %p
   %b Date:
   = @ecf.date
+
 .form-group
   %b Details:
   %textarea#exampleFormControlTextarea1.form-control.rounded-0{:readonly => "readonly", :rows => "10"}= @ecf.details
