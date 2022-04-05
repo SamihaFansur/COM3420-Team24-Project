@@ -1,7 +1,8 @@
-window.onload = function(){ // the function that check if user input is blank
-    //check if there is ecfs
+window.onload = function(){
     var text_area = document.getElementById("ecf_details");
-    text_area.classList.add("select_without_background"); // overwrite default blue background for better readability
+    // overwrite default blue background for better readability
+    text_area.classList.add("select_without_background");
+
     text_area.onfocus = function (){
         text_area.setAttribute('style', 'height: 200px !important') // for better input
         this.style.borderStyle = "outset"
@@ -37,6 +38,13 @@ window.onload = function(){ // the function that check if user input is blank
             end_date.style.display = "initial"
         }
     }
+//show alert when file type wrong
+
+    var warning=document.getElementById("typeWarning").innerText.trim();
+    if(warning!=""){
+        alert(warning);
+    }
+
 
 
 

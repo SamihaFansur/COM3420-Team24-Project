@@ -1,6 +1,7 @@
 %h1 New meeting
+= javascript_pack_tag "new_meetings"
 
 = render 'form'
 
-= link_to 'Back', meetings_path
-= link_to "TEST", :controller => "emails", :action => "meeting_email", :emails => "cpetch1@sheffield.ac.uk"
+= link_to 'Back', meetings_path, class: 'btn btn-outline-info mt-5'
+= link_to "TEST", :controller => "emails", :action => "meeting_email", :emails => "qdu3@sheffield.ac.uk"

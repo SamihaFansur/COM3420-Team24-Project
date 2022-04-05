@@ -1,0 +1,41 @@
+%h1 Edit [staff]
+Not complete cause I'm bad at rails routing. Should just show fields but allow evidence and notes to be edited.
+
+%p
+  %b Date:
+  = @ecf.date
+
+%p
+  %b Details:
+  = @ecf.details
+
+%p
+  %b UserID:
+  = @ecf.user_id
+
+%p
+  %b Type(s) of Circumstances: 
+  %br
+  - if @ecf.is_serious_short_term 
+    Serious short term illness / accident / hospitalisation
+    %br
+
+  - if @ecf.is_deterioration_of_disability
+    Deterioration or fluctuation of a disability / long term health condition
+    %br
+
+  - if @ecf.is_bereavement
+    Bereavement
+    %br
+
+  - if @ecf.is_significant_adverse_personal
+    Significant adverse personal / family circumstances.
+    %br
+
+  - if @ecf.is_other_exceptional_factors
+    Other exceptional factors
+    %br
+
+  - if @ecf.is_frequent_absence
+    Frequent absence of less than 7 calendar days
+    %br

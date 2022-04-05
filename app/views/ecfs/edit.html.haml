@@ -1,4 +1,7 @@
 %h1 Editing form 
 
-=render 'form'
+- if current_user.admin?
+  = render 'staff_edit'
+- else
+  = render 'form'
 
