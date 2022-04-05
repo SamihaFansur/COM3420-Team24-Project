@@ -1,0 +1,8 @@
+
+.wrapper-div
+    %ul.list-group
+    %li= form.input :description, as: :string
+    %li= form.select :role, options_for_select(User.roles.map {|key, value| [key.humanize, key]})
+    %li= link_to_remove_nested(form, link_text: "Remove", fields_wrapper_selector: '.wrapper-div',link_classes: "cursor_hover btn btn-outline-danger ")
+-# = unit_f.button :submit
+

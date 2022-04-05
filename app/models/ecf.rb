@@ -29,6 +29,7 @@ class Ecf < ApplicationRecord
 
     # the many-to-one relation between unit codes and an ECF
     has_many :affected_units
+    has_many :ecf_notes
     validates :affected_units, presence: true
     validates_associated :affected_units
 
