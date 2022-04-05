@@ -1,12 +1,13 @@
 -# frozen_string_literal: true
-= simple_form_for(@meeting) do |f|
-  = f.error_notification
-  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+%div
+  = simple_form_for(@meeting) do |f|
+    = f.error_notification
+    = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
 
-  .form-inputs
-    = f.input :title
-    = f.input :time
-    = f.input :attendees
-
-  .form-actions
-    = f.button :submit
+    .form-inputs
+      = f.input :title
+      = f.input :time
+      = f.input :attendees
+    %div.mx-auto.mt-5.text-center.container
+      .form-actions.btn-primary.btn-lg
+        = f.button :submit, class: 'btn'
