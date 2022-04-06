@@ -9,6 +9,7 @@
       %th
       %th
       %th
+      %th
 
   %tbody
 
@@ -20,6 +21,7 @@
         %td= link_to 'Show', meeting
         %td= link_to 'Edit', edit_meeting_path(meeting)
         %td= link_to 'Destroy', meeting, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        %td= link_to "Email Attendees", :controller => "emails", :action => "meeting_email", :emails => meeting.attendees
 
 %br
 

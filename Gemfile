@@ -37,7 +37,6 @@ gem 'daemons'
 gem 'sentry-ruby'
 gem 'sentry-rails'
 
-gem 'google-api-client', require: 'google/apis/calendar_v3'
 gem "image_processing", "~> 1.2"
 gem "poppler"
 gem "glib2"
