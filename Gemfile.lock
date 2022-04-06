@@ -83,6 +83,8 @@ GEM
     activerecord (6.1.4.4)
       activemodel (= 6.1.4.4)
       activesupport (= 6.1.4.4)
+    activerecord-import (1.4.0)
+      activerecord (>= 4.2)
     activerecord-session_store (2.0.0)
       actionpack (>= 5.2.4.1)
       activerecord (>= 5.2.4.1)
@@ -476,6 +478,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_storage_validations
+  activerecord-import
   activerecord-session_store
   activestorage-database-service!
   annotate
