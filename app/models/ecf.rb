@@ -42,6 +42,7 @@ class Ecf < ApplicationRecord
     # 'allow_destroy' lets the student remove an affected unit in the NEW form. [should not be able to remove once submitted,
     # test for this]
     accepts_nested_attributes_for :affected_units, allow_destroy: true
+    accepts_nested_attributes_for :ecf_notes, allow_destroy: true
 
     after_initialize :set_pending_status
 
