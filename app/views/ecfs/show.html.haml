@@ -1,9 +1,22 @@
 = javascript_pack_tag "show_ecf"
 
 
+%b Student Details
+%p Username:
+= @ecf.user.uid
+%p First Name:
+= @ecf.user.givenname
+%p Last Name:
+= @ecf.user.sn
+%p Email:
+= @ecf.user.mail
+%p Department:
+= @ecf.user.ou
+
 %p
   %b Date:
   = @ecf.date
+
 .form-group
   %b Details:
   %textarea#exampleFormControlTextarea1.form-control.rounded-0{:readonly => "readonly", :rows => "10"}= @ecf.details
@@ -32,10 +45,10 @@
         %b Requested action:
         = affected_unit.requested_action
         .form-group
-        %b ECF ID:
-        = affected_unit.ecf_id
+        -#%b ECF ID:
+          = affected_unit.ecf_id
   %p
-    %h4 ECF duration:
+    %h4 ECF details:
     - @affected_units.each do |affected_unit|
       %p
         %b date_from:
@@ -45,19 +58,29 @@
         = affected_unit.date_to
         -# todo waiting for further controller method to read from ecfs table
         .form-group
-        %b is ongoing (belows : todo waiting for further controller method to read from ecfs table)
+        %b#is_ongoing{:hidden => "hidden"}
+          = @ecf.is_ongoing
         .form-group
-        %b is serious short term
+        %b#is_sst{:hidden => "hidden"}
+          = @ecf.is_serious_short_term
         .form-group
-        %b Is deterioration of disability
+        %b#is_dd{:hidden => "hidden"}
+          = @ecf.is_deterioration_of_disability
         .form-group
-        %b Is bereavement
+        %b#is_bereavement{:hidden => "hidden"}
+          = @ecf.is_bereavement
         .form-group
-        %b is significant adverse personal
+        %b#is_sap{:hidden => "hidden"}
+          = @ecf.is_significant_adverse_personal
         .form-group
-        %b Is other exceptional factors
+        %b#is_oef{:hidden => "hidden"}
+          = @ecf.is_other_exceptional_factors
         .form-group
-        %b Is frequent absence
+        %b#is_fa{:hidden => "hidden"}
+          = @ecf.is_frequent_absence
+
+      %ul#condition_list.mt-5.animate__animated.animate__fadeIn
+
 
 
 

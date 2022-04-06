@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_04_223634) do
+ActiveRecord::Schema.define(version: 2022_04_05_195328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,15 @@ ActiveRecord::Schema.define(version: 2022_04_04_223634) do
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
+  create_table "ecf_notes", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "ecf_id"
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "role", default: 3
+  end
+
   create_table "ecfs", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -139,11 +148,19 @@ ActiveRecord::Schema.define(version: 2022_04_04_223634) do
     t.string "sn"
     t.string "givenname"
     t.integer "role", default: 0
+    t.integer "registration_number"
+    t.boolean "is_student_visa"
+    t.string "programme_of_study"
+    t.string "level_of_study"
+    t.string "signature"
+    t.date "dob"
     t.index ["email"], name: "index_users_on_email"
     t.index ["username"], name: "index_users_on_username"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "ecf_notes", "ecfs"
+  add_foreign_key "ecf_notes", "users"
   add_foreign_key "ecfs", "users"
 end

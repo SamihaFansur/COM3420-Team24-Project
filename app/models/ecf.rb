@@ -29,6 +29,7 @@ class Ecf < ApplicationRecord
 
     # the many-to-one relation between unit codes and an ECF
     has_many :affected_units
+    has_many :ecf_notes
     validates :affected_units, presence: true
     validates_associated :affected_units
 
@@ -42,7 +43,11 @@ class Ecf < ApplicationRecord
     # test for this]
     accepts_nested_attributes_for :affected_units, allow_destroy: true
 
+    after_initialize :set_pending_status
 
+    def set_pending_status
+      self.status  ||= "Pending"        #will set the default value only if it's nil
+    end
     
 
     # private
