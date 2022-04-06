@@ -45,6 +45,24 @@ class MeetingsController < ApplicationController
     redirect_to meetings_url, notice: 'Meeting was successfully destroyed.'
   end
 
+  #Google Calendar API - redirect for authorisation
+  def redirect
+    client = Signet::OAuth2::Client.new(client_options)
+
+    redirect_to client.authorization_uri.to_s
+  end
+
+  def callback
+    client = Signet::OAuth2::Client.new(client_options)
+    client.code = params[:code]
+
+    response = client.fetch_access_token!
+
+    session[:authorization] = response
+
+    redirect_to calendars_url
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -55,5 +73,16 @@ class MeetingsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def meeting_params
       params.require(:meeting).permit(:title, :time, :attendees)
+    end
+
+    def client_options
+      {
+        client_id: '506569952860-4fekkno2g3eqhfcor98iecstm15dlrsi.apps.googleusercontent.com',
+        client_secret: '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',
+        authorization_uri: 'https://accounts.google.com/o/oauth2/auth',
+        token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
+        scope: Google::Apis::CalendarV3::AUTH_CALENDAR,
+        redirect_uri: callback_url
+      }
     end
 end
