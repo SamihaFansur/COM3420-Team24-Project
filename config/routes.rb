@@ -5,7 +5,11 @@ Rails.application.routes.draw do
   mount EpiCas::Engine, at: "/"
 
   resources :ecfs
-  resources :search
+  resources :search do
+    collection do
+      get 'search', to: 'search#index'
+    end
+  end
   resources :affected_units
   resources :users do
     collection do
@@ -17,13 +21,6 @@ Rails.application.routes.draw do
   resources :meetings
   resources :emails
   
-
-  # resources :posts do
-  #   member do
-  #     delete :purge_avatar
-  #   end
-  # end
-
   delete "attachments/:id/purge", to: "attachments#purge", as: "purge_attachment"
 
   match "/403", to: "errors#error_403", via: :all

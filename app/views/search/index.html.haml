@@ -16,7 +16,7 @@
       .container.animate__animated.animate__fadeIn
         .row.justify-content-center
           .col-md-6.text-center.mb-5
-            %h2.heading-section Listing ecfs
+            %h2.heading-section Listing ECFs
         .row.justify-content-center
           .ecf-preview
             .row
@@ -26,10 +26,18 @@
                   %span#num1 #{@ecfs.size}
                   ecfs.
 
+              = search_form_for(@q, url: search_index_path, method: :get) do |f|
+                = f.label "Ecf status"
+                = f.search_field :status_cont
+                
+                = f.label "Student Username"
+                = f.search_field :user_uid_cont
+          
+                = f.submit "Search"
+
             %table.table
-              
             -if @ecfs.empty?
-              %p.alert.alert-primary There is no current ECFs !
+              %p.alert.alert-primary There are no current ECFs !
             -else
               %table.table
                 %thead
@@ -39,21 +47,15 @@
                     %th{:scope => "col"} Student Full Name
                     %th{:scope => "col"} Student Email
                     %th{:scope => "col"} Student Username
-                    %th{:scope => "col"} Modules Affected
-                    %th{:scope => "col"} Reason for ECF submission
-                    %th{:scope => "col"} Module Outcome
                 %tbody
-                  - @affected_units.each do |affected_unit|
+                  - @ecfs.each do |ecf|
                     %tr
-                      %td= affected_unit.ecf.status
-                      %td= affected_unit.ecf.date
-                      %td #{affected_unit.ecf.user.givenname} #{affected_unit.ecf.user.sn}
-                      %td= affected_unit.ecf.user.mail
-                      %td= affected_unit.ecf.user.uid
-                      %td= affected_unit.unit_code
-                      %td= affected_unit.requested_action
-                      %td **add code here**
-                      %td= link_to 'Show', affected_unit.ecf
-                      %td= link_to 'Edit', edit_ecf_path(affected_unit.ecf)
+                      %td= ecf.status
+                      %td= ecf.date
+                      %td #{ecf.user.givenname} #{ecf.user.sn}
+                      %td= ecf.user.mail
+                      %td= ecf.user.uid
+                      %td= link_to 'Show', ecf
+                      %td= link_to 'Edit', edit_ecf_path(ecf)
 
 

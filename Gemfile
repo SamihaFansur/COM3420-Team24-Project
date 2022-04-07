@@ -7,6 +7,7 @@ gem 'activerecord-session_store'
 gem 'bootsnap'
 gem 'responders'
 gem 'puma'
+gem 'ransack'
 
 gem 'webpacker'
 
