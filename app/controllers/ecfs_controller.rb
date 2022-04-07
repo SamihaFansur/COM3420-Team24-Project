@@ -7,12 +7,6 @@ class EcfsController < ApplicationController
     @user = current_user
   end
 
-  # def purge_avatar
-  #   @ecf = Ecf.find(params[:id])
-  #   @post.avatar.purge
-  #   redirect_back fallback_location: root_path, notice: "Successfully deleted attachment"
-  # end
-
   # GET /ecfs/1
   def show
     set_ecf

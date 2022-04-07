@@ -30,30 +30,8 @@ class UsersController < ApplicationController
     else 
       user.role = params[:role]
       user.save
-      redirect_to users_path, notice: "User was successfully created with role #{params[:role]}."
+      redirect_to users_path, notice: "User was successfully created wtih role #{params[:role]}."
     end
-  end
-
-  def csv_upload
-    puts "csv upload"
-    render :csv_upload
-  end
-
-  def import
-    columns = ["email"]
-    path = params[:user][:file].tempfile.path
-    users = []
-    CSV.foreach(path, headers: true) do |row|
-      unless row.to_h["email"].nil? 
-        user = User.new(email: row.to_h["email"])
-        user.get_info_from_ldap
-        users << user unless user.username.nil?
-      end
-    end
-    puts users
-    User.import users, batch_size: 2000
-
-    redirect_to users_path, notice: "Users imported successfully."
   end
 
   def new

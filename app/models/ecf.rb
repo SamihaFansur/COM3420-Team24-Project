@@ -51,14 +51,4 @@ class Ecf < ApplicationRecord
     end
     
 
-    # private
-    # def upload_medical_evidence_file_type input
-    #     upload_medical_evidence.each do |file|
-    #         if !file.content_type.in?(%w(application/pdf))
-    #             errors.add(:upload_medical_evidence, 'Please upload .pdf files only')
-    #         end
-    #     end
-    # end
-
-
 end

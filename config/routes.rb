@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   mount EpiCas::Engine, at: "/"
 
   resources :ecfs
+  resources :search
   resources :affected_units
   resources :users do
     collection do

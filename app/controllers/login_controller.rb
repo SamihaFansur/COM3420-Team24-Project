@@ -5,7 +5,5 @@ class LoginController < ApplicationController
 
   def login
     @current_nav_identifier = :login
-    print("---------------")
-    print(@current_nav_identifier)
   end
 end
