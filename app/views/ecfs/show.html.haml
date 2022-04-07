@@ -1,17 +1,25 @@
 = javascript_pack_tag "show_ecf"
 
 
-%b Student Details
-%p Username:
-= @ecf.user.uid
-%p First Name:
-= @ecf.user.givenname
-%p Last Name:
-= @ecf.user.sn
-%p Email:
-= @ecf.user.mail
-%p Department:
-= @ecf.user.ou
+%h4 Student Details
+
+%table.table
+  %thead
+    %tr
+      %th{:scope => "col"} Username:
+      %th{:scope => "col"} First Name:
+      %th{:scope => "col"} Last Name:
+      %th{:scope => "col"} Email
+      %th{:scope => "col"} Department:
+  %tbody
+    %tr
+      %th{:scope => "row"}
+        = @ecf.user.uid
+
+      %td= @ecf.user.givenname
+      %td= @ecf.user.sn
+      %td= @ecf.user.mail
+      %td= @ecf.user.ou
 
 %p
   %b Date:
@@ -51,10 +59,10 @@
     %h4 ECF details:
     - @affected_units.each do |affected_unit|
       %p
-        %b date_from:
+        %b date from:
         = affected_unit.date_from
         .form-group
-        %b date_to:
+        %b date to:
         = affected_unit.date_to
         -# todo waiting for further controller method to read from ecfs table
         .form-group
@@ -78,7 +86,7 @@
         .form-group
         %b#is_fa{:hidden => "hidden"}
           = @ecf.is_frequent_absence
-
+      %h4 Additional:
       %ul#condition_list.mt-5.animate__animated.animate__fadeIn
 
 

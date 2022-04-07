@@ -7,16 +7,14 @@ class EcfsController < ApplicationController
     @user = current_user
   end
 
-  # def purge_avatar
-  #   @ecf = Ecf.find(params[:id])
-  #   @post.avatar.purge
-  #   redirect_back fallback_location: root_path, notice: "Successfully deleted attachment"
-  # end
-
   # GET /ecfs/1
   def show
     set_ecf
     set_affected_units
+  end
+
+  def edit
+    set_ecf_notes
   end
 
   def new
@@ -51,12 +49,17 @@ class EcfsController < ApplicationController
       @affected_units = @ecf.affected_units
     end
 
+    def set_ecf_notes
+      @ecf_notes = @ecf.ecf_notes
+    end
+
     # Only allow a trusted parameter "white list" through.
     def ecf_params
       params
         #review tagged changes; taken from guide
         .require(:ecf)
         .permit(:user_id, :date, :is_bereavement, :is_deterioration_of_disability, :is_frequent_absence, :is_ongoing, :is_other_exceptional_factors, :is_serious_short_term, :is_significant_adverse_personal, :details, :start_of_circumstances, :end_of_circumstances, :is_ongoing, upload_medical_evidence: [], 
-          affected_units_attributes: [:id, :affected_units, :assessment_type, :date_from, :date_to, :requested_action, :unit_code, :_destroy])
+          affected_units_attributes: [:id, :affected_units, :assessment_type, :date_from, :date_to, :requested_action, :unit_code, :_destroy],
+          ecf_notes_attributes: [:id, :description, :role, :ecf_notes, :user_id, :_destroy])
     end
 end

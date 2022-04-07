@@ -20,7 +20,7 @@ window.onload = function(){
                     document.getElementById("condition_list").innerHTML+="<li class=\"list-group-item\">It is on going circumstance</li>";
                     break;
                 case 1:
-                    document.getElementById("condition_list").innerHTML+="<li class=\"list-group-item\"> has serious short term impact </li>";
+                    document.getElementById("condition_list").innerHTML+="<li class=\"list-group-item\">It has serious short term impact </li>";
                     break;
                 case 2:
                     document.getElementById("condition_list").innerHTML+="<li class=\"list-group-item\"> caused by deterioration of disability </li>";
@@ -29,7 +29,7 @@ window.onload = function(){
                     document.getElementById("condition_list").innerHTML+="<li class=\"list-group-item\"> caused by bereavement </li>";
                     break;
                 case 4:
-                    document.getElementById("condition_list").innerHTML+="<li class=\"list-group-item\"> has significant adverse personal reason </li>";
+                    document.getElementById("condition_list").innerHTML+="<li class=\"list-group-item\">It has significant adverse personal reason </li>";
                     break;
                 case 5:
                     document.getElementById("condition_list").innerHTML+="<li class=\"list-group-item\"> caused by other exceptional factors </li>";

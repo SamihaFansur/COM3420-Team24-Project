@@ -39,3 +39,91 @@ Not complete cause I'm bad at rails routing. Should just show fields but allow e
   - if @ecf.is_frequent_absence
     Frequent absence of less than 7 calendar days
     %br
+
+%p
+  Put duration here.
+
+%p 
+  %b Supporting evidence
+  - @ecf.upload_medical_evidence.each do |medical_evidence|
+    %p
+    = link_to medical_evidence.filename, medical_evidence, target: :_blank
+    = link_to "Delete attachment", purge_attachment_path(medical_evidence), method: :delete
+
+%p
+  = simple_form_for(@ecf, :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
+    Add supporting evidence. (Uploaded evidence will be visible to the student.)
+    %br
+    = f.file_field :upload_medical_evidence, multiple: true, accept: 'application/pdf'
+    %br
+    = f.button :submit, value: 'Submit evidence'
+
+%p Affected units here.
+
+    
+%p
+  %b Student notes
+  - @ecf_notes.where("role = 1").each do |ecf_note|
+    %p 
+      %b Note: 
+      = ecf_note.description
+      %br
+        %i
+          %b Submitted by:
+          = ecf_note.user.givenname
+          = ecf_note.user.sn
+          %b Note created at:
+          = ecf_note.created_at
+
+%p
+  %b Module leader notes
+  - @ecf_notes.where("role = 2").each do |ecf_note|
+    %p 
+      %b Note: 
+      = ecf_note.description
+      %br
+        %i
+          %b Submitted by:
+          = ecf_note.user.givenname
+          = ecf_note.user.sn
+          %b Note created at:
+          = ecf_note.created_at
+
+%p
+  %b Scrutiny panel notes
+  - @ecf_notes.where("role = 3").each do |ecf_note|
+    %p 
+      %b Note: 
+      = ecf_note.description
+      %br
+        %i
+          %b Submitted by:
+          = ecf_note.user.givenname
+          = ecf_note.user.sn
+          %b Note created at:
+          = ecf_note.created_at
+
+%p
+  %b Scrutiny chair notes
+  - @ecf_notes.where("role = 4").each do |ecf_note|
+    %p 
+      %b Note: 
+      = ecf_note.description
+      %br
+        %i
+          %b Submitted by:
+          = ecf_note.user.givenname
+          = ecf_note.user.sn
+          %b Note created at:
+          = ecf_note.created_at
+
+
+%p 
+  %b Form for ecf notes here. M:1.
+  = simple_form_for(@ecf, :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
+    = link_to_add_nested(f, :ecf_notes, '#ecf-notes', partial: 'ecf_notes/ecf_note_fields')
+
+    #ecf-notes
+      = f.fields_for :ecf_notes do |ecf_note_f| 
+        = render 'ecf_notes/ecf_note_fields', form: ecf_note_f
+    = f.button :submit, value: 'Submit notes'

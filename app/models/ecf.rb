@@ -42,6 +42,7 @@ class Ecf < ApplicationRecord
     # 'allow_destroy' lets the student remove an affected unit in the NEW form. [should not be able to remove once submitted,
     # test for this]
     accepts_nested_attributes_for :affected_units, allow_destroy: true
+    accepts_nested_attributes_for :ecf_notes, allow_destroy: true
 
     after_initialize :set_pending_status
 
@@ -49,15 +50,5 @@ class Ecf < ApplicationRecord
       self.status  ||= "Pending"        #will set the default value only if it's nil
     end
     
-
-    # private
-    # def upload_medical_evidence_file_type input
-    #     upload_medical_evidence.each do |file|
-    #         if !file.content_type.in?(%w(application/pdf))
-    #             errors.add(:upload_medical_evidence, 'Please upload .pdf files only')
-    #         end
-    #     end
-    # end
-
 
 end

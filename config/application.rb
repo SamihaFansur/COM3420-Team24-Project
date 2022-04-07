@@ -12,6 +12,8 @@ require 'devise_cas_authenticatable'
 require "devise_ldap_authenticatable"
 require 'sheffield_ldap_lookup'
 require 'rack-cas/session_store/active_record'
+
+require 'csv'
 module Team24
   class Application < Rails::Application
     # Send queued jobs to delayed_job

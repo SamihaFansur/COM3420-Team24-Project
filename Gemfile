@@ -50,6 +50,8 @@ gem 'sass-rails'
 
 gem 'date_validator'
 
+gem 'activerecord-import'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'byebug'

@@ -5,8 +5,15 @@ Rails.application.routes.draw do
   mount EpiCas::Engine, at: "/"
 
   resources :ecfs
+  resources :search
   resources :affected_units
-  resources :users
+  resources :users do
+    collection do
+      post 'ldap_user', to: 'users#ldap_user'
+      get 'csv_upload', to: 'users#csv_upload'
+      post 'import', to: 'users#import'
+    end
+  end
   resources :meetings
   resources :emails
   
@@ -36,7 +43,8 @@ Rails.application.routes.draw do
 
   get :meeting_email, to: 'emails#meeting_email', as: :meeting_email
 
-  post '/user/ldap_user', to: 'users#ldap_user'
+  # User methods
+  # get '/users/csv_upload', to: 'users#csv_upload'
 
   root to: "pages#home"
 
