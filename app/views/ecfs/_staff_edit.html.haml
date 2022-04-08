@@ -57,94 +57,91 @@ Not complete cause I'm bad at rails routing. Should just show fields but allow e
     = f.file_field :upload_medical_evidence, multiple: true, accept: 'application/pdf'
     %br
     = f.button :submit, value: 'Submit evidence'
-
-%p
-  %h4  DEBUGGING NOTES
-  - @ecf_notes.each do |ecf_note|
-    %p 
-      %b Note: 
-      = ecf_note.description
-      %br
-        %i
-          %b Submitted by:
-          = ecf_note.user.givenname
-          = ecf_note.user.sn
-          %b Note created at:
-          = ecf_note.created_at
-          %b Role:
-          = ecf_note.role
     
 %p
   %h4 Student notes
   = simple_form_for(@ecf, :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
-    = link_to_add_nested(f, :ecf_notes, '#ecf-notes-student', partial: 'ecf_notes/ecf_note_fields') do
-      @role_parameter = 1
+    = link_to_add_nested(f, :ecf_notes, '#ecf-notes-student', partial: 'ecf_notes/ecf_note_student_fields', link_text: 'Add a Student note.')
 
     #ecf-notes-student
-    
-  - if @ecf_notes.where("role = 1").size == 0
+  
+  - if @ecf_notes_grouped[1].nil?
     %i There are currently no student notes.
-  - @ecf_notes.where("role = 1").each do |ecf_note|
-    %p 
-      %b Note: 
-      = ecf_note.description
-      %br
-        %i
-          %b Submitted by:
-          = ecf_note.user.givenname
-          = ecf_note.user.sn
-          %b Note created at:
-          = ecf_note.created_at
+  - else 
+    - @ecf_notes_grouped[1].each do |ecf_note|
+      %p 
+        %b Note: 
+        = ecf_note.description
+        %br
+          %i
+            %b Submitted by:
+            = ecf_note.user.givenname
+            = ecf_note.user.sn
+            %b Note created at:
+            = ecf_note.created_at
 
 %p
   %h4 Module leader notes
-  - @ecf_notes.where("role = 2").each do |ecf_note|
-    %p 
-      %b Note: 
-      = ecf_note.description
-      %br
-        %i
-          %b Submitted by:
-          = ecf_note.user.givenname
-          = ecf_note.user.sn
-          %b Note created at:
-          = ecf_note.created_at
+  = simple_form_for(@ecf, :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
+    = link_to_add_nested(f, :ecf_notes, '#ecf-notes-module-leader', partial: 'ecf_notes/ecf_note_module_leader_fields', link_text: 'Add a Module Leader note.')
+
+    #ecf-notes-module-leader
+
+  - if @ecf_notes_grouped[2].nil?
+    %i There are currently no module leader notes.
+  - else 
+    - @ecf_notes_grouped[2].each do |ecf_note|
+      %p 
+        %b Note: 
+        = ecf_note.description
+        %br
+          %i
+            %b Submitted by:
+            = ecf_note.user.givenname
+            = ecf_note.user.sn
+            %b Note created at:
+            = ecf_note.created_at
 
 %p
   %h4 Scrutiny panel notes
-  - @ecf_notes.where("role = 3").each do |ecf_note|
-    %p 
-      %b Note: 
-      = ecf_note.description
-      %br
-        %i
-          %b Submitted by:
-          = ecf_note.user.givenname
-          = ecf_note.user.sn
-          %b Note created at:
-          = ecf_note.created_at
+  = simple_form_for(@ecf, :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
+    = link_to_add_nested(f, :ecf_notes, '#ecf-notes-scrutiny', partial: 'ecf_notes/ecf_note_scrutiny_fields', link_text: 'Add a Scrutiny Panel note.')
+
+    #ecf-notes-scrutiny
+
+  - if @ecf_notes_grouped[3].nil?
+    %i There are currently no scrutiny panel notes.
+  - else 
+    - @ecf_notes_grouped[3].each do |ecf_note|
+      %p 
+        %b Note: 
+        = ecf_note.description
+        %br
+          %i
+            %b Submitted by:
+            = ecf_note.user.givenname
+            = ecf_note.user.sn
+            %b Note created at:
+            = ecf_note.created_at
 
 %p
   %h4 Scrutiny chair notes
-  - @ecf_notes.where("role = 4").each do |ecf_note|
-    %p 
-      %b Note: 
-      = ecf_note.description
-      %br
-        %i
-          %b Submitted by:
-          = ecf_note.user.givenname
-          = ecf_note.user.sn
-          %b Note created at:
-          = ecf_note.created_at
-
-
-%p 
-  %b Form for ecf notes here. M:1.
   = simple_form_for(@ecf, :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
-    = link_to_add_nested(f, :ecf_notes, '#ecf-notes', partial: 'ecf_notes/ecf_note_fields')
+    = link_to_add_nested(f, :ecf_notes, '#ecf-notes-admin', partial: 'ecf_notes/ecf_note_admin_fields', link_text: 'Add a Scrutiny Chair note.')
 
-    #ecf-notes
-      = f.fields_for :ecf_notes, EcfNote.new do |ecf_note_f| 
-        = render 'ecf_notes/ecf_note_fields', form: ecf_note_f
-    = f.button :submit, value: 'Submit notes'
+    #ecf-notes-admin
+
+  - if @ecf_notes_grouped[4].nil?
+    %i There are currently no module leader notes.
+  - else 
+    - @ecf_notes_grouped[4].each do |ecf_note|
+      %p 
+        %b Note: 
+        = ecf_note.description
+        %br
+          %i
+            %b Submitted by:
+            = ecf_note.user.givenname
+            = ecf_note.user.sn
+            %b Note created at:
+            = ecf_note.created_at

@@ -1,0 +1,10 @@
+
+.wrapper-div
+  = form.input :user_id, as: :hidden, input_html: {value: current_user.id}
+  = form.input :description, as: :string
+  = form.input :role, as: :hidden, input_html: {value: 4}
+  %p
+    %i Please remember notes submitted here will only be visible to the scrutiny chair.
+  = form.button :submit, value: "Submit note"
+  = link_to_remove_nested(form, link_text: "Remove", fields_wrapper_selector: '.wrapper-div')
+

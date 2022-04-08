@@ -21,6 +21,8 @@ class EcfsController < ApplicationController
   def edit
     set_ecf
     set_ecf_notes
+    # groups all ecf_notes by target role - avoids repeated 'where' queries.
+    @ecf_notes_grouped = @ecf_notes.group_by(&:role)
   end
 
   def update

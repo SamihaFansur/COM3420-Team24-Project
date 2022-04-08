@@ -1,0 +1,14 @@
+
+.wrapper-div
+  = form.input :user_id, as: :hidden, input_html: {value: current_user.id}
+  = form.input :description, as: :string
+  = form.input :role, as: :hidden, input_html: {value: 2}
+  - if current_user.admin? || current_user.scrutiny
+    %p 
+      %i Notes submitted here will be visible to module leaders of any module in the 'Affected Units' section.
+  - else
+    %p 
+      %i Please remember notes submitted here will be visible to the scrutiny panel.
+  = form.button :submit, value: "Submit note"
+  = link_to_remove_nested(form, link_text: "Remove", fields_wrapper_selector: '.wrapper-div')
+
