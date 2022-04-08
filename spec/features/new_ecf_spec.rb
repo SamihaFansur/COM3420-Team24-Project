@@ -5,7 +5,7 @@ require 'rails_helper'
 
 describe "ecf" do
     #log in as a user
-    it "logs is and visits ecf page " do
+    it "logs in and visits ecf page " do
         visit"/users/sign_in"
         login_as(FactoryBot.create(:student))
         visit"/ecfs"
