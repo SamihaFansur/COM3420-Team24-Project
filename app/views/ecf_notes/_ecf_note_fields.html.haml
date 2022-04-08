@@ -2,6 +2,8 @@
 .wrapper-div
     = form.input :user_id, as: :hidden, input_html: {value: current_user.id}
     = form.input :description, as: :string
-    = form.select :role, options_for_select(User.roles.map {|key, value| [key.humanize, key]})
+    = form.input :role, as: :hidden, input_html: {value: @role_parameter}
+    -# = form.select :role, options_for_select(User.roles.map {|key, value| [key.humanize, key]})
+    = form.button :submit, value: "Submit note"
     = link_to_remove_nested(form, link_text: "Remove", fields_wrapper_selector: '.wrapper-div')
 
