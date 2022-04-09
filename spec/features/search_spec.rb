@@ -7,7 +7,7 @@ describe "search" do
     #log in as a user
     it "logs is and visits search page " do
         visit"/users/sign_in"
-        login_as(FactoryBot.create(:staff))
+        login_as(FactoryBot.create(:admin))
         visit"/search"
         expect(page).to have_content "Listing ECFs"
     end
@@ -18,7 +18,7 @@ describe "search" do
     #log in as a user
     it "logs is and visits search page " do
         visit"/users/sign_in"
-        login_as(FactoryBot.create(:staff))
+        login_as(FactoryBot.create(:admin))
         visit"/search"
         expect(page).to have_content "Listing ECFs"
     end

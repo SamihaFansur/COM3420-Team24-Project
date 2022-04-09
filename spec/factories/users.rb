@@ -44,9 +44,18 @@ FactoryBot.define do
       role {1}
 
     end
-    factory :staff do
+    factory :module_leader do
+      dn {"uid=aca20sf,ou=Undergraduates,ou=Staff,ou=Users,dc=sheffield,dc=ac,dc=uk"}
+      role {2}
+    end
+    factory :scrutiny_panel do
+      dn {"uid=aca20sf,ou=Undergraduates,ou=Staff,ou=Users,dc=sheffield,dc=ac,dc=uk"}
+      role {3}
+    end
+    factory :admin do
       dn {"uid=aca20sf,ou=Undergraduates,ou=Staff,ou=Users,dc=sheffield,dc=ac,dc=uk"}
       role {4}
+
     end
   end
 end

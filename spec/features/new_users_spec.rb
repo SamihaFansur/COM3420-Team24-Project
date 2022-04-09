@@ -7,7 +7,7 @@ describe "user" do
     #log in as a user
     it "logs is and visits new user page " do
         visit"/users/sign_in"
-        login_as(FactoryBot.create(:staff))
+        login_as(FactoryBot.create(:admin))
         visit"/users/new"
         expect(page).to have_content "New user"
     end
@@ -17,7 +17,7 @@ describe "user" do
     #log in as a user
     it "creates new user as admin " do
         visit"/users/sign_in"
-        login_as(FactoryBot.create(:staff))
+        login_as(FactoryBot.create(:admin))
         visit"/users/new"
         fill_in "email", with: "sfansur1@sheffield.ac.uk"
         select "Admin", from: "role", visible: false
@@ -42,7 +42,7 @@ describe "user" do
     #log in as a user
     it "tests new user link " do
         visit"/users/sign_in"
-        login_as(FactoryBot.create(:staff))
+        login_as(FactoryBot.create(:admin))
         visit"/users"
         click_link "New User"
         expect(page).to have_content "Creating new user"
@@ -53,7 +53,7 @@ describe "user" do
     #log in as a user
     it "tests csv user upload " do
         visit"/users/sign_in"
-        login_as(FactoryBot.create(:staff))
+        login_as(FactoryBot.create(:admin))
         visit"/users"
         click_link "CSV Upload"
         expect(page).to have_content "File"
