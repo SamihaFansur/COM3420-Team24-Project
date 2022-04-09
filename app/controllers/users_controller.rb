@@ -63,7 +63,7 @@ class UsersController < ApplicationController
         # if the user already exists in the database
         if users_hash.key?(email)
           user = User.find_by(email: email)
-          user.get_info_from_ldap
+          # user.get_info_from_ldap
           
           # only tries 'include' if user has any modules
           if user_modules_hash.key?(user.id.to_s)
