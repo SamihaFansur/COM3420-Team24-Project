@@ -88,21 +88,7 @@ describe "the page links" do
         click_button "Create Ecf"
         click_link "Show"
         expect(page).to have_content "Student Details"
-    end
-end
-
-describe "the page links" do
-    #once logged in, through navigation goes edit exisiting ecf
-    it "show ecf accessible after making new ecf" do
-        visit"/users/sign_in"
-        login_as(FactoryBot.create(:student))
-        click_link "LOGIN"
-        click_link "Create New ECF"
-        fill_in "Details", with: "Details about ecf"
-        fill_in "Unit code", with: "COMtest"
-        fill_in "Assessment type", with: "Test"
-        select "NP - No penalty for late submission", from: "Requested action ", visible: false
-        click_button "Create Ecf"
+        visit "/ecfs"
         click_link "Edit"
         expect(page).to have_content "Editing form"
     end
