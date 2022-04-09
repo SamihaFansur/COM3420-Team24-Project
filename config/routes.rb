@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   resources :ecfs
   get 'ecfs/new' => 'ecfs#new', :as => :new_ecfs 
-  
+
   resources :search do
     collection do
       get 'search', to: 'search#index'
