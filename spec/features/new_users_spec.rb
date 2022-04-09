@@ -37,3 +37,26 @@ describe "user" do
 
     end
 end
+
+describe "user" do
+    #log in as a user
+    it "tests new user link " do
+        visit"/users/sign_in"
+        login_as(FactoryBot.create(:staff))
+        visit"/users"
+        click_link "New User"
+        expect(page).to have_content "Creating new user"
+    end
+end
+
+describe "user" do
+    #log in as a user
+    it "tests csv user upload " do
+        visit"/users/sign_in"
+        login_as(FactoryBot.create(:staff))
+        visit"/users"
+        click_link "CSV Upload"
+        expect(page).to have_content "File"
+    end
+end
+
