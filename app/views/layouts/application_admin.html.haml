@@ -22,7 +22,11 @@
             %li.btn_effect_swing
               = link_to 'HOME', root_path, title: 'Go to the home page', class: 'nav-link-2'
             %li.btn_effect_swing
-              = link_to 'SHOW ECFS', search_index_path, title: 'Go to the show ECFs page', class: 'nav-link-2'
+              = link_to 'SHOW ECFS', search_index_path, title: 'Go to the search ECFs page', class: 'nav-link-2'
+            %li.btn_effect_swing
+              = link_to 'MEETINGS', meetings_path, title: 'Go to the meetings page', class: 'nav-link-2'
+            %li.btn_effect_swing
+              = link_to 'MANAGE USERS', users_path, title: 'Go to the manage users page', class: 'nav-link-2'              
           %form.col-12.col-lg-auto.mb-3.mb-lg-0.me-lg-3
           .dropdown.text-end
             %a#dropdownUser1.d-block.link-dark.text-decoration-none.dropdown-toggle{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", :href => "#"}

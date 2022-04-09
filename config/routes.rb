@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       get 'search', to: 'search#index'
     end
   end
+
   resources :affected_units
   resources :users do
     collection do
