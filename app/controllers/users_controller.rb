@@ -32,6 +32,40 @@ class UsersController < ApplicationController
     end
   end
 
+  def csv_upload
+    puts "csv upload"
+    render :csv_upload
+  end
+
+  def import
+    columns = ["email"]
+    path = params[:user][:file].tempfile.path
+    users = []
+    user_modules = []
+
+    lists_hash = UserModule.pluck(:module_code, :id).to_h
+    CSV.foreach(path, headers: true) do |row|
+      unless row.to_h["email"].nil?
+        user = User.new(email: row.to_h["email"], role: 2)
+        user.get_info_from_ldap
+        users << user unless user.username.nil?
+        if lists_hash.has_key?(row.to_h["module_code"])
+          user_module = UserModule.where(module_code: row.to_h["module_code"])
+          user_module.user_id = user.id
+          user_modules << user_module
+        else
+          user_module = UserModule.new(module_code: row.to_h["module_code"], user_id: user.id)
+          user_modules << user_module
+        end
+      end
+    end
+    puts user_modules
+    # User.import users, batch_size: 2000
+    UserModule.import user_modules, batch_size: 1000
+
+    redirect_to users_path, notice: "Users imported successfully."
+  end
+
   def new
     @user = User.new
     # user.modules.build here?
