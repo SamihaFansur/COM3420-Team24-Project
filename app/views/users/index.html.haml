@@ -1,35 +1,41 @@
 %h1 Listing users
+=javascript_pack_tag 'listing_users'
+%p#col1
+  There are
+  %span#num1 #{@users.size}
+  users.
 
-%p There are #{@users.size} users.
+%ul.list-group.list-group-flush
+  %li.list-group-item
+    %p<
+      To assign a role to a staff member not already in this users table:
+      #btn_new_user= link_to 'New User', new_user_path, class: 'btn btn-primary'
+  %li.list-group-item
+    %p<
+      To upload a csv file to create new module leaders:
+      #btn_csv_upload= link_to 'CSV Upload', csv_upload_users_path, class: 'btn btn-primary'
 
-%p To assign a role to a staff member not already in this users table: 
-= link_to 'New User', new_user_path
+  %li.list-group-item
+    %table.table
+      %thead
+        %tr
+          %th User ID
+          %th Email
+          %th Given name
+          %th Surname
+          %th Department
+          %th Group
+          %th Role
 
-%p To upload a csv file to create new module leaders: 
-= link_to 'CSV Upload', csv_upload_users_path
-
-%table
-  %thead
-    %tr
-      %th User ID
-      %th Email
-      %th Given name
-      %th Surname
-      %th Department
-      %th Group
-      %th Role
-
-  %tbody
-    - @users.each do |user|
-      %tr
-        %td= user.uid
-        %td= user.mail
-        %td= user.givenname
-        %td= user.sn
-        %td= user.ou
-        %td= ((user.dn).split( /, */ )[2]).chars.last((((user.dn).split( /, */ )[2]).length)-3).join
-        %td= user.role
-        %td= link_to 'Show', user
-        %td= link_to 'Edit', edit_user_path(user)
-
-%br
+      %tbody
+        - @users.each do |user|
+          %tr
+            %td= user.uid
+            %td= user.mail
+            %td= user.givenname
+            %td= user.sn
+            %td= user.ou
+            %td= ((user.dn).split( /, */ )[2]).chars.last((((user.dn).split( /, */ )[2]).length)-3).join
+            %td= user.role
+            %td= link_to 'Show', user
+            %td= link_to 'Edit', edit_user_path(user)
