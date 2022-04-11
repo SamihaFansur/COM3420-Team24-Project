@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_11_215222) do
+ActiveRecord::Schema.define(version: 2022_04_11_223906) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,6 +115,7 @@ ActiveRecord::Schema.define(version: 2022_04_11_215222) do
     t.boolean "is_ongoing"
     t.boolean "is_other_exceptional_factors"
     t.integer "user_id"
+    t.boolean "highly_sensitive"
   end
 
   create_table "meetings", force: :cascade do |t|
