@@ -10,4 +10,5 @@
 #  updated_at :datetime         not null
 #
 class Meeting < ApplicationRecord
+  has_many :decisions
 end
