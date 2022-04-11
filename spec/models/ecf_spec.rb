@@ -7,6 +7,7 @@
 #  details                         :string
 #  email                           :string
 #  end_of_circumstances            :date
+#  highly_sensitive                :boolean
 #  is_bereavement                  :boolean
 #  is_deterioration_of_disability  :boolean
 #  is_frequent_absence             :boolean
