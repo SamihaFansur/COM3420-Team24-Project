@@ -11,9 +11,6 @@ class EcfsController < ApplicationController
   def index
     @q = Ecf.ransack(params[:q])
     @ecfs = @q.result
-    # search_params(params).each do |key, value|
-    #   @ecfs = @ecf.public_send("filter_by_#{key}", value) if value.present?
-    # end
   end
 
   # GET /ecfs/1
