@@ -6,7 +6,8 @@ class Ability
   def initialize(user)
 
     #user ||= User.new
-    #can :read, :all
+    #cannot :manage, all
+
 
     if user.student?
       can :manage, Ecf
@@ -16,7 +17,7 @@ class Ability
     end
 
     if user.module_leader?
-      cannot :manage, Ecf
+      can [:read, :update, :edit], Ecf
       #can :manage, Search
       cannot :manage, Meeting
       cannot :manage, User

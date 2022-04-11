@@ -3,7 +3,7 @@
   = form.input :user_id, as: :hidden, input_html: {value: current_user.id}
   = form.input :description, as: :string
   = form.input :role, as: :hidden, input_html: {value: 2}
-  - if current_user.admin? || current_user.scrutiny
+  - if current_user.admin? || current_user.scrutiny?
     %p 
       %i Notes submitted here will be visible to module leaders of any module in the 'Affected Units' section.
   - else
