@@ -25,6 +25,15 @@
   = @ecf.id
 
 %p
+  %b ECF Status:
+  %br
+  = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
+    = f.select :status, options_for_select(["Pending", "Complete"], @ecf.status)
+    = f.button :submit, value: 'Update status'
+    %br
+    %i Setting an ECF as 'complete' will remove it from the view of pending ECFs.
+
+%p
   %b Type(s) of Circumstances: 
   %br
   - if @ecf.is_serious_short_term 
