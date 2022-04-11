@@ -24,7 +24,7 @@ class Ability
     end
 
     if user.scrutiny?
-      cannot :manage, Ecf
+      can [:read, :update, :edit], Ecf
       #can :manage, Search
       can :manage, Meeting
       cannot :manage, User
