@@ -19,10 +19,18 @@
           %a.d-flex.align-items-center.mb-2.mb-lg-0.text-dark.text-decoration-none{:href => "/"}
           %ul.nav.col-12.col-lg-auto.me-lg-auto.mb-2.justify-content-center.mb-md-0
             =image_tag("pear.png")
+            / these are placeholers for testing purposes
             %li.btn_effect_swing
               = link_to 'HOME', root_path, title: 'Go to the home page', class: 'nav-link-2'
             %li.btn_effect_swing
-              = link_to 'LOGIN', ecfs_path, title: 'Go to the ECFs page', class: 'nav-link-2'
+              = link_to 'MY ECFS', ecfs_path, title: 'Go to the ECFs page', class: 'nav-link-2'
+            %li.btn_effect_swing
+              = link_to 'SHOW ECFS', search_index_path, title: 'Go to the home page', class: 'nav-link-2'
+            %li.btn_effect_swing
+              = link_to 'SHOW MEETINGS', meetings_path, title: 'Go to the ECFs page', class: 'nav-link-2'
+            %li.btn_effect_swing
+              = link_to 'USERS', users_path, title: 'Go to the home page', class: 'nav-link-2'
+ 
           %form.col-12.col-lg-auto.mb-3.mb-lg-0.me-lg-3
           .dropdown.text-end
             %a#dropdownUser1.d-block.link-dark.text-decoration-none.dropdown-toggle{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", :href => "#"}
