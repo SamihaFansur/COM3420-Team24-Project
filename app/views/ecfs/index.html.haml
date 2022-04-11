@@ -38,6 +38,7 @@
           
                 = f.submit "Search"
 
+            %a.btn.btn-primary{:href => new_ecf_path} Create New ECF
             %table.table
             -if @ecfs.empty?
               %p.alert.alert-primary There are no current ECFs !
