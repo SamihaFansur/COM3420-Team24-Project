@@ -1,6 +1,6 @@
 class EcfsController < ApplicationController
   load_and_authorize_resource
-  before_action :set_ecf, only:  [:show, :edit, :update, :destroy]
+  before_action :set_ecf, only:  [:show, :edit, :update, :destroy, :update_persist]
 
   # GET /ecfs
   def index
@@ -34,6 +34,16 @@ class EcfsController < ApplicationController
     end
   end
 
+  # update method that refreshes, instead of returning to ecfs page. used in nested form submission.
+  def update_persist
+    if @ecf.update(ecf_params)
+      flash[:notice] = 'Form was successfully updated.'
+      redirect_back(fallback_location: ecfs_path)
+    else
+      render :edit
+    end
+  end
+  
   def create
     @ecf = Ecf.new(ecf_params)
     if @ecf.save

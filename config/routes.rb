@@ -4,7 +4,13 @@ Rails.application.routes.draw do
   get 'login/index'
   mount EpiCas::Engine, at: "/"
 
-  resources :ecfs
+  resources :ecf_notes
+  
+  resources :ecfs do
+    member do
+      patch 'update_persist', to: 'ecfs#update_persist'
+    end
+  end
   get 'ecfs/new' => 'ecfs#new', :as => :new_ecfs 
 
   resources :search do

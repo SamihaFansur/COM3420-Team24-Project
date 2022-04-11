@@ -1,17 +1,28 @@
-%h1 Edit [staff]
-Not complete cause I'm bad at rails routing. Should just show fields but allow evidence and notes to be edited.
+%h1= "Edit ECF ##{@ecf.id}"
 
-%p
-  %b Date:
-  = @ecf.date
+%h4 Student Details
+%table.table
+  %thead
+    %tr
+      %th{:scope => "col"} Username:
+      %th{:scope => "col"} First Name:
+      %th{:scope => "col"} Last Name:
+      %th{:scope => "col"} Email
+      %th{:scope => "col"} Department:
+  %tbody
+    %tr
+      %th{:scope => "row"}
+        = @ecf.user.uid
+      %td= @ecf.user.givenname
+      %td= @ecf.user.sn
+      %td= @ecf.user.mail
+      %td= @ecf.user.ou
 
+%h4 ECF Details
 %p
-  %b Details:
-  = @ecf.details
-
-%p
-  %b UserID:
-  = @ecf.user_id
+  %b ECF ID:
+  %br
+  = @ecf.id
 
 %p
   %b Type(s) of Circumstances: 
@@ -19,49 +30,53 @@ Not complete cause I'm bad at rails routing. Should just show fields but allow e
   - if @ecf.is_serious_short_term 
     Serious short term illness / accident / hospitalisation
     %br
-
   - if @ecf.is_deterioration_of_disability
     Deterioration or fluctuation of a disability / long term health condition
     %br
-
   - if @ecf.is_bereavement
     Bereavement
     %br
-
   - if @ecf.is_significant_adverse_personal
     Significant adverse personal / family circumstances.
     %br
-
   - if @ecf.is_other_exceptional_factors
     Other exceptional factors
     %br
-
   - if @ecf.is_frequent_absence
     Frequent absence of less than 7 calendar days
     %br
 
 %p
-  Put duration here.
+  %b Duration of Circumstances:
+  %br
+  = @ecf.start_of_circumstances
+  %i to
+  = @ecf.end_of_circumstances
+
+%p
+  %b Details of Circumstances:
+  %textarea#exampleFormControlTextarea1.form-control.rounded-0{:readonly => "readonly", :rows => "10"}= @ecf.details
 
 %p 
-  %b Supporting evidence
+  %b Supporting evidence:
   - @ecf.upload_medical_evidence.each do |medical_evidence|
-    %p
+    %br
     = link_to medical_evidence.filename, medical_evidence, target: :_blank
     = link_to "Delete attachment", purge_attachment_path(medical_evidence), method: :delete
 
 %p
-  = simple_form_for(@ecf, :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
-    Add supporting evidence. (Uploaded evidence will be visible to the student.)
-    %br
+  = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
+    + Add supporting evidence:
     = f.file_field :upload_medical_evidence, multiple: true, accept: 'application/pdf'
     %br
-    = f.button :submit, value: 'Submit evidence'
+    %i (Uploaded evidence will be visible to the student.)
+    = f.button :submit, value: 'Update evidence'
     
 %p
   %h4 Student notes
-  = simple_form_for(@ecf, :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
-    = link_to_add_nested(f, :ecf_notes, '#ecf-notes-student', partial: 'ecf_notes/ecf_note_student_fields', link_text: 'Add a Student note.')
+  = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
+    = link_to_add_nested(f, :ecf_notes, '#ecf-notes-student', partial: 'ecf_notes/ecf_note_student_fields') do
+      %button + Add a Student note 
 
     #ecf-notes-student
   
@@ -73,17 +88,19 @@ Not complete cause I'm bad at rails routing. Should just show fields but allow e
         %b Note: 
         = ecf_note.description
         %br
-          %i
+          %i.some{:style => "color:dimgrey"}
             %b Submitted by:
-            = ecf_note.user.givenname
-            = ecf_note.user.sn
+            = "#{ecf_note.user.givenname} #{ecf_note.user.sn}, "
             %b Note created at:
             = ecf_note.created_at
+            - if ecf_note.user_id == current_user.id
+              = link_to "Delete note", ecf_note_path(ecf_note), method: :delete
 
 %p
   %h4 Module leader notes
-  = simple_form_for(@ecf, :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
-    = link_to_add_nested(f, :ecf_notes, '#ecf-notes-module-leader', partial: 'ecf_notes/ecf_note_module_leader_fields', link_text: 'Add a Module Leader note.')
+  = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
+    = link_to_add_nested(f, :ecf_notes, '#ecf-notes-module-leader', partial: 'ecf_notes/ecf_note_module_leader_fields') do
+      %button + Add a Student note 
 
     #ecf-notes-module-leader
 
@@ -95,17 +112,19 @@ Not complete cause I'm bad at rails routing. Should just show fields but allow e
         %b Note: 
         = ecf_note.description
         %br
-          %i
+          %i.some{:style => "color:dimgrey"}
             %b Submitted by:
-            = ecf_note.user.givenname
-            = ecf_note.user.sn
+            = "#{ecf_note.user.givenname} #{ecf_note.user.sn}, "
             %b Note created at:
             = ecf_note.created_at
+            - if ecf_note.user_id == current_user.id
+              = link_to "Delete note", ecf_note_path(ecf_note), method: :delete
 
 %p
   %h4 Scrutiny panel notes
-  = simple_form_for(@ecf, :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
-    = link_to_add_nested(f, :ecf_notes, '#ecf-notes-scrutiny', partial: 'ecf_notes/ecf_note_scrutiny_fields', link_text: 'Add a Scrutiny Panel note.')
+  = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
+    = link_to_add_nested(f, :ecf_notes, '#ecf-notes-scrutiny', partial: 'ecf_notes/ecf_note_scrutiny_fields') do
+      %button + Add a Student note 
 
     #ecf-notes-scrutiny
 
@@ -117,17 +136,19 @@ Not complete cause I'm bad at rails routing. Should just show fields but allow e
         %b Note: 
         = ecf_note.description
         %br
-          %i
+          %i.some{:style => "color:dimgrey"}
             %b Submitted by:
-            = ecf_note.user.givenname
-            = ecf_note.user.sn
+            = "#{ecf_note.user.givenname} #{ecf_note.user.sn}, "
             %b Note created at:
             = ecf_note.created_at
+            - if ecf_note.user_id == current_user.id
+              = link_to "Delete note", ecf_note_path(ecf_note), method: :delete
 
 %p
   %h4 Scrutiny chair notes
-  = simple_form_for(@ecf, :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
-    = link_to_add_nested(f, :ecf_notes, '#ecf-notes-admin', partial: 'ecf_notes/ecf_note_admin_fields', link_text: 'Add a Scrutiny Chair note.')
+  = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
+    = link_to_add_nested(f, :ecf_notes, '#ecf-notes-admin', partial: 'ecf_notes/ecf_note_admin_fields') do
+      %button + Add a Student note 
 
     #ecf-notes-admin
 
@@ -139,9 +160,10 @@ Not complete cause I'm bad at rails routing. Should just show fields but allow e
         %b Note: 
         = ecf_note.description
         %br
-          %i
+          %i.some{:style => "color:dimgrey"}
             %b Submitted by:
-            = ecf_note.user.givenname
-            = ecf_note.user.sn
+            = "#{ecf_note.user.givenname} #{ecf_note.user.sn}, "
             %b Note created at:
             = ecf_note.created_at
+            - if ecf_note.user_id == current_user.id
+              = link_to "Delete note", ecf_note_path(ecf_note), method: :delete
