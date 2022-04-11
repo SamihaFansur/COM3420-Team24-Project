@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_05_195328) do
+ActiveRecord::Schema.define(version: 2022_04_11_215222) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,17 @@ ActiveRecord::Schema.define(version: 2022_04_05_195328) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "ecf_id"
     t.index ["ecf_id"], name: "index_affected_units_on_ecf_id"
+  end
+
+  create_table "decisions", force: :cascade do |t|
+    t.string "module_code"
+    t.integer "meeting_id"
+    t.integer "ecf_id"
+    t.string "requested_action"
+    t.string "outcome"
+    t.date "extended_to"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
