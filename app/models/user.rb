@@ -54,9 +54,14 @@ class User < ApplicationRecord
   before_create do
     # i've done .contains rather than our .split for obtaining the Student/Staff section,
     # because the user group might not always be in the same place in the dn hash
-    if self.dn.include? "ou=Students" and self.role == 0
+    puts self.dn
+    puts self.role
+    puts self.dn.include? "ou=Students" and self.role == 0
+    if self.dn.include? "ou=Students" and self.role == 0 then
       self.role = 1
+      puts self.role
     end
+    puts self.role
   end
   
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
