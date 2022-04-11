@@ -1,5 +1,6 @@
+
 .wrapper-div
-  = form.input :module_code, as: :string
-  = link_to_remove_nested(form, link_text: "Remove", fields_wrapper_selector: '.wrapper-div')
+  #module_code= form.input :module_code, as: :string
+  = link_to_remove_nested(form, link_text: "Remove", fields_wrapper_selector: '.wrapper-div', link_classes: 'btn btn-outline-danger')
 
 -# = unit_f.button :submit

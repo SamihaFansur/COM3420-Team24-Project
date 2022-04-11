@@ -165,7 +165,7 @@ h1, h2, h3, h4, h5,
 	&:focus, &:active {
 		outline: none !important;
 		box-shadow: none;
-		background: $primary;
+		background: #DCE2F1;
 		border-color: $primary;
 	}
 }
@@ -243,34 +243,7 @@ h1, h2, h3, h4, h5,
 }
 
 
-//BUTTON
-.btn {
-	cursor: pointer;
-	@include border-radius(100px);
-	box-shadow: none!important;
-	font-size: 20px;
-	&:hover, &:active, &:focus {
-		outline: none;
 
-
-	}
-	&.btn-primary {
-		background: rgb(95, 124, 202) !important;
-		border: 1px solid $primary !important;
-		color: $white !important;
-
-		&.btn-outline-primary {
-			border: 1px solid $primary;
-			background: transparent;
-			color :$primary;
-			&:hover {
-				border: 1px solid transparent;
-				background: $primary;
-				color :$white;
-			}
-		}
-	}
-}
 
 .btn_effect_swing{
 	&:hover {
@@ -427,3 +400,10 @@ header.masthead .bg-circle-4 {
 .btn-color{
 	color: white;
 }
+#remove_btn_class{
+	border: #29e7ff;
+	display: none;
+}
+
+//overwirte simple form input field
+

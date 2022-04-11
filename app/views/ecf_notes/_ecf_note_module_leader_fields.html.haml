@@ -9,6 +9,6 @@
   - else
     %p 
       %i Please remember notes submitted here will be visible to the scrutiny panel.
-  = form.button :submit, value: "Submit note"
-  = link_to_remove_nested(form, link_text: "Remove", fields_wrapper_selector: '.wrapper-div')
+  = form.button :submit, value: "Submit note", class: "btn btn-outline-primary btn-sm"
+  = link_to_remove_nested(form, link_text: "Remove", fields_wrapper_selector: '.wrapper-div',link_classes: "btn btn-outline-danger btn-sm ml-5")
 

@@ -1,3 +1,4 @@
+= javascript_pack_tag "staff_edit"
 %h1= "Edit ECF ##{@ecf.id}"
 
 %h4 Student Details
@@ -29,9 +30,9 @@
   %br
   = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
     = f.select :status, options_for_select(["Pending", "Complete"], @ecf.status)
-    = f.button :submit, value: 'Update status'
+    = f.button :submit, value: 'Update status',class: 'btn btn-outline-primary btn-sm ml-5'
     %br
-    %i Setting an ECF as 'complete' will remove it from the view of pending ECFs.
+    %div.alert.alert-dark.mt-3 Setting an ECF as 'complete' will remove it from the view of pending ECFs.
 
 %p
   %b Type(s) of Circumstances: 
@@ -70,8 +71,8 @@
   %b Supporting evidence:
   - @ecf.upload_medical_evidence.each do |medical_evidence|
     %br
-    = link_to medical_evidence.filename, medical_evidence, target: :_blank
-    = link_to "Delete attachment", purge_attachment_path(medical_evidence), method: :delete
+    #uploaded_file= link_to medical_evidence.filename, medical_evidence, target: :_blank
+    = link_to "Delete attachment", purge_attachment_path(medical_evidence), method: :delete,class: "btn btn-outline-danger btn-sm ml-5"
 
 %p
   = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
@@ -79,13 +80,13 @@
     = f.file_field :upload_medical_evidence, multiple: true, accept: 'application/pdf'
     %br
     %i (Uploaded evidence will be visible to the student.)
-    = f.button :submit, value: 'Update evidence'
-    
+    #update_evi_btn= f.button :submit, value: 'Update evidence',class: 'btn btn-outline-primary btn-sm '
+
 %p
   %h4 Student notes
-  = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
+  = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover " } }) do |f|
     = link_to_add_nested(f, :ecf_notes, '#ecf-notes-student', partial: 'ecf_notes/ecf_note_student_fields') do
-      %button + Add a Student note 
+      %button + Add a Student note
 
     #ecf-notes-student
   
@@ -108,8 +109,8 @@
 %p
   %h4 Module leader notes
   = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
-    = link_to_add_nested(f, :ecf_notes, '#ecf-notes-module-leader', partial: 'ecf_notes/ecf_note_module_leader_fields') do
-      %button + Add a Student note 
+    = link_to_add_nested(f, :ecf_notes, '#ecf-notes-module-leader', partial: 'ecf_notes/ecf_note_module_leader_fields',link_classes: "mt-5") do
+      %button + Add a Student note
 
     #ecf-notes-module-leader
 
@@ -133,7 +134,7 @@
   %h4 Scrutiny panel notes
   = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
     = link_to_add_nested(f, :ecf_notes, '#ecf-notes-scrutiny', partial: 'ecf_notes/ecf_note_scrutiny_fields') do
-      %button + Add a Student note 
+      %button + Add a Student note
 
     #ecf-notes-scrutiny
 
@@ -157,7 +158,7 @@
   %h4 Scrutiny chair notes
   = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
     = link_to_add_nested(f, :ecf_notes, '#ecf-notes-admin', partial: 'ecf_notes/ecf_note_admin_fields') do
-      %button + Add a Student note 
+      %button#add_note + Add a Student note
 
     #ecf-notes-admin
 
@@ -175,4 +176,4 @@
             %b Note created at:
             = ecf_note.created_at
             - if ecf_note.user_id == current_user.id
-              = link_to "Delete note", ecf_note_path(ecf_note), method: :delete
+              = link_to "Delete note", ecf_note_path(ecf_note), method: :delete, class: "btn btn-outline-danger btn-sm"
