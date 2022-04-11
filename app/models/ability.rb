@@ -5,9 +5,14 @@ class Ability
 
   def initialize(user)
 
-    #user ||= User.new
+    user ||= User.new
     #cannot :manage, all
-
+    # if user.guest?
+    #   cannot :manage, Ecf
+    #   #cannot :manage, Search
+    #   cannot :manage, Meeting
+    #   cannot :manage, User
+    # end
 
     if user.student?
       can :manage, Ecf
@@ -31,10 +36,7 @@ class Ability
     end
 
     if user.admin?
-      can :manage, Ecf
-      #can :manage, Search
-      can :manage, Meeting
-      can :manage, User
+      can :manage, :all
     end
 
     # Define abilities for the passed in user here. For example:
