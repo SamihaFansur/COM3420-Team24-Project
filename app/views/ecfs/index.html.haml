@@ -16,8 +16,7 @@
       .container.animate__animated.animate__fadeIn
         .row.justify-content-center
           .col-md-6.text-center.mb-5
-            %h2.heading-section Listing ecfs
-            %a.btn.btn-primary{:href => new_ecf_path} Create New ECF
+            %h2.heading-section Listing ECFs
         .row.justify-content-center
           .ecf-preview
             .row
@@ -26,49 +25,41 @@
                   There are
                   %span#num1 #{@ecfs.size}
                   ecfs.
-              -# .col
-              -#   %p.txt-centre#col2
-              -#     There are
-              -#     %span#num2 #{@users.size}
-              -#     users.
 
+              = search_form_for @q do |f|
+                = f.label "Ecf status"
+                = f.search_field :status_cont
+                
+                = f.label "Student Name"
+                = f.search_field :user_givenname_or_user_sn_cont
 
+                = f.label "Student Email"
+                = f.search_field :user_email_cont
+          
+                = f.submit "Search"
 
             %table.table
-              %thead
-                %tr
-                  %th{:scope => "col"} Username
-                  %th{:scope => "col"} Email
-                  %th{:scope => "col"} First_Name
-                  %th{:scope => "col"} Last_Name
-                  %th{:scope => "col"} Department
-                  %th{:scope => "col"} Role
-              %tbody
-                %tr
-                  %td= @user.uid
-                  %td= @user.mail
-                  %td= @user.givenname
-                  %td= @user.sn
-                  %td= @user.ou
-                  %td= ((@user.dn).split( /, */ )[2]).chars.last((((@user.dn).split( /, */ )[2]).length)-3).join
             -if @ecfs.empty?
-              %p.alert.alert-primary There is no current ECFs !
+              %p.alert.alert-primary There are no current ECFs !
             -else
               %table.table
                 %thead
                   %tr
                     %th{:scope => "col"} Status
-                    %th{:scope => "col"} Date
-                    %th{:scope => "col"} Start
-                    %th{:scope => "col"} End
+                    %th{:scope => "col"} Date Submitted
+                    %th{:scope => "col"} Student Full Name
+                    %th{:scope => "col"} Student Email
+                    %th{:scope => "col"} Student Username
+                    %th{:scope => "col"} Student Department
                 %tbody
                   - @ecfs.each do |ecf|
                     %tr
                       %td= ecf.status
                       %td= ecf.date
-                      %td= ecf.start_of_circumstances
-                      %td= ecf.end_of_circumstances
-                      %td= ecf.details
+                      %td #{ecf.user.givenname} #{ecf.user.sn}
+                      %td= ecf.user.mail
+                      %td= ecf.user.uid
+                      %td= ecf.user.ou
                       %td= link_to 'Show', ecf
                       %td= link_to 'Edit', edit_ecf_path(ecf)
 

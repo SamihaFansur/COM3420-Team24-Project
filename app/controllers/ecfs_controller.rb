@@ -2,10 +2,18 @@ class EcfsController < ApplicationController
   load_and_authorize_resource
   before_action :set_ecf, only:  [:show, :edit, :update, :destroy, :update_persist]
 
-  # GET /ecfs
+  # # GET /ecfs
+  # def index
+  #   @ecfs = Ecf.all
+  #   @user = current_user
+  # end
+
   def index
-    @ecfs = Ecf.all
-    @user = current_user
+    @q = Ecf.ransack(params[:q])
+    @ecfs = @q.result
+    # search_params(params).each do |key, value|
+    #   @ecfs = @ecf.public_send("filter_by_#{key}", value) if value.present?
+    # end
   end
 
   # GET /ecfs/1
@@ -54,6 +62,10 @@ class EcfsController < ApplicationController
   end
 
   private
+    # def search_params(params)
+    #   params.slice(:status, :user_uid)
+    # end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_ecf
       @ecf = Ecf.find(params[:id])
