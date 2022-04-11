@@ -81,7 +81,7 @@ class EcfsController < ApplicationController
       params
         #review tagged changes; taken from guide
         .require(:ecf)
-        .permit(:user_id, :date, :status, :is_bereavement, :is_deterioration_of_disability, :is_frequent_absence, :is_ongoing, :is_other_exceptional_factors, :is_serious_short_term, :is_significant_adverse_personal, :details, :start_of_circumstances, :end_of_circumstances, :is_ongoing, upload_medical_evidence: [], 
+        .permit(:user_id, :date, :status, :is_bereavement, :is_deterioration_of_disability, :is_frequent_absence, :is_ongoing, :is_other_exceptional_factors, :is_serious_short_term, :is_significant_adverse_personal, :details, :start_of_circumstances, :end_of_circumstances, :is_ongoing,:highly_sensitive, upload_medical_evidence: [], 
           affected_units_attributes: [:id, :affected_units, :assessment_type, :date_from, :date_to, :requested_action, :unit_code, :_destroy],
           ecf_notes_attributes: [:id, :description, :role, :ecf_notes, :user_id, :_destroy])
     end
