@@ -4,6 +4,7 @@
   %thead
     %tr
       %th Title
+      %th ID
       %th Time
       %th Attendees
       %th
@@ -16,6 +17,7 @@
     - @meetings.each do |meeting|
       %tr
         %td= meeting.title
+        %td= meeting.id
         %td= meeting.time
         %td= meeting.attendees
         %td= link_to 'Show', meeting
