@@ -26,22 +26,30 @@
                   %span#num1 #{@ecfs.size}
                   ecfs.
 
-              = search_form_for @q do |f|
-                = f.label "Ecf status"
-                = f.search_field :status_cont
-                
-                = f.label "Student Name"
-                = f.search_field :user_givenname_or_user_sn_cont
 
-                = f.label "Student Email"
-                = f.search_field :user_email_cont
-          
-                = f.submit "Search"
 
-            %a.btn.btn-primary{:href => new_ecf_path} Create New ECF
+              .container
+                = search_form_for @q do |f|
+                  .row
+                    .col-sm
+                      = f.label "Ecf status"
+                      = f.search_field :status_cont
+                    .col-sm
+                      = f.label "First / Last name"
+                      = f.search_field :user_givenname_or_user_sn_cont
+                    .col-sm
+                      = f.label "Student Email"
+                      = f.search_field :user_email_cont
+                    .col-sm
+                      = f.submit "Search"
+
+
+            .row.justify-content-center
+              .col-md-6.text-center.mb-2.mt-4
+                %button.btn.btn-outline-primary.btn-sm{:href => new_ecf_path} Create New ECF
             %table.table
             -if @ecfs.empty?
-              %p.alert.alert-primary There are no current ECFs !
+              %p.alert.alert-primary No result found ! please check your search criteria.
             -else
               %table.table
                 %thead
