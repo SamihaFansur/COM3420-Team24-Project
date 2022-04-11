@@ -30,7 +30,7 @@
                 = f.label "Ecf status"
                 = f.search_field :status_cont
                 
-                = f.label "Student Name"
+                = f.label "First / Last name"
                 = f.search_field :user_givenname_or_user_sn_cont
 
                 = f.label "Student Email"
@@ -40,7 +40,8 @@
 
             %table.table
             -if @ecfs.empty?
-              %p.alert.alert-primary There are no current ECFs !
+              %p.alert.alert-primary no result found! please check your search criteria.
+
             -else
               %table.table
                 %thead
