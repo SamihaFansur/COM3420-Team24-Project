@@ -17,7 +17,7 @@ describe "meeting" do
     #log in as a user
     it "fills out and submits meetings " do
         visit"/users/sign_in"
-        login_as(FactoryBot.create(:student))
+        login_as(FactoryBot.create(:admin))
         visit"/meetings"
         click_link "New Meeting"
         fill_in "Title", with: "1"
@@ -33,7 +33,7 @@ describe "meeting" do
     #log in as a user
     it "fills out and submits meetings then updates it" do
         visit"/users/sign_in"
-        login_as(FactoryBot.create(:student))
+        login_as(FactoryBot.create(:admin))
         visit"/meetings"
         click_link "New Meeting"
         fill_in "Title", with: "1"
@@ -54,7 +54,7 @@ describe "meeting" do
     #log in as a user
     it "fills out and submits meetings then updates it" do
         visit"/users/sign_in"
-        login_as(FactoryBot.create(:student))
+        login_as(FactoryBot.create(:admin))
         visit"/meetings"
         click_link "New Meeting"
         fill_in "Title", with: "1"
