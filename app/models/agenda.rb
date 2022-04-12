@@ -12,4 +12,6 @@ class Agenda < ApplicationRecord
   # 'Agenda' - relates meetings to ECFs. ECFs on a meeting's agenda will be visible in that meeting.
   belongs_to :ecf
   belongs_to :meeting
+
+  validates_uniqueness_of :ecf_id, scope: [:meeting_id]
 end

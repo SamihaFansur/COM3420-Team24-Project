@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   mount EpiCas::Engine, at: "/"
 
   resources :ecf_notes
+  resources :agendas
   
   resources :ecfs do
     member do

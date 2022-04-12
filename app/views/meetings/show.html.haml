@@ -11,13 +11,34 @@
   %b Attendees:
   = @meeting.attendees
 
-- @ecfs.each do |ecf|
-  %p
-    %b ECF id:
-    = ecf.id
-  %p
-    %b ECF details:
-    = ecf.details  
+%p
+  ECFs on the agenda are listed below. To import an ECF into this meeting, please select 'Add to meeting' for an ECF at the following page:
+  = link_to 'List ECFs', ecfs_path(meeting_id: @meeting.id)
+
+%table.table
+  %thead
+    %tr
+      %th{:scope => "col"} Status
+      %th{:scope => "col"} Date Submitted
+      %th{:scope => "col"} Full Name
+      %th{:scope => "col"} Email
+      %th{:scope => "col"} Username
+      %th{:scope => "col"} Department
+      %th{:scope => "col"} Panel notes
+      %th{:scope => "col"} Outcomes
+  %tbody
+    - @ecfs.each do |ecf|
+      %tr
+        %td= ecf.status
+        %td= ecf.date
+        %td #{ecf.user.givenname} #{ecf.user.sn}
+        %td= ecf.user.mail
+        %td= ecf.user.uid
+        %td= ecf.user.ou
+        %td
+        %td
+        %td= link_to 'Show', ecf
+        %td= link_to 'Edit', edit_ecf_path(ecf)
 
 = link_to 'Edit', edit_meeting_path(@meeting)
 \|
