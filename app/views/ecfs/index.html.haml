@@ -50,8 +50,7 @@
               .col-md-6.text-center.mb-2.mt-4
                 %br
 
-                = link_to 'Create New ECF', new_ecf_path, :class => 'btn btn-primary'
-                -# %button.btn.btn-outline-primary.btn-sm{:href => new_ecfs_path} Create New ECF
+                %a.button.btn.btn-outline-primary.btn-sm{:href => new_ecfs_path} Create New ECF
             %table.table
             -if @ecfs.empty?
               %p.alert.alert-primary No result found ! please check your search criteria.

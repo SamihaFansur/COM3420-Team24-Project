@@ -24,7 +24,7 @@
             - if current_user.nil? # show only when user is not logged in
               %li.btn_effect_swing
                 = link_to 'LOGIN', ecfs_path, title: 'Go to the login page', class: 'nav-link-2'
-            - if can? :sumbit, Ecf
+            - if can? :submit, Ecf
               %li.btn_effect_swing
                 = link_to 'MY ECFS', ecfs_path, title: 'Go to the ECFs page', class: 'nav-link-2'
             - if can? :search, Ecf
