@@ -16,7 +16,7 @@ class Ability
     if user.student?
       can [:read, :new, :create, :update_persist, :edit, :submit], Ecf
       cannot :manage, Meeting
-      can :manage, User
+      cannot :manage, User
     end
 
     if user.module_leader?
