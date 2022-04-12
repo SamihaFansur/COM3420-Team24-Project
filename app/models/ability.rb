@@ -6,31 +6,27 @@ class Ability
   def initialize(user)
 
     user ||= User.new
-    #cannot :manage, all
+
     # if user.guest?
     #   cannot :manage, Ecf
-    #   #cannot :manage, Search
     #   cannot :manage, Meeting
     #   cannot :manage, User
     # end
 
     if user.student?
-      can :manage, Ecf
-      #cannot :manage, Search
+      can [:read, :update, :edit, :sumbit], Ecf
       cannot :manage, Meeting
       cannot :manage, User
     end
 
     if user.module_leader?
-      can [:read, :update, :edit], Ecf
-      #can :manage, Search
+      can [:read, :edit, :search], Ecf
       cannot :manage, Meeting
       cannot :manage, User
     end
 
     if user.scrutiny?
-      can [:read, :update, :edit], Ecf
-      #can :manage, Search
+      can [:read, :update, :edit, :search], Ecf
       can :manage, Meeting
       cannot :manage, User
     end
