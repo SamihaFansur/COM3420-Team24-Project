@@ -11,6 +11,14 @@
   %b Attendees:
   = @meeting.attendees
 
+- @ecfs.each do |ecf|
+  %p
+    %b ECF id:
+    = ecf.id
+  %p
+    %b ECF details:
+    = ecf.details  
+
 = link_to 'Edit', edit_meeting_path(@meeting)
 \|
 = link_to 'Back', meetings_path

@@ -9,6 +9,7 @@ class MeetingsController < ApplicationController
 
   # GET /meetings/1
   def show
+    @ecfs = @meeting.ecfs
   end
 
   # GET /meetings/new

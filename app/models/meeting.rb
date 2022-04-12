@@ -11,4 +11,7 @@
 #
 class Meeting < ApplicationRecord
   has_many :decisions
+
+  has_many :agendas
+  has_many :ecfs, through: :agendas
 end
