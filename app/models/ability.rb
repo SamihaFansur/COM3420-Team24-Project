@@ -33,6 +33,7 @@ class Ability
 
     if user.admin?
       can :manage, :all
+      cannot [:submit], Ecf
     end
 
     # Define abilities for the passed in user here. For example:
