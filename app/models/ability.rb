@@ -14,19 +14,19 @@ class Ability
     # end
 
     if user.student?
-      can [:read, :new, :create, :update, :edit, :submit], Ecf
+      can [:read, :new, :create, :update_persist, :edit, :submit], Ecf
       cannot :manage, Meeting
-      cannot :manage, User
+      can :manage, User
     end
 
     if user.module_leader?
-      can [:read, :edit, :search], Ecf
+      can [:read, :edit, :update_persist, :search], Ecf
       cannot :manage, Meeting
-      cannot :manage, User
+      can :manage, User
     end
 
     if user.scrutiny?
-      can [:read, :update, :edit, :search], Ecf
+      can [:read, :update_persist, :edit, :search], Ecf
       can :manage, Meeting
       cannot :manage, User
     end
