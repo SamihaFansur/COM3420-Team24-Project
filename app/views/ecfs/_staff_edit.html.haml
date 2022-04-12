@@ -21,6 +21,12 @@
 
 %h4 ECF Details
 %p
+  %b Add this ECF to a meeting:
+  = simple_form_for(:agenda, :url => agendas_path, :method => :post) do |f|
+    = f.input :ecf_id, as: :hidden, input_html: {value: @ecf.id}
+    = f.input :meeting_id, label: "Meeting ID: "
+    = f.button :submit, value: "Add to meeting", class: 'btn btn-outline-primary btn-sm ml-5'
+%p
   %b ECF ID:
   %br
   = @ecf.id
