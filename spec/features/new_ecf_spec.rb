@@ -25,6 +25,6 @@ describe "ecf" do
         fill_in "Assessment type", with: "Exam"
         select "DEX - Deadline Extension", from: "Requested action ", visible: false
         click_button "Create Ecf"
-        expect(page).to have_content "Example User2"
+        expect(page).to have_content "arb20eg"
     end
 end

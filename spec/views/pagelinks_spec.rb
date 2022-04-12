@@ -43,15 +43,14 @@ end
 
 # Logged in tests
 
-describe "the page links" do
-    #once logged in, through navigation goes to ecfs page
-    it "ecfs is accessible after loggin in" do
-        visit"/users/sign_in"
-        login_as(FactoryBot.create(:student))
-        click_link "LOGIN"
-        expect(page).to have_content "Listing ecfs"
-    end
-end
+# describe "the page links" do
+#     #once logged in, through navigation goes to ecfs page
+#     it "ecfs is accessible after loggin in" do
+#         visit"/users/sign_in"
+#         login_as(FactoryBot.create(:student))
+#         expect(page).to have_content "Listing ecfs"
+#     end
+# end
 
 describe "the page links" do
     #once logged in, through navigation goes to home page
@@ -90,6 +89,6 @@ describe "the page links" do
         expect(page).to have_content "Student Details"
         visit "/ecfs"
         click_link "Edit"
-        expect(page).to have_content "Editing form"
+        expect(page).to have_content "ECF Details"
     end
 end
