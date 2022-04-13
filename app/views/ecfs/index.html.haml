@@ -27,53 +27,53 @@
                   There are
                   %span#num1 #{@ecfs.size}
                   ecfs.
-
-
-              - if can? :search, Ecf
-                .container
-                  = search_form_for @q do |f|
-                    .row
-                      .col-sm
-                        = f.label "Ecf status"
-                        = f.search_field :status_cont
-                      .col-sm
-                        = f.label "First / Last name"
-                        = f.search_field :user_givenname_or_user_sn_cont
-                      .col-sm
-                        = f.label "Student Email"
-                        = f.search_field :user_email_cont
-                      .col-sm
-                        = f.submit "Search"
-
-
-            .row.justify-content-center
-              .col-md-6.text-center.mb-2.mt-4
+            .row.justify-content-center.mb-5
+              .col-md-6.text-center
                 %br
-
                 %a.button.btn.btn-outline-primary.btn-sm{:href => new_ecfs_path} Create New ECF
-            %table.table
-            -if @ecfs.empty?
-              %p.alert.alert-primary No result found ! please check your search criteria.
-            -else
-              %table.table
-                %thead
-                  %tr
-                    %th{:scope => "col"} Status
-                    %th{:scope => "col"} Date Submitted
-                    %th{:scope => "col"} Student Full Name
-                    %th{:scope => "col"} Student Email
-                    %th{:scope => "col"} Student Username
-                    %th{:scope => "col"} Student Department
-                %tbody
-                  - @ecfs.each do |ecf|
+
+            - if can? :search, Ecf
+              %table.table.table-sm.table-bordered.mb-4
+                %thead.thead-light
+                  = search_form_for @q do |f|
                     %tr
-                      %td= ecf.status
-                      %td= ecf.date
-                      %td #{ecf.user.givenname} #{ecf.user.sn}
-                      %td= ecf.user.mail
-                      %td= ecf.user.uid
-                      %td= ecf.user.ou
-                      %td= link_to 'Show', ecf
-                      %td= link_to 'Edit', edit_ecf_path(ecf)
+                      %th{:scope => "col"}= f.label "Ecf status"
+                      %th{:scope => "col"}= f.label "First / Last name"
+                      %th{:scope => "col"}= f.label "Student Email"
+                      %th{:scope => "col"} Run Search
+
+                    %tbody
+                      = search_form_for @q do |f|
+                        %tr
+                          %th= f.search_field :status_cont
+                          %td= f.search_field :user_givenname_or_user_sn_cont
+                          %td= f.search_field :user_email_cont
+                          %td= f.submit "Search"
+
+
+                %table.table
+                -if @ecfs.empty?
+                  %p.alert.alert-primary No result found ! please check your search criteria.
+                -else
+                  %table.table
+                    %thead
+                      %tr
+                        %th{:scope => "col"} Status
+                        %th{:scope => "col"} Date Submitted
+                        %th{:scope => "col"} Student Full Name
+                        %th{:scope => "col"} Student Email
+                        %th{:scope => "col"} Student Username
+                        %th{:scope => "col"} Student Department
+                    %tbody
+                      - @ecfs.each do |ecf|
+                        %tr
+                          %td= ecf.status
+                          %td= ecf.date
+                          %td #{ecf.user.givenname} #{ecf.user.sn}
+                          %td= ecf.user.mail
+                          %td= ecf.user.uid
+                          %td= ecf.user.ou
+                          %td= link_to 'Show', ecf
+                          %td= link_to 'Edit', edit_ecf_path(ecf)
 
 
