@@ -41,32 +41,23 @@ describe "the page links" do
 end
 
 
-# Logged in tests
-
-# describe "the page links" do
-#     #once logged in, through navigation goes to ecfs page
-#     it "ecfs is accessible after loggin in" do
-#         visit"/users/sign_in"
-#         login_as(FactoryBot.create(:student))
-#         expect(page).to have_content "Listing ecfs"
-#     end
-# end
+#Logged in as Student
 
 describe "the page links" do
-    #once logged in, through navigation goes to home page
+
     it "home is accessible after loggin in" do
         visit"/users/sign_in"
-        login_as(FactoryBot.create(:student))
+        login_as(FactoryBot.create(:student2))
         click_link "HOME"
         expect(page).to have_content "Extenuating Circumstances Form"
     end
 end
 
 describe "the page links" do
-    #once logged in, through navigation goes to new ecf page
+
     it "new ecf is accessible after logging in" do
         visit"/users/sign_in"
-        login_as(FactoryBot.create(:student))
+        login_as(FactoryBot.create(:student2))
         click_link "LOGIN"
         click_link "Create New ECF"
         expect(page).to have_content "Start of circumstances"
@@ -74,10 +65,21 @@ describe "the page links" do
 end
 
 describe "the page links" do
-    #once logged in, through navigation goes view exisiting ecf
+
+    it "new ecf is accessible after logging in" do
+        visit"/users/sign_in"
+        login_as(FactoryBot.create(:student2))
+        visit "/ecfs"
+        click_link "MY ECFS"
+        expect(page).to have_content "Listing ECFs"
+    end
+end
+
+describe "the page links" do
+
     it "show ecf accessible after making new ecf" do
         visit"/users/sign_in"
-        login_as(FactoryBot.create(:student))
+        login_as(FactoryBot.create(:student2))
         click_link "LOGIN"
         click_link "Create New ECF"
         fill_in "Details", with: "Details about ecf"
@@ -90,5 +92,82 @@ describe "the page links" do
         visit "/ecfs"
         click_link "Edit"
         expect(page).to have_content "ECF Details"
+    end
+end
+
+
+#Logged in as Module Leader
+
+describe "the page links" do
+
+    it "login as module leader" do
+        visit"/users/sign_in"
+        login_as(FactoryBot.create(:module_leader))
+        visit"/ecfs"
+        expect(page).to have_content "Listing ECFs"
+    end
+end
+
+describe "the page links" do
+    it "login as module leader + visit home page " do
+        visit"/users/sign_in"
+        login_as(FactoryBot.create(:module_leader))
+        visit"/ecfs"
+        click_link "HOME"
+        expect(page).to have_content "Overview"
+    end
+end
+
+describe "the page links" do
+    it "login as module leader + visit SHOW ecfs page " do
+        visit"/users/sign_in"
+        login_as(FactoryBot.create(:module_leader))
+        visit"/ecfs"
+        click_link "SHOW ECFS"
+        expect(page).to have_content "Listing ECFs"
+    end
+end
+
+describe "the page links" do
+    it "module leader try to create ecf" do
+        visit"/users/sign_in"
+        login_as(FactoryBot.create(:module_leader))
+        visit"/ecfs"
+        click_link "SHOW ECFS"
+        click_link "Create New ECF"
+        expect(page).to have_content "Access Denied"
+    end
+end
+
+
+describe "the page links" do
+    it "login as module leader + visit users page " do
+        visit"/users/sign_in"
+        login_as(FactoryBot.create(:module_leader))
+        visit"/ecfs"
+        click_link "USERS"
+        expect(page).to have_content "Listing users"
+    end
+end
+
+describe "the page links" do
+    it "visit new user as module leader " do
+        visit"/users/sign_in"
+        login_as(FactoryBot.create(:module_leader))
+        visit"/ecfs"
+        click_link "USERS"
+        click_link "New User"
+        expect(page).to have_content "Creating new user"
+    end
+end
+
+describe "the page links" do
+    it "visit csv upload as module leader " do
+        visit"/users/sign_in"
+        login_as(FactoryBot.create(:module_leader))
+        visit"/ecfs"
+        click_link "USERS"
+        click_link "CSV Upload"
+        expect(page).to have_content "File"
     end
 end

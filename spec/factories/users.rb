@@ -33,26 +33,37 @@
 #
 FactoryBot.define do
   factory :user do
-      uid { "arb20eg" }
+     
       mail { "test@test.com" }
       givenname { "test" }
       sn { "test "}
       ou { "Undergraduates" }
 
     factory :student do
+      uid { "arb20eg" }
+      dn {"uid=aca20sf,ou=Undergraduates,ou=Students,ou=Users,dc=sheffield,dc=ac,dc=uk"}
+      role {1}
+
+    end
+    #second student login for tests
+    factory :student2 do
+      uid { "aca20sf" }
       dn {"uid=aca20sf,ou=Undergraduates,ou=Students,ou=Users,dc=sheffield,dc=ac,dc=uk"}
       role {1}
 
     end
     factory :module_leader do
+      uid { "arb20eg" }
       dn {"uid=aca20sf,ou=Undergraduates,ou=Staff,ou=Users,dc=sheffield,dc=ac,dc=uk"}
       role {2}
     end
     factory :scrutiny_panel do
+      uid { "arb20eg" }
       dn {"uid=aca20sf,ou=Undergraduates,ou=Staff,ou=Users,dc=sheffield,dc=ac,dc=uk"}
       role {3}
     end
     factory :admin do
+      uid { "arb20eg" }
       dn {"uid=aca20sf,ou=Undergraduates,ou=Staff,ou=Users,dc=sheffield,dc=ac,dc=uk"}
       role {4}
 
