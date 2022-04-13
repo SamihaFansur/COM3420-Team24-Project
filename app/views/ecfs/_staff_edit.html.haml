@@ -89,6 +89,33 @@
     #update_evi_btn= f.button :submit, value: 'Update evidence',class: 'btn btn-outline-primary btn-sm '
 
 %p
+  %h4 Requested Actions
+  - @ecf.affected_units.each do |affected_unit|
+    %p
+      %b Assessment type:
+      = affected_unit.assessment_type
+      %b Unit code:
+      = affected_unit.unit_code
+      %b Requested action:
+      = affected_unit.requested_action
+
+%p
+  %h4 Outcomes:
+  - @ecf.agendas.each do |agenda|
+    %p
+      %b= "Decisions for #{agenda.meeting.title} [Meeting # #{agenda.meeting.id}, #{agenda.meeting.time}]:"
+      %br
+      - if agenda.decisions.empty?
+        %i There are currently no decisions for this meeting.
+      - else
+        - agenda.decisions.each do |decision|
+          %b= decision.module_code
+          = decision.assessment_type
+          %b{ style: 'color: dodgerblue;'}= decision.requested_action
+          = ": #{decision.outcome}"
+          %br
+
+%p
   %h4 Student notes
   = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover " } }) do |f|
     = link_to_add_nested(f, :ecf_notes, '#ecf-notes-student', partial: 'ecf_notes/ecf_note_student_fields') do
