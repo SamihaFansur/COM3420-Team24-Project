@@ -1,13 +1,16 @@
-= form_with url:"/users/ldap_user" do |f|
+%p.alert.alert-info.mb-5 If you wish to assign modules to this new user, please find the user in index and edit.
+.container
+  .row.justify-content-center
+    .col-md-6.col-lg-4
+      .login-wrap.py-5
+        = form_with url:"/users/ldap_user" do |f|
+          -#= f.error_notification
+          %h4.mb-3 Email :
+          .input-group.mb-3.mt-4
+            = f.text_field  :email, as: :string ,class: "form-control", placeholder: "example@sheffield.ac.uk"
 
-  -#= f.error_notification
+          %h4.mb-3 Role :
+          = f.select :role, options_for_select(User.roles.map {|key, value| [key.humanize, key]})
 
-  %p Creating new user
-  %p If you wish to assign modules to this new user, please find the user in index and edit.
-
-  = f.text_field  :email, as: :string
-  %p Role: 
-  = f.select :role, options_for_select(User.roles.map {|key, value| [key.humanize, key]})
-
-  .form-actions
-    = f.button :submit
+          .form-actions.mt-4.text-center
+            = f.button :submit, class: "btn btn-outline-primary btn-sm"
