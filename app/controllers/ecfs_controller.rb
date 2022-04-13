@@ -9,8 +9,12 @@ class EcfsController < ApplicationController
   # end
 
   def index
-    @q = Ecf.ransack(params[:q])
-    @ecfs = @q.result
+    if current_user.student?
+      @ecfs = current_user.ecfs
+    else
+      @q = Ecf.ransack(params[:q])
+      @ecfs = @q.result
+    end
   end
 
   # GET /ecfs/1
