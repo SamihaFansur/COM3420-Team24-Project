@@ -13,5 +13,7 @@ class Agenda < ApplicationRecord
   belongs_to :ecf
   belongs_to :meeting
 
+  has_many :decisions
+
   validates_uniqueness_of :ecf_id, scope: [:meeting_id]
 end

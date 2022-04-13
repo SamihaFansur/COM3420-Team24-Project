@@ -27,18 +27,24 @@
       %th{:scope => "col"} Panel notes
       %th{:scope => "col"} Outcomes
   %tbody
-    - @ecfs.each do |ecf|
+    - @agendas.each do |agenda|
       %tr
-        %td= ecf.status
-        %td= ecf.date
-        %td #{ecf.user.givenname} #{ecf.user.sn}
-        %td= ecf.user.mail
-        %td= ecf.user.uid
-        %td= ecf.user.ou
+        %td= agenda.ecf.status
+        %td= agenda.ecf.date
+        %td #{agenda.ecf.user.givenname} #{agenda.ecf.user.sn}
+        %td= agenda.ecf.user.mail
+        %td= agenda.ecf.user.uid
+        %td= agenda.ecf.user.ou
         %td
         %td
-        %td= link_to 'Show', ecf
-        %td= link_to 'Edit', edit_ecf_path(ecf)
+          - agenda.decisions.each do |decision|
+            %b= decision.module_code
+            = decision.assessment_type
+            %b{ style: 'color: dodgerblue;'}= decision.requested_action
+            = ": #{decision.outcome}"
+            %br
+        %td= link_to 'Show', agenda.ecf
+        %td= link_to 'Edit', edit_ecf_path(agenda.ecf)
 
 = link_to 'Edit', edit_meeting_path(@meeting)
 \|

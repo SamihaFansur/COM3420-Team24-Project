@@ -10,6 +10,7 @@ class MeetingsController < ApplicationController
   # GET /meetings/1
   def show
     @ecfs = @meeting.ecfs
+    @agendas = @meeting.agendas
   end
 
   # GET /meetings/new
