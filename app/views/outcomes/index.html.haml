@@ -1,0 +1,25 @@
+%h1 Listing outcomes
+
+%table
+  %thead
+    %tr
+      %th Name
+      %th Short name
+      %th Description
+      %th
+      %th
+      %th
+
+  %tbody
+    - @outcomes.each do |outcome|
+      %tr
+        %td= outcome.name
+        %td= outcome.short_name
+        %td= outcome.description
+        %td= link_to 'Show', outcome
+        %td= link_to 'Edit', edit_outcome_path(outcome)
+        %td= link_to 'Destroy', outcome, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Outcome', new_outcome_path
