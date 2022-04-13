@@ -102,6 +102,11 @@
 %p
   %h4 Outcomes:
   - @ecf.agendas.each do |agenda|
+    = simple_form_for(agenda) do |f|
+      = link_to_add_nested(f, :decisions, '#decisions', partial: 'decisions/decisions_fields')
+      #decisions
+      = f.button :submit, value: "Add decisions to meeting", class: 'btn btn-outline-primary btn-sm ml-5'
+
     %p
       %b= "Decisions for #{agenda.meeting.title} [Meeting # #{agenda.meeting.id}, #{agenda.meeting.time}]:"
       %br

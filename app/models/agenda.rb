@@ -15,5 +15,7 @@ class Agenda < ApplicationRecord
 
   has_many :decisions
 
+  accepts_nested_attributes_for :decisions, allow_destroy: true
+
   validates_uniqueness_of :ecf_id, scope: [:meeting_id]
 end
