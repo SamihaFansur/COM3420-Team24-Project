@@ -28,6 +28,18 @@ window.onload = function(){
             return;
         }
     }
+    function handleClickBtn(e){
+        console.log(e);
+        e.preventDefault();
+    }
+    const upload_btn = document.getElementById("update_evi_btn"); // check upload file type validation
+    upload_btn.onclick = function(e){
+        var file_number = document.getElementById("ecf_upload_medical_evidence").files.length;
+        if(file_number == 0){
+            handleClickBtn(e); //prevent error page
+            alert("please select a file");
+        }}
+
 
 
 
