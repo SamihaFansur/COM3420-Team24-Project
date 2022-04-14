@@ -1,0 +1,14 @@
+!!!
+%html
+  %head
+    %meta{ name: "viewport", content: "width=device-width, initial-scale=1.0" }
+    %meta{ :'http-equiv' => 'X-UA-Compatible', content: 'IE=edge' }
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "content-type"}
+    = wicked_pdf_stylesheet_link_tag "pdf"
+    = wicked_pdf_javascript_include_tag "number_pages"
+  %head
+  %body{:onload => "number_pages"}
+    #id_header
+      = wicked_pdf_image_tag 'mysite.jpg'
+    #id_content
+      = yield 

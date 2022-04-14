@@ -11,6 +11,13 @@ class MeetingsController < ApplicationController
   def show
     @ecfs = @meeting.ecfs
     @agendas = @meeting.agendas
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render template: "meetings/meeting_pdf.html.haml",
+          pdf: "Meeting ID: #{@meeting.id} "
+      end
+    end
   end
 
   # GET /meetings/new
