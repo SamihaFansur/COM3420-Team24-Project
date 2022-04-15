@@ -21,7 +21,7 @@
             =image_tag("pear.png")
             %li.btn_effect_swing
               = link_to 'HOME', root_path, title: 'Go to the home page', class: 'nav-link-2'
-            - if current_user.nil? # show only when user is not logged in
+            - if !user_signed_in? # show only when user is not logged in
               %li.btn_effect_swing
                 = link_to 'LOGIN', ecfs_path, title: 'Go to the login page', class: 'nav-link-2'
             - if can? :submit, Ecf
@@ -36,7 +36,7 @@
             - if can? :manage, User
               %li.btn_effect_swing
                 = link_to 'USERS', users_path, title: 'Go to the user page', class: 'nav-link-2'
- 
+
           %form.col-12.col-lg-auto.mb-3.mb-lg-0.me-lg-3
           .dropdown.text-end
             %a#dropdownUser1.d-block.link-dark.text-decoration-none.dropdown-toggle{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", :href => "#"}
