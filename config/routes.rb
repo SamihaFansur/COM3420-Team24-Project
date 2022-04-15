@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   mount EpiCas::Engine, at: "/"
 
   resources :ecf_notes
+  resources :agendas
   
   resources :ecfs do
     member do
@@ -29,6 +30,7 @@ Rails.application.routes.draw do
   end
   resources :meetings
   resources :emails
+  resources :outcomes
   
   delete "attachments/:id/purge", to: "attachments#purge", as: "purge_attachment"
 

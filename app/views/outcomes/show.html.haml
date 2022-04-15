@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @outcome.name
+%p
+  %b Short name:
+  = @outcome.short_name
+%p
+  %b Description:
+  = @outcome.description
+
+= link_to 'Edit', edit_outcome_path(@outcome)
+\|
+= link_to 'Back', outcomes_path
