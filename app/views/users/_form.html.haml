@@ -5,7 +5,7 @@
   %h4  Edit role stuff here
 
   = f.select :role, options_for_select(User.roles.map {|key, value| [key.humanize, key]}, @user.role)
-
+  .mt-5
   = link_to_add_nested(f, :user_modules, '#user_modules', partial: 'user_modules/user_module_fields',link_classes: 'btn btn-outline-primary btn-sm')
 
   %p
@@ -15,7 +15,7 @@
       = render 'user_modules/user_module_fields', form: user_module_f
 
 
-    %div.mx-auto.mt-5.text-center
-      .form-actions.btn-primary.btn-lg.btn-block
-        = f.button :submit , class:"btn-color"
+  %div.mx-auto.mt-5.text-center
+    .form-actions.btn-primary.btn-lg.btn-block
+      = f.button :submit , class:"btn-color"
 

@@ -1,4 +1,4 @@
-%p#notice= notice
+%p#notice
 
 %p
   %b Title:
@@ -11,6 +11,6 @@
   %b Attendees:
   = @meeting.attendees
 
-= link_to 'Edit', edit_meeting_path(@meeting)
+= link_to 'Edit', edit_meeting_path(@meeting),class: 'btn btn-outline-primary'
 \|
-= link_to 'Back', meetings_path
+= link_to 'Back', meetings_path,class: 'btn btn-outline-danger'
