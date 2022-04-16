@@ -50,7 +50,8 @@ class EcfsController < ApplicationController
   # update method that refreshes, instead of returning to ecfs page. used in nested form submission.
   def update_persist
     if @ecf.update(ecf_params)
-      flash[:notice] = 'Form was successfully updated.'
+      EmailMailer.with(ecf: @ecf).ecf_updated.deliver_now
+      flash[:notice] = 'Form was successfully updated. You should have received email confirmation.'
       redirect_back(fallback_location: ecfs_path)
     else
       render :edit
@@ -62,7 +63,7 @@ class EcfsController < ApplicationController
     if @ecf.save
       EmailMailer.with(ecf: @ecf).ecf_submitted.deliver_now
       flash[:success] = "You should have received a confirmation email."
-      
+
       redirect_to ecfs_path, notice: 'ECF was successfully submitted.'
 
     else
