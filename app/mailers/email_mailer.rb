@@ -16,6 +16,16 @@ class EmailMailer < ApplicationMailer
     @ecf = params[:ecf]
     mail(to: @ecf.user.mail, subject: "Successfully updated an ecf")
   end
+  
+  def ecf_added_to_agenda
+    @agenda = params[:agenda]
+    mail(to: @agenda.ecf.user.mail, subject: "Next scrutiny panel meeting")
+  end
+  
+  def ecf_added_to_updated_agenda
+    @agenda = params[:agenda]
+    mail(to: @agenda.ecf.user.mail, subject: "Next scrutiny panel meeting time updated")
+  end
 
 
 end
