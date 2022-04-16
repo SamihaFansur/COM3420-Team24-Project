@@ -12,5 +12,10 @@ class EmailMailer < ApplicationMailer
     mail(to: @ecf.user.mail, subject: "Successfully submitted an ecf")
   end
 
+  def ecf_updated
+    @ecf = params[:ecf]
+    mail(to: @ecf.user.mail, subject: "Successfully updated an ecf")
+  end
+
 
 end
