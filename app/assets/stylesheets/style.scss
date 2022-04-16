@@ -461,61 +461,6 @@ header.masthead .bg-circle-4 {
 
 }
 
-.container_landing {
-  max-width: 1200px;
-  padding: 0 40px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-
-.title_landing {
-  display: flex;
-  padding: 20px;
-  cursor: pointer;
-  align-items: center;
-  justify-content: space-between;
-  text-decoration: none;
-}
-
-.icon_landing {
-  position: relative;
-  width: 14px;
-}
-
-.icon_landing::before, .icon_landing::after {
-  content: "";
-  position: absolute;
-  width: 14px;
-  height: 3px;
-
-  top: -1.5px;
-}
-
-.icon_landing::after {
-  transform: rotate(90deg);
-  transition: .5s linear;
-}
-
-.text_landing {
-  line-height: 26px;
-  margin: 6px 0;
-  opacity: 0;
-  height: 0;
-}
-
-.item_landing:target .text_landing {
-  height: auto;
-  opacity: 1;
-  padding: 20px;
-  margin: 12px 0;
-}
-
-.item_landing:target .icon_landing::after {
-  transform: rotate(0);
-}
 
 .line_02 {
   height: 1px;
