@@ -21,6 +21,10 @@ class EcfsController < ApplicationController
   def show
     set_ecf
     set_affected_units
+    @decisions_ecfs = Hash.new
+    @ecf.decisions.each do |decision|
+      @decisions_ecfs[decision.module_code] = decision.outcome
+    end
   end
 
   def new

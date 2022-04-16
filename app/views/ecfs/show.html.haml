@@ -86,9 +86,21 @@
         .form-group
         %b#is_fa{:hidden => "hidden"}
           = @ecf.is_frequent_absence
-      %h4 Additional:
-      %ul#condition_list.mt-5.animate__animated.animate__fadeIn
+        %h4 Additional:
+        %ul#condition_list.mt-5.animate__animated.animate__fadeIn
 
+  - if @ecf.status == "Complete" 
+    %p The ECF is marked as Complete. Please look at the decisions below.
+    %table.table
+      %thead
+        %tr
+          %th{:scope => "col"} Module:
+          %th{:scope => "col"} Code:
+      %tbody
+        - @decisions_ecfs.each do | code, outcome |
+          %tr
+            %td= code
+            %td= outcome
 
 
 

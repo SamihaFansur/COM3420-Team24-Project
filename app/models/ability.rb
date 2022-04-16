@@ -14,7 +14,7 @@ class Ability
     # end
 
     if user.student?
-      can [:read, :new, :create, :update_persist, :edit, :submit], Ecf
+      can [:read, :new, :create, :update, :update_persist, :edit, :submit], Ecf
       cannot :manage, Meeting
       cannot :manage, User
     end
