@@ -22,7 +22,7 @@ class Ability
     if user.module_leader?
       can [:read, :edit, :update_persist, :search], Ecf
       cannot :manage, Meeting
-      can :manage, User
+      cannot :manage, User
     end
 
     if user.scrutiny?
