@@ -6,4 +6,11 @@ class EmailMailer < ApplicationMailer
     @emails = params[:input_emails]
     mail(to: -> { @emails }, subject: 'Test :)')
   end
+
+  def ecf_submitted
+    @ecf = params[:ecf]
+    mail(to: @ecf.user.mail, subject: "Successfully submitted an ecf")
+  end
+
+
 end

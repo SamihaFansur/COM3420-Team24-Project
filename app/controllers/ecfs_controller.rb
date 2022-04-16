@@ -56,7 +56,11 @@ class EcfsController < ApplicationController
   def create
     @ecf = Ecf.new(ecf_params)
     if @ecf.save
-      redirect_to ecfs_path, notice: 'Form was successfully created.'
+      EmailMailer.with(ecf: @ecf).ecf_submitted.deliver_now
+      flash[:success] = "You should have received a confirmation email."
+      
+      redirect_to ecfs_path, notice: 'ECF was successfully submitted.'
+
     else
       render :new
     end
