@@ -26,6 +26,21 @@ class ApplicationController < ActionController::Base
     super(file, opts)
   end
 
+  # method that determines where the user is routed after logging in
+  def after_sign_in_path_for(resource)
+    if @user.role == 'admin' # route to users page
+      users_path
+    elsif @user.role == 'student' # route to ecfs page
+      ecfs_path
+    elsif @user.role == 'module_leader'
+      ecfs_path
+    elsif @user.role == 'scrutiny' # route to meetings page
+      meetings_path
+    else
+      root_path
+    end
+  end
+
   private
     def update_headers_to_disable_caching
       response.headers['Cache-Control'] = 'no-cache, no-cache="set-cookie", no-store, private, proxy-revalidate'
