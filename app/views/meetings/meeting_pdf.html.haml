@@ -17,32 +17,32 @@
   %b Attendees: 
   = @meeting.attendees
 
-
-%table.table
-  %thead
-    %tr
-      %th{:scope => "col"} Status
-      %th{:scope => "col"} Date Submitted
-      %th{:scope => "col"} Full Name
-      %th{:scope => "col"} Email
-      %th{:scope => "col"} Username
-      %th{:scope => "col"} Department
-      %th{:scope => "col"} Panel notes
-      %th{:scope => "col"} Outcomes
-  %tbody
-    - @agendas.each do |agenda|
+.table-responsive
+  %table.table
+    %thead
       %tr
-        %td= agenda.ecf.status
-        %td= agenda.ecf.date
-        %td #{agenda.ecf.user.givenname} #{agenda.ecf.user.sn}
-        %td= agenda.ecf.user.mail
-        %td= agenda.ecf.user.uid
-        %td= agenda.ecf.user.ou
-        %td
-        %td
-          - agenda.decisions.each do |decision|
-            %b= decision.module_code
-            = decision.assessment_type
-            %b{ style: 'color: dodgerblue;'}= decision.requested_action
-            = ": #{decision.outcome}"
-            %br
+        %th{:scope => "col"} Status
+        %th{:scope => "col"} Date Submitted
+        %th{:scope => "col"} Full Name
+        %th{:scope => "col"} Email
+        %th{:scope => "col"} Username
+        %th{:scope => "col"} Department
+        %th{:scope => "col"} Panel notes
+        %th{:scope => "col"} Outcomes
+    %tbody
+      - @agendas.each do |agenda|
+        %tr
+          %td= agenda.ecf.status
+          %td= agenda.ecf.date
+          %td #{agenda.ecf.user.givenname} #{agenda.ecf.user.sn}
+          %td= agenda.ecf.user.mail
+          %td= agenda.ecf.user.uid
+          %td= agenda.ecf.user.ou
+          %td
+          %td
+            - agenda.decisions.each do |decision|
+              %b= decision.module_code
+              = decision.assessment_type
+              %b{ style: 'color: dodgerblue;'}= decision.requested_action
+              = ": #{decision.outcome}"
+              %br
