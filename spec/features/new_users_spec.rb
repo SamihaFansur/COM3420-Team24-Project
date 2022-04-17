@@ -57,7 +57,7 @@ describe "user" do
         login_as(FactoryBot.create(:admin))
         visit"/users"
         click_link "New User"
-        expect(page).to have_content "Creating new user"
+        expect(page).to have_content "new user"
     end
 end
 

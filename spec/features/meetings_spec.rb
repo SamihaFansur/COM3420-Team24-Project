@@ -7,7 +7,7 @@ describe "meetings" do
     #log in as a user
     it "logs is and visits meetings page " do
         visit"/users/sign_in"
-        login_as(FactoryBot.create(:student))
+        login_as(FactoryBot.create(:scrutiny_panel))
         visit"/meetings"
         expect(page).to have_content "Meeting"
     end

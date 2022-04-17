@@ -26,6 +26,10 @@ class ApplicationController < ActionController::Base
     super(file, opts)
   end
 
+  def set_search
+    @q=Recipe.search(params[:q])
+    end
+
   # method that determines where the user is routed after logging in
   def after_sign_in_path_for(resource)
     if @user.role == 'admin' # route to users page
