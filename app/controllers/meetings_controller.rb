@@ -34,6 +34,7 @@ class MeetingsController < ApplicationController
     @meeting = Meeting.new(meeting_params)
 
     if @meeting.save
+      
       redirect_to @meeting, notice: 'Meeting was successfully created.'
     else
       render :new

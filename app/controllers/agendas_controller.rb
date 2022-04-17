@@ -40,7 +40,16 @@ class AgendasController < ApplicationController
     end
   end
 
-  private#
+  
+  def destroy
+    @agenda = Agenda.find(params[:id])
+    @agenda.delete
+    redirect_to meetings_path, :notice => "Successfully removed ECF from agenda."
+
+  end
+
+
+  private
     def set_agenda
       @agenda = Agenda.find(params[:id])
     end
