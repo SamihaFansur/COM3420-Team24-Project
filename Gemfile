@@ -81,10 +81,12 @@ end
 
 group :test do
   gem 'factory_bot_rails'
-  gem 'capybara'
+  gem 'capybara', '>= 2.4.4'
   gem 'webdrivers'
 
   gem 'database_cleaner'
   gem 'launchy'
   gem 'simplecov'
+  gem 'poltergeist'
+  gem 'pdf-reader'
 end

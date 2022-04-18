@@ -147,18 +147,6 @@ describe "the page links" do
     end
 end
 
-describe "the page links" do
-    it "module leader try to create ecf" do
-        visit"/users/sign_in"
-        login_as(FactoryBot.create(:module_leader))
-        visit"/ecfs"
-        click_link "SHOW ECFS"
-        click_link "Create New ECF"
-        expect(page).to have_content "Access Denied"
-    end
-end
-
-
 #Logged in as a Scrutiny Panel Member
 
 describe "the page links" do
