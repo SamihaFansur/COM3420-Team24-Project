@@ -123,8 +123,42 @@ describe "ecf" do
         login_as(FactoryBot.create(:admin))
         visit"/ecfs"
         click_link "Edit", match: :first
-        find_field('agenda_meeting_id').set('1')
+        find_field('agenda_meeting_id').set('2')
         click_button "Add to meeting"
-        expect(page).to have_content "ECF was successfully"
+        expect(page).to have_content "ECF was successfully added to the meeting."
+        find_field('agenda_meeting_id').set('2')
+        click_button "Add to meeting"
+        expect(page).to have_content "This ECF has already been added to the meeting!"
+    end
+end
+
+describe "ecf" do
+    #log in as a user
+    it "Fail to Add ECF to a meeting " do
+        #login in as student and make an ecf
+        visit"/users/sign_in"
+        login_as(FactoryBot.create(:admin))
+        visit"/meetings"
+        click_link "New Meeting"
+        fill_in "Title", with: "1"
+        fill_in "Attendees", with: "test"
+        click_button "Create Meeting"
+        expect(page).to have_content "Attendees: test"
+        visit"/meetings"
+        expect(page).to have_content "test"
+        login_as(FactoryBot.create(:student2))
+        visit"/ecfs"
+        click_link "Create New ECF"
+        fill_in "Details", with: "Example User2"
+        fill_in "Unit code", with: "COM2008"
+        fill_in "Assessment type", with: "Exam"
+        select "DEX - Deadline Extension", from: "Requested action ", visible: false
+        click_button "Create Ecf"
+        login_as(FactoryBot.create(:admin))
+        visit"/ecfs"
+        click_link "Edit", match: :first
+        find_field('agenda_meeting_id').set('h')
+        click_button "Add to meeting"
+        expect(page).to have_content "Failed to add ECF to the meeting."
     end
 end
