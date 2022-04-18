@@ -56,7 +56,7 @@ end
 
 describe "meeting" do
     #log in as a user
-    it "fills out and submits meetings then updates it" do
+    it "fills out and submits meetings then emails attendees" do
         visit"/users/sign_in"
         login_as(FactoryBot.create(:admin))
         visit"/meetings"
