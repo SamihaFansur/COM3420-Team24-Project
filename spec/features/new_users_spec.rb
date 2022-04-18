@@ -57,7 +57,7 @@ describe "user" do
         login_as(FactoryBot.create(:admin))
         visit"/users"
         click_link "New User"
-        expect(page).to have_content "Creating new user"
+        expect(page).to have_content "New user"
     end
 end
 
@@ -69,7 +69,6 @@ describe "user" do
         visit"/users"
         click_link "CSV Upload"
         expect(page).to have_content "File"
-
         attach_file('user[file]', Rails.root + "spec/features/csv_test.csv")
         #save users
         click_button "Save User"
