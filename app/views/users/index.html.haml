@@ -8,9 +8,24 @@
 %h1 Listing users
 
 %p#col1
-  There are
-  %span#num1 #{@users.size}
-  users.
+  There #{@users.size == 1 ? 'is' : 'are'} 
+  %span#num1 #{pluralize @users.size, 'user'}
+
+  = search_form_for @q do |f|
+    = f.label "Username"
+    = f.search_field :uid_cont
+    
+    = f.label "Email"
+    = f.search_field :mail_cont
+    
+    = f.label "Department"
+    = f.select(:ou, User.all.collect {|user| [user.ou, user.id]}, { include_blank: true })
+    
+    = f.label "Role"
+    = f.select(:role_eq, options_for_select(User.roles.map {|k, v| [k.humanize.capitalize, v]}, f.object.role_eq), { include_blank: true })
+
+    = f.submit "Search"
+
 
 %ul.list-group.list-group-flush
   %li.list-group-item
@@ -27,7 +42,7 @@
       %table.table
         %thead
           %tr
-            %th User ID
+            %th Username
             %th Email
             %th Given name
             %th Surname

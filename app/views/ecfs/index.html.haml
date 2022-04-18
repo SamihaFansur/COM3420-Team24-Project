@@ -24,9 +24,10 @@
             .row
               .col
                 %p.txt-centre#col1
-                  There are
-                  %span#num1 #{@ecfs.size}
-                  ecfs.
+                  
+                  There #{@ecfs.size == 1 ? 'is' : 'are'} 
+                  %span#num1 #{pluralize @ecfs.size, 'ecf'}
+                  
             - if can? :create, Ecf
               .row.justify-content-center.mb-5
                 .col-md-6.text-center
