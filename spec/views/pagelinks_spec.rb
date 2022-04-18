@@ -159,6 +159,77 @@ describe "the page links" do
 end
 
 
+#Logged in as a Scrutiny Panel Member
+
+describe "the page links" do
+
+    it "login as Scrutiny Panel" do
+        visit"/users/sign_in"
+        login_as(FactoryBot.create(:scrutiny_panel))
+        visit"/ecfs"
+        expect(page).to have_content "Listing ECFs"
+    end
+end
+
+describe "the page links" do
+    it "login as Scrutiny Panel + visit home page " do
+        visit"/users/sign_in"
+        login_as(FactoryBot.create(:scrutiny_panel))
+        visit"/ecfs"
+        click_link "HOME"
+        expect(page).to have_content "Overview"
+    end
+end
+
+describe "the page links" do
+    it "login as Scrutiny Panel + visit SHOW ecfs page " do
+        visit"/users/sign_in"
+        login_as(FactoryBot.create(:scrutiny_panel))
+        visit"/ecfs"
+        click_link "SHOW ECFS"
+        expect(page).to have_content "Listing ECFs"
+    end
+end
+
+describe "the page links" do
+    it "login as Scrutiny Panel + visit show meetings page " do
+        visit"/users/sign_in"
+        login_as(FactoryBot.create(:scrutiny_panel))
+        visit"/ecfs"
+        click_link "SHOW MEETINGS"
+        expect(page).to have_content "Meeting Schedule"
+    end
+end
+
+describe "the page links" do
+    it "login as Scrutiny Panel + visit new meeting pagee " do
+        visit"/users/sign_in"
+        login_as(FactoryBot.create(:scrutiny_panel))
+        visit"/ecfs"
+        click_link "SHOW MEETINGS"
+        expect(page).to have_content "Meeting Schedule"
+        click_link "New Meeting"
+        expect(page).to have_content "New meeting"
+    end
+end
+
+
+describe "the page links" do
+    it "login as Scrutiny Panel + test new meeting back button" do
+        visit"/users/sign_in"
+        login_as(FactoryBot.create(:scrutiny_panel))
+        visit"/ecfs"
+        click_link "SHOW MEETINGS"
+        expect(page).to have_content "Meeting Schedule"
+        click_link "New Meeting"
+        expect(page).to have_content "New meeting"
+        click_link "Back"
+        expect(page).to have_content "Meeting Schedule"
+    end
+end
+
+
+
 #Logged in as an Admin
 
 describe "the page links" do
@@ -170,7 +241,7 @@ describe "the page links" do
         expect(page).to have_content "Listing ECFs"
     end
 end
-######
+
 describe "the page links" do
     it "login as admin + visit home page " do
         visit"/users/sign_in"
