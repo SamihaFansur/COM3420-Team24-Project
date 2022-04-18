@@ -54,14 +54,14 @@ FactoryBot.define do
     end
 
     factory :module_leader do
-      uid { "arb20eg" }
+      uid { "aca20sf" }
       dn {"uid=aca20sf,ou=Undergraduates,ou=Staff,ou=Users,dc=sheffield,dc=ac,dc=uk"}
       role {2}
     end
 
     #second student login for tests
     factory :module_leader2 do
-      uid { "aca20sf" }
+      uid { "aca20sg" }
       dn {"uid=aca20sf,ou=Undergraduates,ou=Staff,ou=Users,dc=sheffield,dc=ac,dc=uk"}
       role {2}
 

@@ -28,10 +28,7 @@ end
 describe "search" do
     #log in as a user
     it "fills out and submits meetings " do
-        visit"/users/sign_in"
-        login_as(FactoryBot.create(:student))
         #Create an ECF to test deletion
-        visit"/users/sign_in"
         login_as(FactoryBot.create(:student))
         visit"/ecfs"
         click_link "Create New ECF"
@@ -40,18 +37,15 @@ describe "search" do
         fill_in "Assessment type", with: "Exam"
         select "DEX - Deadline Extension", from: "Requested action ", visible: false
         click_button "Create Ecf"
-        expect(page).to have_content "arb20eg"
+        expect(page).to have_content "aca20sf"
+        login_as(FactoryBot.create(:admin))
+        visit"/ecfs"
+        expect(page).to have_content "aca20sf" #first ecf check
         # #Test search functionality
-        # visit"/ecfs"
-        # fill_in "q[user_givenname_or_user_sn_cont]", with: "http://www.example.com/articles.php?id=-1; DROP ALL TABLES; --"
-        # fill_in "q[user_email_cont]", with: "http://www.example.com/articles.php?id=-1; DROP ALL TABLES; --"
-        # click_button "Search"
-        # expect(page).to have_content "No result found !"#Tests that either sql injection didnt work or deleted ecfs
-        # fill_in "q[user_givenname_or_user_sn_cont]", with: ""
-        # fill_in "q[user_email_cont]", with: ""
-        # click_button "Search"
-        
-        # expect(page).to have_content "arb20eg"#Confirms whether ecf was deleted or not
+        find_field('q[status_cont]').set("Pending")
+        find_field('q_user_givenname_or_user_sn_cont').set("")
+        click_button "Search"
+        expect(page).to have_content "aca20sf" #second ecf check
 
     end
 end
