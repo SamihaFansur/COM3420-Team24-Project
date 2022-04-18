@@ -40,14 +40,14 @@ FactoryBot.define do
       ou { "Undergraduates" }
 
     factory :student do
-      uid { "arb20eg" }
+      uid { "aca20sf" }
       dn {"uid=aca20sf,ou=Undergraduates,ou=Students,ou=Users,dc=sheffield,dc=ac,dc=uk"}
       role {1}
 
     end
     #second student login for tests
     factory :student2 do
-      uid { "aca20sf" }
+      uid { "aca20sg" }
       dn {"uid=aca20sf,ou=Undergraduates,ou=Students,ou=Users,dc=sheffield,dc=ac,dc=uk"}
       role {1}
 
@@ -67,12 +67,12 @@ FactoryBot.define do
 
     end
     factory :scrutiny_panel do
-      uid { "arb20eg" }
+      uid { "aca20sf" }
       dn {"uid=aca20sf,ou=Undergraduates,ou=Staff,ou=Users,dc=sheffield,dc=ac,dc=uk"}
       role {3}
     end
     factory :admin do
-      uid { "arb20eg" }
+      uid { "aca20sf" }
       dn {"uid=aca20sf,ou=Undergraduates,ou=Staff,ou=Users,dc=sheffield,dc=ac,dc=uk"}
       role {4}
 
