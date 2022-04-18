@@ -159,4 +159,78 @@ describe "the page links" do
 end
 
 
+#Logged in as an Admin
+
+describe "the page links" do
+
+    it "login as admin" do
+        visit"/users/sign_in"
+        login_as(FactoryBot.create(:admin))
+        visit"/ecfs"
+        expect(page).to have_content "Listing ECFs"
+    end
+end
+######
+describe "the page links" do
+    it "login as admin + visit home page " do
+        visit"/users/sign_in"
+        login_as(FactoryBot.create(:admin))
+        visit"/ecfs"
+        click_link "HOME"
+        expect(page).to have_content "Overview"
+    end
+end
+
+describe "the page links" do
+    it "login as admin + visit SHOW ecfs page " do
+        visit"/users/sign_in"
+        login_as(FactoryBot.create(:admin))
+        visit"/ecfs"
+        click_link "SHOW ECFS"
+        expect(page).to have_content "Listing ECFs"
+    end
+end
+
+describe "the page links" do
+    it "login as admin + visit SHOW meetings page " do
+        visit"/users/sign_in"
+        login_as(FactoryBot.create(:admin))
+        visit"/ecfs"
+        click_link "SHOW MEETINGS"
+        expect(page).to have_content "Meeting Schedule"
+    end
+end
+
+describe "the page links" do
+    it "login as admin + visit SHOW users page " do
+        visit"/users/sign_in"
+        login_as(FactoryBot.create(:admin))
+        visit"/ecfs"
+        click_link "USERS"
+        expect(page).to have_content "Listing users"
+    end
+end
+
+describe "the page links" do
+    it "login as admin + visit new users page " do
+        visit"/users/sign_in"
+        login_as(FactoryBot.create(:admin))
+        visit"/ecfs"
+        click_link "USERS"
+        expect(page).to have_content "Listing users"
+        click_link "New User"
+    end
+end
+
+describe "the page links" do
+    it "login as admin + visit csv upload page " do
+        visit"/users/sign_in"
+        login_as(FactoryBot.create(:admin))
+        visit"/ecfs"
+        click_link "USERS"
+        expect(page).to have_content "Listing users"
+        click_link "CSV Upload"
+    end
+end
+
 
