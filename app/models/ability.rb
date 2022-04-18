@@ -33,6 +33,7 @@ class Ability
 
     if user.admin?
       can :manage, :all
+      cannot :create, Ecf
       cannot [:submit], Ecf
     end
 

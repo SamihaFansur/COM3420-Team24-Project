@@ -27,10 +27,11 @@
                   There are
                   %span#num1 #{@ecfs.size}
                   ecfs.
-            .row.justify-content-center.mb-5
-              .col-md-6.text-center
-                %br
-                %a.button.btn.btn-outline-primary.btn-sm{:href => new_ecfs_path} Create New ECF
+            - if can? :create, Ecf
+              .row.justify-content-center.mb-5
+                .col-md-6.text-center
+                  %br
+                  %a.button.btn.btn-outline-primary.btn-sm{:href => new_ecfs_path} Create New ECF
 
             - if can? :search, Ecf
               .table-responsive
