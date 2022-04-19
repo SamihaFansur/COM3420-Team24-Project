@@ -18,21 +18,24 @@
                     %thead
                         %tr
                             %th{:scope => "col"} Status
-                            %th{:scope => "col"} Date
-                            %th{:scope => "col"} First Name
+                            %th{:scope => "col"} Date Created
+                            %th{:scope => "col"} Date Submitted
+                            %th{:scope => "col"} Name
                             %th{:scope => "col"} Email
-                            %th{:scope => "col"} User ID
-                            %th{:scope => "col"} Module
-                            %th{:scope => "col"} Show
-                            %th{:scope => "col"} Delete
+                            %th{:scope => "col"} Username
+                            %th{:scope => "col"} Department
+                            %th{:scope => "col"} 
+                            %th{:scope => "col"} 
                     %tbody
                         %tr
                             %th{:scope => "row"}
                                 = ecf.status
                             %td
+                                = ecf.created_at
+                            %td
                                 = ecf.date
                             %td
-                                = ecf.user.givenname
+                                #{ecf.user.givenname} #{ecf.user.sn}
                             %td
                                 = ecf.user.mail
                             %td
