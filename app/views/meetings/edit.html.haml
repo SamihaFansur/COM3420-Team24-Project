@@ -1,7 +1,7 @@
 %h1 Editing meeting
 
 = render 'form'
-
-= link_to 'Show', @meeting
+.mt-4
+= link_to 'Show', @meeting , :class => 'btn btn-outline-primary btn-sm'
 \|
-= link_to 'Back', meetings_path
+= link_to 'Back', meetings_path, :class => 'btn btn-outline-info btn-sm'
