@@ -2,12 +2,6 @@ class EcfsController < ApplicationController
   load_and_authorize_resource
   before_action :set_ecf, only:  [:show, :edit, :update, :destroy, :update_persist]
 
-  # # GET /ecfs
-  # def index
-  #   @ecfs = Ecf.all
-  #   @user = current_user
-  # end
-
   def index
     if current_user.student?
       @ecfs = current_user.ecfs
@@ -74,6 +68,14 @@ class EcfsController < ApplicationController
 
   def ecfs_gdpr
     @ecfs = Ecf.all
+  end
+
+  def destroy
+    @ecf = Ecf.find(params[:id])
+    @ecf.destroy
+
+    redirect_to ecfs_gdpr_ecfs_path, :notice => "Successfully deleted ECF from system."
+
   end
 
   private
