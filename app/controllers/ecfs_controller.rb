@@ -23,7 +23,8 @@ class EcfsController < ApplicationController
     set_affected_units
     @decisions_ecfs = Hash.new
     @ecf.decisions.each do |decision|
-      @decisions_ecfs[decision.module_code] = decision.outcome
+      # This code is dependent on app/views/decisions/_decisions_fields.html.haml . The dex stuff.
+      @decisions_ecfs[decision.module_code] = [decision.outcome, decision.requested_action, decision.requested_action != "DEX - Deadline Extension" ? nil : decision.extension_date]
     end
   end
 
