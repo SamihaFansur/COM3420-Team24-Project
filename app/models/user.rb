@@ -38,7 +38,7 @@ class User < ApplicationRecord
   has_many :user_modules
   accepts_nested_attributes_for :user_modules, allow_destroy: true
 
-  enum role: {guest: 0, student: 1, module_leader: 2, scrutiny: 3, admin: 4}
+  enum role: {guest: 0, student: 1, module_leader: 2, scrutiny: 3, admin: 4, scrutiny_chair: 5}
 
   def generate_attributes_from_ldap
     self.username = self.uid
