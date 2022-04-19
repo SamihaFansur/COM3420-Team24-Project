@@ -13,7 +13,7 @@
 
     %p
         - @ecfs.each do |ecf|
-            - if (Date.today - ecf.date).to_i >= (0)
+            - if Time.zone.now.years_ago(7) >= ecf.created_at
                 %table.table
                     %thead
                         %tr
