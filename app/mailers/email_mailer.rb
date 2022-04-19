@@ -19,7 +19,12 @@ class EmailMailer < ApplicationMailer
   
   def ecf_added_to_agenda
     @agenda = params[:agenda]
-    mail(to: @agenda.ecf.user.mail, subject: "Next scrutiny panel meeting")
+    mail(to: @agenda.ecf.user.mail, subject: "ECF added to next scrutiny panel meeting")
+  end
+
+  def ecf_removed_from_agenda
+    @agenda = params[:agenda]
+    mail(to: @agenda.ecf.user.mail, subject: "ECF removed from next scrutiny panel meeting")
   end
   
   def ecf_added_to_updated_agenda

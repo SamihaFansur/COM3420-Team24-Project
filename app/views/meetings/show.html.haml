@@ -13,7 +13,7 @@
 
 %p
   ECFs on the agenda are listed below. To import an ECF into this meeting, please select 'Add to meeting' for an ECF at the following page:
-  = link_to 'List ECFs', ecfs_path(meeting_id: @meeting.id)
+  = link_to 'List ECFs', ecfs_path(meeting_id: @meeting.id, meeting_title: @meeting.title)
 .table-responsive
   %table.table
     %thead

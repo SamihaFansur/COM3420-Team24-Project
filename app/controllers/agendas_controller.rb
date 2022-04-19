@@ -44,6 +44,10 @@ class AgendasController < ApplicationController
   def destroy
     @agenda = Agenda.find(params[:id])
     @agenda.delete
+    
+    EmailMailer.with(agenda: @agenda).ecf_removed_from_agenda.deliver_now
+    flash[:success] = "Student notified of ecf removal from next scrutiny panel meeting."
+
     redirect_to meetings_path, :notice => "Successfully removed ECF from agenda."
 
   end
