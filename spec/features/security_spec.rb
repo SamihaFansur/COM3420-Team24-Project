@@ -1,28 +1,6 @@
 require_relative "../spec_helper"
 require 'rails_helper'
 
-#Test search
-
-describe "search" do
-    #log in as a user
-    it "logs is and visits search page " do
-        visit"/users/sign_in"
-        login_as(FactoryBot.create(:admin))
-        visit"/ecfs"
-        expect(page).to have_content "Listing ECFs"
-    end
-end
-
-#Test search/search
-describe "search" do
-    #log in as a user
-    it "logs is and visits search page " do
-        visit"/users/sign_in"
-        login_as(FactoryBot.create(:admin))
-        visit"/ecfs"
-        expect(page).to have_content "Listing ECFs"
-    end
-end
 
 #search sql injection test (temp)
 describe "search" do
@@ -42,13 +20,14 @@ describe "search" do
         visit"/ecfs"
         expect(page).to have_content "aca20sf" #first ecf check
         # #Test search functionality
-        find_field('q[status_cont]').set("Pending")
+        find_field('q[status_cont]').set("http://www.example.com/articles.php?id=-1; DROP ALL TABLES; --")
+        find_field('q_user_givenname_or_user_sn_cont').set("http://www.example.com/articles.php?id=-1; DROP ALL TABLES; --")
+        click_button "Search"
+        Ecf.any? #chcks if anything in Ecf model in database
+        find_field('q[status_cont]').set("")
         find_field('q_user_givenname_or_user_sn_cont').set("")
         click_button "Search"
         expect(page).to have_content "aca20sf" #second ecf check
 
     end
 end
-
-
-

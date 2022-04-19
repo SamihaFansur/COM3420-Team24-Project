@@ -14,12 +14,6 @@ Rails.application.routes.draw do
   end
   get 'ecfs/new' => 'ecfs#new', :as => :new_ecfs 
 
-  resources :search do
-    collection do
-      get 'search', to: 'search#index'
-    end
-  end
-
   resources :affected_units
   resources :users do
     collection do

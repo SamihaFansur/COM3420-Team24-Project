@@ -3,13 +3,18 @@ class AgendasController < ApplicationController
   before_action :set_agenda, only:  [:update]
 
   def create
-    agenda = Agenda.new(agenda_params)
+    @agenda = Agenda.new(agenda_params)
     print("\n PRINTING PARAMS: \n")
     print(agenda_params)
     print(params[:meeting_id])
     print(params[:ecf_id])
-    if agenda.save
+    id_ecf = params[:ecf_id]
+    if @agenda.save
       flash[:notice] = "ECF #{params[:ecf_id]} was successfully added to the meeting."
+      
+      EmailMailer.with(agenda: @agenda).ecf_added_to_agenda.deliver_now
+      flash[:success] = "Student notified of scrutiny panel meeting."
+
       redirect_back(fallback_location: ecfs_path)
     else
       # add extra validation here to clarify whether failed on uniqueness or just db error.
@@ -25,13 +30,30 @@ class AgendasController < ApplicationController
   def update
     if @agenda.update(agenda_params)
       flash[:notice] = 'Meeting was successfully updated.'
+      
+      EmailMailer.with(agenda: @agenda).ecf_added_to_updated_agenda.deliver_now
+      flash[:success] = "Student notified of scrutiny panel meeting."
+      
       redirect_back(fallback_location: meetings_path)
     else
       render :edit
     end
   end
 
-  private#
+  
+  def destroy
+    @agenda = Agenda.find(params[:id])
+    @agenda.delete
+    
+    EmailMailer.with(agenda: @agenda).ecf_removed_from_agenda.deliver_now
+    flash[:success] = "Student notified of ecf removal from next scrutiny panel meeting."
+
+    redirect_to meetings_path, :notice => "Successfully removed ECF from agenda."
+
+  end
+
+
+  private
     def set_agenda
       @agenda = Agenda.find(params[:id])
     end

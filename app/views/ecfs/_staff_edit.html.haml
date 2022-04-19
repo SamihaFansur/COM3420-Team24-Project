@@ -2,22 +2,23 @@
 %h1= "Edit ECF ##{@ecf.id}"
 
 %h4 Student Details
-%table.table
-  %thead
-    %tr
-      %th{:scope => "col"} Username:
-      %th{:scope => "col"} First Name:
-      %th{:scope => "col"} Last Name:
-      %th{:scope => "col"} Email
-      %th{:scope => "col"} Department:
-  %tbody
-    %tr
-      %th{:scope => "row"}
-        = @ecf.user.uid
-      %td= @ecf.user.givenname
-      %td= @ecf.user.sn
-      %td= @ecf.user.mail
-      %td= @ecf.user.ou
+.table-responsive
+  %table.table
+    %thead
+      %tr
+        %th{:scope => "col"} Username:
+        %th{:scope => "col"} First Name:
+        %th{:scope => "col"} Last Name:
+        %th{:scope => "col"} Email
+        %th{:scope => "col"} Department:
+    %tbody
+      %tr
+        %th{:scope => "row"}
+          = @ecf.user.uid
+        %td= @ecf.user.givenname
+        %td= @ecf.user.sn
+        %td= @ecf.user.mail
+        %td= @ecf.user.ou
 
 %h4 ECF Details
 %p

@@ -1,3 +1,21 @@
+:javascript
+  window.onload=function (){
+    var coll = document.getElementsByClassName("collapsible"); //get all collapsible elements
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.display === "block") {
+          content.style.display = "none";
+        } else {
+          content.style.display = "block";
+        }
+      });
+    }
+  }
+
 !!!
 %html{:lang => "en"}
   %head
@@ -15,186 +33,140 @@
     / Core theme CSS (includes Bootstrap)
 
   %body#page-top
-    
+
     / Header
     %header.masthead.text-center.text-white
       .masthead-content
         .container.px-5
           %h1.masthead-heading.mb-0.title_colour Extenuating Circumstances Form
           %h2.masthead-subheading.mb-0.title_colour Information
-          %a.btn.btn-primary.btn-xl.rounded-pill.mt-5.btn_effect_swing{:href => "#scroll"} Learn More
+          %a.btn.btn-primary.btn-xl.rounded-pill.mt-5{:href => "#overview"} Learn More
       .bg-circle-1.bg-circle
       .bg-circle-2.bg-circle
       .bg-circle-3.bg-circle
       .bg-circle-4.bg-circle
 
-    / Content section 1
-    %section#scroll
-      .container.px-5
-        .row.gx-5.align-items-center
-          .col-lg-6.order-lg-2
-            .p-5
-              -# %img.img-fluid.rounded-circle{:alt => "...", :src => "/app/assets/images/01.jpg"}/
-              .login-wrap.py-5
-                .img
-          .col-lg-6.order-lg-1
-            .p-5
-              %h2.display-4 Overview
-              %p.zoomIn If extenuating circumstances are affecting your ability to engage with your course, you can submit a form to your department requesting they be taken into consideration when grading you. You should notify your academic department of any extenuating circumstances at the earliest possible opportunity. Before applying for extenuating circumstances you must read the relevant information below. We seek to respond in an equitable and consistent way to all requests for extenuating circumstances. As well as considering your needs, we also consider academic integrity and fairness to other students.
-
-    / Content section 2
-    %section
-      .container.px-5
-        .row.gx-5.align-items-center
-          .col-lg-6
-            .p-5
-              -# %img.img-fluid.rounded-circle{:alt => "...", :src => "/app/assets/images/01.jpg"}/
-              .login-wrap.py-5
-                .img
-          .col-lg-6
-            .p-5
-              %h2.display-4 What are extenuating circumstances?
-              %p.zoomIn Extenuating circumstances are exceptional, short-term events (eg personal or health problems) which are outside of your control and have a negative impact on your ability to prepare for or take (sit) an assessment.  To meet the criteria of extenuating circumstances, they must also: be non-academic (problems with the management of your course or academic staff should be dealt with via the student complaints procedure)  be out of your control (ie you couldn’t reasonably have done anything to prevent them from happening); and have occurred at the time of the assessment or in the period immediately leading up to the assessment It’s your responsibility to notify your tutor, supervisor or other appropriate departmental staff if there are any extenuating circumstances that may have a bearing on your ability to perform for your exams/assessments.
-
-    / Content section 3
-    %section
-      .container.px-5
-        .row.gx-5.align-items-center
-          .col-lg-6.order-lg-2
-            .p-5
-              -# %img.img-fluid.rounded-circle{:alt => "...", :src => "/app/assets/images/01.jpg"}/
-              .login-wrap.py-5
-                .img
-          .col-lg-6.order-lg-1
-            .p-5
-              %h2.display-4 Examples likely to be accepted as extenuating circumstances
-              %p
-              %ul
-              %li.zoomIn Bereavement – death of close relative/significant other (which in an employment context would have led to a period of compassionate leave).
-              %li.zoomIn Serious short term illness/accident/hospitalisation (which in an employment context would have led to a period of sickness absence).
-              %li.zoomIn Deterioration or fluctuation of a disability or long term health condition.
-              %li.zoomIn Significant adverse personal/family circumstances.
-              %li.zoomIn Other significant exceptional factors for which there is evidence of stress caused, eg being a victim of crime. We’ll likely require evidence of any of these (eg police crime reference, letter from hospital/doctor treating condition, social worker letter).
-
-    / Content section 4
-    %section
-      .container.px-5
-        .row.gx-5.align-items-center
-          .col-lg-6
-            .p-5
-              -# %img.img-fluid.rounded-circle{:alt => "...", :src => "/app/assets/images/01.jpg"}/
-              .login-wrap.py-5
-                .img
-          .col-lg-6.order-lg-1
-            .p-5
-              %h2.display-4 Not Accepted Circumstances 
-              %p 
-
-              %ul
-              %li.zoomIn Medical circumstances which don’t relate to the assessment period in question.
-              %li.zoomIn Minor illness, which is unlikely to lead to absence from work.
-              %li.zoomIn A sleepless night.
-              %li.zoomIn If there’s a reasonable case that the circumstances were foreseeable and/or preventable.
-              %li.zoomIn Financial issues.
-              %li.zoomIn Religious observance. There’s a separate process for this, please see religious observance and exams.
-              %li.zoomIn Holidays/family events.
-              %li.zoomIn Transport difficulties eg delayed flights, strikes or traffic jams.
-              %li.zoomIn Late disclosure of extenuating circumstances.
-              %li.zoomIn Poor time management (eg pressure of work, conflicting assessment deadlines, unavailability of books).
-              %li.zoomIn Missing your exam because you overslept or misread the exam timetable.
-              %li.zoomIn Submitting the wrong work or a draft version of the work for assessment.
-              %li.zoomIn A long-term condition where treatment or additional support/arrangements are in place to mitigate.
-
-    / Content section 5
-    %section
-      .container.px-5
-        .row.gx-5.align-items-center
-          .col-lg-6.order-lg-2
-            .p-5
-              -# %img.img-fluid.rounded-circle{:alt => "...", :src => "/app/assets/images/01.jpg"}/
-              .login-wrap.py-5
-                .img
-          .col-lg-6.order-lg-1
-            .p-5
-              %h2.display-4 How are they taken into account?
-              %p.zoomIn Academic staff (eg the exam board) will take your extenuating circumstances into account when deciding your academic outcomes. If your circumstances are deemed to be appropriately and genuinely extenuating, academic staff can suggest the following:
-              %ul
-              %li.zoomIn No further action.
-              %li.zoomIn Disregarding penalties for late submission of coursework.
-              %li.zoomIn Not Assessing (NA) the exam/module in question and providing you another attempt without academic penalty. This would only happen if you failed or didn’t attend your exam and evidence strongly suggests that you’ve been seriously disadvantaged by your circumstances.
-              %li.zoomIn Disregarding a missing component and deriving an overall mark/grade from completed work.
-              %li.zoomIn Disregarding an unreliable component and deriving an overall mark from completed work (if it will benefit you).
-              %li.zoomIn Submitting the missing assessment if you fail your course.
-              %li.zoomIn Sitting an alternative assessment if you fail your course.
-    
-    / Content section 6
-    %section
-      .container.px-5
-        .row.gx-5.align-items-center
-          .col-lg-6
-            .p-5
-              -# %img.img-fluid.rounded-circle{:alt => "...", :src => "/app/assets/images/01.jpg"}/
-              .login-wrap.py-5
-                .img
-          .col-lg-6.order-lg-1
-            .p-5
-              %h2.display-4 Disability, disabling conditions and specific learning difficulties
-              %p.zoomIn If you have a physical or mental impairment which has a substantial and long-term adverse effect on your ability to carry out normal day-to-day activities, the Disability and Dyslexia Support Service (DDSS) may be able to provide support and reasonable adjustments.  You don’t need to provide additional medical evidence if you submit an extenuating circumstances form based on:
-              %ul
-              %li.zoomIn the impact of a condition/impairment that’s outlined on your Learning Support Plan from DDSS
-              %li.zoomIn the deterioration/fluctuation of a disability and your Learning Support Plan from DDSS outlines that your disability is variable
-              %p If you’re submitting an extenuating circumstances form based on a condition/impairment documented in your Learning Support Plan, you should provide clear information about the impact this has had on the modules/assessments. You do need to provide additional medical evidence if you’re on a professional course (eg Medicine). 
-
-    / Content section 7
-    %section
-      .container.px-5
-        .row.gx-5.align-items-center
-          .col-lg-6.order-lg-2
-            .p-5
-              -# %img.img-fluid.rounded-circle{:alt => "...", :src => "/app/assets/images/01.jpg"}/
-              .login-wrap.py-5
-                .img
-          .col-lg-6.order-lg-1
-            .p-5
-              %h2.display-4 Religious observance and exams
-              %p.zoomIn If you’re observing religious festivals around the time of a deadline, it’s your responsibility to plan your work so it’s completed and submitted before the deadline. We’ll give you assessment dates and deadlines in advanceIf you know that attendance/work is prohibited on certain dates, or that major festivals might fall on potentially relevant dates, please contact the Student Administration Service by 31 October in the academic year to seek consideration of this.  For information on what to do if exams/invigilated assessments may coincide with religious festivals/holidays, visit:
-  
-    / Content section 8
-    %section
-      .container.px-5
-        .row.gx-5.align-items-center
-          .col-lg-6
-            .p-5
-              -# %img.img-fluid.rounded-circle{:alt => "...", :src => "/app/assets/images/01.jpg"}/
-              .login-wrap.py-5
-                .img
-          .col-lg-6.order-lg-1
-            .p-5
-              %h2.display-4 Prolonged absences
-              %p.zoomIn If any absence is likely to be prolonged, eg your illness/medical condition may last for several weeks or months, you’re strongly advised to apply for an official leave of absence. If you’re planning to take time off from your studies in the future you must apply for an official Leave of Absence, eg to undertake a non-compulsory work placement or if there are other personal circumstances where a prolonged period of absence will be necessar
-    
-    / Content section 9
-    %section
-      .container.px-5
-        .row.gx-5.align-items-center
-          .col-lg-6.order-lg-2
-            .p-5
-              -# %img.img-fluid.rounded-circle{:alt => "...", :src => "/app/assets/images/01.jpg"}/
-              .login-wrap.py-5
-                .img
-          .col-lg-6.order-lg-1
-            .p-5
-              %h2.display-4 Accademic Appeal for Late Submission
-              %p.zoomIn An academic appeal is unlikely to be upheld without:
-              %li.zoomIn evidence to support any claims you make (eg medical evidence, which is not currently required)
-              %li.zoomIn detail and evidence to support why you couldn’t submit an extenuating circumstances form at the correct time
-              %p.zoomIn We won’t consider the following as valid reasons for academic appeal:
-              %ul
-              %li.zoomIn You submitted late because you didn’t feel comfortable notifying your department of your circumstances prior to the relevant meetings/boards.
-              %li.zoomIn You wanted to await your results before presenting this information.
-              %p The process is confidential, but your academic appeals form and any supporting evidence will be shared with: 
-              %ul 
-              %li.zoomIn your Head of Department(s) or delegate
-              %li.zoomIn other University staff whose input is deemed necessary to consider your case
-              %li.zoomIn a Faculty Officer and the administrators of the process
-              %p.zoomIn An extenuating circumstance form will only be seen by a small number of staff in your department.
+    / Intro Content with collapsed content
+    %button.collapsible#overview{:type => "button"}
+      %h2 ● Overview
+      %span.caret
+    .content.lh-lg.fw-normal.font-monospace
+      If extenuating circumstances are affecting your ability to engage with your course, you can submit a form to your department requesting they be taken into consideration when grading you. You should notify your academic department of any extenuating circumstances at the earliest possible opportunity. Before applying for extenuating circumstances you must read the relevant information below. We seek to respond in an equitable and consistent way to all requests for extenuating circumstances. As well as considering your needs, we also consider academic integrity and fairness to other students.
+    .line_02.mt-4
+      %span
+    %button.collapsible.mt-4{:type => "button"}
+      %h2 ● What is an extenuating circumstance?
+    .content.lh-lg.fw-normal.font-monospace
+      Extenuating circumstances are exceptional, short-term events (eg personal or health problems) which are outside of your control and have a negative impact on your ability to prepare for or take (sit) an assessment.  To meet the criteria of extenuating circumstances, they must also: be non-academic (problems with the management of your course or academic staff should be dealt with via the student complaints procedure)  be out of your control (ie you couldn’t reasonably have done anything to prevent them from happening); and have occurred at the time of the assessment or in the period immediately leading up to the assessment It’s your responsibility to notify your tutor, supervisor or other appropriate departmental staff if there are any extenuating circumstances that may have a bearing on your ability to perform for your exams/assessments.
+    .line_02.mt-4
+      %span
+    %button.collapsible{:type => "button"}
+      %h2 ● Examples likely to be accepted as extenuating circumstances
+    .content.lh-lg.fw-normal.font-monospace
+      %ul
+        %li Bereavement – death of close relative/significant other (which in an employment context would have led to a period of compassionate leave).
+        %li Serious short term illness/accident/hospitalisation (which in an employment context would have led to a period of sickness absence).
+        %li Deterioration or fluctuation of a disability or long term health condition.
+        %li Significant adverse personal/family circumstances.
+        %li Other significant exceptional factors for which there is evidence of stress caused, eg being a victim of crime. We’ll likely require evidence of any of these (eg police crime reference, letter from hospital/doctor treating condition, social worker letter).
+    .line_02.mt-4
+      %span
+    %button.collapsible{:type => "button"}
+      %h2 ● Not Accepted Circumstances
+    .content.lh-lg.fw-normal.font-monospace
+      %ul
+        %li Medical circumstances which don’t relate to the assessment period in question.
+        %li Minor illness, which is unlikely to lead to absence from work.
+        %li A sleepless night.
+        %li If there’s a reasonable case that the circumstances were foreseeable and/or preventable.
+        %li Financial issues.
+        %li Religious observance. There’s a separate process for this, please see religious observance and exams.
+        %li Holidays/family events.
+        %li Transport difficulties eg delayed flights, strikes or traffic jams.
+        %li Late disclosure of extenuating circumstances.
+        %li Poor time management (eg pressure of work, conflicting assessment deadlines, unavailability of books).
+        %li Missing your exam because you overslept or misread the exam timetable.
+        %li Submitting the wrong work or a draft version of the work for assessment.
+        %li A long-term condition where treatment or additional support/arrangements are in place to mitigate.
+    .line_02.mt-4
+      %span
+    %button.collapsible{:type => "button"}
+      %h2 ● How are they taken into account?
+    .content.lh-lg.fw-normal.font-monospace
+      %p Academic staff (eg the exam board) will take your extenuating circumstances into account when deciding your academic outcomes. If your circumstances are deemed to be appropriately and genuinely extenuating, academic staff can suggest the following:
+      %ul
+        %li No further action.
+        %li Disregarding penalties for late submission of coursework.
+        %li Not Assessing (NA) the exam/module in question and providing you another attempt without academic penalty. This would only happen if you failed or didn’t attend your exam and evidence strongly suggests that you’ve been seriously disadvantaged by your circumstances.
+        %li Disregarding a missing component and deriving an overall mark/grade from completed work.
+        %li Disregarding an unreliable component and deriving an overall mark from completed work (if it will benefit you).
+        %li Submitting the missing assessment if you fail your course.
+        %li Sitting an alternative assessment if you fail your course.
+    .line_02.mt-4
+      %span
+    %button.collapsible{:type => "button"}
+      %h2 ● Disability, disabling conditions and specific learning difficulties
+    .content.lh-lg.fw-normal.font-monospace
+      %p If you have a physical or mental impairment which has a substantial and long-term adverse effect on your ability to carry out normal day-to-day activities, the Disability and Dyslexia Support Service (DDSS) may be able to provide support and reasonable adjustments.  You don’t need to provide additional medical evidence if you submit an extenuating circumstances form based on:
+      %ul
+        %li the impact of a condition/impairment that’s outlined on your Learning Support Plan from DDSS
+        %li the deterioration/fluctuation of a disability and your Learning Support Plan from DDSS outlines that your disability is variable
+      %p If you’re submitting an extenuating circumstances form based on a condition/impairment documented in your Learning Support Plan, you should provide clear information about the impact this has had on the modules/assessments. You do need to provide additional medical evidence if you’re on a professional course (eg Medicine).
+    .line_02.mt-4
+      %span
+    %button.collapsible{:type => "button"}
+      %h2 ● Religious observance and exams
+    .content.lh-lg.fw-normal.font-monospace
+      %p If you’re observing religious festivals around the time of a deadline, it’s your responsibility to plan your work so it’s completed and submitted before the deadline. We’ll give you assessment dates and deadlines in advanceIf you know that attendance/work is prohibited on certain dates, or that major festivals might fall on potentially relevant dates, please contact the Student Administration Service by 31 October in the academic year to seek consideration of this.  For information on what to do if exams/invigilated assessments may coincide with religious festivals/holidays, visit:
+    .line_02.mt-4
+      %span
+    %button.collapsible{:type => "button"}
+      %h2 ● Prolonged absences
+    .content.lh-lg.fw-normal.font-monospace
+      %p If any absence is likely to be prolonged, eg your illness/medical condition may last for several weeks or months, you’re strongly advised to apply for an official leave of absence. If you’re planning to take time off from your studies in the future you must apply for an official Leave of Absence, eg to undertake a non-compulsory work placement or if there are other personal circumstances where a prolonged period of absence will be necessar
+    .line_02.mt-4
+      %span
+    %button.collapsible{:type => "button"}
+      %h2 ● Accademic Appeal for Late Submission
+    .content.lh-lg.fw-normal.font-monospace
+      %p An academic appeal is unlikely to be upheld without:
+      %ul
+        %li evidence to support any claims you make (eg medical evidence, which is not currently required)
+        %li detail and evidence to support why you couldn’t submit an extenuating circumstances form at the correct time
+      %p We won’t consider the following as valid reasons for academic appeal:
+      %ul
+        %li You submitted late because you didn’t feel comfortable notifying your department of your circumstances prior to the relevant meetings/boards.
+        %li You wanted to await your results before presenting this information.
+      %p The process is confidential, but your academic appeals form and any supporting evidence will be shared with:
+      %ul
+        %li your Head of Department(s) or delegate
+        %li other University staff whose input is deemed necessary to consider your case
+        %li a Faculty Officer and the administrators of the process
+      %p An extenuating circumstance form will only be seen by a small number of staff in your department.
+    .line_02.mt-4
+      %span
+    %button.collapsible{:type => "button"}
+      %h2 ● Any more questions?
+    .content.lh-lg.fw-normal.font-monospace.mt-3
+      .row
+        .col
+          .card{:style => "width: 18rem;"}
+            =image_tag("SU.png", :class => "card-img-top", :style => "width:100%;  ")
+            .card-body
+              %h5.card-title Details on Student Union
+              %p.card-text{:style => "color:black;"} Extenuating circumstances can be any circumstances outside your control that impact your performance in an assessment.
+              %a.btn.btn-primary.stretched-link{:href => "https://su.sheffield.ac.uk/advice-and-support/academic/extenuating-circumstances?gclid=Cj0KCQjw0umSBhDrARIsAH7FCoebdbh5rvyI-Iwqow0a5iHTW54gu_9N1BWm-SWS8j_bpGuvAWve7KkaAqBjEALw_wcB", :target => "_blank"} Visit
+        .col
+          .card{:style => "width: 18rem;"}
+            .card-body
+              =image_tag("the-university-of-sheffield-logo.png", :class => "card-img-top", :style => "width:100%;")
+              %h5.card-title.mt-3 Details on MOLE
+              %p.card-text{:style => "color:black;"} Support and guidance with extenuating circumstances that are affecting your ability to engage with your course.
+              %a.btn.btn-primary.stretched-link{:href => "https://students.sheffield.ac.uk/extenuating-circumstances", :target => "_blank"} Visit
+        .col
+          .card{:style => "width: 18rem;"}
+            .card-body
+              =image_tag("bg.jpg", :class => "card-img-top", :style => "width:100%; ")
+              %h5.card-title.mt-3 Student Support Services department
+              %p.card-text{:style => "color:black;"} An overview of our student support teams and services.
+              %a.btn.btn-primary.stretched-link{:href => "https://www.sheffield.ac.uk/departments/student-support-services", :target => "_blank"} Visit

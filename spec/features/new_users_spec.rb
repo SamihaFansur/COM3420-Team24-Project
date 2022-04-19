@@ -57,7 +57,7 @@ describe "user" do
         login_as(FactoryBot.create(:admin))
         visit"/users"
         click_link "New User"
-        expect(page).to have_content "Creating new user"
+        expect(page).to have_content "New user"
     end
 end
 
@@ -69,23 +69,11 @@ describe "user" do
         visit"/users"
         click_link "CSV Upload"
         expect(page).to have_content "File"
-        #attach csv file
-        # attach_file(Rails.root.join("spec/features/csv_test.csv"))
-        # attach_file('user[file]', "spec/features/csv_test.csv")
         attach_file('user[file]', Rails.root + "spec/features/csv_test.csv")
         #save users
         click_button "Save User"
         expect(page).to have_content "Listing"
-        #test that one of the users in file is added 
-        expect(page).to have_content "There are 5 users"
+
     end
 end
 
-        # #test repeated users
-        # visit"/users"
-        # click_link "CSV Upload"
-        # expect(page).to have_content "File"
-        # #attach csv file
-        # attach_file(Rails.root.join("spec/features/csv_test.csv"))
-        # #save users
-        # click_button "Save User"

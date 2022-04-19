@@ -1,0 +1,11 @@
+%body
+%p
+  The following ecf will be discussed at the next scrutiny panel meeting being held on #{@agenda.meeting.time}
+  %br --------------------------------------------------------------------------------------------------------
+
+%p
+  Name: #{@agenda.ecf.user.givenname} #{@agenda.ecf.user.sn}
+%p
+  Submitted at: #{@agenda.ecf.created_at}
+%p
+  Details: #{@agenda.ecf.details}
