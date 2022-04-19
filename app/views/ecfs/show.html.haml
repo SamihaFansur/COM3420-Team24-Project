@@ -89,9 +89,9 @@
             = @ecf.is_frequent_absence
           
 
-    - if @ecf.status == "Complete" 
-      %p The ECF is marked as Complete. Please look at the decisions below.
-      %table.table
+  - if @ecf.status == "Complete" 
+    %p The ECF is marked as Complete. Please look at the decisions below.
+    %table.table
       %thead
         %tr
           %th{:scope => "col"} Module:
