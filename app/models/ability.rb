@@ -20,7 +20,8 @@ class Ability
     end
 
     if user.module_leader?
-      can [:read, :edit, :update_persist, :search], Ecf
+      can [:read, :search], Ecf
+      cannot [:edit, :update_persist], Ecf
       cannot :manage, Meeting
       cannot :manage, User
     end
@@ -31,10 +32,17 @@ class Ability
       cannot :manage, User
     end
 
+    
+    if user.scrutiny_chair?
+      can [:read, :update_persist, :edit, :search], Ecf
+      can :manage, Meeting
+      cannot :manage, User
+    end
+
     if user.admin?
       can :manage, :all
       cannot :create, Ecf
-      cannot [:submit], Ecf
+      cannot :submit, Ecf
     end
 
     # Define abilities for the passed in user here. For example:
