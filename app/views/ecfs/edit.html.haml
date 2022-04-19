@@ -2,6 +2,8 @@
   = render 'staff_edit'
 - elsif current_user.scrutiny?
   = render 'staff_edit'
+- elsif current_user.module_leader?
+  = render 'staff_edit'
 - else
   = render 'form'
 
