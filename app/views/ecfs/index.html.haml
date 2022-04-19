@@ -27,6 +27,8 @@
                   
                   There #{@ecfs.size == 1 ? 'is' : 'are'} 
                   %span#num1 #{pluralize @ecfs.size, 'ecf'}
+                - if current_user.role == "admin"
+                  %p= link_to "ecfs gdpr", ecfs_gdpr_ecfs_path #NEED TO RENAME THE LINK TO SMTH APPROPRIATE
                   
             - if can? :create, Ecf
               .row.justify-content-center.mb-5

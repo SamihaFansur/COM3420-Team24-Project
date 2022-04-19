@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     member do
       patch 'update_persist', to: 'ecfs#update_persist'
     end
+
+    get :ecfs_gdpr, on: :collection
   end
   get 'ecfs/new' => 'ecfs#new', :as => :new_ecfs 
 

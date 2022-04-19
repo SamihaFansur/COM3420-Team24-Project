@@ -1,0 +1,16 @@
+-# SOMEONE PLZ FIX THE TEXT ON THIS PAGE IDK WHAT ELSE TO PUT ON IT
+%p Ecfs displayed here have been in the system for 7 years and need to be deleted as per the GDPR Policy. 
+%p <strong>Todays Date: </strong>#{Date.today}
+-# Vincent plz put the ecf stuff below in a table with proper table headers, thanks
+%p 
+    - @ecfs.each do |ecf|
+        - if (Date.today - ecf.date).to_i >= (7*365)
+            = ecf.status
+            = ecf.date
+            = ecf.user.givenname
+            = ecf.user.mail
+            = ecf.user.uid
+            = ecf.user.ou
+            = link_to 'Show', ecf
+            -# = link_to 'Delete', ecf
+            %br

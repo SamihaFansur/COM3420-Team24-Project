@@ -72,6 +72,10 @@ class EcfsController < ApplicationController
     end
   end
 
+  def ecfs_gdpr
+    @ecfs = Ecf.all
+  end
+
   private
     # def search_params(params)
     #   params.slice(:status, :user_uid)
