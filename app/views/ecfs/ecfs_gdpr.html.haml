@@ -1,48 +1,61 @@
+:javascript
+  window.onload=function(){
+    var row = document.getElementById("gdpr").rows.length; //delete table if no ecf expired
+     if (row == 1) {
+       document.getElementById("gdpr").deleteRow(0);
+       //alert admin there is no ecf expired
+       //because if no ecf expired, the table first row will remain which is confusing
+       var parent = document.getElementById("alert_no_expired");
+       var notify = document.createElement("p");
+       notify.setAttribute("class", "alert alert-info");
+       notify.innerHTML = "No ECF expired, please check again later";
+       parent.append(notify);
+     }
+  }
+
+
 
 -if @ecfs.empty?
-    .alert.alert-primary No ECF found ! Please try again.
+  .alert.alert-primary No ECF found ! Please try again.
 
 -if  ! @ecfs.empty?
+  .alert.alert-warning{:role => "alert"}
+    Ecfs displayed here have been in the system for 7 years and need to be deleted as per the
+    = succeed "." do
+      %a.alert-link{:href => "https://www.gov.uk/data-protection"} GDPR Policy.
+  .display-5.mt-5.mb-5
+    Todays Date: #{Date.today}
+  .p.text-center#alert_no_expired
+%table.table#gdpr
+  %thead
+    %tr
+      %th{:scope => "col"} Status
+      %th{:scope => "col"} Date
+      %th{:scope => "col"} First Name
+      %th{:scope => "col"} Email
+      %th{:scope => "col"} User ID
+      %th{:scope => "col"} Module
+      %th{:scope => "col"} Show
+      %th{:scope => "col"} Delete
 
-    .alert.alert-warning{:role => "alert"}
-        Ecfs displayed here have been in the system for 7 years and need to be deleted as per the
-        = succeed "." do
-            %a.alert-link{:href => "https://www.gov.uk/data-protection"} GDPR Policy.
-    .display-5.mt-5.mb-5
-        Todays Date: #{Date.today}
+  - @ecfs.each do |ecf|
+    - if (Date.today - ecf.date).to_i >= (7*365)
+      %tbody
+        %tr
+          %th{:scope => "row"}
+            = ecf.status
+          %td
+            = ecf.date
+          %td
+            = ecf.user.givenname
+          %td
+            = ecf.user.mail
+          %td
+            = ecf.user.uid
+          %td
+            = ecf.user.ou
+          %td
+            = link_to 'Show', ecf
+          %td
+            = link_to 'Delete ECF', ecf_path(ecf), :method => :delete, :data => { :confirm => 'Are you sure?' }
 
-    %p
-        - @ecfs.each do |ecf|
-            - if Time.zone.now.years_ago(7) >= ecf.created_at
-                %table.table
-                    %thead
-                        %tr
-                            %th{:scope => "col"} Status
-                            %th{:scope => "col"} Date Created
-                            %th{:scope => "col"} Date Submitted
-                            %th{:scope => "col"} Name
-                            %th{:scope => "col"} Email
-                            %th{:scope => "col"} Username
-                            %th{:scope => "col"} Department
-                            %th{:scope => "col"} 
-                            %th{:scope => "col"} 
-                    %tbody
-                        %tr
-                            %th{:scope => "row"}
-                                = ecf.status
-                            %td
-                                = ecf.created_at
-                            %td
-                                = ecf.date
-                            %td
-                                #{ecf.user.givenname} #{ecf.user.sn}
-                            %td
-                                = ecf.user.mail
-                            %td
-                                = ecf.user.uid
-                            %td
-                                = ecf.user.ou
-                            %td
-                                = link_to 'Show', ecf
-                            %td
-                                = link_to 'Delete ECF', ecf_path(ecf), :method => :delete, :data => { :confirm => 'Are you sure?' }
