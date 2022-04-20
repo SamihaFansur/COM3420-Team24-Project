@@ -6,7 +6,7 @@
 		}
 		const upload_file = document.getElementById("user_file"); // check upload file type validation
 		upload_file.onchange = function(){
-			if(this.files.type != "text/csv"){
+			if($info['extension'] == 'csv'){
 				alert("please check the file type before uploading");
 				this.value = "";
 				return;
