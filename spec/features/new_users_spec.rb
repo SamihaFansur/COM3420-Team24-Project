@@ -4,7 +4,47 @@ require 'rails_helper'
 #Test New User
 
 describe "user" do
-    #log in as a user
+    #log in as a student
+    it "logs is and visits new user page " do
+        visit"/users/sign_in"
+        login_as(FactoryBot.create(:student))
+        visit"/users/new"
+        expect(page).to have_content "New user"
+    end
+end
+
+describe "user" do
+    #log in as a module leader
+    it "logs is and visits new user page " do
+        visit"/users/sign_in"
+        login_as(FactoryBot.create(:module_leader))
+        visit"/users/new"
+        expect(page).to have_content "New user"
+    end
+end
+
+describe "user" do
+    #log in as a scrutiny panel member
+    it "logs is and visits new user page " do
+        visit"/users/sign_in"
+        login_as(FactoryBot.create(:scrutiny_panel))
+        visit"/users/new"
+        expect(page).to have_content "New user"
+    end
+end
+
+describe "user" do
+    #log in as a scrutiny chair
+    it "logs is and visits new user page " do
+        visit"/users/sign_in"
+        login_as(FactoryBot.create(:scrutiny_chair))
+        visit"/users/new"
+        expect(page).to have_content "New user"
+    end
+end
+
+describe "user" do
+    #log in as a admin
     it "logs is and visits new user page " do
         visit"/users/sign_in"
         login_as(FactoryBot.create(:admin))
@@ -12,6 +52,7 @@ describe "user" do
         expect(page).to have_content "New user"
     end
 end
+
 
 describe "user" do
     #log in as a user
@@ -62,7 +103,7 @@ describe "user" do
 end
 
 describe "user" do
-    it "tests csv user upload " do
+    it "tests csv user upload ", js: true do 
         #login
         visit"/users/sign_in"
         login_as(FactoryBot.create(:admin))
