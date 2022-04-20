@@ -162,3 +162,26 @@ describe "ecf" do
         expect(page).to have_content "Failed to add ECF to the meeting."
     end
 end
+
+describe "ecf" do
+    it "uploads evidence to ecf", js: true do 
+        visit"/users/sign_in"
+        login_as(FactoryBot.create(:student2))
+        visit"/ecfs"
+        expect(page).to have_content "Listing ECFs"
+        click_link "Create New ECF"
+        fill_in "Details", with: "Example User2"
+        fill_in "Unit code", with: "COM2008"
+        fill_in "Assessment type", with: "Exam"
+        select "DEX - Deadline Extension", from: "Requested action ", visible: false
+        click_button "Create Ecf"
+        logout(:student)
+        login_as(FactoryBot.create(:admin))
+        visit"/ecfs"
+        click_link "Edit", match: :first
+        expect(page).to have_content "Edit ECF"
+        attach_file 'ecf[upload_medical_evidence][]', 'spec/features/test.pdf'
+        click_button "Update evidence"
+        expect(page).to have_content "Form was successfully updated."
+    end
+end
