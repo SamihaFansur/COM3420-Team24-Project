@@ -3,10 +3,9 @@ require 'rails_helper'
 
 #Test ecf notes
 
-
+#Note for Student
 describe "notes" do
-    #log in as a user
-    it "fills out and submits ecf then adds student notes" do
+    it "fills out and submits ecf then adds student notes", js: true do 
         visit"/users/sign_in"
         login_as(FactoryBot.create(:student2))
         visit"/ecfs"
@@ -23,12 +22,8 @@ describe "notes" do
         click_link "Edit", match: :first
         expect(page).to have_content "Edit ECF"
         expect(page).to have_content "+ Add a Student note"
-        # click_button "+ Add a Student note", match: :first
-        # expect(page).to have_content "Description"
-        # fill_in "ecf[ecf_notes_attributes][1649785385150][description]", with: "test note"
-        # click_button "commit"
-        # expect(page).to have_content "test note"
-        # click_link "Edit", match: :first
+        click_button "+ Add a Student note", match: :first
+        click_button "Submit note"
+        expect(page).to have_content "Form was successfully updated."
     end
 end
-
