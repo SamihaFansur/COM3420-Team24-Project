@@ -77,5 +77,11 @@ FactoryBot.define do
       role {4}
 
     end
+
+    factory :scrutiny_chair do
+      uid { "aca20sf" }
+      dn {"uid=aca20sf,ou=Undergraduates,ou=Staff,ou=Users,dc=sheffield,dc=ac,dc=uk"}
+      role {5}
+    end
   end
 end
