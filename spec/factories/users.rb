@@ -2,29 +2,23 @@
 #
 # Table name: users
 #
-#  id                  :bigint           not null, primary key
-#  current_sign_in_at  :datetime
-#  current_sign_in_ip  :string
-#  dn                  :string
-#  dob                 :date
-#  email               :string           default(""), not null
-#  givenname           :string
-#  is_student_visa     :boolean
-#  last_sign_in_at     :datetime
-#  last_sign_in_ip     :string
-#  level_of_study      :string
-#  mail                :string
-#  ou                  :string
-#  programme_of_study  :string
-#  registration_number :integer
-#  role                :integer          default("guest")
-#  sign_in_count       :integer          default(0), not null
-#  signature           :string
-#  sn                  :string
-#  uid                 :string
-#  username            :string
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
+#  id                 :bigint           not null, primary key
+#  current_sign_in_at :datetime
+#  current_sign_in_ip :string
+#  dn                 :string
+#  email              :string           default(""), not null
+#  givenname          :string
+#  last_sign_in_at    :datetime
+#  last_sign_in_ip    :string
+#  mail               :string
+#  ou                 :string
+#  role               :integer          default("guest")
+#  sign_in_count      :integer          default(0), not null
+#  sn                 :string
+#  uid                :string
+#  username           :string
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
 #
 # Indexes
 #
