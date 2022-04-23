@@ -52,42 +52,47 @@ class UsersController < ApplicationController
     new_users_hash = Hash.new
     new_user_modules_hash = Hash.new {|x,y| x[y] = []}
 
-    CSV.foreach(path, headers: true) do |row|
-      email = row.to_h["email"]
-      module_code = row.to_h["module_code"]
-
-      # importing users
-      if users_hash.key?(email)
-        # if the user already exists in the database, set them as the current user
-        user = User.find_by(email: email)
-      else
-        # otherwise, import the user with LDAP details, unless added by a previous row
-        unless new_users_hash.key?(email)
-          user = User.new(email: email, role: 2)
-          user.get_info_from_ldap
-          unless user.username.nil?
-            new_users_hash[email] = user
-            users << user
-          end
+    headers = CSV.read(path, headers: true).headers
+    if headers.include?("email") and headers.include?("module_code")
+      CSV.foreach(path, headers: true) do |row|
+        email = row.to_h["email"]
+        module_code = row.to_h["module_code"]
+  
+        # importing users
+        if users_hash.key?(email)
+          # if the user already exists in the database, set them as the current user
+          user = User.find_by(email: email)
         else
-          user = new_users_hash[email]
+          # otherwise, import the user with LDAP details, unless added by a previous row
+          unless new_users_hash.key?(email)
+            user = User.new(email: email, role: 2)
+            user.get_info_from_ldap
+            unless user.username.nil?
+              new_users_hash[email] = user
+              users << user
+            end
+          else
+            user = new_users_hash[email]
+          end
+        end
+  
+        # importing user modules
+        unless user_modules_hash[user.id.to_s]&.include? module_code or new_user_modules_hash[email]&.include? module_code
+          new_user_modules_hash[email] << module_code
+          unless user.username.nil? or module_code.nil?
+            user_module = UserModule.new(module_code: module_code, user: user)
+            user_modules << user_module
+          end
         end
       end
-
-      # importing user modules
-      unless user_modules_hash[user.id.to_s]&.include? module_code or new_user_modules_hash[email]&.include? module_code
-        new_user_modules_hash[email] << module_code
-        unless user.username.nil? or module_code.nil?
-          user_module = UserModule.new(module_code: module_code, user: user)
-          user_modules << user_module
-        end
-      end
+  
+      User.import users, batch_size: 2000
+      UserModule.import user_modules, batch_size: 1000
+  
+      redirect_to users_path, notice: "Users imported successfully."  
+    else
+      redirect_to users_path, alert: "Failed to upload users - CSV file is of the incorrect format."
     end
-
-    User.import users, batch_size: 2000
-    UserModule.import user_modules, batch_size: 1000
-
-    redirect_to users_path, notice: "Users imported successfully."
     
   end
 
