@@ -23,14 +23,13 @@ class UsersController < ApplicationController
     user = User.new(email: params[:email])
     user.get_info_from_ldap
     if user.username.nil?
-      # render :new
       redirect_to new_user_path, alert: "User could not be found with email #{params[:email]}"
     elsif User.exists?(username: user.username)
       redirect_to new_user_path, alert: "This user already exists in the database."
     else 
       user.role = params[:role]
       user.save
-      redirect_to users_path, notice: "User was successfully created wtih role #{params[:role]}."
+      redirect_to users_path, notice: "User was successfully created with role #{params[:role]}."
     end
   end
 
@@ -41,9 +40,7 @@ class UsersController < ApplicationController
 
   def import
     path = params[:user][:file].tempfile.path
-    # new users to commit to the database
     users = []
-    # new user_modules to commit to the database
     user_modules = []
 
     # hash of existing users and their ids {"email1@test.com => 23"}
@@ -51,59 +48,38 @@ class UsersController < ApplicationController
     # hash of existing users and their module codes {"email1@test.com" => ["COM1004", "COM1010"]}
     user_modules_array = UserModule.select(:user_id, 'array_agg(module_code)').group(:user_id).pluck(:user_id, 'array_agg(module_code)')
     user_modules_hash = Hash[*user_modules_array.flatten(1)]
-    # hash to track new users from csv {"email3@test.com => User#{...}"}
+
     new_users_hash = Hash.new
-    # hash to track new user modules from csv {"email3" => ["COM2003", "COM3004"]}
     new_user_modules_hash = Hash.new {|x,y| x[y] = []}
 
-    #basic. does repeat existing users
     CSV.foreach(path, headers: true) do |row|
       email = row.to_h["email"]
       module_code = row.to_h["module_code"]
 
-      unless email.nil?
-        # if the user already exists in the database
-        if users_hash.key?(email)
-          user = User.find_by(email: email)
-          # user.get_info_from_ldap
-          
-          # only tries 'include' if user has any modules
-          if user_modules_hash.key?(user.id.to_s)
-            unless user_modules_hash[user.id.to_s].include? module_code or new_user_modules_hash[email].include? module_code
-              new_user_modules_hash[email] << module_code
-              user_module = UserModule.new(module_code: module_code, user: user)
-              user_modules << user_module
-            end
-          else
-            unless new_user_modules_hash[email].include? module_code
-              new_user_modules_hash[email] << module_code
-              user_module = UserModule.new(module_code: module_code, user: user)
-              user_modules << user_module
-            end
-          end
-        else
-          # only add queue this user for creation if not added by a previous row
-          unless new_users_hash.key?(email)
-            user = User.new(email: email, role: 2)
-            user.get_info_from_ldap
+      # importing users
+      if users_hash.key?(email)
+        # if the user already exists in the database, set them as the current user
+        user = User.find_by(email: email)
+      else
+        # otherwise, import the user with LDAP details, unless added by a previous row
+        unless new_users_hash.key?(email)
+          user = User.new(email: email, role: 2)
+          user.get_info_from_ldap
+          unless user.username.nil?
             new_users_hash[email] = user
             users << user
-          else
-            user = new_users_hash[email]
           end
+        else
+          user = new_users_hash[email]
+        end
+      end
 
-          # only add module if not added by a previous row
-          if new_user_modules_hash.key?(email)
-            unless new_user_modules_hash[email].include? module_code
-              new_user_modules_hash[email] << module_code
-              user_module = UserModule.new(module_code: module_code, user: user)
-              user_modules << user_module
-            end
-          else
-            new_user_modules_hash[email] << module_code
-            user_module = UserModule.new(module_code: module_code, user: user)
-            user_modules << user_module
-          end
+      # importing user modules
+      unless user_modules_hash[user.id.to_s]&.include? module_code or new_user_modules_hash[email]&.include? module_code
+        new_user_modules_hash[email] << module_code
+        unless user.username.nil? or module_code.nil?
+          user_module = UserModule.new(module_code: module_code, user: user)
+          user_modules << user_module
         end
       end
     end
@@ -112,6 +88,7 @@ class UsersController < ApplicationController
     UserModule.import user_modules, batch_size: 1000
 
     redirect_to users_path, notice: "Users imported successfully."
+    
   end
 
   def new
