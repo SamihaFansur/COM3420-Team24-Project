@@ -31,12 +31,6 @@ class Ability
       can :manage, Meeting
       cannot :manage, User
     end
-    
-    if user.scrutiny_chair?
-      can [:read, :update_persist, :edit, :search], Ecf
-      can :manage, Meeting
-      cannot :manage, User
-    end
 
     if user.admin?
       can :manage, :all

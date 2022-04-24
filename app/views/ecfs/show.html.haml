@@ -26,7 +26,7 @@
   = @ecf.date
 
 - if @ecf.highly_sensitive
-  - if current_user.role == "student" || current_user.role == "scrutiny_chair"
+  - if current_user.role == "student" || current_user.role == "admin"
     = render "sensitive_info"
   - else 
     
