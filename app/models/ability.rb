@@ -7,11 +7,11 @@ class Ability
 
     user ||= User.new
 
-    # if user.guest?
-    #   cannot :manage, Ecf
-    #   cannot :manage, Meeting
-    #   cannot :manage, User
-    # end
+    if user.guest?
+      cannot :manage, Ecf
+      cannot :manage, Meeting
+      cannot :manage, User
+    end
 
     if user.student?
       can [:read, :new, :create, :update, :update_persist, :edit, :submit], Ecf
@@ -31,7 +31,6 @@ class Ability
       can :manage, Meeting
       cannot :manage, User
     end
-
     
     if user.scrutiny_chair?
       can [:read, :update_persist, :edit, :search], Ecf

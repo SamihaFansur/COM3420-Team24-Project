@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   get 'login/index'
   mount EpiCas::Engine, at: "/"
 
+  get 'pages/guest_page' => 'pages#guest_page', :as => :guest_page
+
   resources :ecf_notes
   resources :agendas
   

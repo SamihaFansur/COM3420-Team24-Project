@@ -40,8 +40,10 @@ class ApplicationController < ActionController::Base
       ecfs_path
     elsif @user.role == 'scrutiny' # route to meetings page
       meetings_path
+    elsif @user.role == 'scrutiny_chair' # route to meetings page
+      meetings_path
     else
-      root_path
+      guest_page_path
     end
   end
 
