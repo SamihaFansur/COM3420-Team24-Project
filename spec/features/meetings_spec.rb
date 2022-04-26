@@ -1,9 +1,5 @@
-require_relative "../spec_helper"
+require 'spec_helper'
 require 'rails_helper'
-
-
-
-
 
 #Test Login
 
@@ -172,6 +168,84 @@ feature "pdf generation" do
     convert_pdf_to_page
     expect(page).to have_content("PDF export date")
  end
+end
+
+describe "meeting", js: true do
+    it "updates ecf in meeting" do
+        visit"/users/sign_in"
+        login_as(FactoryBot.create(:admin))
+        visit"/meetings"
+        click_link "New Meeting"
+        fill_in "Title", with: "1"
+        fill_in "Attendees", with: "test"
+        click_button "Create Meeting"
+        expect(page).to have_content "Attendees: test"
+        visit "/meetings"
+        find(:xpath, "/html/body/main/div/div[1]/table/tbody/tr[1]/td[6]/a", :text => 'Edit').click 
+        expect(page).to have_content "Editing meeting"
+        fill_in "Title", with: "new test"
+        click_button "Update Meeting"
+        expect(page).to have_content "new test"
+        visit"/meetings"
+        find(:xpath, "/html/body/main/div/div[1]/table/tbody/tr[1]/td[5]/a", :text => 'Show').click 
+        #Confirms test updates
+        expect(page).to have_content "new test"
+
+    end
+end
+
+describe "meeting" do
+    it "adds meeting to agenda", js: true do
+        #make intitial ecf for later
+        login_as(FactoryBot.create(:student))
+        visit"/ecfs"
+        click_link "Create New ECF"
+        fill_in "Details", with: "Example User2"
+        fill_in "Unit code", with: "COM2008"
+        fill_in "Assessment type", with: "Exam"
+        select "DEX - Deadline Extension", from: "Requested action ", visible: false
+        click_button "Create Ecf"
+        login_as(FactoryBot.create(:admin))
+        visit"/meetings"
+        click_link "New Meeting"
+        fill_in "Title", with: "title"
+        fill_in "meeting[attendees]", with: "test"
+        click_button "Create Meeting"
+        expect(page).to have_content "Attendees: test"
+        visit "/meetings"
+        expect(page).to have_content "1"
+        expect(Meeting.count).to eq 1
+        visit "/meetings/1"
+        find(:xpath, '/html/body/main/div/p[5]/a').click
+        expect(page).to have_content "Listing ECFs"
+        find(:xpath, "/html/body/main/div/body-1/section/div/div[2]/div/div[3]/div/table/tbody/tr[1]/td[8]/a", :text => 'Edit').click 
+        fill_in "agenda[meeting_id]", with: "1"
+        click_button "Add to meeting"
+        expect(page).to have_content "ECF was successfully added to the meeting"
+        visit "/meetings"
+        find(:xpath, "/html/body/main/div/div[1]/table/tbody/tr[1]/td[5]/a", :text => 'Show').click 
+        expect(page).to have_content "Pending"
+        find(:xpath, "/html/body/main/div/div[1]/table/tbody/tr/td[11]/a", :text => 'Remove ECF').click 
+        page.driver.browser.switch_to.alert.accept
+        expect(page).to have_content "Successfully removed ECF from agenda"
+    end
+end
+
+describe "meeting", js: true do
+    it "destroy meeting test" do
+        visit"/users/sign_in"
+        login_as(FactoryBot.create(:admin))
+        visit"/meetings"
+        click_link "New Meeting"
+        fill_in "Title", with: "1"
+        fill_in "Attendees", with: "test"
+        click_button "Create Meeting"
+        expect(page).to have_content "Attendees: test"
+        visit "/meetings"
+        find(:xpath, "/html/body/main/div/div[1]/table/tbody/tr[1]/td[7]/a", :text => 'Destroy').click 
+        page.driver.browser.switch_to.alert.accept
+        expect(page).to have_content "Meeting was successfully destroyed."
+    end
 end
 
 
