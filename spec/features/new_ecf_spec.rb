@@ -123,10 +123,10 @@ describe "ecf" do
         login_as(FactoryBot.create(:admin))
         visit"/ecfs"
         click_link "Edit", match: :first
-        find_field('agenda_meeting_id').set('2')
+        find_field('agenda_meeting_id').set('1')
         click_button "Add to meeting"
         expect(page).to have_content "ECF was successfully added to the meeting."
-        find_field('agenda_meeting_id').set('2')
+        find_field('agenda_meeting_id').set('1')
         click_button "Add to meeting"
         expect(page).to have_content "This ECF has already been added to the meeting!"
     end
@@ -159,7 +159,7 @@ describe "ecf" do
         click_link "Edit", match: :first
         find_field('agenda_meeting_id').set('h')
         click_button "Add to meeting"
-        expect(page).to have_content "Failed to add ECF to the meeting."
+        expect(page).to have_content "Must enter a meeting ID."
     end
 end
 
