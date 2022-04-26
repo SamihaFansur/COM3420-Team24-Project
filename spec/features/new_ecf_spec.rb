@@ -185,3 +185,21 @@ describe "ecf" do
         expect(page).to have_content "Form was successfully updated."
     end
 end
+
+
+describe "ecf" do
+    it "delete ecf over 7 years old", js: true do 
+        visit"/users/sign_in"
+        login_as(FactoryBot.create(:admin))
+        FactoryBot.create(:ecf)
+        visit"/ecfs"
+        expect(page).to have_content "test"
+        click_link "ECFs which need attention as per the GDPR Policy"
+        expect(page).to have_content "Todays Date"
+        expect(page).to have_content "test"
+        click_link "Delete ECF", match: :first
+        # find(:xpath, "/html/body/main/div/div[1]/table/tbody/tr[1]/td[8]/a", :text => 'Delete ECF').click 
+        page.driver.browser.switch_to.alert.accept
+        expect(page).to have_content "Successfully deleted ECF from system."
+    end
+end

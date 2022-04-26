@@ -27,6 +27,21 @@
 #
 FactoryBot.define do
   factory :ecf do
+
+    user_id { 1 }
+    id {50}
+    details { "test" }
+    email { "test "}
+    date {"2022-04-19 16:51:02 UTC"}
+    created_at {'1000-01-01 00:00:00'}
+    start_of_circumstances{'1000-01-01 00:00:00'}
+    end_of_circumstances{'1000-01-01 00:00:00'}
+    after(:build) do |ecf|
+      if ecf.affected_units.blank?
+        ecf.affected_units = [FactoryBot.build(:affected_unit)]
+      end
+    end
     
+
   end
 end
