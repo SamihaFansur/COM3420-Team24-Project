@@ -11,8 +11,8 @@ describe 'User specs' do
         it "logs is and visits new user page " do
             visit"/users/sign_in"
             login_as(FactoryBot.create(:student))
-            visit"/users/new"
-            expect(page).to have_content "New user"
+            visit"/ecfs"
+            expect(page).to have_content "Listing"
         end
     end
 
@@ -21,28 +21,28 @@ describe 'User specs' do
         it "logs is and visits new user page " do
             visit"/users/sign_in"
             login_as(FactoryBot.create(:module_leader))
-            visit"/users/new"
-            expect(page).to have_content "New user"
+            visit"/ecfs"
+            expect(page).to have_content "Listing"
         end
     end
 
     describe "user" do
         #log in as a scrutiny panel member
-        it "logs is and visits new user page " do
+        it "logs is as scrutiny panel " do
             visit"/users/sign_in"
             login_as(FactoryBot.create(:scrutiny_panel))
-            visit"/users/new"
-            expect(page).to have_content "New user"
+            visit"/ecfs"
+            expect(page).to have_content "Listing"
         end
     end
 
     describe "user" do
         #log in as a admin
-        it "logs is and visits new user page " do
+        it "log in as admin " do
             visit"/users/sign_in"
             login_as(FactoryBot.create(:admin))
-            visit"/users/new"
-            expect(page).to have_content "New user"
+            visit"/users"
+            expect(page).to have_content "Listing users"
         end
     end
 
@@ -62,7 +62,7 @@ describe 'User specs' do
             expect(page).to have_content "User ID:"
             visit"/users"
             click_link "Edit", match: :first
-            expect(page).to have_content "Edit role stuff here"
+            expect(page).to have_content "Edit user role here"
             select "Admin", from: "user[role]", visible: false
             # click_link "Add UserModule", visible: true
             # fill_in "Module code", with: "COM2004"
