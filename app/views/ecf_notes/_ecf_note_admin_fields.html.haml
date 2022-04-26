@@ -4,7 +4,7 @@
   = form.input :description, as: :string
   = form.input :role, as: :hidden, input_html: {value: 4}
   %p
-    %i Please remember notes submitted here will only be visible to the scrutiny chair.
+    %i Please remember that notes submitted here will only be visible to the scrutiny chair.
   = form.button :submit, value: "Submit note",class: "btn btn-outline-primary btn-sm"
   = link_to_remove_nested(form, link_text: "Remove", fields_wrapper_selector: '.wrapper-div',link_classes: "btn btn-outline-danger btn-sm ml-5")
 
