@@ -29,7 +29,6 @@
   - if current_user.role == "student" || current_user.role == "admin"
     = render "sensitive_info"
   - else 
-    
     %p Ecf has highly sensitive information, which can only be viewed by Scrutiny chair.
 - else
   = render "sensitive_info"
