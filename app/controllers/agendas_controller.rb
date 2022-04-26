@@ -4,10 +4,6 @@ class AgendasController < ApplicationController
 
   def create
     @agenda = Agenda.new(agenda_params)
-    print("\n PRINTING PARAMS: \n")
-    print(agenda_params)
-    print(params[:meeting_id])
-    print(params[:ecf_id])
     id_ecf = params[:ecf_id]
     if @agenda.save
       flash[:notice] = "ECF #{params[:ecf_id]} was successfully added to the meeting."
@@ -17,9 +13,10 @@ class AgendasController < ApplicationController
 
       redirect_back(fallback_location: ecfs_path)
     else
-      # add extra validation here to clarify whether failed on uniqueness or just db error.
       if Agenda.where(agenda_params).exists?
         flash[:alert] = "This ECF has already been added to the meeting!"
+      elsif params[:meeting_id].blank?
+        flash[:alert] = "Must enter a meeting ID."
       else
         flash[:alert] = "Failed to add ECF to the meeting."
       end
@@ -28,15 +25,20 @@ class AgendasController < ApplicationController
   end
 
   def update
-    if @agenda.update(agenda_params)
-      flash[:notice] = 'Meeting was successfully updated.'
-      
-      EmailMailer.with(agenda: @agenda).ecf_added_to_updated_agenda.deliver_now
-      flash[:success] = "Student notified of scrutiny panel meeting."
-      
+    if params[:agenda].blank?
+      flash[:alert] = "No decisions added."
       redirect_back(fallback_location: meetings_path)
     else
-      render :edit
+      if @agenda.update(agenda_params)
+        flash[:notice] = 'Meeting was successfully updated.'
+        
+        EmailMailer.with(agenda: @agenda).ecf_added_to_updated_agenda.deliver_now
+        flash[:success] = "Student notified of scrutiny panel meeting."
+        
+        redirect_back(fallback_location: meetings_path)
+      else
+        render :edit
+      end
     end
   end
 
