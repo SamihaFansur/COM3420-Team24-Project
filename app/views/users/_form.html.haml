@@ -2,7 +2,7 @@
 
   = f.error_notification
 
-  %h4  Edit role stuff here
+  %h4  Edit user role here
 
   = f.select :role, options_for_select(User.roles.map {|key, value| [key.humanize, key]}, @user.role)
   .mt-5

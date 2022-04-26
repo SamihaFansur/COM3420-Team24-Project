@@ -12,14 +12,9 @@
     = @user.mail
 
   %p
-    %b Given Name:
+    %b Name:
     %br
-    = @user.givenname
-  
-  %p
-    %b Surname:
-    %br
-    = @user.sn
+    #{@user.givenname} #{@user.sn}
 
   %p
     %b Department:
@@ -29,7 +24,11 @@
   %p
     %b Group:
     %br
-    = ((@user.dn).split( /, */ )[2]).chars.last((((@user.dn).split( /, */ )[2]).length)-3).join
+    - if @user.dn.include?("Student")
+      = 'Students'
+    - else
+      = 'Staff'
+    -# = ((@user.dn).split( /, */ )[2]).chars.last((((@user.dn).split( /, */ )[2]).length)-3).join
 %p
   %b Modules
   =render 'form'

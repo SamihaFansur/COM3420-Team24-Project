@@ -12,15 +12,10 @@
     = @user.mail
 
   %p
-    %b Given Name:
+    %b Name:
     %br
-    = @user.givenname
+    #{@user.givenname} #{@user.sn}
   
-  %p
-    %b Surname:
-    %br
-    = @user.sn
-
   %p
     %b Department:
     %br
@@ -29,15 +24,27 @@
   %p
     %b Group:
     %br
-    = ((@user.dn).split( /, */ )[2]).chars.last((((@user.dn).split( /, */ )[2]).length)-3).join
+    - if @user.dn.include?("Student")
+      = 'Students'
+    - else
+      = 'Staff'    
+    -# = ((@user.dn).split( /, */ )[2]).chars.last((((@user.dn).split( /, */ )[2]).length)-3).join
     
   %p
     %b Role:
     %br
-    = @user.role
+    
+    - if @user.role.include?("_")
+      %td= @user.role.sub("_", " ")
+    - else
+      %td= @user.role
 %p
   %b Modules
-  - @user_modules.each do |user_module|
-    %p
-      %b Module:
-      = user_module.module_code
+  %br
+  -if @user_modules.size == 0
+    = 'This user has no modules'
+  -else
+    - @user_modules.each do |user_module|
+      %p
+        %b Module:
+        = user_module.module_code

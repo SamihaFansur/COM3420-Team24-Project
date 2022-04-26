@@ -73,7 +73,14 @@
                 %td= user.givenname
                 %td= user.sn
                 %td= user.ou
-                %td= ((user.dn).split( /, */ )[2]).chars.last((((user.dn).split( /, */ )[2]).length)-3).join
-                %td= user.role
+                - if user.dn.include?("Student")
+                  %td= 'Students'
+                - else
+                  %td= 'Staff'
+                -# %td= ((user.dn).split( /, */ )[2]).chars.last((((user.dn).split( /, */ )[2]).length)-3).join
+                - if user.role.include?("_")
+                  %td= user.role.sub("_", " ")
+                - else
+                  %td= user.role
                 %td= link_to 'Show', user
                 %td= link_to 'Edit', edit_user_path(user)
