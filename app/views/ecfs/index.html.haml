@@ -29,7 +29,7 @@
                   %span#num1 #{pluralize @ecfs.size, 'ecf'}
                 - if current_user.role == "admin"
                   %p.txt-centre
-                    = link_to "ecfs gdpr", ecfs_gdpr_ecfs_path         #NEED TO RENAME THE LINK TO SMTH APPROPRIATE
+                    = link_to "ECFs which need attention as per the GDPR Policy", ecfs_gdpr_ecfs_path
                   
             - if can? :create, Ecf
               .row.justify-content-center.mb-5
@@ -46,7 +46,7 @@
                         %th{:scope => "col"}= f.label "Ecf status"
                         %th{:scope => "col"}= f.label "First / Last name"
                         %th{:scope => "col"}= f.label "Student Email"
-                        %th{:scope => "col"} Run Search
+                        %th{:scope => "col"}
 
                       %tbody
                         = search_form_for @q do |f|
@@ -59,7 +59,7 @@
             .table-responsive
               %table.table
               -if @ecfs.empty?
-                %p.alert.alert-primary No result found ! please check your search criteria.
+                %p.alert.alert-primary No result found! Please check your search criteria.
               -else
                 .table-responsive
                   %table.table
