@@ -42,55 +42,7 @@
     %div.alert.alert-dark.mt-3 Setting an ECF as 'complete' will remove it from the view of pending ECFs.
 
 %p
-  %b Type(s) of Circumstances: 
-  %br
-  - if @ecf.is_serious_short_term 
-    Serious short term illness / accident / hospitalisation
-    %br
-  - if @ecf.is_deterioration_of_disability
-    Deterioration or fluctuation of a disability / long term health condition
-    %br
-  - if @ecf.is_bereavement
-    Bereavement
-    %br
-  - if @ecf.is_significant_adverse_personal
-    Significant adverse personal / family circumstances.
-    %br
-  - if @ecf.is_other_exceptional_factors
-    Other exceptional factors
-    %br
-  - if @ecf.is_frequent_absence
-    Frequent absence of less than 7 calendar days
-    %br
-
-%p
-  %b Duration of Circumstances:
-  %br
-  = @ecf.start_of_circumstances
-  %i to
-  = @ecf.end_of_circumstances
-
-%p
-  %b Details of Circumstances:
-  %textarea#exampleFormControlTextarea1.form-control.rounded-0{:readonly => "readonly", :rows => "10"}= @ecf.details
-
-%p 
-  %b Supporting evidence:
-  - @ecf.upload_medical_evidence.each do |medical_evidence|
-    %br
-    #uploaded_file= link_to medical_evidence.filename, medical_evidence, target: :_blank
-    = link_to "Delete attachment", purge_attachment_path(medical_evidence), method: :delete,class: "btn btn-outline-danger btn-sm ml-5"
-
-%p
-  = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
-    + Add supporting evidence:
-    = f.file_field :upload_medical_evidence, multiple: true, accept: 'application/pdf'
-    %br
-    %i (Uploaded evidence will be visible to the student.)
-    #update_evi_btn= f.button :submit, value: 'Update evidence',class: 'btn btn-outline-primary btn-sm '
-
-%p
-  %h4 Requested Actions
+  %h4 Requested Actions for:
   - @ecf.affected_units.each do |affected_unit|
     %p
       %b Assessment type:
@@ -100,27 +52,13 @@
       %b Requested action:
       = affected_unit.requested_action
 
-%p
-  %h4 Outcomes:
-  - @ecf.agendas.each do |agenda, index|
-    %p
-      %b= "Decisions for #{agenda.meeting.title} [Meeting # #{agenda.meeting.id}, #{agenda.meeting.time}]:"
-      = simple_form_for(agenda) do |f|
-        = link_to_add_nested(f, :decisions, "#agenda_#{agenda.id}", partial: 'decisions/decisions_fields')
-        .test[agenda]
-        Want javascript to hide the following button if no decisions are being added:
-        %br
-        = f.button :submit, value: "Add decisions to meeting", class: 'btn btn-outline-primary btn-sm ml-5'
-      %br
-      - if agenda.decisions.empty?
-        %i There are currently no decisions for this meeting.
-      - else
-        - agenda.decisions.each do |decision|
-          %b= decision.module_code
-          = decision.assessment_type
-          %b{ style: 'color: dodgerblue;'}= decision.requested_action
-          = ": #{decision.outcome}"
-          %br
+- if @ecf.highly_sensitive
+  - if current_user.role == "student" || current_user.role == "admin"
+    = render "staff_edit_sensitive_info"
+  - else 
+    %p <strong>Ecf has highly sensitive information, which can only be viewed by Scrutiny chair.</strong>
+- else
+  = render "staff_edit_sensitive_info"
 
 %p
   %h4 Student notes
