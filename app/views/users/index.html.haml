@@ -77,7 +77,6 @@
                   %td= 'Students'
                 - else
                   %td= 'Staff'
-                -# %td= ((user.dn).split( /, */ )[2]).chars.last((((user.dn).split( /, */ )[2]).length)-3).join
                 - if user.role.include?("_")
                   %td= user.role.sub("_", " ")
                 - else
