@@ -42,7 +42,7 @@ class ApplicationController < ActionController::Base
       meetings_path
     elsif @user.role == 'scrutiny_chair' # route to meetings page
       meetings_path
-    else
+    else # user must be a guest
       guest_page_path
     end
   end

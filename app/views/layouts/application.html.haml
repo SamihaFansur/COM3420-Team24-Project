@@ -33,7 +33,7 @@
             - if can? :search, Ecf
               %li.btn_effect_swing
                 = link_to 'SHOW ECFS', ecfs_path, title: 'Go to the ECFs page with a search functionality', class: 'nav-link-2'
-            - if can? :manage, Meeting
+            - if can? :read, Meeting
               %li.btn_effect_swing
                 = link_to 'SHOW MEETINGS', meetings_path, title: 'Go to the meetings page', class: 'nav-link-2'
             - if can? :manage, User
