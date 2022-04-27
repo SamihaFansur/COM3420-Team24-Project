@@ -21,7 +21,7 @@
             =image_tag("pear.png")
             %li.btn_effect_swing
               = link_to 'HOME', root_path, title: 'Go to the home page', class: 'nav-link-2'
-            - if current_user.guest?
+            - if cannot? :read, Ecf
               %li.btn_effect_swing
                 = link_to 'GUEST PROMPT', guest_page_path, title: 'Go to the guest prompt page', class: 'nav-link-2'
             - if !user_signed_in? # show only when user is not logged in
