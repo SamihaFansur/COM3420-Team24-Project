@@ -1,12 +1,17 @@
-
 .wrapper-div
     %ul.list-group
-    %li= form.input :module_code, as: :string ,class:"list-group-item "
-    %li= form.input :assessment_type, as: :string ,class:"list-group-item"
-    %li= form.input :requested_action, :collection => ["NA  - Not assessed (Another attempt permitted without capping grade)", "NP  - No penalty for late submission", "DEX - Deadline Extension", "AU  - Authorized Absence"] ,class:"list-group-item"
-    note to devs: Need to hide extension date field if not NP or DEX.
-    %li= form.input :extension_date, as: :date ,class:"list-group-item"
-    Add table for outcome options?
-    %li= form.input :outcome, :collection => Outcome.all.order(:short_name).map{|o| [o.short_name + " - " + o.description, o.short_name]} ,class:"list-group-item"
-    %li= link_to_remove_nested(form, link_text: "Remove", fields_wrapper_selector: '.wrapper-div',link_classes: "cursor_hover btn btn-outline-danger ")
+        %li
+            = form.input :module_code, as: :string ,class:"list-group-item "
+        %li
+            = form.input :assessment_type, as: :string ,class:"list-group-item"
+        %li
+            = form.input :requested_action, :collection => ["NA  - Not assessed (Another attempt permitted without capping grade)", "NP  - No penalty for late submission", "DEX - Deadline Extension", "AU  - Authorized Absence"] ,class:"list-group-item"
+        .alert.alert-secondary to devs: Need to hide extension date field if not NP or DEX.
+        %li
+            = form.input :extension_date, as: :date ,class:"list-group-item"
+        Add table for outcome options?
+        %li
+            = form.input :outcome, :collection => Outcome.all.order(:short_name).map{|o| [o.short_name + " - " + o.description, o.short_name]} ,class:"list-group-item"
+        %li
+            = link_to_remove_nested(form, link_text: "Remove", fields_wrapper_selector: '.wrapper-div',link_classes: "cursor_hover btn btn-outline-danger ")
 -# = unit_f.button :submit

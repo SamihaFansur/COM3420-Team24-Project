@@ -1,4 +1,23 @@
+:javascript
+  window.onload=function(){
+    document.getElementById("add_decision").style.visibility = "hidden";
+    document.getElementsByClassName(" vanilla-nested-add ")[0].onclick = function () {
+      document.getElementById("add_decision").style.visibility = "visible";
+    }
 
+    var text_area = document.getElementsByClassName("exampleFormControlTextarea1");
+    for(var i = 0; i < text_area.length; i++){
+      text_area.item(i).onfocus = function () {
+        this.setAttribute('style', 'height: 200px !important') // for better input
+        this.style.borderStyle = "outset"
+      }
+      text_area.item(i).onblur = function () {
+        this.style.borderStyle = "inset"
+        this.setAttribute('style', 'height: 100px !important') // for better input
+      }
+    }
+
+  }
 %p
   %b Type(s) of Circumstances: 
   %br
@@ -30,7 +49,7 @@
 
 %p
   %b Details of Circumstances:
-  %textarea#exampleFormControlTextarea1.form-control.rounded-0{:readonly => "readonly", :rows => "10"}= @ecf.details
+  %textarea.exampleFormControlTextarea1.form-control.rounded-0{:readonly => "readonly", :rows => "10"}= @ecf.details
 
 %p 
   %b Supporting evidence:
@@ -53,18 +72,36 @@
     %p
       %b= "Decisions for #{agenda.meeting.title} [Meeting # #{agenda.meeting.id}, #{agenda.meeting.time}]:"
       = simple_form_for(agenda) do |f|
-        = link_to_add_nested(f, :decisions, "#agenda_#{agenda.id}", partial: 'decisions/decisions_fields')
+        #add= link_to_add_nested(f, :decisions, "#agenda_#{agenda.id}", partial: 'decisions/decisions_fields',link_classes: "btn btn-primary ")
         .test[agenda]
-        Want javascript to hide the following button if no decisions are being added:
         %br
-        = f.button :submit, value: "Add decisions to meeting", class: 'btn btn-outline-primary btn-sm ml-5'
+        %input.btn.btn.btn-outline-primary.btn-sm.ml-5#add_decision{"data-disable-with" => "Update Agenda", :display => "none", :name => "commit", :type => "submit", :value => "Add decisions to meeting"}/
       %br
       - if agenda.decisions.empty?
         %i There are currently no decisions for this meeting.
       - else
         - agenda.decisions.each do |decision|
-          %b= decision.module_code
-          = decision.assessment_type
-          %b{ style: 'color: dodgerblue;'}= decision.requested_action
-          = ": #{decision.outcome}"
-          %br
+          .row.justify-content-center.mb-5
+            .login-wrap.py-5
+              %table.table.table-responsive.mt-5
+                %thead
+                  %tr
+                    %th{:scope => "col"} Module Code
+                    %th{:scope => "col"} Type
+                    %th{:scope => "col"} Action
+                %tbody
+                  %tr
+                    %th{:scope => "row"}
+                      = decision.module_code
+                    %td
+                      = decision.assessment_type
+                    %td.overflow-auto
+                      = decision.requested_action
+                %table.table.table-responsive
+                  %thead
+                    %tr
+                      %th.h5{:scope => "col"} Decision Details
+                %tbody
+                  %tr
+                    %th{:scope => "row"}
+                      %textarea.exampleFormControlTextarea1.form-control.rounded-0.mb-5{:readonly => "readonly", :rows => "10"}= ": #{decision.outcome}"
