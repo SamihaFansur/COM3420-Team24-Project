@@ -8,3 +8,4 @@ import "bootstrap";
 import "vanilla-nested";
 
 Rails.start();
+

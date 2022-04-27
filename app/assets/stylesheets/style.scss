@@ -474,3 +474,10 @@ header.masthead .bg-circle-4 {
 
   padding: 0 20px;
 }
+
+#non_pointer{
+  dipslay: inline;
+  &:hover{
+    cursor: default !important;
+  }
+}

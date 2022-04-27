@@ -18,39 +18,33 @@
         .d-flex.flex-wrap.align-items-center.justify-content-center.justify-content-lg-start
           %a.d-flex.align-items-center.mb-2.mb-lg-0.text-dark.text-decoration-none{:href => "/"}
           %ul.nav.col-12.col-lg-auto.me-lg-auto.mb-2.justify-content-center.mb-md-0
-            =image_tag("pear.png")
-            %li.btn_effect_swing
+            =image_tag("University_of_Sheffield.svg",width: "92px", height: "50px")
+            %li
               = link_to 'HOME', root_path, title: 'Go to the home page', class: 'nav-link-2'
             - if cannot? :read, Ecf
-              %li.btn_effect_swing
+              %li
                 = link_to 'GUEST PROMPT', guest_page_path, title: 'Go to the guest prompt page', class: 'nav-link-2'
             - if !user_signed_in? # show only when user is not logged in
-              %li.btn_effect_swing
+              %li
                 = link_to 'LOGIN', ecfs_path, title: 'Go to the login page', class: 'nav-link-2'
             - if can? :submit, Ecf
-              %li.btn_effect_swing
+              %li
                 = link_to 'MY ECFS', ecfs_path, title: 'Go to the ECFs page', class: 'nav-link-2'
             - if can? :search, Ecf
-              %li.btn_effect_swing
+              %li
                 = link_to 'SHOW ECFS', ecfs_path, title: 'Go to the ECFs page with a search functionality', class: 'nav-link-2'
             - if can? :read, Meeting
-              %li.btn_effect_swing
+              %li
                 = link_to 'SHOW MEETINGS', meetings_path, title: 'Go to the meetings page', class: 'nav-link-2'
             - if can? :manage, User
-              %li.btn_effect_swing
+              %li
                 = link_to 'USERS', users_path, title: 'Go to the user page', class: 'nav-link-2'
+          - if user_signed_in?
+            .btn
+              #non_pointer=image_tag("box-arrow-right.svg")
+              = link_to 'Logout', destroy_user_session_path, class: 'dropdown-item', method: :delete, title: "Log out of the system", data: { confirm: 'Are you sure you want to log out?' }
 
-          %form.col-12.col-lg-auto.mb-3.mb-lg-0.me-lg-3
-          .dropdown.text-end
-            %a#dropdownUser1.d-block.link-dark.text-decoration-none.dropdown-toggle{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", :href => "#"}
-              %img.rounded-circle{:alt => "mdo", :height => "32", :src => "https://img.icons8.com/nolan/75/unchecked-circle.png", :width => "32"}
-            %ul.dropdown-menu.text-small{"aria-labelledby" => "dropdownUser1", :style => ""}
-              %li
-                %a.dropdown-item{:href => "#"} Profile
-              %li
-                %hr.dropdown-divider/
-              %li
-                = link_to 'Sign out', destroy_user_session_path, class: 'dropdown-item', method: :delete, title: "Log out of the system"
+
 
     .flash-messages
       - flash.each do |name, msg|
