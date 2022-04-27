@@ -18,4 +18,6 @@
 class EcfNote < ApplicationRecord
     belongs_to :ecf
     belongs_to :user
+
+    validates :description, presence: true
 end

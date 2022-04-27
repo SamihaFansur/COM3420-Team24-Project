@@ -1,5 +1,6 @@
 
 .wrapper-div
+  = form.error_notification
   = form.input :user_id, as: :hidden, input_html: {value: current_user.id}
   = form.input :description, as: :string
   = form.input :role, as: :hidden, input_html: {value: 1}
