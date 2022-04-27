@@ -55,6 +55,6 @@
 
 = link_to 'Export as PDF', meeting_path(format: :pdf), target: :_blank, :class => 'btn btn-outline-secondary'
 .mb-0.mt-4
-= link_to 'Edit', edit_meeting_path(@meeting), :class => 'btn btn-outline-primary btn-sm'
-\|
+- if can? :update, Meeting
+  = link_to 'Edit', edit_meeting_path(@meeting), :class => 'btn btn-outline-primary btn-sm'
 = link_to 'Back', meetings_path, :class => 'btn btn-outline-info btn-sm'
