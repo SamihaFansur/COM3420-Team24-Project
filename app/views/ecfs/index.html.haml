@@ -81,8 +81,14 @@
                           %td= ecf.user.uid
                           %td= ecf.user.ou
                           %td= link_to 'Show', ecf
-                          - if can? :edit, Ecf
-                            %td= link_to 'Edit', edit_ecf_path(ecf)
+                          - if can? :edit, Ecf  
+                            -if current_user.student?
+                              -if ecf.decisions.size == 0
+                                %td= link_to 'Edit', edit_ecf_path(ecf)
+                              -else
+                                %td Decisons have been made. Cannot edit ECF.
+                            -else
+                              %td= link_to 'Edit', edit_ecf_path(ecf)
                           - if(params.has_key?(:meeting_id))
                             %td= link_to "Add to meeting ##{params[:meeting_title]}", agendas_path(:agenda => {:ecf_id => ecf.id, :meeting_id => params[:meeting_id]}), :method => :post
 
