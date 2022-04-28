@@ -1,15 +1,17 @@
 %p#notice= notice
+.row.justify-content-center
+  .col-md-6.col-lg-4
+    .login-wrap.py-5
+      %p
+        %b Name:
+        = @outcome.name
+      %p
+        %b Short name:
+        = @outcome.short_name
+      %p
+        %b Description:
+        = @outcome.description
 
-%p
-  %b Name:
-  = @outcome.name
-%p
-  %b Short name:
-  = @outcome.short_name
-%p
-  %b Description:
-  = @outcome.description
-
-= link_to 'Edit', edit_outcome_path(@outcome),class: 'btn btn-outline-primary btn-sm'
-\|
-= link_to 'Back', outcomes_path,class: 'btn btn-outline-info btn-sm'
+      = link_to 'Edit', edit_outcome_path(@outcome),class: 'btn btn-outline-primary btn-sm'
+      \|
+      = link_to 'Back', outcomes_path,class: 'btn btn-outline-info btn-sm'

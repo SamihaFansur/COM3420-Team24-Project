@@ -1,6 +1,6 @@
 = javascript_pack_tag "show_ecf"
 - if can? :showECFs, User
-  %p= link_to 'Show all ECFs', showECFs_user_path(@ecf.user)
+  %p= link_to 'Show all ECFs', showECFs_user_path(@ecf.user), class: 'btn btn-primary'
 %h4 Student Details
 .table-responsive
   %table.table
