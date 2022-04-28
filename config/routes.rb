@@ -25,6 +25,9 @@ Rails.application.routes.draw do
       get 'csv_upload', to: 'users#csv_upload'
       post 'import', to: 'users#import'
     end
+    member do
+      get 'showECFs', to: 'users#showECFs', as: :showECFs
+    end
   end
   resources :meetings
   resources :emails

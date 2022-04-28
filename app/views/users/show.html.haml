@@ -37,6 +37,10 @@
       %td= @user.role.sub("_", " ")
     - else
       %td= @user.role
+
+-# - if @user.student?
+%p= link_to 'Show all ECFs', showECFs_user_path(@user)
+
 %p
   %b Modules
   %br

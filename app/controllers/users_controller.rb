@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   load_and_authorize_resource
-  before_action :set_user, only:  [:show, :edit, :update]
+  before_action :set_user, only:  [:show, :edit, :update, :showECFs]
 
   def index
     @q = User.ransack(params[:q])
@@ -94,6 +94,10 @@ class UsersController < ApplicationController
       redirect_to users_path, alert: "Failed to upload users - CSV file is of the incorrect format."
     end
     
+  end
+
+  def showECFs
+    @ecfs = @user.ecfs
   end
 
   def new

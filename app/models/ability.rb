@@ -31,6 +31,7 @@ class Ability
       can [:new, :create, :read], Meeting
       cannot [:update, :destroy], Meeting
       cannot :manage, User
+      can [:showECFs], User
     end
 
     if user.admin?
