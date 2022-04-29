@@ -50,10 +50,14 @@
     %table.table
       %thead
         %tr
-          %th{:scope => "col"} Module:
-          %th{:scope => "col"} Code:
+          %th{:scope => "col"} Module Code:
+          %th{:scope => "col"} Outcome:
+          %th{:scope => "col"} Requested Action:
+          %th{:scope => "col"} Extension Date:
       %tbody
-        - @decisions_ecfs.each do | code, outcome |
+        - @decisions_ecfs.each do | code, value |
           %tr
             %td= code
-            %td= outcome
+            %td= value[0]
+            %td= value[1]
+            %td= value[2].nil? ? "NA" : value[2]

@@ -5,7 +5,7 @@
         %li
             = form.input :assessment_type, as: :string ,class:"list-group-item"
         %li
-            = form.input :requested_action, :collection => ["NA  - Not assessed (Another attempt permitted without capping grade)", "NP  - No penalty for late submission", "DEX - Deadline Extension", "AU  - Authorized Absence"] ,class:"list-group-item"
+            = form.input :requested_action, :collection => ["NA - Not assessed (Another attempt permitted without capping grade)", "NP - No penalty for late submission", "DEX - Deadline Extension", "AU - Authorized Absence"] ,class:"list-group-item"
         .alert.alert-secondary to devs: Need to hide extension date field if not NP or DEX.
         %li
             = form.input :extension_date, as: :date ,class:"list-group-item"
