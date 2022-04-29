@@ -1,33 +1,35 @@
-%strong Editing user details
+.h3 Editing user details
+.row.justify-content-center
+  .login-wrap.py-5
+    %p
+      %p
+        %b User ID:
+        %br
+        = @user.uid
 
-%p
-  %p
-    %b User ID:
-    %br
-    = @user.uid
-  
-  %p
-    %b Email:
-    %br
-    = @user.mail
+      %p
+        %b Email:
+        %br
+        = @user.mail
 
-  %p
-    %b Name:
-    %br
-    #{@user.givenname} #{@user.sn}
+      %p
+        %b Name:
+        %br
+        #{@user.givenname} #{@user.sn}
 
-  %p
-    %b Department:
-    %br
-    = @user.ou
+      %p
+        %b Department:
+        %br
+        = @user.ou
 
-  %p
-    %b Group:
-    %br
-    - if @user.dn.include?("Student")
-      = 'Students'
-    - else
-      = 'Staff'
-%p
-  %b Modules
-  =render 'form'
+      %p
+        %b Group:
+        %br
+        - if @user.dn.include?("Student")
+          = 'Students'
+        - else
+          = 'Staff'
+    %p
+      %b Modules
+      =render 'form'
+`

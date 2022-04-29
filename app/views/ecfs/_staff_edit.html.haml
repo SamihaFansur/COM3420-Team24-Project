@@ -1,157 +1,158 @@
 = javascript_pack_tag "staff_edit"
 %h1= "Edit ECF ##{@ecf.id}"
+.row.justify-content-center
+  .login-wrap.py-5
+    %h4 Student Details
+    .table-responsive
+      %table.table
+        %thead
+          %tr
+            %th{:scope => "col"} Username:
+            %th{:scope => "col"} First Name:
+            %th{:scope => "col"} Last Name:
+            %th{:scope => "col"} Email
+            %th{:scope => "col"} Department:
+        %tbody
+          %tr
+            %th{:scope => "row"}
+              = @ecf.user.uid
+            %td= @ecf.user.givenname
+            %td= @ecf.user.sn
+            %td= @ecf.user.mail
+            %td= @ecf.user.ou
 
-%h4 Student Details
-.table-responsive
-  %table.table
-    %thead
-      %tr
-        %th{:scope => "col"} Username:
-        %th{:scope => "col"} First Name:
-        %th{:scope => "col"} Last Name:
-        %th{:scope => "col"} Email
-        %th{:scope => "col"} Department:
-    %tbody
-      %tr
-        %th{:scope => "row"}
-          = @ecf.user.uid
-        %td= @ecf.user.givenname
-        %td= @ecf.user.sn
-        %td= @ecf.user.mail
-        %td= @ecf.user.ou
-
-%h4 ECF Details
-%p
-  %b Add this ECF to a meeting:
-  = simple_form_for(:agenda, :url => agendas_path, :method => :post) do |f|
-    = f.input :ecf_id, as: :hidden, input_html: {value: @ecf.id}
-    = f.input :meeting_id, label: "Meeting ID: "
-    = f.button :submit, value: "Add to meeting", class: 'btn btn-outline-primary btn-sm ml-5'
-%p
-  %b ECF ID:
-  %br
-  = @ecf.id
-
-%p
-  %b ECF Status:
-  %br
-  = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
-    = f.select :status, options_for_select(["Pending", "Complete"], @ecf.status)
-    = f.button :submit, value: 'Update status',class: 'btn btn-outline-primary btn-sm ml-5'
-    %br
-    %div.alert.alert-dark.mt-3 Setting an ECF as 'complete' will remove it from the view of pending ECFs.
-
-%p
-  %h4 Requested Actions for:
-  - @ecf.affected_units.each do |affected_unit|
+    %h4 ECF Details
     %p
-      %b Assessment type:
-      = affected_unit.assessment_type
-      %b Unit code:
-      = affected_unit.unit_code
-      %b Requested action:
-      = affected_unit.requested_action
+      %b Add this ECF to a meeting:
+      = simple_form_for(:agenda, :url => agendas_path, :method => :post) do |f|
+        = f.input :ecf_id, as: :hidden, input_html: {value: @ecf.id}
+        = f.input :meeting_id, label: "Meeting ID: "
+        = f.button :submit, value: "Add to meeting", class: 'btn btn-outline-primary btn-sm ml-5'
+    %p
+      %b ECF ID:
+      %br
+      = @ecf.id
 
-- if @ecf.highly_sensitive
-  - if current_user.role == "student" || current_user.role == "admin"
-    = render "staff_edit_sensitive_info"
-  - else 
-    .alert.alert-warning Ecf has highly sensitive information, which can only be viewed by Scrutiny chair.
-- else
-  = render "staff_edit_sensitive_info"
-
-%p
-  %h4 Student notes
-  = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover " } }) do |f|
-    = link_to_add_nested(f, :ecf_notes, '#ecf-notes-student', partial: 'ecf_notes/ecf_note_student_fields') do
-      %button + Add a Student note
-
-    #ecf-notes-student
-    
-  - if @ecf_notes_grouped[1].nil?
-    %i There are currently no student notes.
-  - else 
-    - @ecf_notes_grouped[1].each do |ecf_note|
-      %p 
-        %b Note: 
-        = ecf_note.description
+    %p
+      %b ECF Status:
+      %br
+      = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
+        = f.select :status, options_for_select(["Pending", "Complete"], @ecf.status)
+        = f.button :submit, value: 'Update status',class: 'btn btn-outline-primary btn-sm ml-5'
         %br
-          %i.some{:style => "color:dimgrey"}
-            %b Submitted by:
-            = "#{ecf_note.user.givenname} #{ecf_note.user.sn}, "
-            %b Note created at:
-            = ecf_note.created_at
-            - if ecf_note.user_id == current_user.id
-              = link_to "Delete note", ecf_note_path(ecf_note), method: :delete
+        %div.alert.alert-dark.mt-3 Setting an ECF as 'complete' will remove it from the view of pending ECFs.
 
-%p
-  %h4 Module leader notes
-  = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
-    = link_to_add_nested(f, :ecf_notes, '#ecf-notes-module-leader', partial: 'ecf_notes/ecf_note_module_leader_fields',link_classes: "mt-5") do
-      %button + Add a Student note
+    %p
+      %h4 Requested Actions for:
+      - @ecf.affected_units.each do |affected_unit|
+        %p
+          %b Assessment type:
+          = affected_unit.assessment_type
+          %b Unit code:
+          = affected_unit.unit_code
+          %b Requested action:
+          = affected_unit.requested_action
 
-    #ecf-notes-module-leader
+    - if @ecf.highly_sensitive
+      - if current_user.role == "student" || current_user.role == "admin"
+        = render "staff_edit_sensitive_info"
+      - else
+        .alert.alert-warning Ecf has highly sensitive information, which can only be viewed by Scrutiny chair.
+    - else
+      = render "staff_edit_sensitive_info"
 
-  - if @ecf_notes_grouped[2].nil?
-    %i There are currently no module leader notes.
-  - else 
-    - @ecf_notes_grouped[2].each do |ecf_note|
-      %p 
-        %b Note: 
-        = ecf_note.description
-        %br
-          %i.some{:style => "color:dimgrey"}
-            %b Submitted by:
-            = "#{ecf_note.user.givenname} #{ecf_note.user.sn}, "
-            %b Note created at:
-            = ecf_note.created_at
-            - if ecf_note.user_id == current_user.id
-              = link_to "Delete note", ecf_note_path(ecf_note), method: :delete
+    %p
+      %h4 Student notes
+      = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover " } }) do |f|
+        = link_to_add_nested(f, :ecf_notes, '#ecf-notes-student', partial: 'ecf_notes/ecf_note_student_fields') do
+          %button + Add a Student note
 
-%p
-  %h4 Scrutiny panel notes
-  = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
-    = link_to_add_nested(f, :ecf_notes, '#ecf-notes-scrutiny', partial: 'ecf_notes/ecf_note_scrutiny_fields') do
-      %button + Add a Student note
+        #ecf-notes-student
 
-    #ecf-notes-scrutiny
+      - if @ecf_notes_grouped[1].nil?
+        %i There are currently no student notes.
+      - else
+        - @ecf_notes_grouped[1].each do |ecf_note|
+          %p
+            %b Note:
+            = ecf_note.description
+            %br
+              %i.some{:style => "color:dimgrey"}
+                %b Submitted by:
+                = "#{ecf_note.user.givenname} #{ecf_note.user.sn}, "
+                %b Note created at:
+                = ecf_note.created_at
+                - if ecf_note.user_id == current_user.id
+                  = link_to "Delete note", ecf_note_path(ecf_note), method: :delete
 
-  - if @ecf_notes_grouped[3].nil?
-    %i There are currently no scrutiny panel notes.
-  - else 
-    - @ecf_notes_grouped[3].each do |ecf_note|
-      %p 
-        %b Note: 
-        = ecf_note.description
-        %br
-          %i.some{:style => "color:dimgrey"}
-            %b Submitted by:
-            = "#{ecf_note.user.givenname} #{ecf_note.user.sn}, "
-            %b Note created at:
-            = ecf_note.created_at
-            - if ecf_note.user_id == current_user.id
-              = link_to "Delete note", ecf_note_path(ecf_note), method: :delete
+    %p
+      %h4 Module leader notes
+      = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
+        = link_to_add_nested(f, :ecf_notes, '#ecf-notes-module-leader', partial: 'ecf_notes/ecf_note_module_leader_fields',link_classes: "mt-5") do
+          %button + Add a Student note
 
-%p
-  %h4 Scrutiny chair notes
-  = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
-    = link_to_add_nested(f, :ecf_notes, '#ecf-notes-admin', partial: 'ecf_notes/ecf_note_admin_fields') do
-      %button#add_note + Add a Student note
+        #ecf-notes-module-leader
 
-    #ecf-notes-admin
+      - if @ecf_notes_grouped[2].nil?
+        %i There are currently no module leader notes.
+      - else
+        - @ecf_notes_grouped[2].each do |ecf_note|
+          %p
+            %b Note:
+            = ecf_note.description
+            %br
+              %i.some{:style => "color:dimgrey"}
+                %b Submitted by:
+                = "#{ecf_note.user.givenname} #{ecf_note.user.sn}, "
+                %b Note created at:
+                = ecf_note.created_at
+                - if ecf_note.user_id == current_user.id
+                  = link_to "Delete note", ecf_note_path(ecf_note), method: :delete
 
-  - if @ecf_notes_grouped[4].nil?
-    %i There are currently no module leader notes.
-  - else 
-    - @ecf_notes_grouped[4].each do |ecf_note|
-      %p 
-        %b Note: 
-        = ecf_note.description
-        %br
-          %i.some{:style => "color:dimgrey"}
-            %b Submitted by:
-            = "#{ecf_note.user.givenname} #{ecf_note.user.sn}, "
-            %b Note created at:
-            = ecf_note.created_at
-            - if ecf_note.user_id == current_user.id
-              = link_to "Delete note", ecf_note_path(ecf_note), method: :delete, class: "btn btn-outline-danger btn-sm"
+    %p
+      %h4 Scrutiny panel notes
+      = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
+        = link_to_add_nested(f, :ecf_notes, '#ecf-notes-scrutiny', partial: 'ecf_notes/ecf_note_scrutiny_fields') do
+          %button + Add a Student note
+
+        #ecf-notes-scrutiny
+
+      - if @ecf_notes_grouped[3].nil?
+        %i There are currently no scrutiny panel notes.
+      - else
+        - @ecf_notes_grouped[3].each do |ecf_note|
+          %p
+            %b Note:
+            = ecf_note.description
+            %br
+              %i.some{:style => "color:dimgrey"}
+                %b Submitted by:
+                = "#{ecf_note.user.givenname} #{ecf_note.user.sn}, "
+                %b Note created at:
+                = ecf_note.created_at
+                - if ecf_note.user_id == current_user.id
+                  = link_to "Delete note", ecf_note_path(ecf_note), method: :delete
+
+    %p
+      %h4 Scrutiny chair notes
+      = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
+        = link_to_add_nested(f, :ecf_notes, '#ecf-notes-admin', partial: 'ecf_notes/ecf_note_admin_fields') do
+          %button#add_note + Add a Student note
+
+        #ecf-notes-admin
+
+      - if @ecf_notes_grouped[4].nil?
+        %i There are currently no module leader notes.
+      - else
+        - @ecf_notes_grouped[4].each do |ecf_note|
+          %p
+            %b Note:
+            = ecf_note.description
+            %br
+              %i.some{:style => "color:dimgrey"}
+                %b Submitted by:
+                = "#{ecf_note.user.givenname} #{ecf_note.user.sn}, "
+                %b Note created at:
+                = ecf_note.created_at
+                - if ecf_note.user_id == current_user.id
+                  = link_to "Delete note", ecf_note_path(ecf_note), method: :delete, class: "btn btn-outline-danger btn-sm"
