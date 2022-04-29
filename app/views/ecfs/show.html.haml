@@ -1,55 +1,58 @@
 = javascript_pack_tag "show_ecf"
 - if can? :showECFs, User
   %p= link_to 'Show all ECFs', showECFs_user_path(@ecf.user), class: 'btn btn-primary'
-%h4 Student Details
-.table-responsive
-  %table.table
-    %thead
-      %tr
-        %th{:scope => "col"} Username:
-        %th{:scope => "col"} First Name:
-        %th{:scope => "col"} Last Name:
-        %th{:scope => "col"} Email
-        %th{:scope => "col"} Department:
-    %tbody
-      %tr
-        %th{:scope => "row"}
-          = @ecf.user.uid
 
-        %td= @ecf.user.givenname
-        %td= @ecf.user.sn
-        %td= @ecf.user.mail
-        %td= @ecf.user.ou
+.row.justify-content-center
+  .login-wrap.py-5
+    %h4 Student Details
+    .table-responsive
+      %table.table
+        %thead
+          %tr
+            %th{:scope => "col"} Username:
+            %th{:scope => "col"} First Name:
+            %th{:scope => "col"} Last Name:
+            %th{:scope => "col"} Email
+            %th{:scope => "col"} Department:
+        %tbody
+          %tr
+            %th{:scope => "row"}
+              = @ecf.user.uid
 
-%p
-  %b Date:
-  = @ecf.date
+            %td= @ecf.user.givenname
+            %td= @ecf.user.sn
+            %td= @ecf.user.mail
+            %td= @ecf.user.ou
 
-
-%p
-  %h4 Affected Units:
-  - @affected_units.each do |affected_unit|
     %p
-      .form-group
-      %b Assessment type:
-      = affected_unit.assessment_type
-      .form-group
-      %b Unit code:
-      = affected_unit.unit_code
-      .form-group
-      %b Requested action:
-      = affected_unit.requested_action
-      .form-group
-      -#%b ECF ID:
-        = affected_unit.ecf_id
+      %b Date:
+      = @ecf.date
 
-- if @ecf.highly_sensitive
-  - if current_user.role == "student" || current_user.role == "admin"
-    = render "sensitive_info"
-  - else 
-    %p <strong>Ecf has highly sensitive information, which can only be viewed by Scrutiny chair.</strong>
-- else
-  = render "sensitive_info"
+
+    %p
+      %h4 Affected Units:
+      - @affected_units.each do |affected_unit|
+        %p
+          .form-group
+          %b Assessment type:
+          = affected_unit.assessment_type
+          .form-group
+          %b Unit code:
+          = affected_unit.unit_code
+          .form-group
+          %b Requested action:
+          = affected_unit.requested_action
+          .form-group
+          -#%b ECF ID:
+            = affected_unit.ecf_id
+
+    - if @ecf.highly_sensitive
+      - if current_user.role == "student" || current_user.role == "admin"
+        = render "sensitive_info"
+      - else
+        %p <strong>Ecf has highly sensitive information, which can only be viewed by Scrutiny chair.</strong>
+    - else
+      = render "sensitive_info"
 
 
 
