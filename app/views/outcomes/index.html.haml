@@ -1,31 +1,30 @@
 %h1 Listing outcomes
 %section.ftco-section
-  .container.animate__animated.animate__fadeIn
+  -if @outcomes.empty?
+    %p.alert.alert-primary No current outcome found.
+  -if ! @outcomes.empty?
     .row.justify-content-center
-      .col-md-6.text-center.mb-5
-        -if @outcomes.empty?
-          %p.alert.alert-primary No current outcome found.
-        -if ! @outcomes.empty?
-          .table-responsive
-            %table.table
-              %thead
-                %tr
-                  %th Name
-                  %th Short name
-                  %th Description
-                  %th
-                  %th
-                  %th
+      .login-wrap.py-5
+        .table-responsive
+          %table.table
+            %thead
+              %tr
+                %th Name
+                %th Short name
+                %th Description
+                %th
+                %th
+                %th
 
-              %tbody
-                - @outcomes.each do |outcome|
-                  %tr
-                    %td= outcome.name
-                    %td= outcome.short_name
-                    %td= outcome.description
-                    %td= link_to 'Show', outcome
-                    %td= link_to 'Edit', edit_outcome_path(outcome)
-                    %td= link_to 'Destroy', outcome, :method => :delete, :data => { :confirm => 'Are you sure?' }
+            %tbody
+              - @outcomes.each do |outcome|
+                %tr
+                  %td= outcome.name
+                  %td= outcome.short_name
+                  %td= outcome.description
+                  %td= link_to 'Show', outcome
+                  %td= link_to 'Edit', edit_outcome_path(outcome)
+                  %td= link_to 'Destroy', outcome, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
         %br
           = link_to 'New Outcome', new_outcome_path, :class => 'btn btn-primary '
