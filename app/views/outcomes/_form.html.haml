@@ -5,8 +5,11 @@
 
   .form-inputs
     = f.input :name
+    %i The 'name' for the outcome - this will be visible to both scrutiny members and students.
     = f.input :short_name
+    %i A 'code' for the outcome, e.g. 'Y' for approved.
     = f.input :description
+    %i A description for the outcome. Visible only to scrutiny panel members.
 
   .form-actions
     = f.button :submit, class: 'btn btn-outline-primary mt-3 mb-3'

@@ -59,7 +59,7 @@
           %tr
             %td= code
             %td= decision.requested_action
-            %td= decision.outcome.name
+            %td= decision.outcome&.name
             - if decision.requested_action == "DEX - Deadline Extension" or decision.requested_action == "NP - No penalty for late submission"
               %td= decision.extension_date
             - else
