@@ -46,18 +46,21 @@
         
 
   - if @ecf.status == "Complete" 
-    %p The ECF is marked as Complete. Please look at the decisions below.
+    %p This ECF is marked as Complete. Please look at the decisions below.
     %table.table
       %thead
         %tr
-          %th{:scope => "col"} Module Code:
-          %th{:scope => "col"} Outcome:
-          %th{:scope => "col"} Requested Action:
-          %th{:scope => "col"} Extension Date:
+          %th{:scope => "col"} Module Code
+          %th{:scope => "col"} Requested Action
+          %th{:scope => "col"} Outcome
+          %th{:scope => "col"} Extension Date
       %tbody
-        - @decisions_ecfs.each do | code, value |
+        - @decisions_ecfs.each do | code, decision |
           %tr
             %td= code
-            %td= value[0]
-            %td= value[1]
-            %td= value[2].nil? ? "NA" : value[2]
+            %td= decision.requested_action
+            %td= decision.outcome.name
+            - if decision.requested_action == "DEX - Deadline Extension" or decision.requested_action == "NP - No penalty for late submission"
+              %td= decision.extension_date
+            - else
+              %td
