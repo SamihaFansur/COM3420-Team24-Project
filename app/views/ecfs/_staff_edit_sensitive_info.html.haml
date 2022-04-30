@@ -80,16 +80,17 @@
       - if agenda.decisions.empty?
         %i There are currently no decisions for this meeting.
       - else
-        - agenda.decisions.each do |decision|
-          .row.justify-content-center.mb-5
-            .login-wrap.py-5
-              %table.table.table-responsive.mt-5
-                %thead
-                  %tr
-                    %th{:scope => "col"} Module Code
-                    %th{:scope => "col"} Type
-                    %th{:scope => "col"} Action
-                %tbody
+        .row.justify-content-center.mb-5
+          .login-wrap.py-5
+            %table.table.table-responsive.mt-5
+              %thead
+                %tr
+                  %th{:scope => "col"} Module Code
+                  %th{:scope => "col"} Assessment Type
+                  %th{:scope => "col"} Requested Action
+                  %th{:scope => "col"} Outcome
+              %tbody
+                - agenda.decisions.each do |decision|
                   %tr
                     %th{:scope => "row"}
                       = decision.module_code
@@ -97,11 +98,5 @@
                       = decision.assessment_type
                     %td.overflow-auto
                       = decision.requested_action
-                %table.table.table-responsive
-                  %thead
-                    %tr
-                      %th.h5{:scope => "col"} Decision Details
-                %tbody
-                  %tr
-                    %th{:scope => "row"}
-                      %textarea.exampleFormControlTextarea1.form-control.rounded-0.mb-5{:readonly => "readonly", :rows => "10"}= ": #{decision.outcome}"
+                    %td.overflow-auto
+                      = decision.outcome
