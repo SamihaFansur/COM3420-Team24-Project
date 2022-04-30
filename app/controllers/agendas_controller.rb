@@ -64,6 +64,6 @@ class AgendasController < ApplicationController
       params
         .require(:agenda)
         .permit(:ecf_id, :meeting_id,
-          decisions_attributes: [:id, :module_code, :assessment_type, :requested_action, :extension_date, :outcome, :_destroy])
+          decisions_attributes: [:id, :module_code, :assessment_type, :requested_action, :extension_date, :outcome_id, :_destroy])
     end
 end

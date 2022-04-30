@@ -11,7 +11,8 @@
             = form.input :extension_date, as: :date ,class:"list-group-item"
         Add table for outcome options?
         %li
-            = form.input :outcome, :collection => Outcome.all.order(:short_name).map{|o| [o.short_name + " - " + o.description, o.short_name]} ,class:"list-group-item"
+            -# = form.input :outcome, :collection => Outcome.all.order(:short_name).map{|o| [o.short_name + " - " + o.description, o.short_name]} ,class:"list-group-item"
+            = form.input :outcome_id, :collection => Outcome.all, :label_method => lambda { |outcome| "#{outcome.short_name}: #{outcome.name}"}
         %li
             = link_to_remove_nested(form, link_text: "Remove", fields_wrapper_selector: '.wrapper-div',link_classes: "cursor_hover btn btn-outline-danger ")
 -# = unit_f.button :submit
