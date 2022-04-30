@@ -46,6 +46,7 @@
                         %th{:scope => "col"}= f.label "Ecf status"
                         %th{:scope => "col"}= f.label "First / Last name"
                         %th{:scope => "col"}= f.label "Student Email"
+                        %th{:scope => "col"}= f.label "Requested Action"
                         %th{:scope => "col"}
 
                       %tbody
@@ -54,6 +55,7 @@
                             %th= f.search_field :status_cont
                             %td= f.search_field :user_givenname_or_user_sn_cont
                             %td= f.search_field :user_email_cont
+                            %td= f.search_field :affected_units_requested_action_cont
                             %td= f.submit "Search"
 
             .table-responsive
@@ -66,6 +68,7 @@
                     %thead
                       %tr
                         %th{:scope => "col"} Status
+                        %th{:scope => "col"} Contains DEX request?
                         %th{:scope => "col"} Date Submitted
                         %th{:scope => "col"} Student Full Name
                         %th{:scope => "col"} Student Email
@@ -75,6 +78,10 @@
                       - @ecfs.each do |ecf|
                         %tr
                           %td= ecf.status
+                          - if ecf.affected_units.exists?(requested_action: "DEX - Deadline Extension")
+                            %td Yes
+                          - else
+                            %td
                           %td= ecf.date
                           %td #{ecf.user.givenname} #{ecf.user.sn}
                           %td= ecf.user.mail
