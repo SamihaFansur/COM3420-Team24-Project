@@ -190,7 +190,7 @@ describe "the page links" do
 end
 
 describe "the page links" do
-    it "login as Scrutiny Panel + visit new meeting pagee " do
+    it "login as Scrutiny Panel + visit new meeting page " do
         visit"/users/sign_in"
         login_as(FactoryBot.create(:scrutiny_panel))
         visit"/ecfs"
