@@ -33,6 +33,9 @@
             - if can? :search, Ecf
               %li
                 = link_to 'SHOW ECFS', ecfs_path, title: 'Go to the ECFs page with a search functionality', class: 'nav-link-2'
+            - if current_user.role == "module_leader"
+              %li
+                = link_to 'SHOW ECFS', ecfs_path, title: 'Go to the ECFs page with a search functionality', class: 'nav-link-2'
             - if can? :read, Meeting
               %li
                 = link_to 'SHOW MEETINGS', meetings_path, title: 'Go to the meetings page', class: 'nav-link-2'

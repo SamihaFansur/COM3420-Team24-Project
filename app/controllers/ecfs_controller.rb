@@ -5,6 +5,60 @@ class EcfsController < ApplicationController
   def index
     if current_user.student?
       @ecfs = current_user.ecfs
+    elsif current_user.module_leader?
+
+      print("\n MODULE LEADER-------------------------- \n")
+      print(current_user.id)
+      print(" user id \n")
+      @user_modules = UserModule.find_by_sql ["SELECT * FROM user_modules where user_id = ?", (current_user.id).to_s]
+      print("----user modulesssss -------\n")
+      print(@user_modules)
+      print("\n")
+
+      @ecfs_ids = []
+      
+      @user_modules.each do |user_module|
+        @affected_units_for_module_leader = AffectedUnit.find_by_sql ["SELECT * FROM affected_units WHERE unit_code = ?", user_module.module_code]
+        print("\n Affected units FOR THE MODULE LEADER-----------------\n")
+        print(@affected_units_for_module_leader)
+        # print(@affected_units_for_module_leader.count)
+        print("------------------\n")
+
+        @affected_units_for_module_leader.each do |affected_unit|
+          @affected_unit_ecf_id = affected_unit.ecf_id
+          print("\n")
+          print(@affected_unit_ecf_id)
+          print("\n")
+          if !@ecfs_ids.include?(@affected_unit_ecf_id)
+            @ecfs_ids.push(@affected_unit_ecf_id)
+          end
+        end
+      end
+      
+      print("\n---------ecfs ids which i need----\n")
+      print(@ecfs_ids.size)
+      print("\n")
+
+      # @affected_units_for_module_leader = AffectedUnit.find_by_sql ["SELECT * FROM affected_units WHERE unit_code = ?", @user_modules.module_code]
+      # print("\n Affected units FOR THE MODULE LEADER-----------------\n")
+      # print(@affected_units_for_module_leader.count)
+      # print("------------------\n")
+
+      # @ecfs_ids = []
+      # @affected_units_for_module_leader.each do |affected_unit|
+      #   @affected_unit_ecf_id = affected_unit.ecf_id
+      #   print("\n")
+      #   print(@affected_unit_ecf_id)
+      #   print("\n")
+      #   # @ecfss = Ecf.find_by_sql ["SELECT * FROM ecfs where id = ?", @affected_unit_ecf_id]
+      #   # print("\n ecfs for affected modules \n")
+      #   # print(@ecfss)
+      #   @ecfs_ids.push(@affected_unit_ecf_id)
+      #   print("\n")
+      # end
+      # print("\n---------ecfs ids which i need----\n")
+      # print(@ecfs_ids.size)
+      # print("\n")      
     else
       @q = Ecf.ransack(params[:q])
       @ecfs = @q.result
