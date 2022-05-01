@@ -32,7 +32,7 @@ class Ability
       can [:new, :create, :read], Meeting
       cannot [:update, :destroy], Meeting
       can :manage, User
-      cannot [:showECFs], User
+      cannot [:showECFs, :guest_prompt], User
     end
 
     if user.admin?
