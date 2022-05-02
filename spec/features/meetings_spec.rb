@@ -181,13 +181,13 @@ describe "meeting", js: true do
         click_button "Create Meeting"
         expect(page).to have_content "Attendees: test"
         visit "/meetings"
-        find(:xpath, "/html/body/main/div/div[1]/table/tbody/tr[1]/td[6]/a", :text => 'Edit').click 
+        find(:xpath, "/html/body/main/div/div[1]/div/div/table/tbody/tr[1]/td[6]/a", :text => 'Edit').click 
         expect(page).to have_content "Editing meeting"
         fill_in "Title", with: "new test"
         click_button "Update Meeting"
         expect(page).to have_content "new test"
         visit"/meetings"
-        find(:xpath, "/html/body/main/div/div[1]/table/tbody/tr[1]/td[5]/a", :text => 'Show').click 
+        find(:xpath, "/html/body/main/div/div[1]/div/div/table/tbody/tr[1]/td[5]/a", :text => 'Show').click 
         #Confirms test updates
         expect(page).to have_content "new test"
 
@@ -216,16 +216,16 @@ describe "meeting" do
         expect(page).to have_content "1"
         expect(Meeting.count).to eq 1
         visit "/meetings/1"
-        find(:xpath, '/html/body/main/div/p[5]/a').click
+        find(:xpath, '/html/body/main/div/div/div/p[4]/a').click
         expect(page).to have_content "Listing ECFs"
-        find(:xpath, "/html/body/main/div/body-1/section/div/div[2]/div/div[3]/div/table/tbody/tr[1]/td[8]/a", :text => 'Edit').click 
+        find(:xpath, "/html/body/main/div/body-1/section/div/div[2]/div/div[3]/div/table/tbody/tr/td[9]/a", :text => 'Edit').click 
         fill_in "agenda[meeting_id]", with: "1"
         click_button "Add to meeting"
         expect(page).to have_content "ECF was successfully added to the meeting"
         visit "/meetings"
-        find(:xpath, "/html/body/main/div/div[1]/table/tbody/tr[1]/td[5]/a", :text => 'Show').click 
+        find(:xpath, "/html/body/main/div/div[1]/div/div/table/tbody/tr[1]/td[5]/a", :text => 'Show').click 
         expect(page).to have_content "Pending"
-        find(:xpath, "/html/body/main/div/div[1]/table/tbody/tr/td[11]/a", :text => 'Remove ECF').click 
+        find(:xpath, "/html/body/main/div/div/div/div[1]/table/tbody/tr/td[11]/a", :text => 'Remove ECF').click 
         page.driver.browser.switch_to.alert.accept
         expect(page).to have_content "Successfully removed ECF from agenda"
     end
@@ -242,9 +242,10 @@ describe "meeting", js: true do
         click_button "Create Meeting"
         expect(page).to have_content "Attendees: test"
         visit "/meetings"
-        find(:xpath, "/html/body/main/div/div[1]/table/tbody/tr[1]/td[7]/a", :text => 'Destroy').click 
+        find(:xpath, "/html/body/main/div/div[1]/div/div/table/tbody/tr[1]/td[7]/a", :text => 'Destroy').click 
         page.driver.browser.switch_to.alert.accept
         expect(page).to have_content "Meeting was successfully destroyed."
+        
     end
 end
 
