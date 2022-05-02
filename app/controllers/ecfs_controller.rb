@@ -102,7 +102,7 @@ class EcfsController < ApplicationController
     if @ecf.update(ecf_params)
       #############SAMIHA - NEED TO FIX UPDATE EMAIL STUFF
       # EmailMailer.with(ecf: @ecf).ecf_updated.deliver_now
-      # flash[:notice] = 'Form was successfully updated. You should have received email confirmation.'
+      flash[:notice] = 'Form was successfully updated. You should have received email confirmation.'
       redirect_back(fallback_location: ecfs_path)
     else
       redirect_back(fallback_location: :edit)

@@ -15,7 +15,7 @@ end
 
 describe "ecf" do
     #log in as a user
-    it "fills out and submits ecf " do
+    it "fills out and submits ecf ", js: true do
         #login in as student 1 and make an ecf
         visit"/users/sign_in"
         login_as(FactoryBot.create(:student))
@@ -28,8 +28,8 @@ describe "ecf" do
         click_button "Create Ecf"
         #Check that ecf is listed fro student 1
         expect(page).to have_content "aca20sf"
-        click_link "mdo"
-        click_link "Sign out"
+        find(:xpath, "/html/body/header/div/div/button/a[1]", :text => 'Logout').click 
+        page.driver.browser.switch_to.alert.accept
         expect(page).to have_content "Overview"
         #Logged out and login as student 2
         visit"/users/sign_in"
@@ -219,7 +219,7 @@ describe "ecf" do
         FactoryBot.create(:ecf)
         visit"/ecfs"
         expect(page).to have_content "test"
-        click_link "ECFs which need attention as per the GDPR Policy"
+        click_link "ECFs which need to be removed from the system as per the GDPR Policy"
         expect(page).to have_content "Todays Date"
         expect(page).to have_content "test"
         click_link "Delete ECF", match: :first
@@ -229,30 +229,55 @@ describe "ecf" do
     end
 end
 
-# describe "ecf", js: true do 
-#     it "add decision to agenda", js: true do 
-#         visit"/users/sign_in"
-#         login_as(FactoryBot.create(:admin))
-#         FactoryBot.create(:ecf)
-#         visit"/ecfs"
-#         click_link "Edit", match: :first
-#         click_button "+ Add Decision", match: :first
-#         click_button "Add decisions to meeting", match: :first
-#         expect(page).to have_content "Meeting was successfully updated."
-#     end
-# end
+describe "ecf", js: true do 
+    it "add decision to agenda", js: true do 
+        visit"/users/sign_in"
+        login_as(FactoryBot.create(:admin))
+        FactoryBot.create(:ecf)
+        visit"/ecfs"
+        click_link "Edit", match: :first
+        click_button "+ Add Decision", match: :first
+        click_button "Add decisions to meeting", match: :first
+        expect(page).to have_content "Meeting was successfully updated."
+    end
+end
 
-# describe "ecf", js: true do 
-#     it "fail to add decision to agenda", js: true do 
-#         visit"/users/sign_in"
-#         login_as(FactoryBot.create(:admin))
-#         FactoryBot.create(:ecf)
-#         visit"/ecfs"
-#         click_link "Edit", match: :first
+describe "ecf", js: true do 
+    it "fail to add decision to agenda", js: true do 
+        visit"/users/sign_in"
+        login_as(FactoryBot.create(:admin))
+        FactoryBot.create(:ecf)
+        visit"/ecfs"
+        click_link "Edit", match: :first
         
 
-#         click_button "Add decisions to meeting", match: :first
-#         expect(page).to have_content "No decisions added."
-#     end
-# end
+        click_button "Add decisions to meeting", match: :first
+        expect(page).to have_content "No decisions added."
+    end
+end
 
+describe "notes" do
+    it "fills out and submits ecf then adds student notes", js: true do 
+        visit"/users/sign_in"
+        login_as(FactoryBot.create(:student2))
+        visit"/ecfs"
+        expect(page).to have_content "Listing ECFs"
+        click_link "Create New ECF"
+        fill_in "Details", with: "Example User2"
+        fill_in "Unit code", with: "COM2008"
+        fill_in "Assessment type", with: "Exam"
+        select "DEX - Deadline Extension", from: "Requested action ", visible: false
+        click_button "Create Ecf"
+        logout(:student)
+        login_as(FactoryBot.create(:admin))
+        visit"/ecfs"
+        click_link "Edit", match: :first
+        expect(page).to have_content "Edit ECF"
+        expect(page).to have_content "+ Add a Student note"
+        click_link "Add Decision", match: :first
+        click_button "Submit decision"
+        expect(page).to have_content "Form was successfully updated."
+        click_link "Delete note"
+        expect(page).to have_content "Note was successfully deleted."
+    end
+end
