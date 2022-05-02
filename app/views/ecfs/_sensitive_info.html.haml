@@ -14,36 +14,67 @@
       
   %p
     %h4 ECF details:
-    - @affected_units.each do |affected_unit|
-      %p
-        %b Date from:
-        = affected_unit.date_from
-        .form-group
-        %b Date to:
-        = affected_unit.date_to
-        -# todo waiting for further controller method to read from ecfs table
-        .form-group
-        %b#is_ongoing{:hidden => "hidden"}
-          = @ecf.is_ongoing
-        .form-group
-        %b#is_sst{:hidden => "hidden"}
-          = @ecf.is_serious_short_term
-        .form-group
-        %b#is_dd{:hidden => "hidden"}
-          = @ecf.is_deterioration_of_disability
-        .form-group
-        %b#is_bereavement{:hidden => "hidden"}
-          = @ecf.is_bereavement
-        .form-group
-        %b#is_sap{:hidden => "hidden"}
-          = @ecf.is_significant_adverse_personal
-        .form-group
-        %b#is_oef{:hidden => "hidden"}
-          = @ecf.is_other_exceptional_factors
-        .form-group
-        %b#is_fa{:hidden => "hidden"}
-          = @ecf.is_frequent_absence
-        
+    - if current_user.module_leader?
+      - @affected_units.each do |affected_unit|
+        %p
+          %b Date from:
+          = affected_unit.pluck("date_from").to_sentence
+          .form-group
+          %b Date to:
+          = affected_unit.pluck("date_to").to_sentence
+          -# todo waiting for further controller method to read from ecfs table
+          .form-group
+          %b#is_ongoing{:hidden => "hidden"}
+            = @ecf.is_ongoing
+          .form-group
+          %b#is_sst{:hidden => "hidden"}
+            = @ecf.is_serious_short_term
+          .form-group
+          %b#is_dd{:hidden => "hidden"}
+            = @ecf.is_deterioration_of_disability
+          .form-group
+          %b#is_bereavement{:hidden => "hidden"}
+            = @ecf.is_bereavement
+          .form-group
+          %b#is_sap{:hidden => "hidden"}
+            = @ecf.is_significant_adverse_personal
+          .form-group
+          %b#is_oef{:hidden => "hidden"}
+            = @ecf.is_other_exceptional_factors
+          .form-group
+          %b#is_fa{:hidden => "hidden"}
+            = @ecf.is_frequent_absence    
+    - else
+      - @affected_units.each do |affected_unit|
+        %p
+          %b Date from:
+          = affected_unit.date_from
+          .form-group
+          %b Date to:
+          = affected_unit.date_to
+          -# todo waiting for further controller method to read from ecfs table
+          .form-group
+          %b#is_ongoing{:hidden => "hidden"}
+            = @ecf.is_ongoing
+          .form-group
+          %b#is_sst{:hidden => "hidden"}
+            = @ecf.is_serious_short_term
+          .form-group
+          %b#is_dd{:hidden => "hidden"}
+            = @ecf.is_deterioration_of_disability
+          .form-group
+          %b#is_bereavement{:hidden => "hidden"}
+            = @ecf.is_bereavement
+          .form-group
+          %b#is_sap{:hidden => "hidden"}
+            = @ecf.is_significant_adverse_personal
+          .form-group
+          %b#is_oef{:hidden => "hidden"}
+            = @ecf.is_other_exceptional_factors
+          .form-group
+          %b#is_fa{:hidden => "hidden"}
+            = @ecf.is_frequent_absence
+          
 
   - if @ecf.status == "Complete" 
     %p This ECF is marked as Complete. Please look at the decisions below.

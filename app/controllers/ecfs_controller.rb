@@ -6,59 +6,20 @@ class EcfsController < ApplicationController
     if current_user.student?
       @ecfs = current_user.ecfs
     elsif current_user.module_leader?
-
-      print("\n MODULE LEADER-------------------------- \n")
-      print(current_user.id)
-      print(" user id \n")
       @user_modules = UserModule.find_by_sql ["SELECT * FROM user_modules where user_id = ?", (current_user.id).to_s]
-      print("----user modulesssss -------\n")
-      print(@user_modules)
-      print("\n")
 
       @ecfs_ids = []
       
       @user_modules.each do |user_module|
         @affected_units_for_module_leader = AffectedUnit.find_by_sql ["SELECT * FROM affected_units WHERE unit_code = ?", user_module.module_code]
-        print("\n Affected units FOR THE MODULE LEADER-----------------\n")
-        print(@affected_units_for_module_leader)
-        # print(@affected_units_for_module_leader.count)
-        print("------------------\n")
-
         @affected_units_for_module_leader.each do |affected_unit|
           @affected_unit_ecf_id = affected_unit.ecf_id
-          print("\n")
-          print(@affected_unit_ecf_id)
-          print("\n")
           if !@ecfs_ids.include?(@affected_unit_ecf_id)
             @ecfs_ids.push(@affected_unit_ecf_id)
           end
         end
       end
-      
-      print("\n---------ecfs ids which i need----\n")
-      print(@ecfs_ids.size)
-      print("\n")
 
-      # @affected_units_for_module_leader = AffectedUnit.find_by_sql ["SELECT * FROM affected_units WHERE unit_code = ?", @user_modules.module_code]
-      # print("\n Affected units FOR THE MODULE LEADER-----------------\n")
-      # print(@affected_units_for_module_leader.count)
-      # print("------------------\n")
-
-      # @ecfs_ids = []
-      # @affected_units_for_module_leader.each do |affected_unit|
-      #   @affected_unit_ecf_id = affected_unit.ecf_id
-      #   print("\n")
-      #   print(@affected_unit_ecf_id)
-      #   print("\n")
-      #   # @ecfss = Ecf.find_by_sql ["SELECT * FROM ecfs where id = ?", @affected_unit_ecf_id]
-      #   # print("\n ecfs for affected modules \n")
-      #   # print(@ecfss)
-      #   @ecfs_ids.push(@affected_unit_ecf_id)
-      #   print("\n")
-      # end
-      # print("\n---------ecfs ids which i need----\n")
-      # print(@ecfs_ids.size)
-      # print("\n")      
     else
       @q = Ecf.ransack(params[:q])
       @ecfs = @q.result
@@ -145,7 +106,51 @@ class EcfsController < ApplicationController
     end
 
     def set_affected_units
+      if current_user.module_leader?
+        @user_modules = UserModule.find_by_sql ["SELECT * FROM user_modules where user_id = ?", (current_user.id).to_s]
+        @modules_for_user = []
+        @user_modules.each do |user_module|
+          if !@modules_for_user.include?(user_module)
+            @modules_for_user.push(user_module.module_code)
+          end
+        end
+
+        @affected_units_all = @ecf.affected_units
+        print("\n ----------------- affected units--------------------\n")
+        @affected_units_arr_in_ecf = @affected_units_all.pluck("unit_code")
+        print("\n ---------------------user modules----------------\n")
+        print(@modules_for_user)
+        print("\n -------------------affected units in ecf---------------\n")
+        print(@affected_units_arr_in_ecf)
+        print("\n -------------------common in both-------------------\n")
+        @common = @affected_units_arr_in_ecf & @modules_for_user
+        print(@common)
+        print("\n -------------------------------------\n")
+        
+        @affected_units = []
+        if @common != []
+          @common.each do |x|
+            print("\n %%%%%%%%%%%%%%%%%%%%%% \n")
+            print(x)
+            print("\n%%%%%%%%%%%%%%%%%%\n")
+            if !@affected_units.include?(@ecf.affected_units.where(["unit_code LIKE ? ", x]))
+              @affected_units.push(@ecf.affected_units.where(["unit_code LIKE ? ", x]))
+            end
+          end
+        end
+
+        print("\n -----------------temp------------\n")
+        print(@affected_units.size)
+        @affected_units.each do |x|
+          print("\n***")
+          print(x.pluck("assessment_type"))
+          print("\n****")
+        end
+        print("\n------------------------\n")
+      else
       @affected_units = @ecf.affected_units
+      end
+      
     end
 
     def set_ecf_notes
