@@ -20,6 +20,7 @@ class Ability
       can [:read, :new, :create, :update, :update_persist, :edit, :submit], Ecf
       cannot :manage, Meeting
       cannot :manage, User
+      cannot :guest_prompt, User
     end
 
     # module leaders - can read ecfs with effected module relating to them
@@ -28,6 +29,7 @@ class Ability
       cannot [:edit, :update_persist, :search], Ecf
       cannot :manage, Meeting
       cannot :manage, User
+      cannot :guest_prompt, User
     end
 
     # scrutiny panel members - can read + edit ecfs (notes), create + use meetings
