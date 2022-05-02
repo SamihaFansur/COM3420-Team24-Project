@@ -42,7 +42,8 @@ describe "outcome" do
         expect(page).to have_content "Outcome was successfully created."
         visit"/outcomes"
         expect(page).to have_content "test"
-        find(:xpath, "/html/body/main/div/section/div/div/div/div/table/tbody/tr/td[4]/a", :text => 'Show').click 
+        save_page
+        find(:xpath, "/html/body/main/div/section/div/div/div/table/tbody/tr/td[4]/a", :text => 'Show').click 
         expect(page).to have_content "test"
     end
 end
@@ -61,7 +62,7 @@ describe "outcome" do
         expect(page).to have_content "Outcome was successfully created."
         visit"/outcomes"
         expect(page).to have_content "test"
-        find(:xpath, "/html/body/main/div/section/div/div/div/div/table/tbody/tr/td[5]/a", :text => 'Edit').click 
+        find(:xpath, "/html/body/main/div/section/div/div/div/table/tbody/tr/td[5]/a", :text => 'Edit').click 
         fill_in "Name", with: "new test"
         fill_in "Short name", with: "new test"
         fill_in "Description", with: "new test"
@@ -83,7 +84,7 @@ describe "outcome", js: true do
         expect(page).to have_content "Outcome was successfully created."
         visit"/outcomes"
         expect(page).to have_content "test"
-        find(:xpath, "/html/body/main/div/section/div/div/div/div/table/tbody/tr/td[6]/a", :text => 'Destroy').click
+        find(:xpath, "/html/body/main/div/section/div/div/div/table/tbody/tr/td[6]/a", :text => 'Destroy').click
         page.driver.browser.switch_to.alert.accept
         expect(page).to have_content "Outcome was successfully destroyed."
     end

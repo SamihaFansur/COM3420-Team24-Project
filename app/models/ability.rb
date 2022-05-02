@@ -7,6 +7,7 @@ class Ability
 
     user ||= User.new
 
+    # guests - no functionality, only show guest prompt
     if user.guest?
       cannot :manage, Ecf
       cannot :manage, Meeting
@@ -14,19 +15,24 @@ class Ability
       can :guest_prompt, User
     end
 
+    # students - can create ecf, read ecf, edit exisiting ecf
     if user.student?
       can [:read, :new, :create, :update, :update_persist, :edit, :submit], Ecf
       cannot :manage, Meeting
       cannot :manage, User
+      cannot :guest_prompt, User
     end
 
+    # module leaders - can read ecfs with effected module relating to them
     if user.module_leader?
       can [:read], Ecf
       cannot [:edit, :update_persist, :search], Ecf
       cannot :manage, Meeting
       cannot :manage, User
+      cannot :guest_prompt, User
     end
 
+    # scrutiny panel members - can read + edit ecfs (notes), create + use meetings
     if user.scrutiny?
       can [:read, :update_persist, :edit, :search], Ecf
       can [:new, :create, :read], Meeting
@@ -35,6 +41,7 @@ class Ability
       cannot [:showECFs, :guest_prompt], User
     end
 
+    # admins / scrutiny chair - can manage everything
     if user.admin?
       can :manage, :all
       cannot :create, Ecf
