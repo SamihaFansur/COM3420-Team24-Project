@@ -21,7 +21,7 @@
             =image_tag("University_of_Sheffield.svg",width: "92px", height: "50px")
             %li
               = link_to 'HOME', root_path, title: 'Go to the home page', class: 'nav-link-2'
-            - if cannot? :read, Ecf
+            - if user_signed_in? and can? :guest_prompt, User
               %li
                 = link_to 'GUEST PROMPT', guest_page_path, title: 'Go to the guest prompt page', class: 'nav-link-2'
             - if !user_signed_in? # show only when user is not logged in
@@ -30,7 +30,7 @@
             - if can? :submit, Ecf
               %li
                 = link_to 'MY ECFS', ecfs_path, title: 'Go to the ECFs page', class: 'nav-link-2'
-            - if can? :search, Ecf
+            - if can? :read, Ecf
               %li
                 = link_to 'SHOW ECFS', ecfs_path, title: 'Go to the ECFs page with a search functionality', class: 'nav-link-2'
             - if can? :read, Meeting

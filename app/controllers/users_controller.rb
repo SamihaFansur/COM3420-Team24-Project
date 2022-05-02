@@ -113,6 +113,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def guest_prompt
+    # nul method - used for authorization of guest role priviliges
+  end
+
   private
     def set_user
       @user = User.find(params[:id])

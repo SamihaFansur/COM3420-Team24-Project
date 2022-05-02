@@ -11,6 +11,7 @@ class Ability
       cannot :manage, Ecf
       cannot :manage, Meeting
       cannot :manage, User
+      can :guest_prompt, User
     end
 
     if user.student?
@@ -20,8 +21,8 @@ class Ability
     end
 
     if user.module_leader?
-      can [:read, :search], Ecf
-      cannot [:edit, :update_persist], Ecf
+      can [:read], Ecf
+      cannot [:edit, :update_persist, :search], Ecf
       cannot :manage, Meeting
       cannot :manage, User
     end
@@ -30,14 +31,15 @@ class Ability
       can [:read, :update_persist, :edit, :search], Ecf
       can [:new, :create, :read], Meeting
       cannot [:update, :destroy], Meeting
-      cannot :manage, User
-      can [:showECFs], User
+      can :manage, User
+      cannot [:showECFs, :guest_prompt], User
     end
 
     if user.admin?
       can :manage, :all
       cannot :create, Ecf
       cannot :submit, Ecf
+      cannot :guest_prompt, User
     end
 
     # Define abilities for the passed in user here. For example:
