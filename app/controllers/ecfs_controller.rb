@@ -116,41 +116,20 @@ class EcfsController < ApplicationController
         end
 
         @affected_units_all = @ecf.affected_units
-        print("\n ----------------- affected units--------------------\n")
         @affected_units_arr_in_ecf = @affected_units_all.pluck("unit_code")
-        print("\n ---------------------user modules----------------\n")
-        print(@modules_for_user)
-        print("\n -------------------affected units in ecf---------------\n")
-        print(@affected_units_arr_in_ecf)
-        print("\n -------------------common in both-------------------\n")
-        @common = @affected_units_arr_in_ecf & @modules_for_user
-        print(@common)
-        print("\n -------------------------------------\n")
+        @common_modules = @affected_units_arr_in_ecf & @modules_for_user
         
         @affected_units = []
-        if @common != []
-          @common.each do |x|
-            print("\n %%%%%%%%%%%%%%%%%%%%%% \n")
-            print(x)
-            print("\n%%%%%%%%%%%%%%%%%%\n")
-            if !@affected_units.include?(@ecf.affected_units.where(["unit_code LIKE ? ", x]))
-              @affected_units.push(@ecf.affected_units.where(["unit_code LIKE ? ", x]))
+        if @common_modules != []
+          @common_modules.each do |common_module|
+            if !@affected_units.include?(@ecf.affected_units.where(["unit_code LIKE ? ", common_module]))
+              @affected_units.push(@ecf.affected_units.where(["unit_code LIKE ? ", common_module]))
             end
           end
         end
-
-        print("\n -----------------temp------------\n")
-        print(@affected_units.size)
-        @affected_units.each do |x|
-          print("\n***")
-          print(x.pluck("assessment_type"))
-          print("\n****")
-        end
-        print("\n------------------------\n")
       else
       @affected_units = @ecf.affected_units
       end
-      
     end
 
     def set_ecf_notes
