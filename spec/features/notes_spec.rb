@@ -23,6 +23,7 @@ describe "notes" do
         expect(page).to have_content "Edit ECF"
         expect(page).to have_content "+ Add a Student note"
         click_button "+ Add a Student note", match: :first
+        fill_in "Description *", with: "test"
         click_button "Submit note"
         expect(page).to have_content "Form was successfully updated."
     end
@@ -47,8 +48,9 @@ describe "notes" do
         expect(page).to have_content "Edit ECF"
         expect(page).to have_content "+ Add a Student note"
         click_button "+ Add a Student note", match: :first
+        fill_in "Description *", with: "test"
         click_button "Submit note"
-        expect(page).to have_content "Form was successfully updated."
+        expect(page).to have_content "Form was successfully updated. "
         click_link "Delete note"
         expect(page).to have_content "Note was successfully deleted."
     end
