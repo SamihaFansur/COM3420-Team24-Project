@@ -44,6 +44,14 @@ FactoryBot.define do
       uid { "aca20sg" }
       dn {"uid=aca20sf,ou=Undergraduates,ou=Students,ou=Users,dc=sheffield,dc=ac,dc=uk"}
       role {1}
+      ou {"COM"}
+    end
+
+    factory :student3 do
+      uid { "ab1ast" }
+      dn {"uid=aca20sf,ou=Undergraduates,ou=Students,ou=Users,dc=sheffield,dc=ac,dc=uk"}
+      role {1}
+      ou {"JNL"}
 
     end
 

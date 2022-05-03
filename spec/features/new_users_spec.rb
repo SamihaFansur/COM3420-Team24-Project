@@ -1,4 +1,4 @@
-require_relative "../spec_helper"
+require 'spec_helper'
 require 'rails_helper'
 
 #Test New User
@@ -71,7 +71,7 @@ describe 'User specs' do
     end
     #test doesnt work due to needing mock of ldap username
     describe "user" do
-        it "creates new user as admin " do
+        it "creates new user as admin ", js: true do
             visit"/users/sign_in"
             login_as(FactoryBot.create(:admin))
             visit"/users/new"
@@ -83,7 +83,7 @@ describe 'User specs' do
 
     #test doesnt work due to needing mock of ldap username
     describe "user", js: true do
-        it "tries to create pre-existing user with email " do
+        it "tries to create pre-existing user with email ", js: true do
             visit"/users/sign_in"
             login_as(FactoryBot.create(:admin))
             visit"/users/new"
@@ -154,6 +154,32 @@ describe 'User specs' do
             #save users
             click_button "Save User"
             expect(page).to have_content "Failed to upload users - CSV file is of the incorrect format."
+        end
+    end
+
+    describe "user" do
+        it "tests the departments drop down box for search", js: true do 
+            #login
+            visit"/users/sign_in"
+            login_as(FactoryBot.create(:student2))
+            logout(:student)
+            login_as(FactoryBot.create(:student3))
+            logout(:student3)
+            login_as(FactoryBot.create(:admin))
+            visit"/users"
+            expect(page).to have_content "aca20sf"
+            expect(page).to have_content "ab1ast"
+            expect(page).to have_content "JNL"
+            expect(page).to have_content "COM"
+            find(:xpath, "/html/body/main/div/div/div/table/tbody[2]/tr/td[2]/select").set("COM")
+            # fill_in "q[ou_eq]", with: "COM"
+            # select "Civ", :from => "/html/body/main/div/div/div/table/tbody[2]/tr/td[2]/select"
+            click_button "Search"
+            expect(page).to have_content "COM"
+            visit"/users"
+            find(:xpath, "/html/body/main/div/div/div/table/tbody[2]/tr/td[2]/select").set("JNL")
+            click_button "Search"
+            expect(page).to have_content "JNL"
         end
     end
 end
