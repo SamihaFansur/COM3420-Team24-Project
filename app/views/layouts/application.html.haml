@@ -40,11 +40,11 @@
               %li
                 = link_to 'USERS', users_path, title: 'Go to the user page', class: 'nav-link-2'
           - if user_signed_in?
-            = link_to "Logout", destroy_user_session_path, method: :delete
-            -# %button.btn{onclick: "document.getElementById('logout').click();"}
-            -#   =image_tag("box-arrow-right.svg")
-            -#   %a.dropdown-item Logout
-            -#   %a.dropdown-item#logout{"data-confirm" => "Are you sure you want to log out?", "data-method" => "delete", :href => "/users/sign_out", :rel => "nofollow", :title => "Log out of the system"} Logout
+
+            %a.btn#logout_btn{"data-method" => "delete", :href => "/users/sign_out", :rel => "nofollow"}
+              =image_tag("box-arrow-right.svg",onclick: "document.getElementById('logout_btn').click();",style: "cursor: pointer;")
+              Logout
+
     .flash-messages
       - flash.each do |name, msg|
         - next unless name == 'alert' || name == 'notice'
