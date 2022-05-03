@@ -5,6 +5,8 @@ class MeetingsController < ApplicationController
   # GET /meetings
   def index
     @meetings = Meeting.all
+    @upcoming_meetings = Meeting.where("time > ?", DateTime.now)
+    @past_meetings = Meeting.where("time < ?", DateTime.now)
   end
 
   # GET /meetings/1
@@ -34,7 +36,7 @@ class MeetingsController < ApplicationController
     @meeting = Meeting.new(meeting_params)
 
     if @meeting.save
-      
+
       redirect_to @meeting, notice: 'Meeting was successfully created.'
     else
       render :new

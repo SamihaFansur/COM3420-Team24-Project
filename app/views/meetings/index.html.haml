@@ -2,11 +2,13 @@
 =link_to 'Outcomes', outcomes_path, :class => 'btn btn-outline-primary'
 
 %h1.mt-4.mb-4 Meeting Schedule
+
 -if @meetings.empty?
   %p.alert.alert-primary No meeting schedule found.
 -if ! @meetings.empty?
   .row.justify-content-center
     .login-wrap.py-5
+      %h3 Upcoming Meetings
       .table-responsive
         %table.table.table-hover
           %thead
@@ -15,14 +17,8 @@
               %th ID
               %th Time
               %th Attendees
-              %th
-              %th
-              %th
-              %th
-
           %tbody
-
-            - @meetings.each do |meeting|
+            - @upcoming_meetings.each do |meeting|
               %tr
                 %td= meeting.title
                 %td= meeting.id
@@ -36,5 +32,29 @@
                 %td= link_to "Email Attendees", :controller => "emails", :action => "meeting_email", :emails => meeting.attendees
 
           %br
+      %h3 Past Meetings
+      .table-responsive
+        %table.table.table-hover
+          %thead
+            %tr
+              %th Title
+              %th ID
+              %th Time
+              %th Attendees
+          %tbody
+            - @past_meetings.each do |meeting|
+              %tr
+                %td= meeting.title
+                %td= meeting.id
+                %td= meeting.time
+                %td= meeting.attendees
+                %td= link_to 'Show', meeting
+                - if can? :update, Meeting
+                  %td= link_to 'Edit', edit_meeting_path(meeting)
+                - if can? :destroy, Meeting
+                  %td= link_to 'Destroy', meeting, :method => :delete, :data => { :confirm => 'Are you sure?' }
+                %td= link_to "Email Attendees", :controller => "emails", :action => "meeting_email", :emails => meeting.attendees
+
+
 .mt-5
 = link_to 'New Meeting', new_meeting_path, :class => 'btn btn-primary'
