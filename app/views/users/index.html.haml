@@ -36,7 +36,7 @@
             %td
               = f.search_field :mail_cont
             %td
-              = f.select(:ou, User.all.collect {|user| [user.ou, user.id]}, { include_blank: true })
+              = f.select(:ou_eq, options_for_select(User.distinct.pluck(:ou)), { include_blank: true })
             %td
               = f.select(:role_eq, options_for_select(User.roles.map {|k, v| [k.humanize.capitalize, v]}, f.object.role_eq), { include_blank: true })
             %td
