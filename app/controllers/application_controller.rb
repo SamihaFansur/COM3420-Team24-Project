@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
 
   # method that determines where the user is routed after logging in
   def after_sign_in_path_for(resource)
-    if @user != nil
+    if current_user != nil
       if @user.role == 'admin' # route to users page
         users_path
       elsif @user.role == 'student' # route to ecfs page
