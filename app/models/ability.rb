@@ -37,7 +37,7 @@ class Ability
       can [:read, :update_persist, :edit, :search], Ecf
       can [:new, :create, :read], Meeting
       cannot [:update, :destroy], Meeting
-      can :manage, User
+      cannot :manage, User
       cannot [:showECFs, :guest_prompt], User
     end
 
