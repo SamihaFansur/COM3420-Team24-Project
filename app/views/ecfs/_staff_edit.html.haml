@@ -156,3 +156,11 @@
                 = ecf_note.created_at
                 - if ecf_note.user_id == current_user.id
                   = link_to "Delete note", ecf_note_path(ecf_note), method: :delete, class: "btn btn-outline-danger btn-sm"
+    
+    %div
+    = simple_form_for(@ecf, :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
+      = f.label :upload_conversations, style: "display: block"
+      = f.file_field :upload_conversations
+      = f.button :submit
+
+    

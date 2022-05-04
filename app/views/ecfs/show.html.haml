@@ -68,6 +68,10 @@
     - else
       = render "sensitive_info"
 
+    %p Uploaded Conversations:
+    = link_to 'View file', @ecf.upload_conversations, target: :_blank if @ecf.upload_conversations.attached?
+
+
 
 
 
