@@ -27,9 +27,9 @@
             - if !user_signed_in? # show only when user is not logged in
               %li
                 = link_to 'LOGIN', ecfs_path, title: 'Go to the login page', class: 'nav-link-2'
-            - if can? :submit, Ecf
-              %li
-                = link_to 'MY ECFS', ecfs_path, title: 'Go to the ECFs page', class: 'nav-link-2'
+            -# - if can? :submit, Ecf
+            -#   %li
+            -#     = link_to 'MY ECFS', ecfs_path, title: 'Go to the ECFs page', class: 'nav-link-2'
             - if can? :read, Ecf
               %li
                 = link_to 'SHOW ECFS', ecfs_path, title: 'Go to the ECFs page with a search functionality', class: 'nav-link-2'
