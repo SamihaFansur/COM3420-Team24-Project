@@ -109,26 +109,29 @@ class EcfsController < ApplicationController
 
     def set_affected_units
       if current_user.module_leader?
-        @user_modules = UserModule.find_by_sql ["SELECT * FROM user_modules where user_id = ?", (current_user.id).to_s]
-        @modules_for_user = []
-        @user_modules.each do |user_module|
-          if !@modules_for_user.include?(user_module)
-            @modules_for_user.push(user_module.module_code)
-          end
-        end
+        @user_modules = current_user.user_modules.pluck(:module_code)
+        @affected_units = @ecf.affected_units.where(unit_code: @user_modules)
 
-        @affected_units_all = @ecf.affected_units
-        @affected_units_arr_in_ecf = @affected_units_all.pluck("unit_code")
-        @common_modules = @affected_units_arr_in_ecf & @modules_for_user
+        # @user_modules = UserModule.find_by_sql ["SELECT * FROM user_modules where user_id = ?", (current_user.id).to_s]
+        # @modules_for_user = []
+        # @user_modules.each do |user_module|
+        #   if !@modules_for_user.include?(user_module)
+        #     @modules_for_user.push(user_module.module_code)
+        #   end
+        # end
+
+        # @affected_units_all = @ecf.affected_units
+        # @affected_units_arr_in_ecf = @affected_units_all.pluck("unit_code")
+        # @common_modules = @affected_units_arr_in_ecf & @modules_for_user
         
-        @affected_units = []
-        if @common_modules != []
-          @common_modules.each do |common_module|
-            if !@affected_units.include?(@ecf.affected_units.where(["unit_code LIKE ? ", common_module]))
-              @affected_units.push(@ecf.affected_units.where(["unit_code LIKE ? ", common_module]))
-            end
-          end
-        end
+        # @affected_units = []
+        # if @common_modules != []
+        #   @common_modules.each do |common_module|
+        #     if !@affected_units.include?(@ecf.affected_units.where(["unit_code LIKE ? ", common_module]))
+        #       @affected_units.push(@ecf.affected_units.where(["unit_code LIKE ? ", common_module]))
+        #     end
+        #   end
+        # end
       else
       @affected_units = @ecf.affected_units
       end

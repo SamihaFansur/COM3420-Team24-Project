@@ -37,8 +37,7 @@ end
 student_1 = User.where(username: 'aca20eb').first
 student_2 = User.where(username: 'acd19jb').first
 ecfs = [
-  # Old ECF for gdpr
-  Ecf.new(date: '2010-01-01', 
+  Ecf.new(
     created_at: '2010-01-01 19:00:00.000000000 +0000',
     user_id: student_1.id,
     status: 'Complete',
@@ -54,7 +53,7 @@ ecfs = [
     highly_sensitive: false),
   
   # Highly sensitive ECF
-  Ecf.new(date: '2019-01-01', 
+  Ecf.new(
     user_id: student_2.id,
     status: 'Complete',
     is_serious_short_term: false,
@@ -69,7 +68,7 @@ ecfs = [
     highly_sensitive: true),
   
   # Normal ECF with requested actions?
-  Ecf.new(date: '2019-02-01', 
+  Ecf.new(
     user_id: student_2.id,
     status: 'Pending',
     is_serious_short_term: false,
@@ -84,9 +83,9 @@ ecfs = [
     highly_sensitive: false)  
 ]
 
-# ecfs.each do |ecf|
-#   ecf.save
-# end
+ecfs.each do |ecf|
+  ecf.save
+end
 
 test_ecf = Ecf.where(:details => 'Normal ECF with no DEX requests.').first
 

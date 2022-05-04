@@ -3,9 +3,7 @@
 # Table name: ecfs
 #
 #  id                              :bigint           not null, primary key
-#  date                            :date
 #  details                         :string
-#  email                           :string
 #  end_of_circumstances            :date
 #  highly_sensitive                :boolean
 #  is_bereavement                  :boolean

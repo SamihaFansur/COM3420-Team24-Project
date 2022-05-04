@@ -87,7 +87,7 @@
                                 %td Yes
                               - else
                                 %td No
-                              %td= ecf.date
+                              %td= ecf.created_at.strftime("%Y-%m-%d")
                               %td #{ecf.user.givenname} #{ecf.user.sn}
                               %td= ecf.user.mail
                               %td= ecf.user.uid
@@ -110,7 +110,7 @@
                               %td Yes
                             - else
                               %td No
-                            %td= ecf.date
+                            %td= ecf.created_at.strftime("%Y-%m-%d")
                             %td #{ecf.user.givenname} #{ecf.user.sn}
                             %td= ecf.user.mail
                             %td= ecf.user.uid
