@@ -161,7 +161,7 @@
     %h4 Email conversations
     = simple_form_for(@ecf, :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
       = f.label :upload_conversations
-      = f.file_field :upload_conversations, multiple: true
+      = f.file_field :upload_conversations, multiple: true, accept: 'application/pdf'
       = f.button :submit, value: "Upload email conversation(s)"
 
     
