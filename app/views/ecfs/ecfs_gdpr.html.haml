@@ -30,7 +30,6 @@
   %thead
     %tr
       %th{:scope => "col"} Status
-      %th{:scope => "col"} Date Created
       %th{:scope => "col"} Date Submitted
       %th{:scope => "col"} Name
       %th{:scope => "col"} Email
@@ -47,8 +46,6 @@
             = ecf.status
           %td
             = ecf.created_at
-          %td
-            = ecf.date
           %td
             #{ecf.user.givenname} #{ecf.user.sn}
           %td
