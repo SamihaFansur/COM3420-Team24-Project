@@ -68,15 +68,42 @@
                 %td= affected_unit.date_from
                 %td= affected_unit.date_to
 
-    - if can? :view_details, Ecf
-      %h4 Uploaded Conversations:
-      - if @ecf.upload_conversations.size == 0
-        .text-note
-          No conversations have been uploaded.
+    - if current_user.admin? or current_user.scrutiny?
+      - if (@ecf.highly_sensitive and current_user.admin?) or (!@ecf.highly_sensitive)
+        %h4 Uploaded Conversations:
+        - if @ecf.upload_conversations.size == 0
+          .text-note
+            No conversations have been uploaded.
+        - else
+          - @ecf.upload_conversations.each do |conversation|
+            %p
+            = link_to conversation.filename, conversation, target: :_blank
       - else
-        - @ecf.upload_conversations.each do |conversation|
-          %p
-          = link_to conversation.filename, conversation, target: :_blank
+        You do not have permission to view uploaded emails.
+
+    - if @ecf.status == "Complete" 
+      %h4 Final outcomes
+      %p This ECF is marked as Complete. Please see the final decisions below.
+      %table.table
+        %thead
+          %tr
+            %th{:scope => "col"} Module Code
+            %th{:scope => "col"} Assessment type
+            %th{:scope => "col"} Requested Action
+            %th{:scope => "col"} Outcome
+            %th{:scope => "col"} Extension Date
+        %tbody
+          - @decisions_ecfs.each do | code, decisions |
+            - decisions.each do | type, decision |
+              %tr
+                %td= code
+                %td= decision.assessment_type
+                %td= decision.requested_action
+                %td= decision.outcome&.name
+                - if decision.requested_action == "DEX - Deadline Extension" or decision.requested_action == "NP - No penalty for late submission"
+                  %td= decision.extension_date
+                - else
+                  %td
 
 
 
