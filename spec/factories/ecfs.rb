@@ -28,8 +28,6 @@ FactoryBot.define do
     user_id { 1 }
     id { 50 }
     details { 'test' }
-    email { 'test ' }
-    date { '2022-04-19 16:51:02 UTC' }
     created_at { '1000-01-01 00:00:00' }
     start_of_circumstances { '1000-01-01 00:00:00' }
     end_of_circumstances { '1000-01-01 00:00:00' }
