@@ -6,7 +6,7 @@ class Ability
   def initialize(user)
 
     user ||= User.new
-
+    
     # guests - no functionality, only show guest prompt
     if user.guest?
       cannot :manage, Ecf
