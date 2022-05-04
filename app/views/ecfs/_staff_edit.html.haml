@@ -158,9 +158,10 @@
                   = link_to "Delete note", ecf_note_path(ecf_note), method: :delete, class: "btn btn-outline-danger btn-sm"
     
     %div
+    %h4 Email conversations
     = simple_form_for(@ecf, :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
       = f.label :upload_conversations
-      = f.file_field :upload_conversations, multiple: true
-      = f.button :submit
+      = f.file_field :upload_conversations, multiple: true, accept: 'application/pdf'
+      = f.button :submit, value: "Upload email conversation(s)"
 
     

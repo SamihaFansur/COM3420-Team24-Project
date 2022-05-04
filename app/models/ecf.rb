@@ -41,7 +41,8 @@ class Ecf < ApplicationRecord
     has_many_attached :upload_medical_evidence, service: :db
     validates :upload_medical_evidence, content_type: {in: 'application/pdf', message: 'Please upload .pdf files only'} 
 
-    has_many_attached :upload_conversations
+    has_many_attached :upload_conversations, service: :db
+    validates :upload_conversations,content_type: {in: 'application/pdf', message: 'Please upload .pdf files only'} 
 
     validates :details, presence: true
     validates :end_of_circumstances, presence: true, date: { after_or_equal_to:  :start_of_circumstances}, unless: :is_ongoing 
