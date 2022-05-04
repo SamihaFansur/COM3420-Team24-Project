@@ -11,8 +11,8 @@
 #
 FactoryBot.define do
   factory :outcome do
-    name { "MyString" }
-    short_name { "MyString" }
-    description { "MyString" }
+    name { 'MyString' }
+    short_name { 'MyString' }
+    description { 'MyString' }
   end
 end

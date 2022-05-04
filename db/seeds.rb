@@ -7,12 +7,14 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 outcomes = Outcome.create([
-  {name: 'Approved', short_name: 'Y', description: 'Approved'},
-  {name: 'Refused', short_name: 'N', description: 'Justification not accepted'},
-  {name: 'Need more evidence', short_name: 'E', description: 'Require more evidence'},
-  {name: 'Ignore until next meeting', short_name: 'I', description: 'Ignore until next meeting'},
-  {name: 'Consider at final board', short_name: 'C', description: 'Insufficient reason for action now but will reconsider at end of year'}
-])
+                            { name: 'Approved', short_name: 'Y', description: 'Approved' },
+                            { name: 'Refused', short_name: 'N', description: 'Justification not accepted' },
+                            { name: 'Need more evidence', short_name: 'E', description: 'Require more evidence' },
+                            { name: 'Ignore until next meeting', short_name: 'I',
+                              description: 'Ignore until next meeting' },
+                            { name: 'Consider at final board', short_name: 'C',
+                              description: 'Insufficient reason for action now but will reconsider at end of year' }
+                          ])
 
 users = [
   User.new(email: 'ahaque3@sheffield.ac.uk', role: 1),
@@ -21,14 +23,15 @@ users = [
   User.new(email: 'ebell3@sheffield.ac.uk', role: 1),
   User.new(email: 'maziz3@sheffield.ac.uk', role: 0),
   User.new(email: 'sfansur1@sheffield.ac.uk', role: 1),
-  User.new(email: 'qdu3@sheffield.ac.uk', role: 1)]
+  User.new(email: 'qdu3@sheffield.ac.uk', role: 1)
+]
 
 users.each do |user|
   user.get_info_from_ldap
   if user.username.nil?
-    print("No username grabed")
+    print('No username grabed')
   elsif User.exists?(username: user.username)
-    print("User already in DB.")
+    print('User already in DB.')
   else
     user.save
   end
@@ -50,8 +53,9 @@ ecfs = [
     details: 'Very old ECF - I should appear under the GDPR page.',
     start_of_circumstances: '2010-05-01',
     end_of_circumstances: '2010-06-01',
-    highly_sensitive: false),
-  
+    highly_sensitive: false
+  ),
+
   # Highly sensitive ECF
   Ecf.new(
     user_id: student_2.id,
@@ -65,8 +69,9 @@ ecfs = [
     details: 'Highly sensitive ECF. Details should be hidden',
     start_of_circumstances: '2019-05-01',
     end_of_circumstances: '2019-06-01',
-    highly_sensitive: true),
-  
+    highly_sensitive: true
+  ),
+
   # Normal ECF with requested actions?
   Ecf.new(
     user_id: student_2.id,
@@ -80,14 +85,15 @@ ecfs = [
     details: 'Normal ECF with no DEX requests.',
     start_of_circumstances: '2019-05-01',
     end_of_circumstances: '2019-06-01',
-    highly_sensitive: false)  
+    highly_sensitive: false
+  )
 ]
 
 ecfs.each do |ecf|
   ecf.save
 end
 
-test_ecf = Ecf.where(:details => 'Normal ECF with no DEX requests.').first
+test_ecf = Ecf.where(details: 'Normal ECF with no DEX requests.').first
 
 affected_units = [
   AffectedUnit.new(

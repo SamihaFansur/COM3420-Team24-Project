@@ -1,6 +1,5 @@
 class AddLdapInfoAndCleanUpUsers < ActiveRecord::Migration[6.1]
   def change
-
     User.reset_column_information
     existing_columns = User.column_names
 
@@ -18,13 +17,14 @@ class AddLdapInfoAndCleanUpUsers < ActiveRecord::Migration[6.1]
     add_index :users, :email
 
     # Cache the ldap attributes
-    missing_columns = %w(uid mail ou dn sn givenname) - existing_columns
+    missing_columns = %w[uid mail ou dn sn givenname] - existing_columns
     missing_columns.each do |column_name|
       add_column :users, column_name, :string
     end
 
     # Remove devise fields we don't need
-    unnecessary_columns = %w(reset_password_token reset_password_sent_at remember_created_at encrypted_password) & existing_columns
+    unnecessary_columns = %w[reset_password_token reset_password_sent_at remember_created_at
+                             encrypted_password] & existing_columns
     unnecessary_columns.each do |column_name|
       remove_column :users, column_name
     end

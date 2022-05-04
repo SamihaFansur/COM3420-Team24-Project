@@ -16,8 +16,8 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class EcfNote < ApplicationRecord
-    belongs_to :ecf
-    belongs_to :user
+  belongs_to :ecf
+  belongs_to :user
 
-    validates :description, presence: true
+  validates :description, presence: true
 end

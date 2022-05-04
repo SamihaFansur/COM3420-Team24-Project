@@ -1,4 +1,4 @@
-require "active_support/core_ext/integer/time"
+require 'active_support/core_ext/integer/time'
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -81,23 +81,23 @@ Rails.application.configure do
   ##########################################################################
 
   # Preview email in the browser instead of sending it
-  config.action_mailer.default_url_options = { host: "localhost:3000" }
+  config.action_mailer.default_url_options = { host: 'localhost:3000' }
   config.action_mailer.delivery_method = :letter_opener
   config.action_mailer.perform_deliveries = true
 
   config.action_mailer.delivery_method = :smtp
-  host = 'localhost:3000' #replace with your own url
+  host = 'localhost:3000' # replace with your own url
   config.action_mailer.default_url_options = { host: host }
 
   # SMTP settings for gmail
   config.action_mailer.smtp_settings = {
-  :address              => "smtp.gmail.com",
-  :port                 => 587,
-  :user_name            => "scrutinypanelmeetings@gmail.com",
-  :password             => "ScrutinyPanel2022",
-  :authentication       => "plain",
-  :enable_starttls_auto => true
-}
+    address: 'smtp.gmail.com',
+    port: 587,
+    user_name: 'scrutinypanelmeetings@gmail.com',
+    password: 'ScrutinyPanel2022',
+    authentication: 'plain',
+    enable_starttls_auto: true
+  }
 
   # Make sure we know about it if params haven't been whitelisted
   config.action_controller.action_on_unpermitted_parameters = :raise

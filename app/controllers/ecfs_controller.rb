@@ -1,22 +1,22 @@
 class EcfsController < ApplicationController
   load_and_authorize_resource
-  before_action :set_ecf, only:  [:show, :edit, :update, :destroy, :update_persist]
+  before_action :set_ecf, only: %i[show edit update destroy update_persist]
 
   def index
     if current_user.student?
       @ecfs = current_user.ecfs
     elsif current_user.module_leader?
-      @user_modules = UserModule.find_by_sql ["SELECT * FROM user_modules where user_id = ?", (current_user.id).to_s]
+      @user_modules = UserModule.find_by_sql ['SELECT * FROM user_modules where user_id = ?', current_user.id.to_s]
 
       @ecfs_ids = []
-      
+
       @user_modules.each do |user_module|
-        @affected_units_for_module_leader = AffectedUnit.find_by_sql ["SELECT * FROM affected_units WHERE unit_code = ?", user_module.module_code]
+        @affected_units_for_module_leader = AffectedUnit.find_by_sql [
+          'SELECT * FROM affected_units WHERE unit_code = ?', user_module.module_code
+        ]
         @affected_units_for_module_leader.each do |affected_unit|
           @affected_unit_ecf_id = affected_unit.ecf_id
-          if !@ecfs_ids.include?(@affected_unit_ecf_id)
-            @ecfs_ids.push(@affected_unit_ecf_id)
-          end
+          @ecfs_ids.push(@affected_unit_ecf_id) unless @ecfs_ids.include?(@affected_unit_ecf_id)
         end
       end
 
@@ -30,12 +30,10 @@ class EcfsController < ApplicationController
   def show
     set_ecf
     set_affected_units
-    @decisions_ecfs = Hash.new
+    @decisions_ecfs = {}
     @ecf.decisions.order(:created_at).each do |decision|
       # This code is dependent on app/views/decisions/_decisions_fields.html.haml . The dex stuff.
-      unless @decisions_ecfs.key?(decision.module_code)
-        @decisions_ecfs[decision.module_code] = Hash.new
-      end
+      @decisions_ecfs[decision.module_code] = {} unless @decisions_ecfs.key?(decision.module_code)
       @decisions_ecfs[decision.module_code][decision.assessment_type] = decision
     end
   end
@@ -73,12 +71,12 @@ class EcfsController < ApplicationController
       redirect_back(fallback_location: :edit)
     end
   end
-  
+
   def create
     @ecf = Ecf.new(ecf_params)
     if @ecf.save
       EmailMailer.with(ecf: @ecf).ecf_submitted.deliver_now
-      flash[:success] = "You should have received a confirmation email."
+      flash[:success] = 'You should have received a confirmation email.'
 
       redirect_to ecfs_path, notice: 'ECF was successfully submitted.'
 
@@ -90,66 +88,66 @@ class EcfsController < ApplicationController
   def ecfs_gdpr
     @ecfs = Ecf.all
   end
-  
+
   def destroy
     @ecf = Ecf.find(params[:id])
     @ecf.destroy
 
-    redirect_to ecfs_gdpr_ecfs_path, :notice => "Successfully deleted ECF from system."
-
+    redirect_to ecfs_gdpr_ecfs_path, notice: 'Successfully deleted ECF from system.'
   end
 
   private
-    # def search_params(params)
-    #   params.slice(:status, :user_uid)
-    # end
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_ecf
-      @ecf = Ecf.find(params[:id])
-    end
+  # def search_params(params)
+  #   params.slice(:status, :user_uid)
+  # end
 
-    def set_affected_units
-      if current_user.module_leader?
-        @user_modules = current_user.user_modules.pluck(:module_code)
-        @affected_units = @ecf.affected_units.where(unit_code: @user_modules)
+  # Use callbacks to share common setup or constraints between actions.
+  def set_ecf
+    @ecf = Ecf.find(params[:id])
+  end
 
-        # @user_modules = UserModule.find_by_sql ["SELECT * FROM user_modules where user_id = ?", (current_user.id).to_s]
-        # @modules_for_user = []
-        # @user_modules.each do |user_module|
-        #   if !@modules_for_user.include?(user_module)
-        #     @modules_for_user.push(user_module.module_code)
-        #   end
-        # end
+  def set_affected_units
+    if current_user.module_leader?
+      @user_modules = current_user.user_modules.pluck(:module_code)
+      @affected_units = @ecf.affected_units.where(unit_code: @user_modules)
 
-        # @affected_units_all = @ecf.affected_units
-        # @affected_units_arr_in_ecf = @affected_units_all.pluck("unit_code")
-        # @common_modules = @affected_units_arr_in_ecf & @modules_for_user
-        
-        # @affected_units = []
-        # if @common_modules != []
-        #   @common_modules.each do |common_module|
-        #     if !@affected_units.include?(@ecf.affected_units.where(["unit_code LIKE ? ", common_module]))
-        #       @affected_units.push(@ecf.affected_units.where(["unit_code LIKE ? ", common_module]))
-        #     end
-        #   end
-        # end
-      else
+      # @user_modules = UserModule.find_by_sql ["SELECT * FROM user_modules where user_id = ?", (current_user.id).to_s]
+      # @modules_for_user = []
+      # @user_modules.each do |user_module|
+      #   if !@modules_for_user.include?(user_module)
+      #     @modules_for_user.push(user_module.module_code)
+      #   end
+      # end
+
+      # @affected_units_all = @ecf.affected_units
+      # @affected_units_arr_in_ecf = @affected_units_all.pluck("unit_code")
+      # @common_modules = @affected_units_arr_in_ecf & @modules_for_user
+
+      # @affected_units = []
+      # if @common_modules != []
+      #   @common_modules.each do |common_module|
+      #     if !@affected_units.include?(@ecf.affected_units.where(["unit_code LIKE ? ", common_module]))
+      #       @affected_units.push(@ecf.affected_units.where(["unit_code LIKE ? ", common_module]))
+      #     end
+      #   end
+      # end
+    else
       @affected_units = @ecf.affected_units
-      end
     end
+  end
 
-    def set_ecf_notes
-      @ecf_notes = @ecf.ecf_notes
-    end
+  def set_ecf_notes
+    @ecf_notes = @ecf.ecf_notes
+  end
 
-    # Only allow a trusted parameter "white list" through.
-    def ecf_params
-      params
-        #review tagged changes; taken from guide
-        .require(:ecf)
-        .permit(:user_id, :date, :status, :is_bereavement, :is_deterioration_of_disability, :is_frequent_absence, :is_ongoing, :is_other_exceptional_factors, :is_serious_short_term, :is_significant_adverse_personal, :details, :start_of_circumstances, :end_of_circumstances, :is_ongoing,:highly_sensitive, upload_conversations: [], upload_medical_evidence: [], 
-          affected_units_attributes: [:id, :affected_units, :assessment_type, :date_from, :date_to, :requested_action, :unit_code, :_destroy],
-          ecf_notes_attributes: [:id, :description, :role, :ecf_notes, :user_id, :_destroy])
-    end
+  # Only allow a trusted parameter "white list" through.
+  def ecf_params
+    params
+      # REVIEW: tagged changes; taken from guide
+      .require(:ecf)
+      .permit(:user_id, :date, :status, :is_bereavement, :is_deterioration_of_disability, :is_frequent_absence, :is_ongoing, :is_other_exceptional_factors, :is_serious_short_term, :is_significant_adverse_personal, :details, :start_of_circumstances, :end_of_circumstances, :is_ongoing, :highly_sensitive, upload_conversations: [], upload_medical_evidence: [],
+                                                                                                                                                                                                                                                                                                                affected_units_attributes: %i[id affected_units assessment_type date_from date_to requested_action unit_code _destroy],
+                                                                                                                                                                                                                                                                                                                ecf_notes_attributes: %i[id description role ecf_notes user_id _destroy])
+  end
 end

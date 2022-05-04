@@ -4,9 +4,8 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-
     user ||= User.new
-    
+
     # guests - no functionality, only show guest prompt
     if user.guest?
       cannot :manage, Ecf
@@ -17,7 +16,7 @@ class Ability
 
     # students - can create ecf, read ecf, edit exisiting ecf
     if user.student?
-      can [:read, :new, :create, :update, :update_persist, :edit, :submit], Ecf
+      can %i[read new create update update_persist edit submit], Ecf
       cannot :manage, Meeting
       cannot :manage, User
       cannot :guest_prompt, User
@@ -26,7 +25,7 @@ class Ability
     # module leaders - can read ecfs with effected module relating to them
     if user.module_leader?
       can [:read], Ecf
-      cannot [:edit, :update_persist, :search], Ecf
+      cannot %i[edit update_persist search], Ecf
       cannot :manage, Meeting
       cannot :manage, User
       cannot :guest_prompt, User
@@ -34,13 +33,13 @@ class Ability
 
     # scrutiny panel members - can read + edit ecfs (notes), create + use meetings
     if user.scrutiny?
-      can [:read, :update_persist, :edit, :search], Ecf
+      can %i[read update_persist edit search], Ecf
       can [:read], Meeting
       can :view_details, Ecf
       cannot :manage, Outcome
-      cannot [:update, :destroy], Meeting
+      cannot %i[update destroy], Meeting
       cannot :manage, User
-      cannot [:showECFs, :guest_prompt], User
+      cannot %i[showECFs guest_prompt], User
     end
 
     # admins / scrutiny chair - can manage everything

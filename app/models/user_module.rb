@@ -9,5 +9,5 @@
 #  user_id     :string
 #
 class UserModule < ApplicationRecord
-    belongs_to :user
+  belongs_to :user
 end

@@ -10,7 +10,7 @@
 #
 FactoryBot.define do
   factory :user_module do
-    user_id { "MyString" }
-    module_code { "MyString" }  #module is reserved key word (breaks all tests)
+    user_id { 'MyString' }
+    module_code { 'MyString' }  # module is reserved key word (breaks all tests)
   end
 end

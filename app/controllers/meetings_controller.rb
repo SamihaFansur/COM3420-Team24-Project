@@ -1,12 +1,12 @@
 class MeetingsController < ApplicationController
   load_and_authorize_resource
-  before_action :set_meeting, only: [:show, :edit, :update, :destroy]
+  before_action :set_meeting, only: %i[show edit update destroy]
 
   # GET /meetings
   def index
     @meetings = Meeting.all
-    @upcoming_meetings = Meeting.where("time > ?", DateTime.now)
-    @past_meetings = Meeting.where("time < ?", DateTime.now)
+    @upcoming_meetings = Meeting.where('time > ?', DateTime.now)
+    @past_meetings = Meeting.where('time < ?', DateTime.now)
   end
 
   # GET /meetings/1
@@ -16,8 +16,8 @@ class MeetingsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render template: "meetings/meeting_pdf.html.haml",
-          pdf: "Meeting ID: #{@meeting.id} "
+        render template: 'meetings/meeting_pdf.html.haml',
+               pdf: "Meeting ID: #{@meeting.id} "
       end
     end
   end
@@ -28,8 +28,7 @@ class MeetingsController < ApplicationController
   end
 
   # GET /meetings/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /meetings
   def create
@@ -59,13 +58,14 @@ class MeetingsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_meeting
-      @meeting = Meeting.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def meeting_params
-      params.require(:meeting).permit(:title, :time, :attendees)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_meeting
+    @meeting = Meeting.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def meeting_params
+    params.require(:meeting).permit(:title, :time, :attendees)
+  end
 end

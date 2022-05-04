@@ -11,8 +11,8 @@
 #
 FactoryBot.define do
   factory :meeting do
-    title { "MyString" }
-    date { "2022-03-25" }
-    time { "2022-03-25 16:33:20" }
+    title { 'MyString' }
+    date { '2022-03-25' }
+    time { '2022-03-25 16:33:20' }
   end
 end

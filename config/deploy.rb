@@ -1,11 +1,12 @@
 ## Application configuration
 set :application, 'project'
-set :branch,                  -> { fetch(:stage) }
-set :repo_url,    'git@git.shefcompsci.org.uk:com3420-2021-22/team24/project.git'
-set :linked_files,            fetch(:linked_files,  fetch(:env_links, [])).push('config/database.yml', 'config/secrets.yml')
+set :branch, -> { fetch(:stage) }
+set :repo_url, 'git@git.shefcompsci.org.uk:com3420-2021-22/team24/project.git'
+set :linked_files,
+    fetch(:linked_files, fetch(:env_links, [])).push('config/database.yml', 'config/secrets.yml')
 set :linked_dirs,             fetch(:linked_dirs, []).push('log', 'tmp/pids', 'uploads')
 # set the locations to look for changed assets to determine whether to precompile
-set :assets_dependencies,     %w(app/assets lib/assets vendor/assets)
+set :assets_dependencies,     %w[app/assets lib/assets vendor/assets]
 set :branch,                  -> { fetch(:stage) }
 
 ## Ruby configuration
@@ -23,11 +24,13 @@ set :pty,                     true
 set :keep_releases,           2
 
 ## Whenever configuration
-set :whenever_command,        [:bundle, :exec, :whenever]
+set :whenever_command,        %i[bundle exec whenever]
 set :whenever_roles,          [:db]
 set :whenever_environment,    -> { (fetch(:rails_env) || fetch(:stage)) }
 set :whenever_identifier,     -> { "#{fetch(:application)}-#{fetch(:whenever_environment)}" }
-set :whenever_variables,      -> { "\"environment=#{fetch(:whenever_environment)}&delayed_job_args_p=#{fetch(:delayed_job_identifier)}&delayed_job_args_n=#{fetch(:delayed_job_workers)}\"" }
+set :whenever_variables,      lambda {
+  "\"environment=#{fetch(:whenever_environment)}&delayed_job_args_p=#{fetch(:delayed_job_identifier)}&delayed_job_args_n=#{fetch(:delayed_job_workers)}\""
+}
 
 ## Delayed Job configuration
 set :delayed_job_roles,       [:db]
@@ -37,7 +40,6 @@ set :delayed_job_workers,     -> { (fetch(:dj_workers) || '1') }
 set :delayed_job_args,        -> { "-p #{fetch(:delayed_job_identifier)} -n #{fetch(:delayed_job_workers)}" }
 
 namespace :delayed_job do
-
   def args
     fetch(:delayed_job_args, '')
   end
@@ -81,7 +83,7 @@ namespace :delayed_job do
 end
 
 # clear the previous precompile task so it can be reconfigured below
-Rake::Task["deploy:assets:precompile"].clear_actions
+Rake::Task['deploy:assets:precompile'].clear_actions
 # define a custom error used to trigger precompilation when required
 class PrecompileRequired < StandardError; end
 
@@ -91,27 +93,33 @@ namespace :deploy do
       on roles(:app) do
         within release_path do
           with rails_env: fetch(:rails_env) do
+            # find the most recent release
+            latest_release = capture(:ls, '-xr', releases_path).split[1]
+
+            # precompile if this is the first deploy
+            raise PrecompileRequired unless latest_release
+
+            latest_release_path = releases_path.join(latest_release)
+
+            # precompile if the previous deploy failed to finish precompiling
             begin
-              # find the most recent release
-              latest_release = capture(:ls, '-xr', releases_path).split[1]
-
-              # precompile if this is the first deploy
-              raise PrecompileRequired unless latest_release
-
-              latest_release_path = releases_path.join(latest_release)
-
-              # precompile if the previous deploy failed to finish precompiling
-              execute(:ls, latest_release_path.join('assets_manifest_backup')) rescue raise(PrecompileRequired)
-
-              fetch(:assets_dependencies).each do |dep|
-                # execute raises if there is a diff
-                execute(:diff, '-Naur', release_path.join(dep), latest_release_path.join(dep)) rescue raise(PrecompileRequired)
-              end
-
-              info("Skipping asset precompilation because there were no asset changes")
-            rescue PrecompileRequired
-              execute :bundle, :exec, :rake, 'assets:precompile'
+              execute(:ls, latest_release_path.join('assets_manifest_backup'))
+            rescue StandardError
+              raise(PrecompileRequired)
             end
+
+            fetch(:assets_dependencies).each do |dep|
+              # execute raises if there is a diff
+
+              execute(:diff, '-Naur', release_path.join(dep),
+                      latest_release_path.join(dep))
+            rescue StandardError
+              raise(PrecompileRequired)
+            end
+
+            info('Skipping asset precompilation because there were no asset changes')
+          rescue PrecompileRequired
+            execute :bundle, :exec, :rake, 'assets:precompile'
           end
         end
       end

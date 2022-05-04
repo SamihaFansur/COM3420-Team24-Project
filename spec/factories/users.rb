@@ -27,57 +27,52 @@
 #
 FactoryBot.define do
   factory :user do
-     
-      mail { "test@test.com" }
-      givenname { "test" }
-      sn { "test "}
-      ou { "Undergraduates" }
+    mail { 'test@test.com' }
+    givenname { 'test' }
+    sn { 'test ' }
+    ou { 'Undergraduates' }
 
     factory :student do
-      uid { "aca20sf" }
-      dn {"uid=aca20sf,ou=Undergraduates,ou=Students,ou=Users,dc=sheffield,dc=ac,dc=uk"}
-      role {1}
-
+      uid { 'aca20sf' }
+      dn { 'uid=aca20sf,ou=Undergraduates,ou=Students,ou=Users,dc=sheffield,dc=ac,dc=uk' }
+      role { 1 }
     end
-    #second student login for tests
+    # second student login for tests
     factory :student2 do
-      uid { "aca20sg" }
-      dn {"uid=aca20sf,ou=Undergraduates,ou=Students,ou=Users,dc=sheffield,dc=ac,dc=uk"}
-      role {1}
-      ou {"COM"}
+      uid { 'aca20sg' }
+      dn { 'uid=aca20sf,ou=Undergraduates,ou=Students,ou=Users,dc=sheffield,dc=ac,dc=uk' }
+      role { 1 }
+      ou { 'COM' }
     end
 
     factory :student3 do
-      uid { "ab1ast" }
-      dn {"uid=aca20sf,ou=Undergraduates,ou=Students,ou=Users,dc=sheffield,dc=ac,dc=uk"}
-      role {1}
-      ou {"JNL"}
-
+      uid { 'ab1ast' }
+      dn { 'uid=aca20sf,ou=Undergraduates,ou=Students,ou=Users,dc=sheffield,dc=ac,dc=uk' }
+      role { 1 }
+      ou { 'JNL' }
     end
 
     factory :module_leader do
-      uid { "aca20sf" }
-      dn {"uid=aca20sf,ou=Undergraduates,ou=Staff,ou=Users,dc=sheffield,dc=ac,dc=uk"}
-      role {2}
+      uid { 'aca20sf' }
+      dn { 'uid=aca20sf,ou=Undergraduates,ou=Staff,ou=Users,dc=sheffield,dc=ac,dc=uk' }
+      role { 2 }
     end
 
-    #second student login for tests
+    # second student login for tests
     factory :module_leader2 do
-      uid { "aca20sg" }
-      dn {"uid=aca20sf,ou=Undergraduates,ou=Staff,ou=Users,dc=sheffield,dc=ac,dc=uk"}
-      role {2}
-
+      uid { 'aca20sg' }
+      dn { 'uid=aca20sf,ou=Undergraduates,ou=Staff,ou=Users,dc=sheffield,dc=ac,dc=uk' }
+      role { 2 }
     end
     factory :scrutiny_panel do
-      uid { "aca20sf" }
-      dn {"uid=aca20sf,ou=Undergraduates,ou=Staff,ou=Users,dc=sheffield,dc=ac,dc=uk"}
-      role {3}
+      uid { 'aca20sf' }
+      dn { 'uid=aca20sf,ou=Undergraduates,ou=Staff,ou=Users,dc=sheffield,dc=ac,dc=uk' }
+      role { 3 }
     end
     factory :admin do
-      uid { "aca20sf" }
-      dn {"uid=aca20sf,ou=Undergraduates,ou=Staff,ou=Users,dc=sheffield,dc=ac,dc=uk"}
-      role {4}
-
+      uid { 'aca20sf' }
+      dn { 'uid=aca20sf,ou=Undergraduates,ou=Staff,ou=Users,dc=sheffield,dc=ac,dc=uk' }
+      role { 4 }
     end
   end
 end

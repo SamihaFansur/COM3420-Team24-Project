@@ -24,37 +24,36 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Ecf < ApplicationRecord
-    belongs_to :user
+  belongs_to :user
 
-    has_many :agendas
-    has_many :meetings, through: :agendas
+  has_many :agendas
+  has_many :meetings, through: :agendas
 
-    # the many-to-one relation between unit codes and an ECF
-    has_many :affected_units
-    has_many :ecf_notes
-    has_many :decisions, through: :agendas
-    # validates :affected_units, presence: true
-    validates_associated :affected_units
+  # the many-to-one relation between unit codes and an ECF
+  has_many :affected_units
+  has_many :ecf_notes
+  has_many :decisions, through: :agendas
+  # validates :affected_units, presence: true
+  validates_associated :affected_units
 
-    has_many_attached :upload_medical_evidence, service: :db
-    validates :upload_medical_evidence, content_type: {in: 'application/pdf', message: 'Please upload .pdf files only'} 
+  has_many_attached :upload_medical_evidence, service: :db
+  validates :upload_medical_evidence, content_type: { in: 'application/pdf', message: 'Please upload .pdf files only' }
 
-    has_many_attached :upload_conversations, service: :db
-    validates :upload_conversations,content_type: {in: 'application/pdf', message: 'Please upload .pdf files only'} 
+  has_many_attached :upload_conversations, service: :db
+  validates :upload_conversations, content_type: { in: 'application/pdf', message: 'Please upload .pdf files only' }
 
-    validates :details, presence: true
-    validates :end_of_circumstances, presence: true, date: { after_or_equal_to:  :start_of_circumstances}, unless: :is_ongoing 
-    # allows the 'new ecf' form to set the attributes of new related affected_units
-    # 'allow_destroy' lets the student remove an affected unit in the NEW form. [should not be able to remove once submitted,
-    # test for this]
-    accepts_nested_attributes_for :affected_units, allow_destroy: true
-    accepts_nested_attributes_for :ecf_notes, allow_destroy: true
+  validates :details, presence: true
+  validates :end_of_circumstances, presence: true, date: { after_or_equal_to: :start_of_circumstances },
+                                   unless: :is_ongoing
+  # allows the 'new ecf' form to set the attributes of new related affected_units
+  # 'allow_destroy' lets the student remove an affected unit in the NEW form. [should not be able to remove once submitted,
+  # test for this]
+  accepts_nested_attributes_for :affected_units, allow_destroy: true
+  accepts_nested_attributes_for :ecf_notes, allow_destroy: true
 
-    after_initialize :set_pending_status
+  after_initialize :set_pending_status
 
-    def set_pending_status
-      self.status  ||= "Pending"        #will set the default value only if it's nil
-    end
-    
-
+  def set_pending_status
+    self.status ||= 'Pending'        # will set the default value only if it's nil
+  end
 end

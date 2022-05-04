@@ -32,15 +32,15 @@ class User < ApplicationRecord
   has_many :user_modules
   accepts_nested_attributes_for :user_modules, allow_destroy: true
 
-  enum role: {guest: 0, student: 1, module_leader: 2, scrutiny: 3, admin: 4}
+  enum role: { guest: 0, student: 1, module_leader: 2, scrutiny: 3, admin: 4 }
 
   def generate_attributes_from_ldap
-    self.username = self.uid
-    self.email = self.mail
-    self.first_name = self.givenname
-    self.last_name = self.sn
-    self.department_code = self.ou
-    self.person_code = self.dn
+    self.username = uid
+    self.email = mail
+    self.first_name = givenname
+    self.last_name = sn
+    self.department_code = ou
+    self.person_code = dn
     super
   end
 
@@ -48,10 +48,8 @@ class User < ApplicationRecord
   before_create do
     # i've done .contains rather than our .split for obtaining the Student/Staff section,
     # because the user group might not always be in the same place in the dn hash
-    if self.dn.include? "ou=Students" and self.guest?
-      self.role = 1
-    end
+    self.role = 1 if dn.include? 'ou=Students' and guest?
   end
-  
+
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  end
+end

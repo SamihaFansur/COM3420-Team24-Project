@@ -1,12 +1,12 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 ruby '2.7.4'
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}.git" }
 
-gem 'rails', '~> 6.1', '>= 6.1.4'
 gem 'activerecord-session_store'
 gem 'bootsnap'
-gem 'responders'
 gem 'puma'
+gem 'rails', '~> 6.1', '>= 6.1.4'
+gem 'responders'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 
@@ -17,35 +17,34 @@ gem 'pg'
 gem 'hamlit'
 gem 'hamlit-rails'
 
-gem 'simple_form'
-gem 'vanilla_nested'
 gem 'draper'
 gem 'ransack'
+gem 'simple_form'
+gem 'vanilla_nested'
 
-gem 'will_paginate'
 gem 'bootstrap-will_paginate'
+gem 'will_paginate'
 
-gem 'devise'
 gem 'cancancan'
-gem "epi_cas", git: "git@git.shefcompsci.org.uk:gems/epi_cas.git"
+gem 'devise'
+gem 'epi_cas', git: 'git@git.shefcompsci.org.uk:gems/epi_cas.git'
 
-
-gem 'whenever'
 gem 'delayed_job'
 gem 'delayed_job_active_record'
+gem 'whenever'
 
 gem 'daemons'
 
-gem 'sentry-ruby'
 gem 'sentry-rails'
+gem 'sentry-ruby'
 
-gem "image_processing", "~> 1.2"
-gem "poppler"
-gem "glib2"
-gem "cairo-gobject"
-gem "gobject-introspection"
-gem 'active_storage_validations'
 gem 'activestorage-database-service', github: 'TitovDigital/activestorage-database-service'
+gem 'active_storage_validations'
+gem 'cairo-gobject'
+gem 'glib2'
+gem 'gobject-introspection'
+gem 'image_processing', '~> 1.2'
+gem 'poppler'
 
 gem 'sass-rails'
 
@@ -54,43 +53,42 @@ gem 'date_validator'
 gem 'activerecord-import'
 
 group :development, :test do
-  gem 'rspec-rails'
   gem 'byebug'
+  gem 'rspec-rails'
   gem 'sqlite3'
 
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
-
 end
 
 group :development do
   gem 'epi_deploy', github: 'epigenesys/epi_deploy'
 
-  gem 'ed25519', '>= 1.2', '< 2.0'
   gem 'bcrypt_pbkdf', '>= 1.0', '< 2.0'
+  gem 'ed25519', '>= 1.2', '< 2.0'
 
   gem 'listen'
   gem 'web-console'
 
   gem 'capistrano'
-  gem 'capistrano-rails', require: false
   gem 'capistrano-bundler', require: false
-  gem 'capistrano-rvm', require: false
   gem 'capistrano-passenger', require: false
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-rvm', require: false
 
-  gem 'letter_opener'
   gem 'annotate'
+  gem 'letter_opener'
 end
 
 group :test do
-  gem 'factory_bot_rails'
   gem 'capybara', '>= 2.4.4'
+  gem 'factory_bot_rails'
   gem 'webdrivers'
 
   gem 'database_cleaner'
   gem 'launchy'
-  gem 'simplecov'
-  gem 'poltergeist'
   gem 'pdf-reader'
+  gem 'poltergeist'
+  gem 'simplecov'
 end

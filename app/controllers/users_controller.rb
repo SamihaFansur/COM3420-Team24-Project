@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   load_and_authorize_resource
-  before_action :set_user, only:  [:show, :edit, :update, :showECFs]
+  before_action :set_user, only: %i[show edit update showECFs]
 
   def index
     @q = User.ransack(params[:q])
@@ -25,8 +25,8 @@ class UsersController < ApplicationController
     if user.username.nil?
       redirect_to new_user_path, alert: "User could not be found with email #{params[:email]}"
     elsif User.exists?(username: user.username)
-      redirect_to new_user_path, alert: "This user already exists in the database."
-    else 
+      redirect_to new_user_path, alert: 'This user already exists in the database.'
+    else
       user.role = params[:role]
       user.save
       redirect_to users_path, notice: "User was successfully created with role #{params[:role]}."
@@ -34,7 +34,7 @@ class UsersController < ApplicationController
   end
 
   def csv_upload
-    puts "csv upload"
+    puts 'csv upload'
     render :csv_upload
   end
 
@@ -46,36 +46,35 @@ class UsersController < ApplicationController
     # hash of existing users and their ids {"email1@test.com => 23"}
     users_hash = User.pluck(:email, :id).to_h
     # hash of existing users and their module codes {"email1@test.com" => ["COM1004", "COM1010"]}
-    user_modules_array = UserModule.select(:user_id, 'array_agg(module_code)').group(:user_id).pluck(:user_id, 'array_agg(module_code)')
+    user_modules_array = UserModule.select(:user_id, 'array_agg(module_code)').group(:user_id).pluck(:user_id,
+                                                                                                     'array_agg(module_code)')
     user_modules_hash = Hash[*user_modules_array.flatten(1)]
 
-    new_users_hash = Hash.new
-    new_user_modules_hash = Hash.new {|x,y| x[y] = []}
+    new_users_hash = {}
+    new_user_modules_hash = Hash.new { |x, y| x[y] = [] }
 
     headers = CSV.read(path, headers: true).headers
-    if headers.include?("email") and headers.include?("module_code")
+    if headers.include?('email') and headers.include?('module_code')
       CSV.foreach(path, headers: true) do |row|
-        email = row.to_h["email"]
-        module_code = row.to_h["module_code"]
-  
+        email = row.to_h['email']
+        module_code = row.to_h['module_code']
+
         # importing users
         if users_hash.key?(email)
           # if the user already exists in the database, set them as the current user
           user = User.find_by(email: email)
-        else
+        elsif new_users_hash.key?(email)
           # otherwise, import the user with LDAP details, unless added by a previous row
-          unless new_users_hash.key?(email)
-            user = User.new(email: email, role: 2)
-            user.get_info_from_ldap
-            unless user.username.nil?
-              new_users_hash[email] = user
-              users << user
-            end
-          else
-            user = new_users_hash[email]
+          user = new_users_hash[email]
+        else
+          user = User.new(email: email, role: 2)
+          user.get_info_from_ldap
+          unless user.username.nil?
+            new_users_hash[email] = user
+            users << user
           end
         end
-  
+
         # importing user modules
         unless user_modules_hash[user.id.to_s]&.include? module_code or new_user_modules_hash[email]&.include? module_code
           new_user_modules_hash[email] << module_code
@@ -85,15 +84,14 @@ class UsersController < ApplicationController
           end
         end
       end
-  
+
       User.import users, batch_size: 2000
       UserModule.import user_modules, batch_size: 1000
-  
-      redirect_to users_path, notice: "Users imported successfully."  
+
+      redirect_to users_path, notice: 'Users imported successfully.'
     else
-      redirect_to users_path, alert: "Failed to upload users - CSV file is of the incorrect format."
+      redirect_to users_path, alert: 'Failed to upload users - CSV file is of the incorrect format.'
     end
-    
   end
 
   def showECFs
@@ -118,19 +116,20 @@ class UsersController < ApplicationController
   end
 
   private
-    def set_user
-      @user = User.find(params[:id])
-    end
 
-    def set_user_modules
-      @user_modules = @user.user_modules
-    end
-    
-    # incomplete method. admin should only add/edit/remove modules
-    # and update 'role' enum (once we have this)
-    def user_params
-      params
-        .require(:user)
-        .permit(:role, user_modules_attributes: [:id, :user_id, :module_code, :_destroy])
-    end
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  def set_user_modules
+    @user_modules = @user.user_modules
+  end
+
+  # incomplete method. admin should only add/edit/remove modules
+  # and update 'role' enum (once we have this)
+  def user_params
+    params
+      .require(:user)
+      .permit(:role, user_modules_attributes: %i[id user_id module_code _destroy])
+  end
 end

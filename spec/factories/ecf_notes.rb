@@ -17,6 +17,5 @@
 #
 FactoryBot.define do
   factory :ecf_note do
-    
   end
 end
