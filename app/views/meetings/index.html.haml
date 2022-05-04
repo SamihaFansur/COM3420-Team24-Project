@@ -6,9 +6,9 @@
 -if @meetings.empty?
   %p.alert.alert-primary No meeting schedule found.
 -if ! @meetings.empty?
+  %h3.mt-4.mb-4 Upcoming Meetings
   .row.justify-content-center
     .login-wrap.py-5
-      %h3 Upcoming Meetings
       .table-responsive
         %table.table.table-hover
           %thead
@@ -32,28 +32,29 @@
                 %td= link_to "Email Attendees", :controller => "emails", :action => "meeting_email", :emails => meeting.attendees
 
           %br
-      %h3 Past Meetings
-      .table-responsive
-        %table.table.table-hover
-          %thead
+  %h3.mt-4.mb-4 Past Meetings
+  .login-wrap.py-5
+    .table-responsive
+      %table.table.table-hover
+        %thead
+          %tr
+            %th Title
+            %th ID
+            %th Time
+            %th Attendees
+        %tbody
+          - @past_meetings.each do |meeting|
             %tr
-              %th Title
-              %th ID
-              %th Time
-              %th Attendees
-          %tbody
-            - @past_meetings.each do |meeting|
-              %tr
-                %td= meeting.title
-                %td= meeting.id
-                %td= meeting.time
-                %td= meeting.attendees
-                %td= link_to 'Show', meeting
-                - if can? :update, Meeting
-                  %td= link_to 'Edit', edit_meeting_path(meeting)
-                - if can? :destroy, Meeting
-                  %td= link_to 'Destroy', meeting, :method => :delete, :data => { :confirm => 'Are you sure?' }
-                %td= link_to "Email Attendees", :controller => "emails", :action => "meeting_email", :emails => meeting.attendees
+              %td= meeting.title
+              %td= meeting.id
+              %td= meeting.time
+              %td= meeting.attendees
+              %td= link_to 'Show', meeting
+              - if can? :update, Meeting
+                %td= link_to 'Edit', edit_meeting_path(meeting)
+              - if can? :destroy, Meeting
+                %td= link_to 'Destroy', meeting, :method => :delete, :data => { :confirm => 'Are you sure?' }
+              %td= link_to "Email Attendees", :controller => "emails", :action => "meeting_email", :emails => meeting.attendees
 
 
 .mt-5
