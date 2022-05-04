@@ -1,11 +1,16 @@
 
+
 .wrapper-div
-    %ul.list-group
-    %li= form.input :unit_code, as: :string ,class:"list-group-item "
-    %li= form.input :assessment_type, as: :string ,class:"list-group-item"
-    %li= form.input :date_from, as: :date ,class:"list-group-item"
-    %li= form.input :date_to, as: :date ,class:"list-group-item"
-    %li= form.input :requested_action, :collection => ["NA  - Not assessed (Another attempt permitted without capping grade)", "NP  - No penalty for late submission","DEX - Deadline Extension", "AU  - Authorized Absence"] ,class:"list-group-item"
-    %li= link_to_remove_nested(form, link_text: "Remove", fields_wrapper_selector: '.wrapper-div',link_classes: "cursor_hover btn btn-outline-danger ")
--# = unit_f.button :submit
+  .login-wrap.py-5
+    = form.input :unit_code, as: :string, class:"list-group-item ", label: 'Unit Module Code'
+    .text-note
+      e.g. COM2003
+    = form.input :assessment_type, as: :string ,class:"list-group-item"
+    .text-note
+      The type of assessment affected (e.g. assignment, exam, quiz, lab)
+    %b Dates affected:
+    = form.input :date_from, as: :date ,class:"list-group-item", label: 'From...'
+    = form.input :date_to, as: :date ,class:"list-group-item", label: 'To...'
+    = form.input :requested_action, :collection => ["NA  - Not assessed (Another attempt permitted without capping grade)", "NP  - No penalty for late submission","DEX - Deadline Extension", "AU  - Authorized Absence"] ,class:"list-group-item"
+    = link_to_remove_nested(form, link_text: "Remove affected unit", fields_wrapper_selector: '.wrapper-div',link_classes: "cursor_hover btn btn-outline-danger ")
 
