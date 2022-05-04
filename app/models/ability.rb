@@ -35,7 +35,7 @@ class Ability
     # scrutiny panel members - can read + edit ecfs (notes), create + use meetings
     if user.scrutiny?
       can [:read, :update_persist, :edit, :search], Ecf
-      can [:new, :create, :read], Meeting
+      can [:read], Meeting
       cannot :manage, Outcome
       cannot [:update, :destroy], Meeting
       cannot :manage, User
