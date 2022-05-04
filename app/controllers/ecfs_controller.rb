@@ -31,10 +31,12 @@ class EcfsController < ApplicationController
     set_ecf
     set_affected_units
     @decisions_ecfs = Hash.new
-    @ecf.decisions.each do |decision|
+    @ecf.decisions.order(:created_at).each do |decision|
       # This code is dependent on app/views/decisions/_decisions_fields.html.haml . The dex stuff.
-      #@decisions_ecfs[decision.module_code] = [decision.outcome, decision.requested_action, (decision.requested_action == "DEX - Deadline Extension" || decision.requested_action == "NP - No penalty for late submission")  ? decision.extension_date.to_s : nil]
-      @decisions_ecfs[decision.module_code] = decision
+      unless @decisions_ecfs.key?(decision.module_code)
+        @decisions_ecfs[decision.module_code] = Hash.new
+      end
+      @decisions_ecfs[decision.module_code][decision.assessment_type] = decision
     end
   end
 

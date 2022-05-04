@@ -22,21 +22,24 @@
       = link_to "Delete attachment", purge_attachment_path(medical_evidence), method: :delete ,class: "btn btn-outline-danger"
 
   - if @ecf.status == "Complete" 
-    %p This ECF is marked as Complete. Please look at the decisions below.
+    %p This ECF is marked as Complete. Please see the decisions below.
     %table.table
       %thead
         %tr
           %th{:scope => "col"} Module Code
+          %th{:scope => "col"} Assessment type
           %th{:scope => "col"} Requested Action
           %th{:scope => "col"} Outcome
           %th{:scope => "col"} Extension Date
       %tbody
-        - @decisions_ecfs.each do | code, decision |
-          %tr
-            %td= code
-            %td= decision.requested_action
-            %td= decision.outcome&.name
-            - if decision.requested_action == "DEX - Deadline Extension" or decision.requested_action == "NP - No penalty for late submission"
-              %td= decision.extension_date
-            - else
-              %td
+        - @decisions_ecfs.each do | code, decisions |
+          - decisions.each do | type, decision |
+            %tr
+              %td= code
+              %td= decision.assessment_type
+              %td= decision.requested_action
+              %td= decision.outcome&.name
+              - if decision.requested_action == "DEX - Deadline Extension" or decision.requested_action == "NP - No penalty for late submission"
+                %td= decision.extension_date
+              - else
+                %td
