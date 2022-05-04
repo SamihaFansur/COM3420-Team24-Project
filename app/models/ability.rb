@@ -36,6 +36,7 @@ class Ability
     if user.scrutiny?
       can [:read, :update_persist, :edit, :search], Ecf
       can [:new, :create, :read], Meeting
+      cannot :manage, Outcome
       cannot [:update, :destroy], Meeting
       cannot :manage, User
       cannot [:showECFs, :guest_prompt], User

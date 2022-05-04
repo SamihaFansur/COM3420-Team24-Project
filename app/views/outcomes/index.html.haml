@@ -1,10 +1,11 @@
 %h1 Listing outcomes
 %p The following outcomes are available to scrutiny panel members when adding a decision to an ECF.
 %p
-  %i Please be cautious when destroying outcomes - deleted outcomes will appear as blank if they have been used in a decision.
+  - if current_user.admin?
+    %i Please be cautious when destroying outcomes - deleted outcomes will appear as blank if they have been used in a decision.
 %section.ftco-section
   -if @outcomes.empty?
-    %p.alert.alert-primary No current outcome found.
+    %p.alert.alert-primary No outcomes found.
   -if ! @outcomes.empty?
     .row.justify-content-center
       .login-wrap.py-5
@@ -15,9 +16,6 @@
                 %th Name
                 %th Short name
                 %th Description
-                %th
-                %th
-                %th
 
             %tbody
               - @outcomes.each do |outcome|
@@ -26,8 +24,10 @@
                   %td= outcome.short_name
                   %td= outcome.description
                   %td= link_to 'Show', outcome
-                  %td= link_to 'Edit', edit_outcome_path(outcome)
-                  %td= link_to 'Destroy', outcome, :method => :delete, :data => { :confirm => 'Are you sure?' }
+                  - if can? :manage, outcome
+                    %td= link_to 'Edit', edit_outcome_path(outcome)
+                    %td= link_to 'Destroy', outcome, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
   %br
-    = link_to 'New Outcome', new_outcome_path, :class => 'btn btn-primary '
+    - if can? :manage, Outcome
+      = link_to 'New Outcome', new_outcome_path, :class => 'btn btn-primary '
