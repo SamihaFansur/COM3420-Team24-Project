@@ -6,6 +6,7 @@ Clone the project, then:
 * `cp config/database_sample.yml config/database.yml` and change credentials as appropriate.
 * `bundle install`
 * `yarn install`
+Please note that for the following to work you MUST be connected to the Sheffield VPN, when running locally.
 * `rails db:setup`
 * `bin/webpack-dev-server` for live reloading.
 * `rails s`
