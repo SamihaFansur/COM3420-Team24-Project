@@ -38,6 +38,7 @@ coverage/index.html
 /log/*.log
 /tmp
 
+vendor/cache
 vendor/webdrivers
 /config/database.yml
 
