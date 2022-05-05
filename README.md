@@ -13,17 +13,25 @@ Clone the project, then:
 ### URLs
 If hosting locally, go to `http://localhost:3000/`
 
-### Style Guide
-A style guide is maintained for reference at `/style_guide`.
+### URLs
+If hosting locally, go to `http://localhost:3000/`
 
-### Following fields are for customers - QA testers please ignore!
 ### Testing
-* QA testers please note that our tests are slightly outdated as of 05/05/2022
+Please note that our tests are slightly outdated as of 05/05/2022, due to refactoring views, so a high amount of tests may fail.
+Instructions:
 * Run specs with `rspec`
-* Run Jest tests with `yarn test`
-* Run static analysis with `brakeman`
-* **Run all of the above with `rake`**
 
+### Directory Structure
+The majority of our code can be found in app/
+
+For JavaScript (.js), go to app/javascript/packs
+For Ruby (.js), go to app/controllers or app/models
+For HTML / HAML (.html.haml) go to app/views
+
+### Code Styling standards
+Our code has been styled according to RuboCop standards.
+
+### Following fields are for clients - QA testers please ignore!
 ### Customer Contact
 Some Customer <some.customer@epigenesys.co.uk>
 

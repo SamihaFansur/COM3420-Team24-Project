@@ -17,9 +17,6 @@ If hosting locally, go to `http://localhost:3000/`
 Please note that our tests are slightly outdated as of 05/05/2022, due to refactoring views, so a high amount of tests may fail.
 Instructions:
 * Run specs with `rspec`
-* Run Jest tests with `yarn test`
-* Run static analysis with `brakeman`
-* **Run all of the above with `rake`**
 
 ### Directory Structure
 The majority of our code can be found in app/
