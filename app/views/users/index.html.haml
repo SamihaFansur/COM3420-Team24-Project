@@ -77,7 +77,7 @@
                   %td= 'Students'
                 - else
                   %td= 'Staff'
-                - if user.role.include?("_")
+                - if user.role&.include?("_")
                   %td= user.role.sub("_", " ")
                 - else
                   %td= user.role
