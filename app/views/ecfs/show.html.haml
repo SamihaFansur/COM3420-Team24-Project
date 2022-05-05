@@ -131,18 +131,44 @@
                   - else
                     %td
 
-    %p
-      %h4 Student notes
-      = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover " } }) do |f|
-        = link_to_add_nested(f, :ecf_notes, '#ecf-notes-student', partial: 'ecf_notes/ecf_note_student_fields') do
-          %button + Add a Student note
+    - if (current_user.id == @ecf.user_id) or (current_user.admin?) or (current_user.scrutiny? and !@ecf.highly_sensitive)
+      %p
+        %h4 Student notes
+        = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover " } }) do |f|
+          = link_to_add_nested(f, :ecf_notes, '#ecf-notes-student', partial: 'ecf_notes/ecf_note_student_fields') do
+            %button + Add a Student note
 
-        #ecf-notes-student
+          #ecf-notes-student
 
-      - if @ecf_notes_grouped[1].nil?
-        .text-note There are currently no student notes.
+        - if @ecf_notes_grouped[1].nil?
+          .text-note There are currently no student notes.
+        - else
+          - @ecf_notes_grouped[1].each do |ecf_note|
+            %p
+              %b Note:
+              = ecf_note.description
+              %br
+                %i.some{:style => "color:dimgrey"}
+                  %b Submitted by:
+                  = "#{ecf_note.user.givenname} #{ecf_note.user.sn}, "
+                  %b Note created at:
+                  = ecf_note.created_at
+                  - if ecf_note.user_id == current_user.id
+                    = link_to "Delete note", ecf_note_path(ecf_note), method: :delete
+
+    - if (current_user.module_leader?) or (current_user.admin?) or (current_user.scrutiny?)
+      %p
+      %h4 Module leader notes
+      = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
+        = link_to_add_nested(f, :ecf_notes, '#ecf-notes-module-leader', partial: 'ecf_notes/ecf_note_module_leader_fields',link_classes: "mt-5") do
+          %button + Add a Module Leader note
+
+        #ecf-notes-module-leader
+
+      - if @ecf_notes_grouped[2].nil?
+        %i There are currently no module leader notes.
       - else
-        - @ecf_notes_grouped[1].each do |ecf_note|
+        - @ecf_notes_grouped[2].each do |ecf_note|
           %p
             %b Note:
             = ecf_note.description
@@ -155,6 +181,55 @@
                 - if ecf_note.user_id == current_user.id
                   = link_to "Delete note", ecf_note_path(ecf_note), method: :delete
 
+    - if current_user.admin? or current_user.scrutiny?
+      %p
+        %h4 Scrutiny panel notes
+        = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
+          = link_to_add_nested(f, :ecf_notes, '#ecf-notes-scrutiny', partial: 'ecf_notes/ecf_note_scrutiny_fields') do
+            %button + Add a Scrutiny Member note
+
+          #ecf-notes-scrutiny
+
+        - if @ecf_notes_grouped[3].nil?
+          %i There are currently no scrutiny panel notes.
+        - else
+          - @ecf_notes_grouped[3].each do |ecf_note|
+            %p
+              %b Note:
+              = ecf_note.description
+              %br
+                %i.some{:style => "color:dimgrey"}
+                  %b Submitted by:
+                  = "#{ecf_note.user.givenname} #{ecf_note.user.sn}, "
+                  %b Note created at:
+                  = ecf_note.created_at
+                  - if ecf_note.user_id == current_user.id
+                    = link_to "Delete note", ecf_note_path(ecf_note), method: :delete
+    
+    - if current_user.admin?
+      %p
+      %h4 Scrutiny chair notes
+      = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
+        = link_to_add_nested(f, :ecf_notes, '#ecf-notes-admin', partial: 'ecf_notes/ecf_note_admin_fields') do
+          %button#add_note + Add a Student Chair
+
+        #ecf-notes-admin
+
+      - if @ecf_notes_grouped[4].nil?
+        %i There are currently no module leader notes.
+      - else
+        - @ecf_notes_grouped[4].each do |ecf_note|
+          %p
+            %b Note:
+            = ecf_note.description
+            %br
+              %i.some{:style => "color:dimgrey"}
+                %b Submitted by:
+                = "#{ecf_note.user.givenname} #{ecf_note.user.sn}, "
+                %b Note created at:
+                = ecf_note.created_at
+                - if ecf_note.user_id == current_user.id
+                  = link_to "Delete note", ecf_note_path(ecf_note), method: :delete, class: "btn btn-outline-danger btn-sm"
 
     - if current_user.admin? or current_user.scrutiny?
       - if (@ecf.highly_sensitive and current_user.admin?) or (!@ecf.highly_sensitive)
@@ -166,10 +241,3 @@
           - @ecf.upload_conversations.each do |conversation|
             %p
             = link_to conversation.filename, conversation, target: :_blank
-      - else
-        You do not have permission to view uploaded emails.
-
-
-
-
-

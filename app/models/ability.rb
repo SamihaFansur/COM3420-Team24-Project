@@ -27,7 +27,7 @@ class Ability
     # module leaders - can read ecfs with affected module relating to them
     if user.module_leader?
       can [:read], Ecf
-      cannot %i[edit update_persist search], Ecf
+      can :update_persist, Ecf
       cannot :manage, Meeting
       cannot :manage, User
       cannot :guest_prompt, User

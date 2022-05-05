@@ -96,7 +96,7 @@
       %h4 Module leader notes
       = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
         = link_to_add_nested(f, :ecf_notes, '#ecf-notes-module-leader', partial: 'ecf_notes/ecf_note_module_leader_fields',link_classes: "mt-5") do
-          %button + Add a Student note
+          %button + Add a Module Leader note
 
         #ecf-notes-module-leader
 
@@ -120,7 +120,7 @@
       %h4 Scrutiny panel notes
       = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
         = link_to_add_nested(f, :ecf_notes, '#ecf-notes-scrutiny', partial: 'ecf_notes/ecf_note_scrutiny_fields') do
-          %button + Add a Student note
+          %button + Add a Scrutiny Panel note
 
         #ecf-notes-scrutiny
 
@@ -144,7 +144,7 @@
       %h4 Scrutiny chair notes
       = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
         = link_to_add_nested(f, :ecf_notes, '#ecf-notes-admin', partial: 'ecf_notes/ecf_note_admin_fields') do
-          %button#add_note + Add a Student note
+          %button#add_note + Add a Scrutiny Chair note
 
         #ecf-notes-admin
 
@@ -164,11 +164,16 @@
                 - if ecf_note.user_id == current_user.id
                   = link_to "Delete note", ecf_note_path(ecf_note), method: :delete, class: "btn btn-outline-danger btn-sm"
     
-    %div
-    %h4 Email conversations
-    = simple_form_for(@ecf, :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
-      = f.label :upload_conversations
-      = f.file_field :upload_conversations, multiple: true, accept: 'application/pdf'
-      = f.button :submit, value: "Upload email conversation(s)"
-
-    
+    - if (@ecf.highly_sensitive and current_user.admin?) or !@ecf.highly_sensitive
+      %h4 Uploaded email conversations
+      - if @ecf.upload_conversations.size == 0
+        .text-note
+          No conversations have been uploaded.
+      - else
+        - @ecf.upload_conversations.each do |conversation|
+          %p
+          = link_to conversation.filename, conversation, target: :_blank
+      = simple_form_for(@ecf, :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
+        = f.label :upload_conversations
+        = f.file_field :upload_conversations, multiple: true, accept: 'application/pdf'
+        = f.button :submit, value: "Upload email conversation(s)"
