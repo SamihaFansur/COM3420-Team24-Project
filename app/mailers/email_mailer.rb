@@ -3,8 +3,11 @@ class EmailMailer < ApplicationMailer
   default from: 'scrutinypanelmeetings@gmail.com'
 
   def meeting_email
-    @emails = params[:input_emails]
-    mail(to: -> { @emails }, subject: 'Test :)')
+    @meeting = params[:meeting]
+    @meeting_attendees = @meeting.attendees.split(', ')
+    @meeting_attendees.each do |attendee|
+      mail(to: -> { attendee }, subject: 'Next scrutiny panel meeting')
+    end
   end
 
   def ecf_submitted

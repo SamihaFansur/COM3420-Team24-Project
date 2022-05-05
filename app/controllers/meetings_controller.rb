@@ -38,6 +38,9 @@ class MeetingsController < ApplicationController
 
     if @meeting.save
       redirect_to @meeting, notice: 'Meeting was successfully created.'
+      EmailMailer.with(meeting: @meeting).meeting_email.deliver_now
+      flash[:notice] = 'Meeting attendees should have received email invitation.'
+
     else
       render :new
     end
