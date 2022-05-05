@@ -93,6 +93,16 @@ h1, h2, h3, h4, h5,
   background: linear-gradient(0deg, #bcdcf6 0%, #82b2ff 100%);
 }
 
+.nested-wrapper {
+  position: relative;
+  background: #ffffff;
+  border-radius: 5px;
+  padding-left: 30px;
+  padding-right: 30px;
+  -webkit-box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.24);
+  -moz-box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.24);
+  box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.24);
+}
 
 .login-wrap {
 

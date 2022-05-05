@@ -6,8 +6,8 @@ class MeetingsController < ApplicationController
   # GET /meetings
   def index
     @meetings = Meeting.all
-    @upcoming_meetings = Meeting.where('time > ?', DateTime.now)
-    @past_meetings = Meeting.where('time < ?', DateTime.now)
+    @upcoming_meetings = Meeting.where('time > ?', Time.zone.now.days_ago(1))
+    @past_meetings = Meeting.where('time < ?', Time.zone.now.days_ago(1))
   end
 
   # GET /meetings/1

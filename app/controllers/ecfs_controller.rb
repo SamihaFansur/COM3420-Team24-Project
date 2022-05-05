@@ -33,6 +33,8 @@ class EcfsController < ApplicationController
   def show
     set_ecf
     set_affected_units
+    set_ecf_notes
+    @ecf_notes_grouped = @ecf_notes.group_by(&:role)
     @decisions_ecfs = {}
     # group the decisions after ordering - so only the latest decision will show.
     @ecf.decisions.order(:created_at).each do |decision|

@@ -27,22 +27,22 @@
         %th{:scope => "col"} Email
         %th{:scope => "col"} Username
         %th{:scope => "col"} Department
-        %th{:scope => "col"} Panel notes
         %th{:scope => "col"} Outcomes
     %tbody
       - @agendas.each do |agenda|
         %tr
           %td= agenda.ecf.status
-          %td= agenda.ecf.date
+          %td= agenda.ecf.created_at.strftime("%Y-%m-%d")
           %td #{agenda.ecf.user.givenname} #{agenda.ecf.user.sn}
           %td= agenda.ecf.user.mail
           %td= agenda.ecf.user.uid
           %td= agenda.ecf.user.ou
           %td
-          %td
             - agenda.decisions.each do |decision|
               %b= decision.module_code
               = decision.assessment_type
               %b{ style: 'color: dodgerblue;'}= decision.requested_action
-              = ": #{decision.outcome}"
+              %b= decision.outcome.short_name
+              = decision.outcome.name
+              %br
               %br

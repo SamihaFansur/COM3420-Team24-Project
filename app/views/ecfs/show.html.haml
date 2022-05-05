@@ -26,6 +26,13 @@
               %td= @ecf.user.ou
 
     %h4 ECF Details
+    %ul
+    %p
+      %b Status:
+      = @ecf.status
+      - if @ecf.status == 'Pending'
+        .text-note
+          This ECF is awaiting review by the scrutiny team.
     %p
       %b Date of submission:
       = @ecf.created_at.strftime("%Y-%m-%d")
@@ -68,6 +75,87 @@
                 %td= affected_unit.date_from
                 %td= affected_unit.date_to
 
+    
+    - if current_user.scrutiny? or current_user.admin?
+      %p
+        %h4 Outcomes:
+        - @ecf.agendas.each do |agenda, index|
+          %b= "Decisions for #{agenda.meeting.title} [Meeting # #{agenda.meeting.id}, #{agenda.meeting.time}]:"
+          - if agenda.decisions.empty?
+            .text-note There are currently no decisions for this meeting.
+          - else
+            .nested-wrapper
+              %table.table.table-responsive.mt-5
+                %thead
+                  %tr
+                    %th{:scope => "col"} Module Code
+                    %th{:scope => "col"} Assessment Type
+                    %th{:scope => "col"} Requested Action
+                    %th{:scope => "col"} Outcome
+                %tbody
+                  - agenda.decisions.each do |decision|
+                    %tr
+                      %th{:scope => "row"}
+                        = decision.module_code
+                      %td
+                        = decision.assessment_type
+                      %td.overflow-auto
+                        = decision.requested_action
+                      %td.overflow-auto
+                        = decision.outcome&.name
+
+    - if @ecf.status == "Complete" 
+      %h4 Final outcomes
+      %p This ECF is marked as Complete. Please see the final decisions below.
+      - if @decisions_ecfs.empty?
+        .text-note No decisions have been made for this form.
+      - else
+        %table.table
+          %thead
+            %tr
+              %th{:scope => "col"} Module Code
+              %th{:scope => "col"} Assessment type
+              %th{:scope => "col"} Requested Action
+              %th{:scope => "col"} Outcome
+              %th{:scope => "col"} Extension Date
+          %tbody
+            - @decisions_ecfs.each do | code, decisions |
+              - decisions.each do | type, decision |
+                %tr
+                  %td= code
+                  %td= decision.assessment_type
+                  %td= decision.requested_action
+                  %td= decision.outcome&.name
+                  - if decision.requested_action == "DEX - Deadline Extension" or decision.requested_action == "NP - No penalty for late submission"
+                    %td= decision.extension_date
+                  - else
+                    %td
+
+    %p
+      %h4 Student notes
+      = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover " } }) do |f|
+        = link_to_add_nested(f, :ecf_notes, '#ecf-notes-student', partial: 'ecf_notes/ecf_note_student_fields') do
+          %button + Add a Student note
+
+        #ecf-notes-student
+
+      - if @ecf_notes_grouped[1].nil?
+        .text-note There are currently no student notes.
+      - else
+        - @ecf_notes_grouped[1].each do |ecf_note|
+          %p
+            %b Note:
+            = ecf_note.description
+            %br
+              %i.some{:style => "color:dimgrey"}
+                %b Submitted by:
+                = "#{ecf_note.user.givenname} #{ecf_note.user.sn}, "
+                %b Note created at:
+                = ecf_note.created_at
+                - if ecf_note.user_id == current_user.id
+                  = link_to "Delete note", ecf_note_path(ecf_note), method: :delete
+
+
     - if current_user.admin? or current_user.scrutiny?
       - if (@ecf.highly_sensitive and current_user.admin?) or (!@ecf.highly_sensitive)
         %h4 Uploaded Conversations:
@@ -80,32 +168,6 @@
             = link_to conversation.filename, conversation, target: :_blank
       - else
         You do not have permission to view uploaded emails.
-
-    - if @ecf.status == "Complete" 
-      %h4 Final outcomes
-      %p This ECF is marked as Complete. Please see the final decisions below.
-      %table.table
-        %thead
-          %tr
-            %th{:scope => "col"} Module Code
-            %th{:scope => "col"} Assessment type
-            %th{:scope => "col"} Requested Action
-            %th{:scope => "col"} Outcome
-            %th{:scope => "col"} Extension Date
-        %tbody
-          - @decisions_ecfs.each do | code, decisions |
-            - decisions.each do | type, decision |
-              %tr
-                %td= code
-                %td= decision.assessment_type
-                %td= decision.requested_action
-                %td= decision.outcome&.name
-                - if decision.requested_action == "DEX - Deadline Extension" or decision.requested_action == "NP - No penalty for late submission"
-                  %td= decision.extension_date
-                - else
-                  %td
-
-
 
 
 

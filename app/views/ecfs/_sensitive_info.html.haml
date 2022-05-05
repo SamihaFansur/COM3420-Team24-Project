@@ -5,7 +5,30 @@
     %textarea#exampleFormControlTextarea1.form-control.rounded-0{:readonly => "readonly", :rows => "10"}= @ecf.details
 
   %p
+    %b Type(s) of Circumstances: 
+    %br
+    - if @ecf.is_serious_short_term 
+      Serious short term illness / accident / hospitalisation
+      %br
+    - if @ecf.is_deterioration_of_disability
+      Deterioration or fluctuation of a disability / long term health condition
+      %br
+    - if @ecf.is_bereavement
+      Bereavement
+      %br
+    - if @ecf.is_significant_adverse_personal
+      Significant adverse personal / family circumstances.
+      %br
+    - if @ecf.is_other_exceptional_factors
+      Other exceptional factors
+      %br
+    - if @ecf.is_frequent_absence
+      Frequent absence of less than 7 calendar days
+      %br
+
+  %p
     %b Duration of circumstances:
+    %br
     from
     = @ecf.start_of_circumstances
     to
@@ -17,6 +40,5 @@
   - else
     - @ecf.upload_medical_evidence.each do |medical_evidence|
       %p
-
       = link_to medical_evidence.filename, medical_evidence, target: :_blank ,class:"btn btn-outline-primary"
       = link_to "Delete attachment", purge_attachment_path(medical_evidence), method: :delete ,class: "btn btn-outline-danger"

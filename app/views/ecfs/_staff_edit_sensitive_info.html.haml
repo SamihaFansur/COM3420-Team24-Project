@@ -51,19 +51,20 @@
   %b Details of Circumstances:
   %textarea.exampleFormControlTextarea1.form-control.rounded-0{:readonly => "readonly", :rows => "10"}= @ecf.details
 
+%h4 Supporting evidence
 %p 
-  %b Supporting evidence:
   - @ecf.upload_medical_evidence.each do |medical_evidence|
-    %br
-    #uploaded_file= link_to medical_evidence.filename, medical_evidence, target: :_blank
-    = link_to "Delete attachment", purge_attachment_path(medical_evidence), method: :delete,class: "btn btn-outline-danger btn-sm ml-5"
+    %p
+      #uploaded_file
+      = link_to medical_evidence.filename, medical_evidence, target: :_blank ,class:"btn btn-outline-primary"
+      = link_to "Delete attachment", purge_attachment_path(medical_evidence), method: :delete,class: "btn btn-outline-danger"
 
 %p
   = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
     + Add supporting evidence:
     = f.file_field :upload_medical_evidence, multiple: true, accept: 'application/pdf'
     %br
-    %i (Uploaded evidence will be visible to the student.)
+    .text-note (Note: uploaded evidence will be visible to the student.)
     #update_evi_btn= f.button :submit, value: 'Update evidence',class: 'btn btn-outline-primary btn-sm '
 
 %p
@@ -76,27 +77,25 @@
         .test[agenda]
         %br
         %input.btn.btn.btn-outline-primary.btn-sm.ml-5#add_decision{"data-disable-with" => "Update Agenda", :display => "none", :name => "commit", :type => "submit", :value => "Add decisions to meeting"}/
-      %br
       - if agenda.decisions.empty?
-        %i There are currently no decisions for this meeting.
+        .text-note There are currently no decisions for this meeting.
       - else
-        .row.justify-content-center.mb-5
-          .login-wrap.py-5
-            %table.table.table-responsive.mt-5
-              %thead
+        .nested-wrapper
+          %table.table.table-responsive.mt-5
+            %thead
+              %tr
+                %th{:scope => "col"} Module Code
+                %th{:scope => "col"} Assessment Type
+                %th{:scope => "col"} Requested Action
+                %th{:scope => "col"} Outcome
+            %tbody
+              - agenda.decisions.each do |decision|
                 %tr
-                  %th{:scope => "col"} Module Code
-                  %th{:scope => "col"} Assessment Type
-                  %th{:scope => "col"} Requested Action
-                  %th{:scope => "col"} Outcome
-              %tbody
-                - agenda.decisions.each do |decision|
-                  %tr
-                    %th{:scope => "row"}
-                      = decision.module_code
-                    %td
-                      = decision.assessment_type
-                    %td.overflow-auto
-                      = decision.requested_action
-                    %td.overflow-auto
-                      = decision.outcome&.name
+                  %th{:scope => "row"}
+                    = decision.module_code
+                  %td
+                    = decision.assessment_type
+                  %td.overflow-auto
+                    = decision.requested_action
+                  %td.overflow-auto
+                    = decision.outcome&.name

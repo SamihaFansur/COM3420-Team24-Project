@@ -20,38 +20,21 @@
             %td= @ecf.user.sn
             %td= @ecf.user.mail
             %td= @ecf.user.ou
-
-    %h4 ECF Details
+    
     %p
       %b Add this ECF to a meeting:
       = simple_form_for(:agenda, :url => agendas_path, :method => :post) do |f|
         = f.input :ecf_id, as: :hidden, input_html: {value: @ecf.id}
         = f.input :meeting_id, label: "Meeting ID: "
         = f.button :submit, value: "Add to meeting", class: 'btn btn-outline-primary btn-sm ml-5'
-    %p
-      %b ECF ID:
-      %br
-      = @ecf.id
 
+    %h4 ECF Details
     %p
       %b ECF Status:
       %br
       = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
         = f.select :status, options_for_select(["Pending", "Complete"], @ecf.status)
         = f.button :submit, value: 'Update status',class: 'btn btn-outline-primary btn-sm ml-5'
-        %br
-        %div.alert.alert-dark.mt-3 Setting an ECF as 'complete' will remove it from the view of pending ECFs.
-
-    %p
-      %h4 Requested Actions for:
-      - @ecf.affected_units.each do |affected_unit|
-        %p
-          %b Assessment type:
-          = affected_unit.assessment_type
-          %b Unit code:
-          = affected_unit.unit_code
-          %b Requested action:
-          = affected_unit.requested_action
 
     - if @ecf.highly_sensitive
       - if current_user.role == "student" || current_user.role == "admin"
@@ -60,6 +43,30 @@
         .alert.alert-warning Ecf has highly sensitive information, which can only be viewed by Scrutiny chair.
     - else
       = render "staff_edit_sensitive_info"
+      
+    %p
+      %h4 Affected Units:
+      - if @ecf.affected_units.empty?
+        .text-note
+          No affected units to view.
+      - else
+        %table.table
+          %thead
+            %tr
+              %th{:scope => "col"} Module Code
+              %th{:scope => "col"} Assessment type
+              %th{:scope => "col"} Requested Action
+              %th{:scope => "col"} Affected from:
+              %th{:scope => "col"} Affected to:
+          %tbody
+            - @ecf.affected_units.each do |affected_unit|
+              %tr
+                %td= affected_unit.unit_code
+                %td= affected_unit.assessment_type
+                %td= affected_unit.requested_action
+                %td= affected_unit.date_from
+                %td= affected_unit.date_to
+
 
     %p
       %h4 Student notes
