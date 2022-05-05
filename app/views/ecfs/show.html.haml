@@ -30,7 +30,7 @@
       %b Date of submission:
       = @ecf.created_at.strftime("%Y-%m-%d")
 
-    - if current_user.id == @ecf.id
+    - if current_user.id == @ecf.user_id
       = render "sensitive_info"
     - elsif @ecf.highly_sensitive and (can? :view_details, Ecf)
       - if current_user.role == "admin"
