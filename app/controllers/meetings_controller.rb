@@ -1,3 +1,4 @@
+# Controller methods for the 'Meeting' table
 class MeetingsController < ApplicationController
   load_and_authorize_resource
   before_action :set_meeting, only: %i[show edit update destroy]
@@ -13,6 +14,7 @@ class MeetingsController < ApplicationController
   def show
     @ecfs = @meeting.ecfs
     @agendas = @meeting.agendas
+    # Generate a pdf of this meeting's table of ECFs and outcomes:
     respond_to do |format|
       format.html
       format.pdf do
@@ -35,7 +37,6 @@ class MeetingsController < ApplicationController
     @meeting = Meeting.new(meeting_params)
 
     if @meeting.save
-
       redirect_to @meeting, notice: 'Meeting was successfully created.'
     else
       render :new
@@ -59,7 +60,7 @@ class MeetingsController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
+  # Sets @meeting variable for use in views.
   def set_meeting
     @meeting = Meeting.find(params[:id])
   end

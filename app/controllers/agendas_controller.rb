@@ -1,7 +1,9 @@
+# controller for 'Agenda' table 
+# Agendas are used to add an ECF to a meeting's agenda, and handle outcomes for a meeting.
 class AgendasController < ApplicationController
-  # load_and_authorize_resource
   before_action :set_agenda, only: [:update]
 
+  # POST /agendas
   def create
     @agenda = Agenda.new(agenda_params)
     id_ecf = params[:ecf_id]
@@ -24,6 +26,7 @@ class AgendasController < ApplicationController
     end
   end
 
+  # POST to /ecf/1
   def update
     if params[:agenda].blank?
       flash[:alert] = 'No decisions added.'
@@ -40,6 +43,7 @@ class AgendasController < ApplicationController
     end
   end
 
+  # DELETE /agendas/1
   def destroy
     @agenda = Agenda.find(params[:id])
     @agenda.delete
@@ -59,7 +63,10 @@ class AgendasController < ApplicationController
   def agenda_params
     params
       .require(:agenda)
-      .permit(:ecf_id, :meeting_id,
-              decisions_attributes: %i[id module_code assessment_type requested_action extension_date outcome_id _destroy])
+      .permit(
+        :ecf_id, :meeting_id,
+        # set many:one related decisions
+        decisions_attributes: %i[id module_code assessment_type requested_action extension_date outcome_id _destroy]
+      )
   end
 end

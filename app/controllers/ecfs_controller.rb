@@ -97,46 +97,23 @@ class EcfsController < ApplicationController
   end
 
   private
-
-  # def search_params(params)
-  #   params.slice(:status, :user_uid)
-  # end
-
-  # Use callbacks to share common setup or constraints between actions.
+  # Sets @ecf variable for use in views.
   def set_ecf
     @ecf = Ecf.find(params[:id])
   end
 
+  # sets an ECF's affected units to be shown in a view
   def set_affected_units
     if current_user.module_leader?
+      # only retrieves affected units matching any of the user's assigned modules
       @user_modules = current_user.user_modules.pluck(:module_code)
       @affected_units = @ecf.affected_units.where(unit_code: @user_modules)
-
-      # @user_modules = UserModule.find_by_sql ["SELECT * FROM user_modules where user_id = ?", (current_user.id).to_s]
-      # @modules_for_user = []
-      # @user_modules.each do |user_module|
-      #   if !@modules_for_user.include?(user_module)
-      #     @modules_for_user.push(user_module.module_code)
-      #   end
-      # end
-
-      # @affected_units_all = @ecf.affected_units
-      # @affected_units_arr_in_ecf = @affected_units_all.pluck("unit_code")
-      # @common_modules = @affected_units_arr_in_ecf & @modules_for_user
-
-      # @affected_units = []
-      # if @common_modules != []
-      #   @common_modules.each do |common_module|
-      #     if !@affected_units.include?(@ecf.affected_units.where(["unit_code LIKE ? ", common_module]))
-      #       @affected_units.push(@ecf.affected_units.where(["unit_code LIKE ? ", common_module]))
-      #     end
-      #   end
-      # end
     else
       @affected_units = @ecf.affected_units
     end
   end
 
+  # set @ecf_notes variable for use in views.
   def set_ecf_notes
     @ecf_notes = @ecf.ecf_notes
   end
@@ -144,10 +121,18 @@ class EcfsController < ApplicationController
   # Only allow a trusted parameter "white list" through.
   def ecf_params
     params
-      # REVIEW: tagged changes; taken from guide
       .require(:ecf)
-      .permit(:user_id, :date, :status, :is_bereavement, :is_deterioration_of_disability, :is_frequent_absence, :is_ongoing, :is_other_exceptional_factors, :is_serious_short_term, :is_significant_adverse_personal, :details, :start_of_circumstances, :end_of_circumstances, :is_ongoing, :highly_sensitive, upload_conversations: [], upload_medical_evidence: [],
-                                                                                                                                                                                                                                                                                                                affected_units_attributes: %i[id affected_units assessment_type date_from date_to requested_action unit_code _destroy],
-                                                                                                                                                                                                                                                                                                                ecf_notes_attributes: %i[id description role ecf_notes user_id _destroy])
+      .permit(
+        # regular field values
+        :user_id, :date, :status, :is_bereavement, :is_deterioration_of_disability, :is_frequent_absence, 
+        :is_ongoing, :is_other_exceptional_factors, :is_serious_short_term, :is_significant_adverse_personal, 
+        :details, :start_of_circumstances, :end_of_circumstances, :is_ongoing, :highly_sensitive, 
+        # arrays for attached files (ActiveStorage)
+        upload_conversations: [], upload_medical_evidence: [],
+        # many:one attached AffectedUnit objects in nested forms
+        affected_units_attributes: %i[id affected_units assessment_type date_from date_to requested_action unit_code _destroy],
+        # many:one attached EcfNote objects in nested forms
+        ecf_notes_attributes: %i[id description role ecf_notes user_id _destroy]
+      )
   end
 end

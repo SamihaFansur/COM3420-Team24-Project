@@ -1,15 +1,13 @@
+# general controller, used for settings and authentication.
 class ApplicationController < ActionController::Base
-  # Ensure that CanCanCan is correctly configured
-  # and authorising actions on each controller
-  # check_authorization
-
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_action :update_headers_to_disable_caching
   before_action :ie_warning
+  # ensures user is logged in on every page except the landing page.
   before_action :authenticate_user!, except: [:home]
-  # skip_before_action :authenticate_user!, :only => [:index]
+
   # Catch NotFound exceptions and handle them neatly, when URLs are mistyped or mislinked
   rescue_from ActiveRecord::RecordNotFound do
     render template: 'errors/error_404', status: 404
@@ -26,6 +24,7 @@ class ApplicationController < ActionController::Base
     super(file, opts)
   end
 
+  # sets search parameteres for Recipe gem
   def set_search
     @q = Recipe.search(params[:q])
   end
@@ -57,6 +56,7 @@ class ApplicationController < ActionController::Base
     response.headers['Expires'] = '-1'
   end
 
+  # handling internet explorer users
   def ie_warning
     if request.user_agent.to_s =~ /MSIE [6-7]/ && request.user_agent.to_s !~ %r{Trident/7.0}
       redirect_to(ie_warning_path)

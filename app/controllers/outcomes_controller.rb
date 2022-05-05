@@ -45,12 +45,12 @@ class OutcomesController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
+  # Sets @outcome for use in views
   def set_outcome
     @outcome = Outcome.find(params[:id])
   end
 
-  # Only allow a list of trusted parameters through.
+  # sets the permitted parameters used to update/create an outcome.
   def outcome_params
     params.require(:outcome).permit(:name, :short_name, :description)
   end
