@@ -17,8 +17,10 @@
 #  index_affected_units_on_ecf_id  (ecf_id)
 #
 class AffectedUnit < ApplicationRecord
+  # relation - an AffectedUnit is a type of assessment for a module,
+  # that a student is requesting actions for (e.g., deadline extension) on an ecf.
   belongs_to :ecf
-
+  
   validates :unit_code, :assessment_type, :requested_action, presence: true
   validates :date_to, presence: true, date: { after_or_equal_to: :date_from }
 end

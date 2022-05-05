@@ -10,8 +10,9 @@
 #  updated_at :datetime         not null
 #
 class Meeting < ApplicationRecord
+  # a meeting, to which decisions for an ecf are assigned
   has_many :decisions
-
   has_many :agendas
+  # has_many through to retrieve all ECFs for this meeting
   has_many :ecfs, through: :agendas
 end

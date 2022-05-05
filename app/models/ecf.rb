@@ -28,14 +28,13 @@ class Ecf < ApplicationRecord
 
   has_many :agendas
   has_many :meetings, through: :agendas
-
-  # the many-to-one relation between unit codes and an ECF
   has_many :affected_units
   has_many :ecf_notes
   has_many :decisions, through: :agendas
-  # validates :affected_units, presence: true
+
   validates_associated :affected_units
 
+  # associations for uploaded files using ActiveStorage, as database blobs.
   has_many_attached :upload_medical_evidence, service: :db
   validates :upload_medical_evidence, content_type: { in: 'application/pdf', message: 'Please upload .pdf files only' }
 
@@ -43,17 +42,18 @@ class Ecf < ApplicationRecord
   validates :upload_conversations, content_type: { in: 'application/pdf', message: 'Please upload .pdf files only' }
 
   validates :details, presence: true
-  validates :end_of_circumstances, presence: true, date: { after_or_equal_to: :start_of_circumstances },
-                                   unless: :is_ongoing
+  validates :end_of_circumstances, presence: true, date: { after_or_equal_to: :start_of_circumstances }, unless: :is_ongoing
+
   # allows the 'new ecf' form to set the attributes of new related affected_units
-  # 'allow_destroy' lets the student remove an affected unit in the NEW form. [should not be able to remove once submitted,
-  # test for this]
+  # 'allow_destroy' lets the student remove an affected unit in a new form.
   accepts_nested_attributes_for :affected_units, allow_destroy: true
   accepts_nested_attributes_for :ecf_notes, allow_destroy: true
 
+  # force status to be pending
   after_initialize :set_pending_status
 
+  # sets the default status of an ECF to pending.
   def set_pending_status
-    self.status ||= 'Pending'        # will set the default value only if it's nil
+    self.status ||= 'Pending'
   end
 end

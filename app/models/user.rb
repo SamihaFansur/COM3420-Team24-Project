@@ -44,12 +44,9 @@ class User < ApplicationRecord
     super
   end
 
-  # this sets role before a database CREATE executes. can't set role in controllers before saving for some reason.
+  # this sets role before a database CREATE executes.
   before_create do
-    # i've done .contains rather than our .split for obtaining the Student/Staff section,
-    # because the user group might not always be in the same place in the dn hash
+    # only sets role > 0 if the user being created is a student according to sheffield_ldap
     self.role = 1 if dn.include? 'ou=Students' and guest?
   end
-
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
 end

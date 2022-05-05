@@ -9,5 +9,6 @@
 #  user_id     :string
 #
 class UserModule < ApplicationRecord
+  # assigns a module_code to a user
   belongs_to :user
 end

@@ -10,4 +10,5 @@
 #  updated_at  :datetime         not null
 #
 class Outcome < ApplicationRecord
+  # outcome - sets the outcomes available in the staff_edit ecf form
 end

@@ -15,6 +15,7 @@ class Agenda < ApplicationRecord
 
   has_many :decisions
 
+  # allows vanilla_nested gem to add multiple decisions to an agenda via nested forms.
   accepts_nested_attributes_for :decisions, allow_destroy: true
 
   validates_uniqueness_of :ecf_id, scope: [:meeting_id]
