@@ -1,12 +1,12 @@
 # app/mailers/email_mailer.rb
 class EmailMailer < ApplicationMailer
-  default from: 'scrutinypanelmeetings@gmail.com'
+  default from: 'ebell3@sheffield.ac.uk'
 
   def meeting_email
     @meeting = params[:meeting]
     @meeting_attendees = @meeting.attendees.split(', ')
     @meeting_attendees.each do |attendee|
-      mail(to: -> { attendee }, subject: 'Next scrutiny panel meeting')
+      mail(to: attendee, subject: 'Next scrutiny panel meeting')
     end
   end
 
