@@ -39,22 +39,21 @@
       %th{:scope => "col"} 
 
   - @ecfs.each do |ecf|
-    - if Time.zone.now.years_ago(7) >= ecf.created_at
-      %tbody
-        %tr
-          %th{:scope => "row"}
-            = ecf.status
-          %td
-            = ecf.created_at
-          %td
-            #{ecf.user.givenname} #{ecf.user.sn}
-          %td
-            = ecf.user.mail
-          %td
-            = ecf.user.uid
-          %td
-            = ecf.user.ou
-          %td
-            = link_to 'Show', ecf
-          %td
-            = link_to 'Delete ECF', ecf_path(ecf), :method => :delete, :data => { :confirm => 'Are you sure?' }
+    %tbody
+      %tr
+        %th{:scope => "row"}
+          = ecf.status
+        %td
+          = ecf.created_at
+        %td
+          #{ecf.user.givenname} #{ecf.user.sn}
+        %td
+          = ecf.user.mail
+        %td
+          = ecf.user.uid
+        %td
+          = ecf.user.ou
+        %td
+          = link_to 'Show', ecf
+        %td
+          = link_to 'Delete ECF', ecf_path(ecf), :method => :delete, :data => { :confirm => 'Are you sure?' }

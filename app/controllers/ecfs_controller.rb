@@ -1,11 +1,14 @@
+# controller for 'Ecf' table
 class EcfsController < ApplicationController
   load_and_authorize_resource
   before_action :set_ecf, only: %i[show edit update destroy update_persist]
 
+  # GET /ecfs
   def index
     if current_user.student?
       @ecfs = current_user.ecfs
     elsif current_user.module_leader?
+      # only show ecfs with affected units matching the current user's modules
       @user_modules = UserModule.find_by_sql ['SELECT * FROM user_modules where user_id = ?', current_user.id.to_s]
 
       @ecfs_ids = []
@@ -19,8 +22,8 @@ class EcfsController < ApplicationController
           @ecfs_ids.push(@affected_unit_ecf_id) unless @ecfs_ids.include?(@affected_unit_ecf_id)
         end
       end
-
     else
+      # Perform search on view search parameters.
       @q = Ecf.ransack(params[:q])
       @ecfs = @q.result
     end
@@ -31,25 +34,29 @@ class EcfsController < ApplicationController
     set_ecf
     set_affected_units
     @decisions_ecfs = {}
+    # group the decisions after ordering - so only the latest decision will show.
     @ecf.decisions.order(:created_at).each do |decision|
-      # This code is dependent on app/views/decisions/_decisions_fields.html.haml . The dex stuff.
+      # group the decisions by both module_code and assessment type.
       @decisions_ecfs[decision.module_code] = {} unless @decisions_ecfs.key?(decision.module_code)
       @decisions_ecfs[decision.module_code][decision.assessment_type] = decision
     end
   end
 
+  # POST /ecfs/new
   def new
     @ecf = Ecf.new
     @ecf.affected_units.build
   end
 
+  # GET /ecfs/1
   def edit
     set_ecf
     set_ecf_notes
-    # groups all ecf_notes by target role - avoids repeated 'where' queries.
+    # groups all ecf_notes by role for the view - avoids repeated 'where' queries.
     @ecf_notes_grouped = @ecf_notes.group_by(&:role)
   end
 
+  # UPDATE/PATCH /ecfs/1
   def update
     if @ecf.update(ecf_params)
       redirect_to ecfs_path, notice: 'Form was successfully updated.'
@@ -72,23 +79,24 @@ class EcfsController < ApplicationController
     end
   end
 
+  # POST /ecfs/new
   def create
     @ecf = Ecf.new(ecf_params)
     if @ecf.save
       EmailMailer.with(ecf: @ecf).ecf_submitted.deliver_now
       flash[:success] = 'You should have received a confirmation email.'
-
       redirect_to ecfs_path, notice: 'ECF was successfully submitted.'
-
     else
       render :new
     end
   end
 
+  # GET /ecfs/ecfs_gdpr
   def ecfs_gdpr
-    @ecfs = Ecf.all
+    @ecfs = Ecf.where("created_at < ?", Time.zone.now.years_ago(7))
   end
 
+  # DELETE /ecf/1
   def destroy
     @ecf = Ecf.find(params[:id])
     @ecf.destroy

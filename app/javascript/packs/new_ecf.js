@@ -1,51 +1,51 @@
+// javascript for ecfs/new
 window.onload = function(){
-    var text_area = document.getElementById("ecf_details");
-    // overwrite default blue background for better readability
-    text_area.classList.add("select_without_background");
+  var text_area = document.getElementById("ecf_details");
+  // overwrite default blue background for better readability
+  text_area.classList.add("select_without_background");
 
-    text_area.onfocus = function (){
-        text_area.setAttribute('style', 'height: 200px !important') // for better input
-        this.style.borderStyle = "outset"
-    }
-    text_area.onblur= function (){
-        this.style.borderStyle = "inset"
-        text_area.setAttribute('style', 'height: 100px !important') // for better input
-    }
+  // expand the text_area document when selected
+  text_area.onfocus = function (){
+    text_area.setAttribute('style', 'height: 200px !important') // for better input
+    this.style.borderStyle = "outset"
+  }
+  text_area.onblur= function (){
+    this.style.borderStyle = "inset"
+    text_area.setAttribute('style', 'height: 100px !important') // for better input
+  }
 
-    //change input size and color
-    var unit_code = document.getElementById("ecf_affected_units_attributes_0_unit_code");
-    unit_code.classList.add("w-25");
-    unit_code.classList.add("select_without_background");
-    var assessment_type = document.getElementById("ecf_affected_units_attributes_0_assessment_type");
-    assessment_type.classList.add("select_without_background");
-    assessment_type.classList.add("w-25");
-    var requested_action = document.getElementById("ecf_affected_units_attributes_0_requested_action");
-    requested_action.classList.add("w-25")
+  //change input size and color
+  var unit_code = document.getElementById("ecf_affected_units_attributes_0_unit_code");
+  unit_code.classList.add("w-25");
+  unit_code.classList.add("select_without_background");
+  var assessment_type = document.getElementById("ecf_affected_units_attributes_0_assessment_type");
+  assessment_type.classList.add("select_without_background");
+  assessment_type.classList.add("w-25");
+  var requested_action = document.getElementById("ecf_affected_units_attributes_0_requested_action");
+  requested_action.classList.add("w-25")
 
-//if condition is ongoing then delete the end of circumstance
-    var isChecked = document.getElementById("ecf_is_ongoing");
-    if(isChecked.checked){ //this is for editing ecf page
+  // if ecf condition 'is ongoing' then delete the end of circumstance field.
+  var isChecked = document.getElementById("ecf_is_ongoing");
+  if(isChecked.checked){
+    var end_date = document.getElementById("end_date");
+    end_date.style.display = "none"
+  }
+
+  // toggle visibility of end of circumstances field.
+  isChecked.onclick = function(){
+    if(isChecked.checked){
         var end_date = document.getElementById("end_date");
         end_date.style.display = "none"
     }
-    isChecked.onclick = function (){
-        if(isChecked.checked){
-            var end_date = document.getElementById("end_date");
-            end_date.style.display = "none"
-        }
-        else {
-            var end_date = document.getElementById("end_date");
-            end_date.style.display = "initial"
-        }
+    else {
+        var end_date = document.getElementById("end_date");
+        end_date.style.display = "initial"
     }
-//show alert when file type wrong
+  }
 
-    var warning=document.getElementById("typeWarning").innerText.trim();
-    if(warning!=""){
-        alert(warning);
-    }
-
-
-
-
+  // show alert when file type wrong
+  var warning=document.getElementById("typeWarning").innerText.trim();
+  if(warning!=""){
+    alert(warning);
+  }
 }
