@@ -56,4 +56,8 @@ class Ecf < ApplicationRecord
   def set_pending_status
     self.status ||= 'Pending'
   end
+
+  def latest_agenda
+    agendas.includes(:meeting).order('meeting.time DESC').first
+  end
 end

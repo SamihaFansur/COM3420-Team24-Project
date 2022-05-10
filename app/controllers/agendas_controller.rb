@@ -28,8 +28,18 @@ class AgendasController < ApplicationController
 
   # POST to /ecf/1
   def update
-    if params[:agenda].blank?
-      flash[:alert] = 'No decisions added.'
+    if !decision_params.empty?
+      @decision = @agenda.decisions.where(decision_params.slice(:module_code, :assessment_type, :requested_action)).first_or_initialize
+
+      if @decision.persisted?
+        @decision.update(decision_params.slice(:extension_date, :outcome_id))
+      else
+        @decision.extension_date = decision_params[:extension_date]
+        @decision.outcome_id = decision_params[:outcome_id]
+        @decision.save
+      end
+      #
+      # flash[:alert] = 'No decisions added.'
       redirect_back(fallback_location: meetings_path)
     elsif @agenda.update(agenda_params)
       flash[:notice] = 'Meeting was successfully updated.'
@@ -63,10 +73,17 @@ class AgendasController < ApplicationController
   def agenda_params
     params
       .require(:agenda)
-      .permit(
-        :ecf_id, :meeting_id,
-        # set many:one related decisions
-        decisions_attributes: %i[id module_code assessment_type requested_action extension_date outcome_id _destroy]
-      )
+      .permit(:ecf_id, :meeting_id, :decision)
+      .slice(:ecf_id, :meeting_id)
+  end
+      
+  def decision_params
+    a_params = params.require(:agenda)
+    return ActionController::Parameters.new unless a_params.include?(:decision)
+        
+    # set many:one related decisions
+    a_params.permit(
+      decision: %i[id module_code assessment_type requested_action extension_date outcome_id _destroy]
+    ).require(:decision)
   end
 end

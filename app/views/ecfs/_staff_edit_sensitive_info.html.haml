@@ -72,11 +72,6 @@
   - @ecf.agendas.each do |agenda, index|
     %p
       %b= "Decisions for #{agenda.meeting.title} [Meeting # #{agenda.meeting.id}, #{agenda.meeting.time}]:"
-      = simple_form_for(agenda) do |f|
-        #add= link_to_add_nested(f, :decisions, "#agenda_#{agenda.id}", partial: 'decisions/decisions_fields',link_classes: "btn btn-primary ")
-        .test[agenda]
-        %br
-        %input.btn.btn.btn-outline-primary.btn-sm.ml-5#add_decision{"data-disable-with" => "Update Agenda", :display => "none", :name => "commit", :type => "submit", :value => "Add decisions to meeting"}/
       - if agenda.decisions.empty?
         .text-note There are currently no decisions for this meeting.
       - else
