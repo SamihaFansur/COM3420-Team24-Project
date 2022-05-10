@@ -20,7 +20,7 @@
           %ul.nav.col-12.col-lg-auto.me-lg-auto.mb-2.justify-content-center.mb-md-0
             =image_tag("University_of_Sheffield.svg",width: "92px", height: "50px")
             %li
-              = link_to 'HOME', root_path, title: 'Go to the home page', class: 'nav-link-2'
+              = link_to 'INFORMATION', root_path, title: 'Go to the ecf information page', class: 'nav-link-2'
             - if user_signed_in? and can? :guest_prompt, User
               %li
                 = link_to 'GUEST PROMPT', guest_page_path, title: 'Go to the guest prompt page', class: 'nav-link-2'
