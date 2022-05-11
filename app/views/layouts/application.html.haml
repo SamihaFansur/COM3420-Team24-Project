@@ -36,6 +36,9 @@
             - if can? :read, Meeting
               %li
                 = link_to 'SHOW MEETINGS', meetings_path, title: 'Go to the meetings page', class: 'nav-link-2'
+            - if can? :show, User
+              %li
+                = link_to 'CURRENT USER', current_user, title: 'Go to the user page', class: 'nav-link-2'
             - if can? :manage, User
               %li
                 = link_to 'USERS', users_path, title: 'Go to the user page', class: 'nav-link-2'

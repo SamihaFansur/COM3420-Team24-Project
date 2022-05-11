@@ -18,7 +18,7 @@ class Ability
 
     # students - can create ecf, read ecf, edit exisiting ecf
     if user.student?
-      can %i[read new create update update_persist edit submit], Ecf
+      can %i[read new create update update_persist edit submit], Ecf, user_id: user.id
       cannot :manage, Meeting
       cannot :manage, User
       cannot :guest_prompt, User
@@ -31,6 +31,7 @@ class Ability
       cannot :manage, Meeting
       cannot :manage, User
       cannot :guest_prompt, User
+      can :show, User, id: user.id
     end
 
     # scrutiny panel members - can read + edit ecfs (notes), create + use meetings
