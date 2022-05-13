@@ -1,0 +1,12 @@
+require:
+  - rubocop-rspec
+  - rubocop-rails
+
+AllCops:
+    NewCops: enable
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
