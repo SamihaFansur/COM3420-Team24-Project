@@ -82,6 +82,7 @@
                 %th{:scope => "col"} Module Code
                 %th{:scope => "col"} Assessment Type
                 %th{:scope => "col"} Requested Action
+                %th{:scope => "col"} Extension date
                 %th{:scope => "col"} Outcome
             %tbody
               - agenda.decisions.each do |decision|
@@ -92,5 +93,8 @@
                     = decision.assessment_type
                   %td.overflow-auto
                     = decision.requested_action
+                  %td.overflow-auto
+                  - if decision.requested_action.include?("DEX")
+                    = decision.extension_date
                   %td.overflow-auto
                     = decision.outcome&.name
