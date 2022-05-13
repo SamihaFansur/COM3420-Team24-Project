@@ -4,10 +4,19 @@ class EmailMailer < ApplicationMailer
 
   def meeting_email
     @meeting = params[:meeting]
-    @meeting_attendees = @meeting.attendees.split(', ')
-    @meeting_attendees.each do |attendee|
-      mail(to: attendee, subject: 'Next scrutiny panel meeting')
-    end
+    # @meeting_attendees = @meeting.attendees.split(', ')
+    @meeting_attendees = @meeting.attendees
+    mail(to:  @meeting_attendees, subject: 'Next scrutiny panel meeting')
+
+    # print("\n%%%%%%%%%%%%%%%%%%%%%%%%%%\n")
+    # print(@@meeting_attendees.collect.join(","))
+    # print("\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n")
+    # @meeting_attendees.each do |attendee|
+    #   print("\n----------------attendees being emailed------------\n")
+    #   print(attendee)
+    #   mail(to: attendee, subject: 'Next scrutiny panel meeting')
+    #   print("\n-------------------\n")
+    # end
   end
 
   def ecf_submitted
