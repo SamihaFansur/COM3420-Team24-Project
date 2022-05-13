@@ -10,3 +10,9 @@ Style/FrozenStringLiteralComment:
 
 Metrics/BlockLength:
   Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false

@@ -13,7 +13,6 @@ class AgendasController < ApplicationController
       EmailMailer.with(agenda: @agenda).ecf_added_to_agenda.deliver_now
       flash[:success] = 'Student notified of scrutiny panel meeting.'
 
-      redirect_back(fallback_location: ecfs_path)
     else
       flash[:alert] = if Agenda.where(agenda_params).exists?
                         'This ECF has already been added to the meeting!'
@@ -22,8 +21,8 @@ class AgendasController < ApplicationController
                       else
                         'Failed to add ECF to the meeting.'
                       end
-      redirect_back(fallback_location: ecfs_path)
     end
+    redirect_back(fallback_location: ecfs_path)
   end
 
   # POST to /ecf/1
