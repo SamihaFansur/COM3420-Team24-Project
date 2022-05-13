@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # general controller, used for settings and authentication.
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
@@ -12,10 +10,10 @@ class ApplicationController < ActionController::Base
 
   # Catch NotFound exceptions and handle them neatly, when URLs are mistyped or mislinked
   rescue_from ActiveRecord::RecordNotFound do
-    render template: 'errors/error_404', status: :not_found
+    render template: 'errors/error_404', status: 404
   end
   rescue_from CanCan::AccessDenied do
-    render template: 'errors/error_403', status: :forbidden
+    render template: 'errors/error_403', status: 403
   end
 
   # IE over HTTPS will not download if browser caching is off, so allow browser caching when sending files
@@ -34,16 +32,15 @@ class ApplicationController < ActionController::Base
   # method that determines where the user is routed after logging in
   def after_sign_in_path_for(_resource)
     unless current_user.nil?
-      case current_user.role
-      when 'admin' # route to users page
+      if current_user.role == 'admin' # route to users page
         users_path
-      when 'student' # route to ecfs page
+      elsif current_user.role == 'student' # route to ecfs page
         ecfs_path
-      when 'module_leader'
+      elsif current_user.role == 'module_leader'
         ecfs_path
-      when 'scrutiny' # route to meetings page
+      elsif current_user.role == 'scrutiny' # route to meetings page
         meetings_path
-      when 'scrutiny_chair' # route to meetings page
+      elsif current_user.role == 'scrutiny_chair' # route to meetings page
         meetings_path
       else # user must be a guest
         guest_page_path

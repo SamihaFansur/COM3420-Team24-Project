@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # Controller for default available pages.
 class PagesController < ApplicationController
   # no authorization needed here for these pages, as they are available to those not logged in

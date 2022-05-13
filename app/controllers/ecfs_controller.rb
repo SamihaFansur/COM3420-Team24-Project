@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # controller for 'Ecf' table
 class EcfsController < ApplicationController
   load_and_authorize_resource
