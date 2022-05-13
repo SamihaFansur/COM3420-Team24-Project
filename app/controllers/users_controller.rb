@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Controller methods for the 'User' table.
 # Users are created by looking up username or email using EpiCAS's sheffield_ldap_lookup gem.
 class UsersController < ApplicationController
@@ -87,7 +88,7 @@ class UsersController < ApplicationController
     if File.extname(path) == '.csv'
       headers = CSV.read(path, headers: true).headers
       # checks the CSV has the correct columns.
-      if headers.include?('email') and headers.include?('module_code')
+      if headers.include?('email') && headers.include?('module_code')
         CSV.foreach(path, headers: true) do |row|
           email = row.to_h['email']
           module_code = row.to_h['module_code']
@@ -110,9 +111,9 @@ class UsersController < ApplicationController
           end
 
           # importing user modules that are not already assigned
-          unless user_modules_hash[user.id.to_s]&.include? module_code or new_user_modules_hash[email]&.include? module_code
+          unless user_modules_hash[user.id.to_s]&.include? module_code || new_user_modules_hash[email]&.include? module_code
             new_user_modules_hash[email] << module_code
-            unless user.username.nil? or module_code.nil?
+            unless user.username.nil? || module_code.nil?
               user_module = UserModule.new(module_code: module_code, user: user)
               user_modules << user_module
             end

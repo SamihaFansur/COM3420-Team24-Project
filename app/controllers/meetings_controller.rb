@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Controller methods for the 'Meeting' table
 class MeetingsController < ApplicationController
   load_and_authorize_resource
@@ -40,7 +42,7 @@ class MeetingsController < ApplicationController
       redirect_to @meeting, notice: 'Meeting was successfully created.'
       EmailMailer.with(meeting: @meeting).meeting_email.deliver_now
       flash[:notice] = 'Meeting attendees should have received email invitation.'
-      print("\n------------------------OK SENT TO ALL-------------------\n")
+      Rails.logger.debug("\n------------------------OK SENT TO ALL-------------------\n")
 
     else
       render :new

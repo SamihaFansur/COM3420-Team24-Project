@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class OutcomesController < ApplicationController
   before_action :set_outcome, only: %i[show edit update destroy]
 

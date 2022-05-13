@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # controller for 'EcfNote' table
 class EcfNotesController < ApplicationController
   # custom behaviour when a note is destroyed - remains on the parent ECF page

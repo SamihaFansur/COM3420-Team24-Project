@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Controller for rendering website errors.
 class ErrorsController < ApplicationController
   skip_before_action :ie_warning
