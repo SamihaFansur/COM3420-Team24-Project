@@ -141,7 +141,8 @@ class EcfsController < ApplicationController
         # arrays for attached files (ActiveStorage)
         upload_conversations: [], upload_medical_evidence: [],
         # many:one attached AffectedUnit objects in nested forms
-        affected_units_attributes: %i[id affected_units assessment_type date_from date_to requested_action unit_code _destroy],
+        affected_units_attributes: %i[id affected_units assessment_type date_from date_to requested_action unit_code
+                                      _destroy],
         # many:one attached EcfNote objects in nested forms
         ecf_notes_attributes: %i[id description role ecf_notes user_id _destroy]
       )

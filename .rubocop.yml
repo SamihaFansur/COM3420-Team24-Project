@@ -3,7 +3,9 @@ require:
   - rubocop-rails
 
 AllCops:
-    NewCops: enable
+  NewCops: enable
+  Exclude:
+    - 'app/controllers/errors_controller.rb'
 
 Style/FrozenStringLiteralComment:
   Enabled: false
@@ -15,6 +17,9 @@ Metrics/AbcSize:
   Enabled: false
 
 Metrics/MethodLength:
+  Enabled: false
+
+Metrics/ClassLength:
   Enabled: false
 
 Rails/I18nLocaleTexts:
