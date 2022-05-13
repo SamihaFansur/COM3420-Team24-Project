@@ -95,7 +95,7 @@ class EcfsController < ApplicationController
 
   # GET /ecfs/ecfs_gdpr
   def ecfs_gdpr
-    @ecfs = Ecf.where("created_at < ?", Time.zone.now.years_ago(7))
+    @ecfs = Ecf.where('created_at < ?', Time.zone.now.years_ago(7))
   end
 
   # DELETE /ecf/1
@@ -107,6 +107,7 @@ class EcfsController < ApplicationController
   end
 
   private
+
   # Sets @ecf variable for use in views.
   def set_ecf
     @ecf = Ecf.find(params[:id])
@@ -134,9 +135,9 @@ class EcfsController < ApplicationController
       .require(:ecf)
       .permit(
         # regular field values
-        :user_id, :date, :status, :is_bereavement, :is_deterioration_of_disability, :is_frequent_absence, 
-        :is_ongoing, :is_other_exceptional_factors, :is_serious_short_term, :is_significant_adverse_personal, 
-        :details, :start_of_circumstances, :end_of_circumstances, :is_ongoing, :highly_sensitive, 
+        :user_id, :date, :status, :is_bereavement, :is_deterioration_of_disability, :is_frequent_absence,
+        :is_ongoing, :is_other_exceptional_factors, :is_serious_short_term, :is_significant_adverse_personal,
+        :details, :start_of_circumstances, :end_of_circumstances, :is_ongoing, :highly_sensitive,
         # arrays for attached files (ActiveStorage)
         upload_conversations: [], upload_medical_evidence: [],
         # many:one attached AffectedUnit objects in nested forms

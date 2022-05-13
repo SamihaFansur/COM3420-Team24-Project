@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     @q = User.ransack(params[:q])
     @users = @q.result
   end
-  
+
   # GET /users/1
   def show
     set_user
@@ -77,7 +77,8 @@ class UsersController < ApplicationController
     # hash of existing users and their ids {"email1@test.com => 23"}
     users_hash = User.pluck(:email, :id).to_h
     # hash of existing users and their module codes {"email1@test.com" => ["COM1004", "COM1010"]}
-    user_modules_array = UserModule.select(:user_id, 'array_agg(module_code)').group(:user_id).pluck(:user_id, 'array_agg(module_code)')
+    user_modules_array = UserModule.select(:user_id, 'array_agg(module_code)').group(:user_id).pluck(:user_id,
+                                                                                                     'array_agg(module_code)')
     user_modules_hash = Hash[*user_modules_array.flatten(1)]
 
     new_users_hash = {}
@@ -136,6 +137,7 @@ class UsersController < ApplicationController
   end
 
   private
+
   # sets @user variable for use in views
   def set_user
     @user = User.find(params[:id])
