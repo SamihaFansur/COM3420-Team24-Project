@@ -6,7 +6,6 @@ class AgendasController < ApplicationController
   # POST /agendas
   def create
     @agenda = Agenda.new(agenda_params)
-    id_ecf = params[:ecf_id]
     if @agenda.save
       flash[:notice] = "ECF #{params[:ecf_id]} was successfully added to the meeting."
 

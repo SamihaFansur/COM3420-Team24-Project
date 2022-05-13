@@ -16,3 +16,6 @@ Metrics/AbcSize:
 
 Metrics/MethodLength:
   Enabled: false
+
+Rails/I18nLocaleTexts:
+  Enabled: false
