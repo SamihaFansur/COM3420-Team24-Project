@@ -1,3 +1,4 @@
+# Controller methods for the Outcomes
 class OutcomesController < ApplicationController
   before_action :set_outcome, only: %i[show edit update destroy]
 
