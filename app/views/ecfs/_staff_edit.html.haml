@@ -76,7 +76,7 @@
                       = g.hidden_field :assessment_type, value: affected_unit.assessment_type
                       = g.hidden_field :requested_action, value: affected_unit.requested_action
                       - if affected_unit.requested_action.include?("DEX")
-                        = g.input :extension_date, as: :date ,class:"list-group-item"
+                        = g.date_field :extension_date
                       - else
                         = g.hidden_field :extension_date, as: :date, value: DateTime.now
                   %td= f.button :submit, value: 'Add decision',class: 'btn btn-outline-primary btn-sm'

@@ -93,8 +93,10 @@
                     = decision.assessment_type
                   %td.overflow-auto
                     = decision.requested_action
-                  %td.overflow-auto
+                  
                   - if decision.requested_action.include?("DEX")
-                    = decision.extension_date
+                    %td.overflow-auto= decision.extension_date
+                  - else
+                    %td.overflow-auto= 'N/A'
                   %td.overflow-auto
                     = decision.outcome&.name
