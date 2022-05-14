@@ -25,7 +25,7 @@ describe 'the page links' do
   # through navigation go to home page
   it 'home is accessible from the ECF page' do
     visit '/users/sign_in'
-    click_link 'HOME'
+    click_link 'INFORMATION'
     expect(page).to have_content 'Form'
   end
 end
@@ -34,7 +34,7 @@ describe 'the page links' do
   # through navigation go to home page
   it 'home is accessible from the login page' do
     visit '/'
-    click_link 'HOME'
+    click_link 'INFORMATION'
     expect(page).to have_content 'Form'
   end
 end
@@ -45,7 +45,7 @@ describe 'the page links' do
   it 'home is accessible after loggin in' do
     visit '/users/sign_in'
     login_as(FactoryBot.create(:student2))
-    click_link 'HOME'
+    click_link 'INFORMATION'
     expect(page).to have_content 'Extenuating Circumstances Form'
   end
 end
@@ -55,7 +55,7 @@ describe 'the page links' do
     visit '/users/sign_in'
     login_as(FactoryBot.create(:student2))
     visit '/'
-    click_link 'MY ECFS'
+    click_link 'SHOW ECFS'
     click_link 'Create New ECF'
     expect(page).to have_content 'Start of circumstances'
   end
@@ -66,7 +66,7 @@ describe 'the page links' do
     visit '/users/sign_in'
     login_as(FactoryBot.create(:student2))
     visit '/ecfs'
-    click_link 'MY ECFS'
+    click_link 'SHOW ECFS'
     expect(page).to have_content 'Listing ECFs'
   end
 end
@@ -76,13 +76,13 @@ describe 'the page links' do
     visit '/users/sign_in'
     login_as(FactoryBot.create(:student2))
     visit '/'
-    click_link 'MY ECFS'
+    click_link 'SHOW ECFS'
     click_link 'Create New ECF'
     fill_in 'Details', with: 'DEX'
     fill_in 'Unit code', with: 'COMtest'
     fill_in 'Assessment type', with: 'Test'
     select 'NP - No penalty for late submission', from: 'Requested action ', visible: false
-    click_button 'Create Ecf'
+    click_button 'Submit Extenuating Circumstances Form'
     click_link 'Edit'
     expect(page).to have_content 'DEX'
   end
@@ -93,15 +93,15 @@ describe 'the page links' do
     visit '/users/sign_in'
     login_as(FactoryBot.create(:student2))
     visit '/'
-    click_link 'MY ECFS'
+    click_link 'SHOW ECFS'
     click_link 'Create New ECF'
     fill_in 'Details', with: 'Details about ecf'
     fill_in 'Unit code', with: 'COMtest'
     fill_in 'Assessment type', with: 'Test'
     select 'NP - No penalty for late submission', from: 'Requested action ', visible: false
-    click_button 'Create Ecf'
+    click_button 'Submit Extenuating Circumstances Form'
     click_link 'Show'
-    expect(page).to have_content 'Student Details'
+    expect(page).to have_content 'ECF Details'
   end
 end
 
@@ -121,7 +121,7 @@ describe 'the page links' do
     visit '/users/sign_in'
     login_as(FactoryBot.create(:module_leader))
     visit '/ecfs'
-    click_link 'HOME'
+    click_link 'INFORMATION'
     expect(page).to have_content 'Overview'
   end
 end
@@ -152,7 +152,7 @@ describe 'the page links' do
     visit '/users/sign_in'
     login_as(FactoryBot.create(:scrutiny_panel))
     visit '/ecfs'
-    click_link 'HOME'
+    click_link 'INFORMATION'
     expect(page).to have_content 'Overview'
   end
 end
@@ -180,7 +180,7 @@ end
 describe 'the page links' do
   it 'login as Scrutiny Panel + visit new meeting page ' do
     visit '/users/sign_in'
-    login_as(FactoryBot.create(:scrutiny_panel))
+    login_as(FactoryBot.create(:admin))
     visit '/ecfs'
     click_link 'SHOW MEETINGS'
     expect(page).to have_content 'Meeting Schedule'
@@ -192,7 +192,7 @@ end
 describe 'the page links' do
   it 'login as Scrutiny Panel + test new meeting back button' do
     visit '/users/sign_in'
-    login_as(FactoryBot.create(:scrutiny_panel))
+    login_as(FactoryBot.create(:admin))
     visit '/ecfs'
     click_link 'SHOW MEETINGS'
     expect(page).to have_content 'Meeting Schedule'
@@ -219,7 +219,7 @@ describe 'the page links' do
     visit '/users/sign_in'
     login_as(FactoryBot.create(:admin))
     visit '/ecfs'
-    click_link 'HOME'
+    click_link 'INFORMATION'
     expect(page).to have_content 'Overview'
   end
 end
