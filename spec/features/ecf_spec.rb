@@ -25,7 +25,7 @@ describe 'ecf' do
     fill_in 'Unit code', with: 'COM2008'
     fill_in 'Assessment type', with: 'Exam'
     select 'DEX - Deadline Extension', from: 'Requested action ', visible: false
-    click_button 'Create Ecf'
+    click_button 'Submit Extenuating Circumstances Form'
     # Check that ecf is listed fro student 1
     expect(page).to have_content 'aca20sf'
     find(:xpath, '/html/body/header/div/div/button/a[1]', text: 'Logout').click
@@ -45,7 +45,7 @@ describe 'ecf' do
     fill_in 'Unit code', with: 'COM2008'
     fill_in 'Assessment type', with: 'Exam'
     select 'DEX - Deadline Extension', from: 'Requested action ', visible: false
-    click_button 'Create Ecf'
+    click_button 'Submit Extenuating Circumstances Form'
     # Check student 2 sees their ecf
     expect(page).to have_content 'aca20sg'
   end
@@ -53,7 +53,7 @@ end
 
 describe 'ecf' do
   # log in as a user
-  it 'update ecf ' do
+  it 'Submit Extenuating Circumstances Form ' do
     # login in as student and make an ecf
     visit '/users/sign_in'
     login_as(FactoryBot.create(:student))
@@ -63,11 +63,11 @@ describe 'ecf' do
     fill_in 'Unit code', with: 'COM2008'
     fill_in 'Assessment type', with: 'Exam'
     select 'DEX - Deadline Extension', from: 'Requested action ', visible: false
-    click_button 'Create Ecf'
+    click_button 'Submit Extenuating Circumstances Form'
     click_link 'Edit', match: :first
     fill_in 'Details', with: 'updated info'
-    # Update ecf info
-    click_button 'Update Ecf'
+    # Submit Extenuating Circumstances Form info
+    click_button 'Submit Extenuating Circumstances Form'
     expect(page).to have_content 'Listing ECFs'
     # Check that ecf info has been updated
     click_link 'Show', match: :first
@@ -77,7 +77,7 @@ end
 
 describe 'ecf' do
   # log in as a user
-  it 'update ecf status ' do
+  it 'Submit Extenuating Circumstances Form status ' do
     # login in as student and make an ecf
     visit '/users/sign_in'
     login_as(FactoryBot.create(:student2))
@@ -87,7 +87,7 @@ describe 'ecf' do
     fill_in 'Unit code', with: 'COM2008'
     fill_in 'Assessment type', with: 'Exam'
     select 'DEX - Deadline Extension', from: 'Requested action ', visible: false
-    click_button 'Create Ecf'
+    click_button 'Submit Extenuating Circumstances Form'
     login_as(FactoryBot.create(:admin))
     visit '/ecfs'
     click_link 'Edit', match: :first
@@ -118,7 +118,7 @@ describe 'ecf' do
     fill_in 'Unit code', with: 'COM2008'
     fill_in 'Assessment type', with: 'Exam'
     select 'DEX - Deadline Extension', from: 'Requested action ', visible: false
-    click_button 'Create Ecf'
+    click_button 'Submit Extenuating Circumstances Form'
     login_as(FactoryBot.create(:admin))
     visit '/ecfs'
     click_link 'Edit', match: :first
@@ -152,7 +152,7 @@ describe 'ecf' do
     fill_in 'Unit code', with: 'COM2008'
     fill_in 'Assessment type', with: 'Exam'
     select 'DEX - Deadline Extension', from: 'Requested action ', visible: false
-    click_button 'Create Ecf'
+    click_button 'Submit Extenuating Circumstances Form'
     login_as(FactoryBot.create(:admin))
     visit '/ecfs'
     click_link 'Edit', match: :first
@@ -173,7 +173,7 @@ describe 'ecf' do
     fill_in 'Unit code', with: 'COM2008'
     fill_in 'Assessment type', with: 'Exam'
     select 'DEX - Deadline Extension', from: 'Requested action ', visible: false
-    click_button 'Create Ecf'
+    click_button 'Submit Extenuating Circumstances Form'
     logout(:student)
     login_as(FactoryBot.create(:admin))
     visit '/ecfs'
@@ -196,7 +196,7 @@ describe 'ecf', js: true do
     fill_in 'Unit code', with: 'COM2008'
     fill_in 'Assessment type', with: 'Exam'
     select 'DEX - Deadline Extension', from: 'Requested action ', visible: false
-    click_button 'Create Ecf'
+    click_button 'Submit Extenuating Circumstances Form'
     logout(:student)
     login_as(FactoryBot.create(:admin))
     visit '/ecfs'
@@ -264,7 +264,7 @@ describe 'notes' do
     fill_in 'Unit code', with: 'COM2008'
     fill_in 'Assessment type', with: 'Exam'
     select 'DEX - Deadline Extension', from: 'Requested action ', visible: false
-    click_button 'Create Ecf'
+    click_button 'Submit Extenuating Circumstances Form'
     logout(:student)
     login_as(FactoryBot.create(:admin))
     visit '/ecfs'
