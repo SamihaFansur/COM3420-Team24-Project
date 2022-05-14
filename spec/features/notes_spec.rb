@@ -15,7 +15,7 @@ describe 'notes' do
     fill_in 'Unit code', with: 'COM2008'
     fill_in 'Assessment type', with: 'Exam'
     select 'DEX - Deadline Extension', from: 'Requested action ', visible: false
-    click_button 'Create Ecf'
+    click_button 'Submit Extenuating Circumstances Form'
     logout(:student)
     login_as(FactoryBot.create(:admin))
     visit '/ecfs'
@@ -40,7 +40,7 @@ describe 'notes' do
     fill_in 'Unit code', with: 'COM2008'
     fill_in 'Assessment type', with: 'Exam'
     select 'DEX - Deadline Extension', from: 'Requested action ', visible: false
-    click_button 'Create Ecf'
+    click_button 'Submit Extenuating Circumstances Form'
     logout(:student)
     login_as(FactoryBot.create(:admin))
     visit '/ecfs'
