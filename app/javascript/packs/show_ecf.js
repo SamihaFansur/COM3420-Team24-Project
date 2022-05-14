@@ -1,5 +1,20 @@
 // javascript for /ecfs/show
 window.onload = function() {
+  var coll = document.getElementsByClassName("collapsible"); //get all collapsible elements
+  var i;
+
+  for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function() {
+      location.href = "#overview";
+      this.classList.toggle("active");
+      var content = this.nextElementSibling;
+      if (content.style.display === "block") {
+        content.style.display = "none";
+      } else {
+        content.style.display = "block";
+      }
+    });
+  }
   var text_area = document.getElementById("exampleFormControlTextarea1");
   text_area.classList.add("select_without_background"); // overwrite default blue background for better readability
   
@@ -44,4 +59,7 @@ window.onload = function() {
       }
     }
   }
+
+
+
 }
