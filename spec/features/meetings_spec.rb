@@ -180,13 +180,13 @@ describe 'meeting', js: true do
     click_button 'Create Meeting'
     expect(page).to have_content 'Attendees: test'
     visit '/meetings'
-    find(:xpath, '/html/body/main/div/div[1]/div/div/table/tbody/tr[1]/td[6]/a', text: 'Edit').click
+    find(:xpath, '/html/body/main/div/div[2]/div/div/table/tbody/tr/td[6]/a', text: 'Edit').click
     expect(page).to have_content 'Editing meeting'
     fill_in 'Title', with: 'new test'
     click_button 'Update Meeting'
     expect(page).to have_content 'new test'
     visit '/meetings'
-    find(:xpath, '/html/body/main/div/div[1]/div/div/table/tbody/tr[1]/td[5]/a', text: 'Show').click
+    find(:xpath, '/html/body/main/div/div[2]/div/div/table/tbody/tr/td[5]/a', text: 'Show').click
     # Confirms test updates
     expect(page).to have_content 'new test'
   end
@@ -202,7 +202,7 @@ describe 'meeting' do
     fill_in 'Unit code', with: 'COM2008'
     fill_in 'Assessment type', with: 'Exam'
     select 'DEX - Deadline Extension', from: 'Requested action ', visible: false
-    click_button 'Create Ecf'
+    click_button 'Submit Extenuating Circumstances Form'
     login_as(FactoryBot.create(:admin))
     visit '/meetings'
     click_link 'New Meeting'
@@ -222,7 +222,7 @@ describe 'meeting' do
     click_button 'Add to meeting'
     expect(page).to have_content 'ECF was successfully added to the meeting'
     visit '/meetings'
-    find(:xpath, '/html/body/main/div/div[1]/div/div/table/tbody/tr[1]/td[5]/a', text: 'Show').click
+    find(:xpath, '/html/body/main/div/div[2]/div/div/table/tbody/tr/td[5]/a', text: 'Show').click
     expect(page).to have_content 'Pending'
     find(:xpath, '/html/body/main/div/div/div/div[1]/table/tbody/tr/td[11]/a', text: 'Remove ECF').click
     page.driver.browser.switch_to.alert.accept
@@ -241,7 +241,7 @@ describe 'meeting', js: true do
     click_button 'Create Meeting'
     expect(page).to have_content 'Attendees: test'
     visit '/meetings'
-    find(:xpath, '/html/body/main/div/div[1]/div/div/table/tbody/tr[1]/td[7]/a', text: 'Destroy').click
+    find(:xpath, '/html/body/main/div/div[2]/div/div/table/tbody/tr/td[7]/a', text: 'Destroy').click
     page.driver.browser.switch_to.alert.accept
     expect(page).to have_content 'Meeting was successfully destroyed.'
   end
