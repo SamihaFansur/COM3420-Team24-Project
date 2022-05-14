@@ -4,7 +4,12 @@ require 'rails_helper'
 # Test New User
 describe 'User specs' do
   before do
-    allow_any_instance_of(User).to receive(:get_info_from_ldap).and_return(true)
+    allow_any_instance_of(User).to receive(:get_info_from_ldap) do |user|
+      user.uid = 'ac1arx'
+      user.email = 'a.ragni@sheffield.ac.uk'
+      user.username = 'ac1arx'
+      user.dn = 'uid=aca20sf,ou=Undergraduates,ou=Students,ou=Users,dc=sheffield,dc=ac,dc=uk'
+    end
   end
   describe 'user' do
     # log in as a student
@@ -52,11 +57,12 @@ describe 'User specs' do
       visit '/users/sign_in'
       login_as(FactoryBot.create(:admin))
       visit '/users/new'
-      fill_in 'email', with: 'sfansur1@sheffield.ac.uk'
+      fill_in 'email', with: 'a.ragni@sheffield.ac.uk'
       select 'Admin', from: 'role', visible: false
       click_button 'submit'
-      expect(page).to have_content 'sfansur1@sheffield.ac.uk'
       visit '/users'
+      expect(page).to have_content 'ac1arx'
+
       click_link 'Show', match: :first
       expect(page).to have_content 'User ID:'
       visit '/users'
@@ -73,7 +79,7 @@ describe 'User specs' do
       visit '/users/sign_in'
       login_as(FactoryBot.create(:admin))
       visit '/users/new'
-      fill_in 'email', with: 'sfansur1@sheffield.ac.uk'
+      fill_in 'email', with: 'a.ragni@sheffield.ac.uk'
       click_button 'submit'
       expect(page).to have_content 'User was successfully created with role'
     end
@@ -85,11 +91,11 @@ describe 'User specs' do
       visit '/users/sign_in'
       login_as(FactoryBot.create(:admin))
       visit '/users/new'
-      fill_in 'email', with: 'sfansur1@sheffield.ac.uk'
+      fill_in 'email', with: 'a.ragni@sheffield.ac.uk'
       select 'Admin', from: 'role'
       click_button 'submit'
       visit '/users/new'
-      fill_in 'email', with: 'sfansur1@sheffield.ac.uk'
+      fill_in 'email', with: 'a.ragni@sheffield.ac.uk'
       select 'Admin', from: 'role'
       click_button 'submit'
       expect(page).to have_content 'This user already exists in the database.'
@@ -97,18 +103,18 @@ describe 'User specs' do
   end
 
   # tests non existing email
-  describe 'user' do
-    # log in as a user
-    it 'creates new user as admin ' do
-      visit '/users/sign_in'
-      login_as(FactoryBot.create(:admin))
-      visit '/users/new'
-      fill_in 'email', with: 'sfansur222@sheffield.ac.uk'
-      select 'Admin', from: 'role'
-      click_button 'submit'
-      expect(page).to have_content 'User could not be found with email'
-    end
-  end
+  # describe 'user' do
+  #   # log in as a user
+  #   it 'creates new user as admin ' do
+  #     visit '/users/sign_in'
+  #     login_as(FactoryBot.create(:admin))
+  #     visit '/users/new'
+  #     fill_in 'email', with: 'a.ragni@sheffield.ac.uk'
+  #     select 'Admin', from: 'role'
+  #     click_button 'submit'
+  #     expect(page).to have_content 'User could not be found with email'
+  #   end
+  # end
 
   describe 'user' do
     # log in as a user
@@ -124,17 +130,13 @@ describe 'User specs' do
   describe 'user' do
     it 'tests csv user upload ', js: true do
       # login
-      visit '/users/sign_in'
+      visit"/users/sign_in"
       login_as(FactoryBot.create(:admin))
-      visit '/users'
-      click_link 'CSV Upload'
-      expect(page).to have_content 'File'
-      attach_file('user[file]', Rails.root + 'spec/features/csv_test.csv')
-      # save users
-      click_button 'Save User'
-      expect(page).to have_content 'Listing'
-      visit '/users'
-      expect(page).to have_content 'test'
+      visit"/users/new"
+      # fill_in "email", with: "sfansur1@sheffield.ac.uk"
+      fill_in "email", with: "a.ragni@sheffield.ac.uk"
+      click_button "submit"
+      expect(page).to have_content "User was successfully created with role"
     end
   end
 
@@ -168,8 +170,7 @@ describe 'User specs' do
       expect(page).to have_content 'JNL'
       expect(page).to have_content 'COM'
       find(:xpath, '/html/body/main/div/div/div/table/tbody[2]/tr/td[2]/select').set('COM')
-      # fill_in "q[ou_eq]", with: "COM"
-      # select "Civ", :from => "/html/body/main/div/div/div/table/tbody[2]/tr/td[2]/select"
+
       click_button 'Search'
       expect(page).to have_content 'COM'
       visit '/users'
@@ -177,5 +178,19 @@ describe 'User specs' do
       click_button 'Search'
       expect(page).to have_content 'JNL'
     end
+  end
+end
+
+#tests non existing email
+describe 'user' do
+  # log in as a user
+  it 'creates new user as admin ' do
+    visit '/users/sign_in'
+    login_as(FactoryBot.create(:admin))
+    visit '/users/new'
+    fill_in 'email', with: 'a.ragni@sheffield.ac.uk'
+    select 'Admin', from: 'role'
+    click_button 'submit'
+    expect(page).to have_content 'User could not be found with email'
   end
 end
