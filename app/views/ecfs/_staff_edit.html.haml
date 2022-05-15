@@ -21,13 +21,7 @@
             %td= @ecf.user.mail
             %td= @ecf.user.ou
     
-    %p
-      %b Add this ECF to a meeting:
-      = simple_form_for(:agenda, :url => agendas_path, :method => :post) do |f|
-        = f.input :ecf_id, as: :hidden, input_html: {value: @ecf.id}
-        = f.input :meeting_id, label: "Meeting ID: "
-        = f.button :submit, value: "Add to meeting", class: 'btn btn-outline-primary btn-sm ml-5'
-
+    %br
     %h4 ECF Details
     %p
       %b ECF Status:
@@ -45,6 +39,7 @@
       = render "staff_edit_sensitive_info"
       
     %p
+      %br
       %h4 Affected Units:
       - if @ecf.affected_units.empty?
         .text-note
@@ -76,6 +71,7 @@
                       = g.hidden_field :assessment_type, value: affected_unit.assessment_type
                       = g.hidden_field :requested_action, value: affected_unit.requested_action
                       - if affected_unit.requested_action.include?("DEX")
+                        Extension date:
                         = g.date_field :extension_date
                       - else
                         = g.hidden_field :extension_date, as: :date, value: DateTime.now
@@ -83,6 +79,7 @@
 
 
     %p
+      %br
       %h4 Student notes
       = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover " } }) do |f|
         = link_to_add_nested(f, :ecf_notes, '#ecf-notes-student', partial: 'ecf_notes/ecf_note_student_fields') do
@@ -179,6 +176,7 @@
                   = link_to "Delete note", ecf_note_path(ecf_note), method: :delete, class: "btn btn-outline-danger btn-sm"
     
     - if (@ecf.highly_sensitive and current_user.admin?) or !@ecf.highly_sensitive
+      %br
       %h4 Uploaded email conversations
       - if @ecf.upload_conversations.size == 0
         .text-note

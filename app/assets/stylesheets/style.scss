@@ -104,6 +104,17 @@ h1, h2, h3, h4, h5,
   box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.24);
 }
 
+.basic-wrapper {
+  position: relative;
+  background: #ffffff;
+  border-width: 2px;
+  border-radius: 2px;
+  padding-left: 30px;
+  padding-right: 30px;
+  border-style: solid;
+  border-color:rgb(173, 173, 173)
+}
+
 .login-wrap {
 
   position: relative;

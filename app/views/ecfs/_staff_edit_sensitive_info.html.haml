@@ -51,6 +51,7 @@
   %b Details of Circumstances:
   %textarea.exampleFormControlTextarea1.form-control.rounded-0{:readonly => "readonly", :rows => "10"}= @ecf.details
 
+%br
 %h4 Supporting evidence
 %p 
   - @ecf.upload_medical_evidence.each do |medical_evidence|
@@ -61,13 +62,15 @@
 
 %p
   = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
-    + Add supporting evidence:
+    %b Add supporting evidence:
+    %br
     = f.file_field :upload_medical_evidence, multiple: true, accept: 'application/pdf'
     %br
     .text-note (Note: uploaded evidence will be visible to the student.)
     #update_evi_btn= f.button :submit, value: 'Update evidence',class: 'btn btn-outline-primary btn-sm '
 
 %p
+  %br
   %h4 Outcomes:
   - @ecf.agendas.each do |agenda, index|
     %p
