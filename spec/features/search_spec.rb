@@ -36,14 +36,14 @@ describe 'search' do
     fill_in 'Unit code', with: 'COM2008'
     fill_in 'Assessment type', with: 'Exam'
     select 'DEX - Deadline Extension', from: 'Requested action ', visible: false
-    click_button 'Create Ecf'
+    click_button 'Submit Extenuating Circumstances Form'
     expect(page).to have_content 'aca20sf'
     login_as(FactoryBot.create(:admin))
     visit '/ecfs'
     expect(page).to have_content 'aca20sf' # first ecf check
     # #Test search functionality
-    find_field('q[status_cont]').set('Pending')
-    find_field('q_user_givenname_or_user_sn_cont').set('')
+    find_field('q[status_eq]').set('Pending')
+    find_field('q[user_givenname_or_user_sn_cont]').set('')
     click_button 'Search'
     expect(page).to have_content 'aca20sf' # second ecf check
   end

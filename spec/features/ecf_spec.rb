@@ -28,7 +28,7 @@ describe 'ecf' do
     click_button 'Submit Extenuating Circumstances Form'
     # Check that ecf is listed fro student 1
     expect(page).to have_content 'aca20sf'
-    find(:xpath, '/html/body/header/div/div/button/a[1]', text: 'Logout').click
+    find(:xpath, '/html/body/header/div/div/a[2]', text: 'Logout').click
     page.driver.browser.switch_to.alert.accept
     expect(page).to have_content 'Overview'
     # Logged out and login as student 2
