@@ -58,6 +58,8 @@
       %h4 Supporting Evidence
       %ul
         %p
+          %b Please upload any relevant evidence to support your circumstances here:
+          %br
           %div.col.align-self-start
             = f.file_field :upload_medical_evidence, multiple: true, accept: 'application/pdf'
           %div#typeWarning{:style => "display:none"}
