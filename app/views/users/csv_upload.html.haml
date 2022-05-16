@@ -1,24 +1,22 @@
 :javascript
-	window.onload = function() {
-		function handleClickBtn(e){
-			console.log(e);
-			e.preventDefault();
-		}
-		const upload_file = document.getElementById("user_file"); // check upload file type validation
-		upload_file.onchange = function(){
-		//check file type
-			//if(upload_file.files[0].type != "text/csv"){
-			//	alert("Please check the file type before uploading");
-			//	this.value = "";
-			//	return;
-			//}}
-		const upload_btn = document.getElementById("csv_submit"); // check upload file type validation
-		upload_btn.onclick = function(e){
-			if(upload_file.value == ""){
-				handleClickBtn(e); //prevent error page
-				alert("Please select a file");
-			}}
+	window.onload = function(){
+	function handleClickBtn(e){
+		console.log(e);
+		e.preventDefault();
 	}
+	const upload_file = document.getElementById("user_file"); // check upload file type validation
+	upload_file.onchange = function(){
+	if(upload_file.files[0].type != "text/csv"){
+		alert("Please check the file type before uploading");
+		this.value = "";
+		return;
+	}}
+	const upload_btn = document.getElementById("csv_submit"); // check upload file type validation
+	upload_btn.onclick = function(e){
+		if(upload_file.value == ""){
+			handleClickBtn(e); //prevent error page
+			alert("Please select a file");
+		}}}
 .container
 	.row.justify-content-center
 		.col-md-6.col-lg-4
