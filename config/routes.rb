@@ -28,7 +28,11 @@ Rails.application.routes.draw do
       get 'showECFs', to: 'users#showECFs', as: :showECFs
     end
   end
-  resources :meetings
+  resources :meetings do
+    collection do
+      post 'add_pending', to: 'meetings#add_pending'
+    end
+  end
   resources :emails
   resources :outcomes
 

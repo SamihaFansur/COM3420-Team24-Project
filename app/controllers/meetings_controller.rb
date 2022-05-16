@@ -47,6 +47,18 @@ class MeetingsController < ApplicationController
     end
   end
 
+  def add_pending
+    set_meeting
+    pending_ecfs = Ecf.where(status: "Pending")
+    pending_ecfs.each do | ecf | 
+      unless @meeting.ecfs.include? ecf
+        @meeting.agendas.create(ecf: ecf)
+      end
+    end
+
+    redirect_to @meeting, notice: 'Added any pending ECFs.'
+  end
+
   # PATCH/PUT /meetings/1
   def update
     if @meeting.update(meeting_params)
