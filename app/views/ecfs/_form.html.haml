@@ -1,6 +1,7 @@
 = javascript_pack_tag "new_ecf"
 .row.justify-content-center
   .login-wrap.py-5
+    %h4 Information
     %p
     This form is for students submitting evidence of medical or personal circumstances that they wish to be considered in relation to:
     %ul
@@ -8,14 +9,11 @@
       %li None or late submission of coursework
       %li Absence from class/study of more than 7 calendar days
 
-    If you have been absent for less than 7 calendar days and no assessment is involved, you should normally self-certify that absence without evidence. See 
-    =link_to 'https://www.sheffield.ac.uk/ssid/forms/circs'
-    for more information.
-    %br
     Please read the guidance on extenuating circumstances before completing this form: 
-    =link_to 'www.shef.ac.uk/ssid/forms/circsnotes'
-    If you need further guidance, please talk to departmental staff, the Student Advice Centre or SSiD.
+    =link_to 'www.shef.ac.uk/ssid/forms/circsnotes', 'https://www.shef.ac.uk/ssid/forms/circsnotes'
+    %br If you need further guidance, please talk to departmental staff, the Student Advice Centre or SSiD.
 
+    %br
     = simple_form_for(@ecf, :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
 
       = f.error_notification
@@ -23,72 +21,87 @@
 
       %h4 Details of Circumstances
       %ul
-        %b You must provide details of any circumstances relating to C, D and E below and attach any supporting evidence, 
-        e.g. letter from counsellor, social worker, hospital (re close relative/significant other), staff member etc., Learning Support Plan (LSP), police crime number etc.
-        %p
         %b Please check the relevant types of your extenuating circumstances:
         %p
+          = f.input :is_serious_short_term, label: '<b>* A.</b> Serious short term illness/accident/hospitalization resulting in absence for more than 7 calendar days or affecting assessment.'.html_safe
+          = f.input :is_deterioration_of_disability, as: :boolean, label: '<b>B.</b> A deterioration or fluctuation of a disability/long term health condition, resulting in absence of more than 7 calendar days and/or affecting assessment.'.html_safe
+          = f.input :is_bereavement, as: :boolean, label: '<b>* C:</b> Bereavement'.html_safe
+          = f.input :is_significant_adverse_personal, as: :boolean, label: '<b>* D:</b> Significant adverse personal/family circumstances.'.html_safe
+          = f.input :is_other_exceptional_factors, as: :boolean, label: '<b>* E:</b> Other significant exceptional factors (including non-medical circumstances)'.html_safe
+          = f.input :is_frequent_absence, as: :boolean, label: '<b>F:</b> Frequent absence of less than 7 calendar days where no assessment is involved'.html_safe
+          %b *
+          %i Requires supporting evidence
+        %br
+        %p
+          %b Please provide details of your circumstances:
+          = f.input :details, as: :text
+        
+        %p
+          %br
+          %b Are your circumstances ongoing?
+          = f.input :is_ongoing, as: :boolean, label: 'Circumstances are ongoing'
 
-        = f.input :is_serious_short_term, label: '<b>A.</b> Serious short term illness/accident/hospitalization resulting in absence for more than 7 calendar days or affecting assessment.'.html_safe
-        %ul
+          %br
+          %b Duration of circumstances:
+          %br If your circumstances are not ongoing, please enter the duration of circumstances:
+          = f.input :start_of_circumstances, as: :date
+          #end_date
+          = f.input :end_of_circumstances, as: :date
+
+          %br
+          %b Do you wish to keep your circumstances confidential?
           .text-note
-            If you are registered with the University Health Service, complete their Extenuating Circumstances Form located at: 
-            =link_to 'www.shef.ac.uk/health'
-            or via the UHS mobile app instead.
-            %br
-            Otherwise, please upload medical evidence from a relevant medical practitioner - a form for medical evidence can be found in the 'Medical evidence' section below.
-          
-        = f.input :is_deterioration_of_disability, as: :boolean, label: '<b>B.</b> A deterioration or fluctuation of a disability/long term health condition, resulting in absence of more than 7 calendar days and/or affecting assessment.'.html_safe
-        = f.input :is_bereavement, as: :boolean, label: '<b>C:</b> Bereavement'.html_safe
-        = f.input :is_significant_adverse_personal, as: :boolean, label: '<b>D:</b> Significant adverse personal/family circumstances.'.html_safe
-        = f.input :is_other_exceptional_factors, as: :boolean, label: '<b>E:</b> Other significant exceptional factors (including non-medical circumstances)'.html_safe
-        = f.input :is_frequent_absence, as: :boolean, label: '<b>F:</b> Frequent absence of less than 7 calendar days where no assessment is involved'.html_safe
-        %ul
-          .text-note
-            Students should normally self-certify (
-            =link_to 'www.shef.ac.uk/health'
-            ) unless such absences are frequent enough to cause concern.
-
-        %b Please provide details of your circumstances:
-        = f.input :details, as: :text
-
-        %b Are your circumstances ongoing?
-        = f.input :is_ongoing, as: :boolean, label: 'Circumstances are ongoing'
-
-        %b Duration of circumstances:
-        = f.input :start_of_circumstances, as: :date
-        #end_date
-        = f.input :end_of_circumstances, as: :date
-
-        %b Do you wish to keep your circumstances confidential?
-        .text-note
-          Checking the following box will mean your details, including medical evidence, are only visible to the scrutiny panel chair.
-        = f.input :highly_sensitive, as: :boolean, label: 'I wish to keep my circumstances confidential'
+            Checking the following box will mean your details, including medical evidence, are only visible to the scrutiny panel chair.
+          = f.input :highly_sensitive, as: :boolean, label: 'I wish to keep my circumstances confidential'
+          %br
 
       %h4 Supporting Evidence
       %ul
         %p
+          %b Please upload any relevant evidence to support your circumstances here:
+          %br
           %div.col.align-self-start
             = f.file_field :upload_medical_evidence, multiple: true, accept: 'application/pdf'
           %div#typeWarning{:style => "display:none"}
             = f.object.errors[:upload_medical_evidence].first
           .text-note
             Files must be in the pdf format. You may select multiple files at once in your file explorer.
-        %p
-          Download the template for medical notes here:
-          = link_to 'Medical evidence template'
 
-
+      %br
       %h4 Units Affected by Extenuating Circumstances
       %ul
         %p
-          %b What units are affected and what action are you requesting as a result of these circumstances?
-          PLEASE NOTE: your request will be considered in line with your existing academic departmental practice and will only be granted where circumstances are considered to be extenuating.
-        = link_to_add_nested(f, :affected_units, '#affected-units', link_classes: "btn-primary btn-lg cursor_hover active no_underline", partial: 'affected_units/affected_unit_fields', link_text: 'Add an affected unit', )
+          %p
+            %b What units are affected and what action are you requesting as a result of these circumstances?
 
-        #affected-units
-          = f.fields_for :affected_units do |affected_unit_f|
-            = render 'affected_units/affected_unit_fields', form: affected_unit_f
+        .table-responsive
+        %table.table
+          %thead
+            %tr
+              -# ADD TOOLTIPS HERE?
+              %th{:scope => "col"} Unit Code
+              %th{:scope => "col"} Assessment Type
+              %th{:scope => "col"} Date affected from:
+              %th{:scope => "col"} Date affected to:
+              %th{:scope => "col"} Requested Action:
+              %th{:scope => "col"}
+          %tbody#affected-units
+            %tr
+              %td
+                .text-note e.g. COM1001
+              %td 
+                .text-note e.g. Assignment, exam, quiz, lab 
+              %td  
+              %td 
+              %td 
+              %td
+            - if !@ecf.affected_units.empty?
+              = f.fields_for :affected_units do |affected_unit_f|
+                = render 'affected_units/affected_unit_fields', form: affected_unit_f
+
+            
+        
+        = link_to_add_nested(f, :affected_units, '#affected-units', link_classes: 'btn btn-primary btn-sm', partial: 'affected_units/affected_unit_fields', link_text: ' + Add an affected unit')
 
       %div.mx-auto.mt-5
         .form-actions.btn-primary.btn-lg.btn-block

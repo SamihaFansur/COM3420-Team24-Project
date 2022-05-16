@@ -15,18 +15,6 @@ window.onload = function() {
     text_area.setAttribute('style', 'height: 100px !important') // for better input
   }
 
-  //change input size and color
-  var unit_code = document.getElementById("ecf_affected_units_attributes_0_unit_code");
-  unit_code.classList.add("w-25");
-  unit_code.classList.add("select_without_background");
-
-  var assessment_type = document.getElementById("ecf_affected_units_attributes_0_assessment_type");
-  assessment_type.classList.add("select_without_background");
-  assessment_type.classList.add("w-25");
-
-  var requested_action = document.getElementById("ecf_affected_units_attributes_0_requested_action");
-  requested_action.classList.add("w-25")
-
   // if ecf condition 'is ongoing' then delete the end of circumstance field.
   var isChecked = document.getElementById("ecf_is_ongoing");
   if (isChecked.checked) {
