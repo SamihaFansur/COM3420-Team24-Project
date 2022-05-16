@@ -5,12 +5,6 @@
 		e.preventDefault();
 	}
 	const upload_file = document.getElementById("user_file"); // check upload file type validation
-	upload_file.onchange = function(){
-	if(upload_file.files[0].type != "text/csv"){
-		alert("Please check the file type before uploading");
-		this.value = "";
-		return;
-	}}
 	const upload_btn = document.getElementById("csv_submit"); // check upload file type validation
 	upload_btn.onclick = function(e){
 		if(upload_file.value == ""){
