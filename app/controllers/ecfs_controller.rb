@@ -75,6 +75,10 @@ class EcfsController < ApplicationController
         EmailMailer.with(ecf: @ecf).ecf_updated.deliver_now
         flash[:notice] = 'Form was successfully updated. You should have received email confirmation.'
       end
+      if @ecf.status == "Complete"
+        EmailMailer.with(ecf: @ecf).ecf_status_complete.deliver_now
+        flash[:notice] = 'Form marked as complete. Student notified through email.'
+      end
       flash[:notice] = 'Form was successfully updated.'
       redirect_back(fallback_location: ecfs_path)
     else
