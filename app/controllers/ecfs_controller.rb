@@ -54,6 +54,7 @@ class EcfsController < ApplicationController
   def edit
     set_ecf
     set_ecf_notes
+    set_agendas
     # groups all ecf_notes by role for the view - avoids repeated 'where' queries.
     @ecf_notes_grouped = @ecf_notes.group_by(&:role)
   end
@@ -107,6 +108,16 @@ class EcfsController < ApplicationController
   end
 
   private
+
+  def set_agendas
+    @agenda = Agenda.find_by(id: params[:agenda_id])
+    @agendas = @ecf.agendas.includes(:meeting).order('meeting.time DESC')
+    if @agenda.nil?
+      unless @agendas.empty?
+        @agenda = @agendas.first
+      end
+    end
+  end
 
   # Sets @ecf variable for use in views.
   def set_ecf

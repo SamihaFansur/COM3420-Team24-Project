@@ -47,6 +47,7 @@
       
     %p
       %br
+      %a{ :name => "affected-units" }
       %h4 Affected Units:
       - if @ecf.affected_units.empty?
         .text-note
@@ -61,7 +62,7 @@
               %th{:scope => "col"} Affected from:
               %th{:scope => "col"} Affected to:
               %th{:scope => "col"} Outcome:
-              %th{:scope => "col"} 
+              %th{:scope => "col"} Meeting:
           %tbody
             - @ecf.affected_units.each do |affected_unit|
               %tr
@@ -70,19 +71,23 @@
                 %td= affected_unit.requested_action
                 %td= affected_unit.date_from
                 %td= affected_unit.date_to
-                = simple_form_for(@ecf.latest_agenda) do |f|
+                = simple_form_for :decision, :url => '/decisions' do |g|
                   %td
-                    = f.simple_fields_for(:decision) do |g|
-                      = g.input :outcome_id, as: :select, collection: Outcome.all, label: false
-                      = g.hidden_field :module_code,value: affected_unit.unit_code
-                      = g.hidden_field :assessment_type, value: affected_unit.assessment_type
-                      = g.hidden_field :requested_action, value: affected_unit.requested_action
-                      - if affected_unit.requested_action.include?("DEX")
-                        Extension date:
-                        = g.date_field :extension_date
-                      - else
-                        = g.hidden_field :extension_date, as: :date, value: DateTime.now
-                  %td= f.button :submit, value: 'Add decision',class: 'btn btn-outline-primary btn-sm'
+                    = g.input :outcome_id, as: :select, collection: Outcome.all, label: false
+                    = g.hidden_field :module_code,value: affected_unit.unit_code
+                    = g.hidden_field :assessment_type, value: affected_unit.assessment_type
+                    = g.hidden_field :requested_action, value: affected_unit.requested_action
+                    - if affected_unit.requested_action.include?("DEX")
+                      Extension date:
+                      = g.date_field :extension_date
+                    - else
+                      = g.hidden_field :extension_date, as: :date, value: DateTime.now
+                  %td
+                    - unless @ecf.agendas.empty?
+                      = g.input :agenda_id, as: :select, collection: @agendas, :label_method => lambda {|agenda| agenda.meeting.title}, label: false, selected: @agenda.id
+                      %td= g.button :submit, value: 'Add decision', class: 'btn btn-outline-primary btn-sm'
+                    - else
+                      %i No meetings to add decisions for.
 
 
     %p
