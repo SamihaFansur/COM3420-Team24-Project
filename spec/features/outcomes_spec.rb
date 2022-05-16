@@ -41,7 +41,6 @@ describe 'outcome' do
     expect(page).to have_content 'Outcome was successfully created.'
     visit '/outcomes'
     expect(page).to have_content 'test'
-    save_page
     find(:xpath, '/html/body/main/div/section/div/div/div/table/tbody/tr/td[4]/a', text: 'Show').click
     expect(page).to have_content 'test'
   end
