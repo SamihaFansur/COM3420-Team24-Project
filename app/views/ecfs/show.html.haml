@@ -25,6 +25,15 @@
               %td= @ecf.user.sn
               %td= @ecf.user.mail
               %td= @ecf.user.ou
+
+      - if @ecf.highly_sensitive and (can? :view_details, Ecf)
+        - if current_user.role == "admin"
+          .h4
+            .confidential-warning
+              %b THIS ECF IS HIGHLY SENSITIVE - the following details must be kept confidential!
+        - else
+          %b This ECF has been marked as highly sensitive - you do not have permission to view the details.
+
       %button.collapsible#overview.mt-5{:type => "button"}
         %h4 ● ECF Details
         %span.caret

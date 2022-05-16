@@ -21,6 +21,13 @@
             %td= @ecf.user.mail
             %td= @ecf.user.ou
     
+    - if current_user.role == "admin" && @ecf.highly_sensitive
+      %br
+      .h4
+        .confidential-warning
+          %b THIS ECF IS HIGHLY SENSITIVE - the following details must be kept confidential!
+      %br
+
     %br
     %h4 ECF Details
     %p
