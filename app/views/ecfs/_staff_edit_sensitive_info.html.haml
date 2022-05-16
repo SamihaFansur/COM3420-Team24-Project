@@ -1,23 +1,4 @@
-:javascript
-  window.onload=function(){
-    document.getElementById("add_decision").style.visibility = "hidden";
-    document.getElementsByClassName(" vanilla-nested-add ")[0].onclick = function () {
-      document.getElementById("add_decision").style.visibility = "visible";
-    }
-
-    var text_area = document.getElementsByClassName("exampleFormControlTextarea1");
-    for(var i = 0; i < text_area.length; i++){
-      text_area.item(i).onfocus = function () {
-        this.setAttribute('style', 'height: 200px !important') // for better input
-        this.style.borderStyle = "outset"
-      }
-      text_area.item(i).onblur = function () {
-        this.style.borderStyle = "inset"
-        this.setAttribute('style', 'height: 100px !important') // for better input
-      }
-    }
-
-  }
+= javascript_pack_tag "staff_edit_sensitive"
 %p
   %b Type(s) of Circumstances: 
   %br
@@ -56,7 +37,6 @@
 %p 
   - @ecf.upload_medical_evidence.each do |medical_evidence|
     %p
-      #uploaded_file
       = link_to medical_evidence.filename, medical_evidence, target: :_blank ,class:"btn btn-outline-primary"
       = link_to "Delete attachment", purge_attachment_path(medical_evidence), method: :delete,class: "btn btn-outline-danger"
 
