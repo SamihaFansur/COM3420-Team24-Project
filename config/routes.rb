@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :ecf_notes
   resources :agendas
   resources :decisions
+  resources :meeting_notes
 
   resources :ecfs do
     member do

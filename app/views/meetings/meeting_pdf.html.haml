@@ -17,6 +17,23 @@
   %b Attendees: 
   = @meeting.attendees
 
+- if !@meeting.meeting_notes.empty?
+  %h3 Meeting Notes
+  .table-responsive
+    %table.table
+      %thead
+        %tr
+          %th{:scope => "col"} Student name
+          %th{:scope => "col"} Description
+      %tbody
+        - @meeting.meeting_notes.each do |meeting_note|
+          %tr
+            %td
+              = meeting_note.name
+            %td
+              = meeting_note.description
+
+%h3 ECFs
 .table-responsive
   %table.table
     %thead

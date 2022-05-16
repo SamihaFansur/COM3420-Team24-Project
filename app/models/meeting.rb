@@ -15,4 +15,5 @@ class Meeting < ApplicationRecord
   has_many :agendas
   # has_many through to retrieve all ECFs for this meeting
   has_many :ecfs, through: :agendas
+  has_many :meeting_notes
 end

@@ -1,7 +1,6 @@
 .row.justify-content-center
   .login-wrap.py-5
-    %p
-      %b Title:
+    %h4
       = @meeting.title
     %p
       %b Time:
@@ -15,10 +14,40 @@
       ECFs on the agenda are listed below. 
       %br 
       To import an ECF into this meeting, please select 'Add to meeting' for an ECF at the following page:
-      = link_to 'List ECFs', ecfs_path(meeting_id: @meeting.id, meeting_title: @meeting.title), class: 'btn btn-primary btn-sm '
+      = link_to 'List ECFs', ecfs_path(meeting_id: @meeting.id, meeting_title: @meeting.title), class: 'btn btn-outline-primary btn-sm'
       %br
-      Or, click here to add all pending ECFs:
-      = link_to 'Add all pending ECFs', add_pending_meetings_path(id: @meeting.id), action: :add_pending, method: :post, class: 'btn btn-primary btn-sm '
+      Or, click here to add all pending ECFs to this meeting:
+      = link_to 'Add all pending ECFs', add_pending_meetings_path(id: @meeting.id), action: :add_pending, method: :post, class: 'btn btn-outline-primary btn-sm'
+    %h5 Note ECFs
+    %p.text-note
+      For students to be considered who have not yet submitted an ECF.
+    %p
+      %table.table
+        %thead
+          %tr
+            %th{:scope => "col"} Student name
+            %th{:scope => "col"} Description
+            %th{:scope => "col"}
+        %tbody
+          - @meeting.meeting_notes.each do |meeting_note|
+            %tr
+              %td
+                = meeting_note.name
+              %td
+                = meeting_note.description
+              %td
+                = link_to 'Remove Note', meeting_note_path(meeting_note), :method => :delete
+          %tr
+            = form_for :meeting_note, :url => '/meeting_notes' do |g|
+              %td
+                = g.text_field :name, label: false
+              %td
+                = g.text_field :description, label: false, size: 100
+                = g.hidden_field :meeting_id, value: @meeting.id
+              %td
+                = g.button :submit, value: 'Add note ECF', class: 'btn btn-outline-primary btn-sm'
+    %br
+    %h5 ECFs  
     -if  @agendas.empty?
       %p.alert.alert-primary.mb-4 No agenda found ! Please link ECF first.
     -if ! @ecfs.empty?
@@ -56,7 +85,8 @@
                     %br
                 %td= link_to 'Show', agenda.ecf
                 %td= link_to 'Edit', edit_ecf_path(agenda.ecf, agenda_id: agenda.id)
-                %td=  link_to 'Remove ECF', agenda_path(agenda), :method => :delete, :data => { :confirm => 'Are you sure?' }
+                - if agenda.decisions.empty?
+                  %td=  link_to 'Remove ECF', agenda_path(agenda), :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 
 
