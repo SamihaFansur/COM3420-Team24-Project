@@ -35,12 +35,12 @@ RSpec.describe Ecf, type: :model do
     end
   end
 
-  describe '#date' do
-    it 'return ecf date' do
-      ecf = described_class.new(date: 2022 - 0o3 - 21)
-      expect(ecf.date).to eq(2022 - 0o3 - 21)
-    end
-  end
+  # describe '#date' do
+  #   it 'return ecf date' do
+  #     ecf = described_class.new(date: 2022 - 0o3 - 21)
+  #     expect(ecf.date).to eq(2022 - 0o3 - 21)
+  #   end
+  # end
 
   describe '#details' do
     it 'return ecf details' do
@@ -49,12 +49,12 @@ RSpec.describe Ecf, type: :model do
     end
   end
 
-  describe '#email' do
-    it 'return ecf email' do
-      ecf = described_class.new(email: 'test@test.com')
-      expect(ecf.email).to eq('test@test.com')
-    end
-  end
+  # describe '#email' do
+  #   it 'return ecf email' do
+  #     ecf = described_class.new(email: 'test@test.com')
+  #     expect(ecf.email).to eq('test@test.com')
+  #   end
+  # end
 
   describe '#end_of_circumstances' do
     it 'return ecf end_of_circumstances' do
