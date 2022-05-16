@@ -5,7 +5,7 @@ class DecisionsController < ApplicationController
     if @decision.save
       flash[:success] = 'Decision added.'
       ecf = Agenda.find(decision_params[:agenda_id]).ecf
-      redirect_to(edit_ecf_path(ecf, agenda_id: decision_params[:agenda_id]), anchor: 'affected-units')
+      redirect_to edit_ecf_path(ecf, agenda_id: decision_params[:agenda_id], anchor: 'affected-units')
     else
       redirect_to(ecfs_path)
     end
