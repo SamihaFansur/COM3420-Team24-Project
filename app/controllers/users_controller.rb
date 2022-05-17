@@ -30,11 +30,11 @@ class UsersController < ApplicationController
 
   # POST /users
   # Creates a user on login via LDAP.
-  def create
-    user = User.new(username: params[:user][:username])
-    user.get_info_from_ldap
-    user.save
-  end
+  # def create
+  #   user = User.new(username: params[:user][:username])
+  #   user.get_info_from_ldap
+  #   user.save
+  # end
 
   # POST /users
   def new

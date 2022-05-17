@@ -53,16 +53,18 @@ FactoryBot.define do
     end
 
     factory :module_leader do
-      uid { 'aca20sf' }
-      dn { 'uid=aca20sf,ou=Undergraduates,ou=Staff,ou=Users,dc=sheffield,dc=ac,dc=uk' }
+      uid { 'ac1arx' }
+      dn { 'uid=ac1arx,ou=Undergraduates,ou=Staff,ou=Users,dc=sheffield,dc=ac,dc=uk' }
       role { 2 }
+      ou { 'com3420' }
     end
 
     # second student login for tests
     factory :module_leader2 do
-      uid { 'aca20sg' }
-      dn { 'uid=aca20sf,ou=Undergraduates,ou=Staff,ou=Users,dc=sheffield,dc=ac,dc=uk' }
+      uid { 'ac1arx' }
+      dn { 'uid=ac1arx,ou=Undergraduates,ou=Staff,ou=Users,dc=sheffield,dc=ac,dc=uk' }
       role { 2 }
+      ou { 'COM' }
     end
     factory :scrutiny_panel do
       uid { 'aca20sf' }
