@@ -1,3 +1,4 @@
+# Controller for Meeting Notes 
 class MeetingNotesController < ApplicationController
   # Creating a meeting note from show meeting page.
   def create

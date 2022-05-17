@@ -47,6 +47,7 @@ class MeetingsController < ApplicationController
     end
   end
 
+  # When a meeting is created add a pending status to the ECFs
   def add_pending
     set_meeting
     pending_ecfs = Ecf.where(status: "Pending")

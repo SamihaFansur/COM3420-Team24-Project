@@ -78,7 +78,7 @@ class UsersController < ApplicationController
     users_hash = User.pluck(:email, :id).to_h
     # hash of existing users and their module codes {"email1@test.com" => ["COM1004", "COM1010"]}
     user_modules_array = UserModule.select(:user_id, 'array_agg(module_code)').group(:user_id).pluck(:user_id,
-                                                                                                     'array_agg(module_code)')
+                                                                                                      'array_agg(module_code)')
     user_modules_hash = Hash[*user_modules_array.flatten(1)]
 
     new_users_hash = {}
@@ -131,24 +131,24 @@ class UsersController < ApplicationController
     end
   end
 
-  # null method - used for authorization of guest role priviliges
+  # Null method - used for authorization of guest role privileges
   def guest_prompt
     # null
   end
 
   private
 
-  # sets @user variable for use in views
+  # Sets @user variable for use in views
   def set_user
     @user = User.find(params[:id])
   end
 
-  # sets @user_modules variable for use in views.
+  # Sets @user_modules variable for use in views.
   def set_user_modules
     @user_modules = @user.user_modules
   end
 
-  # sets permitted parameters used to update / create a user.
+  # Sets permitted parameters used to update / create a user.
   def user_params
     params
       .require(:user)

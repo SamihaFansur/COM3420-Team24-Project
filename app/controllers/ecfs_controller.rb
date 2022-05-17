@@ -1,4 +1,4 @@
-# controller for 'Ecf' table
+# Controller for 'Ecf' table
 class EcfsController < ApplicationController
   load_and_authorize_resource
   before_action :set_ecf, only: %i[show edit update destroy update_persist]
@@ -113,6 +113,7 @@ class EcfsController < ApplicationController
 
   private
 
+  # Sets the agendas to be shown in a view
   def set_agendas
     @agenda = Agenda.find_by(id: params[:agenda_id])
     @agendas = @ecf.agendas.includes(:meeting).order('meeting.time DESC')
@@ -128,7 +129,7 @@ class EcfsController < ApplicationController
     @ecf = Ecf.find(params[:id])
   end
 
-  # sets an ECF's affected units to be shown in a view
+  # Sets an ECF's affected units to be shown in a view
   def set_affected_units
     if current_user.module_leader?
       # only retrieves affected units matching any of the user's assigned modules
@@ -139,7 +140,7 @@ class EcfsController < ApplicationController
     end
   end
 
-  # set @ecf_notes variable for use in views.
+  # Set @ecf_notes variable for use in views.
   def set_ecf_notes
     @ecf_notes = @ecf.ecf_notes
   end

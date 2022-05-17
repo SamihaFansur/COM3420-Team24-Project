@@ -4,6 +4,7 @@ class ErrorsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:error_422]
   skip_authorization_check
 
+  # Functions for well known error codes
   def error_403; end
 
   def error_404; end

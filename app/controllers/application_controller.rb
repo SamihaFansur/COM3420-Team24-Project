@@ -1,17 +1,18 @@
-# general controller, used for settings and authentication.
+# General controller, used for settings and authentication.
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_action :update_headers_to_disable_caching
   before_action :ie_warning
-  # ensures user is logged in on every page except the landing page.
+  # Ensures user is logged in on every page except the landing page.
   before_action :authenticate_user!, except: [:home]
 
   # Catch NotFound exceptions and handle them neatly, when URLs are mistyped or mislinked
   rescue_from ActiveRecord::RecordNotFound do
     render template: 'errors/error_404', status: 404
   end
+
   rescue_from CanCan::AccessDenied do
     render template: 'errors/error_403', status: 403
   end
@@ -24,12 +25,12 @@ class ApplicationController < ActionController::Base
   #   super(file, opts)
   # end
 
-  # sets search parameteres for Recipe gem
+  # Sets search parameters for Recipe gem
   def set_search
     @q = Recipe.search(params[:q])
   end
 
-  # method that determines where the user is routed after logging in
+  # Method that determines where the user is routed after logging in
   def after_sign_in_path_for(_resource)
     unless current_user.nil?
       if current_user.role == 'admin' # route to users page
@@ -50,13 +51,14 @@ class ApplicationController < ActionController::Base
 
   private
 
+  # Method that sets the current user's headers to disable caching
   def update_headers_to_disable_caching
     response.headers['Cache-Control'] = 'no-cache, no-cache="set-cookie", no-store, private, proxy-revalidate'
     response.headers['Pragma'] = 'no-cache'
     response.headers['Expires'] = '-1'
   end
 
-  # handling internet explorer users
+  # Handling internet explorer users
   def ie_warning
     if request.user_agent.to_s =~ /MSIE [6-7]/ && request.user_agent.to_s !~ %r{Trident/7.0}
       redirect_to(ie_warning_path)

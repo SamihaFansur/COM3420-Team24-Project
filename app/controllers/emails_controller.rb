@@ -2,7 +2,7 @@
 class EmailsController < ApplicationController
   # Generates an email for a meeting, addressed to the attendees
 
-  # i dont think this controller is being used
+  # I don't think this controller is being used
   def meeting_email
     @emails = params[:emails]
     EmailMailer.with(user_emails: [@emails]).meeting_email.deliver_now

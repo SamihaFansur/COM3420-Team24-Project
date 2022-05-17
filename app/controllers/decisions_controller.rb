@@ -1,3 +1,4 @@
+# Controller for 'Decisions' table
 class DecisionsController < ApplicationController
   # Creating a decision from Edit ECF page
   def create
@@ -11,6 +12,7 @@ class DecisionsController < ApplicationController
     end
   end
 
+  # Setting the decision parameters
   def decision_params
     params
       .require(:decision)

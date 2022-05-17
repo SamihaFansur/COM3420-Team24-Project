@@ -51,7 +51,7 @@ class OutcomesController < ApplicationController
     @outcome = Outcome.find(params[:id])
   end
 
-  # sets the permitted parameters used to update/create an outcome.
+  # Sets the permitted parameters used to update/create an outcome.
   def outcome_params
     params.require(:outcome).permit(:name, :short_name, :description)
   end

@@ -9,6 +9,6 @@ class PagesController < ApplicationController
     @current_nav_identifier = :home
   end
 
-  # dummy method for guest authentication
+  # Dummy method for guest authentication
   def guest_page; end
 end

@@ -1,4 +1,4 @@
-# controller for 'Agenda' table
+# Controller for 'Agenda' table
 # Agendas are used to add an ECF to a meeting's agenda, and handle outcomes for a meeting.
 class AgendasController < ApplicationController
   before_action :set_agenda, only: [:update]
@@ -65,6 +65,7 @@ class AgendasController < ApplicationController
 
   private
 
+  # Sets current agenda
   def set_agenda
     @agenda = Agenda.find(params[:id])
   end
@@ -76,6 +77,7 @@ class AgendasController < ApplicationController
       .slice(:ecf_id, :meeting_id)
   end
 
+  # Gets decision params
   def decision_params
     a_params = params.require(:agenda)
     return ActionController::Parameters.new unless a_params.include?(:decision)
