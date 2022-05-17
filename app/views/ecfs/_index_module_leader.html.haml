@@ -1,0 +1,122 @@
+%link{:href => "https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap", :rel => "stylesheet"}/
+= javascript_pack_tag "ecf_preview"
+%body-1
+%section.ftco-section
+  .container.animate__animated.animate__fadeIn
+    .row.justify-content-center
+      .col-md-6.text-center.mb-5
+        %h2.heading-section Listing ECFs
+
+    .row.justify-content-center
+      .ecf-preview
+        .row
+          .col
+            %p.txt-centre#col1
+            - if current_user.role == "module_leader"
+              There #{@ecfs_ids.size == 1 ? 'is' : 'are'}
+              %span#num1 #{pluralize @ecfs_ids.size, 'ecf'}
+              affecting your modules.
+
+        %h4 Pending ECFs
+        %p The following are pending ECFs which affect one of your modules. They may require your review, especially if they contain a DEX request.
+        .table-responsive
+          %table.table
+          -if @ecfs.where(status: 'Pending').empty?
+            %p.alert.alert-primary There are no pending ECFs relevant to your modules.
+          -else
+            .table-responsive
+              %table.table
+                %thead
+                  %tr
+                    %th{:scope => "col"} Status
+                    %th{:scope => "col"} Contains DEX?
+                    %th{:scope => "col"} Date Submitted
+                    %th{:scope => "col"} Student Full Name
+                    %th{:scope => "col"} Email
+                    %th{:scope => "col"} Username
+                    %th{:scope => "col"} Department
+                    %th{:scope => "col"} Affected Units
+                    %th
+                    %th
+                %tbody
+                  - @ecfs.where(status: 'Pending').each do |ecf|
+                    - if current_user.role == "module_leader"
+                      - if @ecfs_ids.include? ecf.id
+                        %tr
+                          %td= ecf.status
+                          - if ecf.affected_units.where(unit_code: current_user.user_modules.pluck(:module_code)).exists?(requested_action: "DEX - Deadline Extension")
+                            %td Yes
+                          - else
+                            %td No
+                          %td= ecf.created_at.strftime("%Y-%m-%d")
+                          %td #{ecf.user.givenname} #{ecf.user.sn}
+                          %td= ecf.user.mail
+                          %td= ecf.user.uid
+                          %td= ecf.user.ou
+                          %td
+                            - ecf.affected_units.where(unit_code: current_user.user_modules.pluck(:module_code)).limit(5).each do |affected_unit|
+                              %b= "#{affected_unit.unit_code} : "
+                              %i= affected_unit.requested_action.split(' ')[0]
+                              %br
+                          %td= link_to 'Show', ecf
+                          - if can? :edit, Ecf
+                            -if current_user.student?
+                              -if ecf.decisions.size == 0
+                                %td= link_to 'Edit', edit_ecf_path(ecf)
+                              -else
+                                %td Decisons have been made. Cannot edit ECF.
+                            -else
+                              %td= link_to 'Edit', edit_ecf_path(ecf)
+
+        %h4 Complete ECFs
+        %p The following are ECFs affecting one of your modules which have completed review by the scrutiny panel. Select 'show' to see the panel's final decisions.
+        .table-responsive
+          %table.table
+          -if @ecfs.where(status: 'Complete').empty?
+            %p.alert.alert-primary There are no complete ECFs relevant to your modules.
+          -else
+            .table-responsive
+              %table.table
+                %thead
+                  %tr
+                    %th{:scope => "col"} Status
+                    %th{:scope => "col"} Contains DEX?
+                    %th{:scope => "col"} Date Submitted
+                    %th{:scope => "col"} Student Full Name
+                    %th{:scope => "col"} Email
+                    %th{:scope => "col"} Username
+                    %th{:scope => "col"} Department
+                    %th{:scope => "col"} Affected Units + Latest Outcome
+                    %th
+                    %th
+                %tbody
+                  - @ecfs.where(status: 'Complete').each do |ecf|
+                    - if current_user.role == "module_leader"
+                      - if @ecfs_ids.include? ecf.id
+                        %tr
+                          %td= ecf.status
+                          - if ecf.affected_units.where(unit_code: current_user.user_modules.pluck(:module_code)).exists?(requested_action: "DEX - Deadline Extension")
+                            %td Yes
+                          - else
+                            %td No
+                          %td= ecf.created_at.strftime("%Y-%m-%d")
+                          %td #{ecf.user.givenname} #{ecf.user.sn}
+                          %td= ecf.user.mail
+                          %td= ecf.user.uid
+                          %td= ecf.user.ou
+                          %td
+                            - ecf.affected_units.where(unit_code: current_user.user_modules.pluck(:module_code)).limit(5).each do |affected_unit|
+                              %b= "#{affected_unit.unit_code} : "
+                              %i= affected_unit.requested_action.split(' ')[0]
+                              - latest = ecf.decisions.where(module_code: affected_unit.unit_code, requested_action: affected_unit.requested_action).order(:created_at).last
+                              %i= latest.outcome.name
+                              - if latest.outcome.name == 'Approved' && (latest.requested_action.include?('DEX') || latest.requested_action.include?('NP'))
+                                %i= " to #{latest.extension_date}"
+                              %br
+                          %td
+                            -# LATEST DECISIONS HERE.
+                          %td= link_to 'Show', ecf
+
+
+
+

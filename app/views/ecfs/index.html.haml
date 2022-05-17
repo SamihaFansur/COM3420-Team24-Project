@@ -3,6 +3,8 @@
 %body-1
 - if current_user.student?
   = render 'index_student'
+- elsif current_user.module_leader?
+  = render 'index_module_leader'
 - else
   %section.ftco-section
     .container.animate__animated.animate__fadeIn
@@ -52,7 +54,8 @@
                           %td= f.search_field :user_email_cont
                           %td= f.search_field :affected_units_requested_action_cont
                           %td= f.submit "Search"
-
+          - if current_user.module_leader?
+            The following are all ECFs which 
           .table-responsive
             %table.table
             -if @ecfs.empty?
@@ -66,9 +69,12 @@
                       %th{:scope => "col"} Contains DEX?
                       %th{:scope => "col"} Date Submitted
                       %th{:scope => "col"} Student Full Name
-                      %th{:scope => "col"} Student Email
-                      %th{:scope => "col"} Student Username
-                      %th{:scope => "col"} Student Department
+                      %th{:scope => "col"} Email
+                      %th{:scope => "col"} Username
+                      %th{:scope => "col"} Department
+                      %th{:scope => "col"} Affected Units
+                      %th
+                      %th
                   %tbody
                     - @ecfs.each do |ecf|
                       - if current_user.role == "module_leader"
@@ -84,6 +90,11 @@
                             %td= ecf.user.mail
                             %td= ecf.user.uid
                             %td= ecf.user.ou
+                            %td
+                              - ecf.affected_units.where(unit_code: current_user.user_modules.pluck(:module_code)).limit(5).each do |affected_unit|
+                                %b= "#{affected_unit.unit_code} : "
+                                %i= affected_unit.requested_action.split(' ')[0]
+                                %br
                             %td= link_to 'Show', ecf
                             - if can? :edit, Ecf
                               -if current_user.student?
@@ -107,6 +118,11 @@
                           %td= ecf.user.mail
                           %td= ecf.user.uid
                           %td= ecf.user.ou
+                          %td
+                            - ecf.affected_units.limit(5).each do |affected_unit|
+                              %b= "#{affected_unit.unit_code} : "
+                              %i= affected_unit.requested_action.split(' ')[0]
+                              %br
                           %td= link_to 'Show', ecf
                           - if can? :edit, Ecf
                             -if current_user.student?

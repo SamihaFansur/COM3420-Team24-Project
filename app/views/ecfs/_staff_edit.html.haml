@@ -79,7 +79,7 @@
                     = g.hidden_field :module_code,value: affected_unit.unit_code
                     = g.hidden_field :assessment_type, value: affected_unit.assessment_type
                     = g.hidden_field :requested_action, value: affected_unit.requested_action
-                    - if affected_unit.requested_action.include?("DEX")
+                    - if affected_unit.requested_action.include?("DEX") || affected_unit.requested_action.include?("NP")
                       Extension date:
                       = g.date_field :extension_date
                     - else
@@ -111,8 +111,8 @@
                         %th{:scope => "col"} Module Code
                         %th{:scope => "col"} Assessment Type
                         %th{:scope => "col"} Requested Action
-                        %th{:scope => "col"} Extension date
                         %th{:scope => "col"} Outcome
+                        %th{:scope => "col"} Extension Date
                     %tbody
                       - agenda.decisions.each do |decision|
                         %tr
@@ -122,13 +122,11 @@
                             = decision.assessment_type
                           %td.overflow-auto
                             = decision.requested_action
-                          
-                          - if decision.requested_action.include?("DEX")
-                            %td.overflow-auto= decision.extension_date
-                          - else
-                            %td.overflow-auto= 'N/A'
                           %td.overflow-auto
                             = decision.outcome&.name
+                          %td.overflow-auto
+                            - if decision.requested_action.include?("DEX") || decision.requested_action.include?("NP")
+                              = decision.extension_date
 
     %br
     %p

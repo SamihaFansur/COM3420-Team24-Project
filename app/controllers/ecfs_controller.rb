@@ -6,7 +6,7 @@ class EcfsController < ApplicationController
   # GET /ecfs
   def index
     if current_user.student?
-      @ecfs = current_user.ecfs
+      @ecfs = current_user.ecfs.order(:created_at).reverse
     elsif current_user.module_leader?
       # only show ecfs with affected units matching the current user's modules
       @user_modules = UserModule.find_by_sql ['SELECT * FROM user_modules where user_id = ?', current_user.id.to_s]
@@ -25,7 +25,7 @@ class EcfsController < ApplicationController
     else
       # Perform search on view search parameters.
       @q = Ecf.ransack(params[:q])
-      @ecfs = @q.result
+      @ecfs = @q.result.order(:created_at).reverse
     end
   end
 
