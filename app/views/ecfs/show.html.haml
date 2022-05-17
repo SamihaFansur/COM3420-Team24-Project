@@ -30,109 +30,94 @@
           .h4
             .confidential-warning
               %b THIS ECF IS HIGHLY SENSITIVE - the following details must be kept confidential!
-        - else
-          %b This ECF has been marked as highly sensitive - you do not have permission to view the details.
 
-    %button.collapsible#overview.mt-5{:type => "button"}
-      %h4 ● ECF Details
-      %span.caret
-    .content.lh-lg.fw-normal.font-monospace.mt-4
-
-      %ul
-      %p
-        %b Status:
-        = @ecf.status
-        - if @ecf.status == 'Pending'
-          .text-note
-            This ECF is awaiting review by the scrutiny team.
-      %p
-        %b Date of submission:
-        = @ecf.created_at.strftime("%Y-%m-%d")
-
-      - if current_user.id == @ecf.user_id
-        = render "sensitive_info"
-      - elsif @ecf.highly_sensitive and (can? :view_details, Ecf)
-        - if current_user.role == "admin"
-          %b Please note that this ECF has been marked as highly sensitive - the following details must be kept confidential.
-          = render "sensitive_info"
-        - else
-          %b This ECF has been marked as highly sensitive - you do not have permission to view the details.
-      - else
-        - if can? :view_details, Ecf
-          = render "sensitive_info"
-        - else
-          %p
-            %b You do not have permission to view the details of this form.
-
-      %p
-    .line_02.mt-2
-    %span
-    %button.collapsible#overview.mt-5{:type => "button"}
-      %h4 ● Affected Units
-      %span.caret
-    .content.lh-lg.fw-normal.font-monospace.mt-4
-
-      %h4 Affected Units
-      - if @affected_units.empty?
+    %br
+    %h4 ECF Details
+    %p
+      %b Status:
+      = @ecf.status
+      - if @ecf.status == 'Pending'
         .text-note
-          No affected units to view.
+          This ECF is awaiting review by the scrutiny team.
+    %p
+      %b Date of submission:
+      = @ecf.created_at.strftime("%Y-%m-%d")
+
+    - if current_user.id == @ecf.user_id
+      = render "sensitive_info"
+    - elsif @ecf.highly_sensitive and (can? :view_details, Ecf)
+      - if current_user.role == "admin"
+        %b Please note that this ECF has been marked as highly sensitive - the following details must be kept confidential.
+        = render "sensitive_info"
       - else
-        %table.table
-          %thead
+        %b This ECF has been marked as highly sensitive - you do not have permission to view the details.
+    - else
+      - if can? :view_details, Ecf
+        = render "sensitive_info"
+      - else
+        %p
+          %b You do not have permission to view the details of this form.
+
+
+    %br
+    %br
+    %h4 Affected Units
+    - if @affected_units.empty?
+      .text-note
+        No affected units to view.
+    - else
+      %table.table
+        %thead
+          %tr
+            %th{:scope => "col"} Module Code
+            %th{:scope => "col"} Assessment type
+            %th{:scope => "col"} Requested Action
+            %th{:scope => "col"} Affected from:
+            %th{:scope => "col"} Affected to:
+        %tbody
+          - @affected_units.each do |affected_unit|
             %tr
-              %th{:scope => "col"} Module Code
-              %th{:scope => "col"} Assessment type
-              %th{:scope => "col"} Requested Action
-              %th{:scope => "col"} Affected from:
-              %th{:scope => "col"} Affected to:
-          %tbody
-            - @affected_units.each do |affected_unit|
-              %tr
-                %td= affected_unit.unit_code
-                %td= affected_unit.assessment_type
-                %td= affected_unit.requested_action
-                %td= affected_unit.date_from
-                %td= affected_unit.date_to
+              %td= affected_unit.unit_code
+              %td= affected_unit.assessment_type
+              %td= affected_unit.requested_action
+              %td= affected_unit.date_from
+              %td= affected_unit.date_to
 
-
-        %span
-    .line_02.mt-2
     - if current_user.scrutiny? or current_user.admin?
-      %p
-      %button.collapsible#overview.mt-5{:type => "button"}
-        %h4 ● Outcomes
-        %span.caret
-      .content.lh-lg.fw-normal.font-monospace.mt-4
-        %h4 Outcomes:
-        -if @ecf.agendas.empty?
-          .alert.alert-primary There is no current outcome
-        - @ecf.agendas.each do |agenda, index|
-          %b= "Decisions for #{agenda.meeting.title} [Meeting # #{agenda.meeting.id}, #{agenda.meeting.time}]:"
-          - if agenda.decisions.empty?
-            .text-note There are currently no decisions for this meeting.
-          - else
-            .nested-wrapper
-              %table.table.table-responsive.mt-5
-                %thead
+      %br
+      %br
+      %h4 Decisions
+      -if @ecf.agendas.empty?
+        .text-note This Ecf has not yet been reviewed at a meeting.
+      - @ecf.agendas.each do |agenda, index|
+        %b= "Decisions for #{agenda.meeting.title} [Meeting # #{agenda.meeting.id}, #{agenda.meeting.time}]:"
+        - if agenda.decisions.empty?
+          .text-note There are currently no decisions for this meeting.
+        - else
+          .nested-wrapper
+            %table.table.table-responsive.mt-5
+              %thead
+                %tr
+                  %th{:scope => "col"} Module Code
+                  %th{:scope => "col"} Assessment Type
+                  %th{:scope => "col"} Requested Action
+                  %th{:scope => "col"} Outcome
+              %tbody
+                - agenda.decisions.each do |decision|
                   %tr
-                    %th{:scope => "col"} Module Code
-                    %th{:scope => "col"} Assessment Type
-                    %th{:scope => "col"} Requested Action
-                    %th{:scope => "col"} Outcome
-                %tbody
-                  - agenda.decisions.each do |decision|
-                    %tr
-                      %th{:scope => "row"}
-                        = decision.module_code
-                      %td
-                        = decision.assessment_type
-                      %td.overflow-auto
-                        = decision.requested_action
-                      %td.overflow-auto
-                        = decision.outcome&.name
+                    %th{:scope => "row"}
+                      = decision.module_code
+                    %td
+                      = decision.assessment_type
+                    %td.overflow-auto
+                      = decision.requested_action
+                    %td.overflow-auto
+                      = decision.outcome&.name
 
     - if @ecf.status == "Complete"
-      %h4 Final outcomes
+      %br
+      %br
+      %h4 Final decisions
       %p This ECF is marked as Complete. Please see the final decisions below.
       - if @decisions_ecfs.empty?
         .text-note No decisions have been made for this form.
@@ -158,16 +143,12 @@
                   - else
                     %td
 
-        - if (current_user.id == @ecf.user_id) or (current_user.admin?) or (current_user.scrutiny? and !@ecf.highly_sensitive)
-          %p
-    - if current_user.scrutiny? or current_user.admin?
-      .line_02.mt-2
-    %button.collapsible#overview.mt-5{:type => "button"}
-      %h4 ● Notes
-      %span.caret
-    .content.lh-lg.fw-normal.font-monospace.mt-4
-
-      %h4 Student notes
+    %br
+    %br
+    %h4 Notes
+    - if (current_user.id == @ecf.user_id) or (current_user.admin?) or (current_user.scrutiny? and !@ecf.highly_sensitive)
+      %h6
+        %b Student notes
       = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover " } }) do |f|
         = link_to_add_nested(f, :ecf_notes, '#ecf-notes-student', partial: 'ecf_notes/ecf_note_student_fields') do
           %button + Add a Student note
@@ -189,94 +170,92 @@
                 = ecf_note.created_at
                 - if ecf_note.user_id == current_user.id
                   = link_to "Delete note", ecf_note_path(ecf_note), method: :delete
-      - if (current_user.module_leader?) or (current_user.admin?) or (current_user.scrutiny?)
-        %p
-        %h4 Module leader notes
-        = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
-          = link_to_add_nested(f, :ecf_notes, '#ecf-notes-module-leader', partial: 'ecf_notes/ecf_note_module_leader_fields',link_classes: "mt-5") do
-            %button + Add a Module Leader note
+    - if (current_user.module_leader?) or (current_user.admin?) or (current_user.scrutiny?)
+      %p
+      %h6 
+        %b Module leader notes
+      = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
+        = link_to_add_nested(f, :ecf_notes, '#ecf-notes-module-leader', partial: 'ecf_notes/ecf_note_module_leader_fields',link_classes: "mt-5") do
+          %button + Add a Module Leader note
 
-          #ecf-notes-module-leader
+        #ecf-notes-module-leader
 
-        - if @ecf_notes_grouped[2].nil?
-          %i There are currently no module leader notes.
+      - if @ecf_notes_grouped[2].nil?
+        %i There are currently no module leader notes.
+      - else
+        - @ecf_notes_grouped[2].each do |ecf_note|
+          %p
+            %b Note:
+            = ecf_note.description
+            %br
+              %i.some{:style => "color:dimgrey"}
+                %b Submitted by:
+                = "#{ecf_note.user.givenname} #{ecf_note.user.sn}, "
+                %b Note created at:
+                = ecf_note.created_at
+                - if ecf_note.user_id == current_user.id
+                  = link_to "Delete note", ecf_note_path(ecf_note), method: :delete
+
+    - if (current_user.admin?) or (current_user.scrutiny?)
+      %p
+      %h6
+        %b Scrutiny panel notes
+      = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
+        = link_to_add_nested(f, :ecf_notes, '#ecf-notes-scrutiny', partial: 'ecf_notes/ecf_note_scrutiny_fields') do
+          %button + Add a Scrutiny Member note
+        #ecf-notes-scrutiny
+
+      - if @ecf_notes_grouped[3].nil?
+        %i There are currently no scrutiny panel notes.
+      - else
+        - @ecf_notes_grouped[3].each do |ecf_note|
+          %p
+            %b Note:
+            = ecf_note.description
+            %br
+              %i.some{:style => "color:dimgrey"}
+                %b Submitted by:
+                = "#{ecf_note.user.givenname} #{ecf_note.user.sn}, "
+                %b Note created at:
+                = ecf_note.created_at
+                - if ecf_note.user_id == current_user.id
+                  = link_to "Delete note", ecf_note_path(ecf_note), method: :delete
+    - if current_user.admin?
+      %p
+      %h6
+        %b Scrutiny chair notes
+      = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
+        = link_to_add_nested(f, :ecf_notes, '#ecf-notes-admin', partial: 'ecf_notes/ecf_note_admin_fields') do
+          %button#add_note + Add a Student Chair
+
+        #ecf-notes-admin
+
+      - if @ecf_notes_grouped[4].nil?
+        %i There are currently no module leader notes.
+      - else
+        - @ecf_notes_grouped[4].each do |ecf_note|
+          %p
+            %b Note:
+            = ecf_note.description
+            %br
+              %i.some{:style => "color:dimgrey"}
+                %b Submitted by:
+                = "#{ecf_note.user.givenname} #{ecf_note.user.sn}, "
+                %b Note created at:
+                = ecf_note.created_at
+                - if ecf_note.user_id == current_user.id
+                  = link_to "Delete note", ecf_note_path(ecf_note), method: :delete, class: "btn btn-outline-danger btn-sm"
+
+
+    - if current_user.admin? or current_user.scrutiny?
+      - if (@ecf.highly_sensitive and current_user.admin?) or (!@ecf.highly_sensitive)
+        %br
+        %br
+        %h4 Uploaded Conversations:
+        - if @ecf.upload_conversations.size == 0
+          .text-note
+            No conversations have been uploaded.
         - else
-          - @ecf_notes_grouped[2].each do |ecf_note|
+          - @ecf.upload_conversations.each do |conversation|
             %p
-              %b Note:
-              = ecf_note.description
-              %br
-                %i.some{:style => "color:dimgrey"}
-                  %b Submitted by:
-                  = "#{ecf_note.user.givenname} #{ecf_note.user.sn}, "
-                  %b Note created at:
-                  = ecf_note.created_at
-                  - if ecf_note.user_id == current_user.id
-                    = link_to "Delete note", ecf_note_path(ecf_note), method: :delete
-
-      - if (current_user.module_leader?) or (current_user.admin?) or (current_user.scrutiny?)
-        %p
-        %h4 Scrutiny panel notes
-        = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
-          = link_to_add_nested(f, :ecf_notes, '#ecf-notes-scrutiny', partial: 'ecf_notes/ecf_note_scrutiny_fields') do
-            %button + Add a Scrutiny Member note
-          #ecf-notes-scrutiny
-
-        - if @ecf_notes_grouped[3].nil?
-          %i There are currently no scrutiny panel notes.
-        - else
-          - @ecf_notes_grouped[3].each do |ecf_note|
-            %p
-              %b Note:
-              = ecf_note.description
-              %br
-                %i.some{:style => "color:dimgrey"}
-                  %b Submitted by:
-                  = "#{ecf_note.user.givenname} #{ecf_note.user.sn}, "
-                  %b Note created at:
-                  = ecf_note.created_at
-                  - if ecf_note.user_id == current_user.id
-                    = link_to "Delete note", ecf_note_path(ecf_note), method: :delete
-      - if current_user.admin?
-        %p
-        %h4 Scrutiny chair notes
-        = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
-          = link_to_add_nested(f, :ecf_notes, '#ecf-notes-admin', partial: 'ecf_notes/ecf_note_admin_fields') do
-            %button#add_note + Add a Student Chair
-
-          #ecf-notes-admin
-
-        - if @ecf_notes_grouped[4].nil?
-          %i There are currently no module leader notes.
-        - else
-          - @ecf_notes_grouped[4].each do |ecf_note|
-            %p
-              %b Note:
-              = ecf_note.description
-              %br
-                %i.some{:style => "color:dimgrey"}
-                  %b Submitted by:
-                  = "#{ecf_note.user.givenname} #{ecf_note.user.sn}, "
-                  %b Note created at:
-                  = ecf_note.created_at
-                  - if ecf_note.user_id == current_user.id
-                    = link_to "Delete note", ecf_note_path(ecf_note), method: :delete, class: "btn btn-outline-danger btn-sm"
-
-
-
-
-
-
-      - if current_user.admin? or current_user.scrutiny?
-        - if (@ecf.highly_sensitive and current_user.admin?) or (!@ecf.highly_sensitive)
-          %h4 Uploaded Conversations:
-          - if @ecf.upload_conversations.size == 0
-            .text-note
-              No conversations have been uploaded.
-          - else
-            - @ecf.upload_conversations.each do |conversation|
-              %p
-              = link_to conversation.filename, conversation, target: :_blank
-
-      %span
-    .line_02.mt-4
+            = link_to conversation.filename, conversation, target: :_blank

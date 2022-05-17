@@ -2,7 +2,7 @@
   %b Details:
 
   %p
-    %textarea#exampleFormControlTextarea1.form-control.rounded-0{:readonly => "readonly", :rows => "10"}= @ecf.details
+    %textarea.basic-textarea= @ecf.details
 
   %p
     %b Type(s) of Circumstances: 
@@ -34,11 +34,12 @@
     to
     = @ecf.end_of_circumstances
 
+  %br
   %h4 Supporting Evidence
   - if @ecf.upload_medical_evidence.size == 0
-    %p.alert.alert-primary There is no uploaded evidence file!
+    .text-note There is no uploaded evidence.
   - else
     - @ecf.upload_medical_evidence.each do |medical_evidence|
       %p
       = link_to medical_evidence.filename, medical_evidence, target: :_blank ,class:"btn btn-outline-primary"
-      = link_to "Delete attachment", purge_attachment_path(medical_evidence), method: :delete ,class: "btn btn-outline-danger"
+      = link_to "Delete attachment", purge_attachment_path(medical_evidence), method: :delete
