@@ -49,28 +49,28 @@ describe 'meeting' do
   end
 end
 
-describe 'meeting' do
-  # log in as a user
-  it 'fills out and submits meetings then emails attendees' do
-    visit '/users/sign_in'
-    login_as(FactoryBot.create(:admin))
-    visit '/meetings'
-    click_link 'New Meeting'
-    fill_in 'Title', with: '1'
-    fill_in 'Attendees', with: 'test'
-    click_button 'Create Meeting'
-    expect(page).to have_content 'Attendees: test'
-    visit '/meetings'
-    expect(page).to have_content 'test'
-    click_link 'Edit'
-    fill_in 'Attendees', with: 'new test'
-    click_button 'Update Meeting'
-    expect(page).to have_content 'new test'
-    visit '/meetings'
-    click_link 'Email Attendees', match: :first, visible: false
-    expect(page).to have_content 'Attendees notified'
-  end
-end
+# describe 'meeting' do
+#   # log in as a user
+#   it 'fills out and submits meetings then emails attendees' do
+#     visit '/users/sign_in'
+#     login_as(FactoryBot.create(:admin))
+#     visit '/meetings'
+#     click_link 'New Meeting'
+#     fill_in 'Title', with: '1'
+#     fill_in 'Attendees', with: 'test'
+#     click_button 'Create Meeting'
+#     expect(page).to have_content 'Attendees: test'
+#     visit '/meetings'
+#     expect(page).to have_content 'test'
+#     click_link 'Edit'
+#     fill_in 'Attendees', with: 'new test'
+#     click_button 'Update Meeting'
+#     expect(page).to have_content 'new test'
+#     visit '/meetings'
+#     click_link 'Email Attendees', match: :first, visible: false
+#     expect(page).to have_content 'Attendees notified'
+#   end
+# end
 
 describe 'meeting' do
   it 'fills out and submits meetings then goes to edit meeting and clicks back' do

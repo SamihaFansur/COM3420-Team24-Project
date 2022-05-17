@@ -29,10 +29,13 @@ FactoryBot.define do
   factory :user do
     mail { 'test@test.com' }
     givenname { 'test' }
+    dn { 'uid=aca20sf,ou=Undergraduates,ou=Students,ou=Users,dc=sheffield,dc=ac,dc=uk' }
+
     sn { 'test ' }
     ou { 'Undergraduates' }
 
     factory :student do
+
       uid { 'aca20sf' }
       dn { 'uid=aca20sf,ou=Undergraduates,ou=Students,ou=Users,dc=sheffield,dc=ac,dc=uk' }
       role { 1 }
@@ -50,6 +53,7 @@ FactoryBot.define do
       dn { 'uid=aca20sf,ou=Undergraduates,ou=Students,ou=Users,dc=sheffield,dc=ac,dc=uk' }
       role { 1 }
       ou { 'JNL' }
+      id {100}
     end
 
     factory :module_leader do
