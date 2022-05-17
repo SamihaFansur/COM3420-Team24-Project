@@ -18,7 +18,7 @@
 #
 FactoryBot.define do
   factory :affected_unit do
-    unit_code { 'MyString' }
+    unit_code { 'COM' }
     assessment_type { 'MyString' }
     date_from { '2020-03-21' }
     date_to { '2022-03-21' }
