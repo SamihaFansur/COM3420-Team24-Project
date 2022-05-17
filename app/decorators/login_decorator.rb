@@ -1,3 +1,5 @@
+# Login Decorator
+# Not used
 class LoginDecorator < Draper::Decorator
   delegate_all
 

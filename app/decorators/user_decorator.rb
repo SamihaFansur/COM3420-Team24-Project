@@ -1,3 +1,5 @@
+# User Decorator
+# Not used
 class UserDecorator < Draper::Decorator
   delegate_all
 

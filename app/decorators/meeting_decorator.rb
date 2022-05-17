@@ -1,3 +1,5 @@
+# Meeting Decorator
+# Not used
 class MeetingDecorator < Draper::Decorator
   delegate_all
 

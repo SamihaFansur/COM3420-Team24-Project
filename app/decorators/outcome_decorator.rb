@@ -1,3 +1,5 @@
+# Outcome Decorator
+# Not used
 class OutcomeDecorator < Draper::Decorator
   delegate_all
 
