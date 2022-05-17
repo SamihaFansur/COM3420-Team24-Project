@@ -1,9 +1,16 @@
 = javascript_pack_tag "show_ecf"
 - if can? :showECFs, User
-  %p= link_to 'Show all ECFs', showECFs_user_path(@ecf.user), class: 'btn btn-primary'
+  %p= link_to 'Show all of users ECFs', showECFs_user_path(@ecf.user), class: 'btn btn-primary'
 
+%h1= "Show ECF"
 .row.justify-content-center
   .login-wrap.py-5
+    - if can? :edit, @ecf
+      %p
+      = link_to 'Edit ECF', edit_ecf_path(@ecf), class: 'btn btn-primary'
+    = link_to 'Back', :back, class: 'btn btn-outline-info'
+    %br
+    %br
     - unless current_user.student?
       %h4 Student Details
       .table-responsive
