@@ -87,7 +87,7 @@
                   %td
                     - unless @ecf.agendas.empty?
                       = g.input :agenda_id, as: :select, collection: @agendas, :label_method => lambda {|agenda| agenda.meeting.title}, label: false, selected: @agenda.id
-                      %td= g.button :submit, value: 'Add decision', class: 'btn btn-outline-primary btn-sm'
+                      %td= g.button :submit, value: 'Add decision', class: 'btn btn-outline-primary btn-sm', id: 'decision_button'
                     - else
                       %i No meetings to add decisions for.
 

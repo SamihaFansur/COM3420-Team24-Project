@@ -22,29 +22,33 @@ describe 'ecf' do
     visit '/ecfs'
     click_link 'Create New ECF'
     fill_in 'Details', with: 'Example User2'
-    fill_in 'Unit code', with: 'COM2008'
-    fill_in 'Assessment type', with: 'Exam'
-    select 'DEX - Deadline Extension', from: 'Requested action ', visible: false
+    fill_in 'ecf[affected_units_attributes][0][unit_code]', with: 'COM2008'
+    fill_in 'ecf[affected_units_attributes][0][assessment_type]', with: 'Exam'
+    fill_in 'ecf[affected_units_attributes][0][date_from]', with: '2022-05-16'
+    fill_in 'ecf[affected_units_attributes][0][date_to]', with: '2022-05-16'
+    select 'DEX - Deadline Extension', from: 'ecf[affected_units_attributes][0][requested_action]', visible: false
     click_button 'Submit Extenuating Circumstances Form'
     # Check that ecf is listed fro student 1
     expect(page).to have_content 'aca20sf'
     find(:xpath, '/html/body/header/div/div/a[2]', text: 'Logout').click
-    page.driver.browser.switch_to.alert.accept
+    # page.driver.browser.switch_to.alert.accept
     expect(page).to have_content 'Overview'
     # Logged out and login as student 2
     visit '/users/sign_in'
     login_as(FactoryBot.create(:student2))
     visit '/ecfs'
-    click_link 'MY ECFS'
+    click_link 'SHOW ECFS'
     # Check that student 1 user ecf doesnt show up for student 2
     expect(page).not_to have_content 'aca20sf'
     # Create ecf for student 2
     visit '/ecfs'
     click_link 'Create New ECF'
     fill_in 'Details', with: 'Example User2'
-    fill_in 'Unit code', with: 'COM2008'
-    fill_in 'Assessment type', with: 'Exam'
-    select 'DEX - Deadline Extension', from: 'Requested action ', visible: false
+    fill_in 'ecf[affected_units_attributes][0][unit_code]', with: 'COM2008'
+    fill_in 'ecf[affected_units_attributes][0][assessment_type]', with: 'Exam'
+    fill_in 'ecf[affected_units_attributes][0][date_from]', with: '2022-05-16'
+    fill_in 'ecf[affected_units_attributes][0][date_to]', with: '2022-05-16'
+    select 'DEX - Deadline Extension', from: 'ecf[affected_units_attributes][0][requested_action]', visible: false
     click_button 'Submit Extenuating Circumstances Form'
     # Check student 2 sees their ecf
     expect(page).to have_content 'aca20sg'
@@ -56,13 +60,15 @@ describe 'ecf' do
   it 'Submit Extenuating Circumstances Form ' do
     # login in as student and make an ecf
     visit '/users/sign_in'
-    login_as(FactoryBot.create(:student))
+    login_as(FactoryBot.create(:student2))
     visit '/ecfs'
     click_link 'Create New ECF'
     fill_in 'Details', with: 'Example User2'
-    fill_in 'Unit code', with: 'COM2008'
-    fill_in 'Assessment type', with: 'Exam'
-    select 'DEX - Deadline Extension', from: 'Requested action ', visible: false
+    fill_in 'ecf[affected_units_attributes][0][unit_code]', with: 'COM2008'
+    fill_in 'ecf[affected_units_attributes][0][assessment_type]', with: 'Exam'
+    fill_in 'ecf[affected_units_attributes][0][date_from]', with: '2022-05-16'
+    fill_in 'ecf[affected_units_attributes][0][date_to]', with: '2022-05-16'
+    select 'DEX - Deadline Extension', from: 'ecf[affected_units_attributes][0][requested_action]', visible: false
     click_button 'Submit Extenuating Circumstances Form'
     click_link 'Edit', match: :first
     fill_in 'Details', with: 'updated info'
@@ -84,9 +90,11 @@ describe 'ecf' do
     visit '/ecfs'
     click_link 'Create New ECF'
     fill_in 'Details', with: 'Example User2'
-    fill_in 'Unit code', with: 'COM2008'
-    fill_in 'Assessment type', with: 'Exam'
-    select 'DEX - Deadline Extension', from: 'Requested action ', visible: false
+    fill_in 'ecf[affected_units_attributes][0][unit_code]', with: 'COM2008'
+    fill_in 'ecf[affected_units_attributes][0][assessment_type]', with: 'Exam'
+    fill_in 'ecf[affected_units_attributes][0][date_from]', with: '2022-05-16'
+    fill_in 'ecf[affected_units_attributes][0][date_to]', with: '2022-05-16'
+    select 'DEX - Deadline Extension', from: 'ecf[affected_units_attributes][0][requested_action]', visible: false
     click_button 'Submit Extenuating Circumstances Form'
     login_as(FactoryBot.create(:admin))
     visit '/ecfs'
@@ -98,71 +106,6 @@ describe 'ecf' do
 end
 
 describe 'ecf' do
-  # log in as a user
-  it 'Add ECF to a meeting ' do
-    # login in as student and make an ecf
-    visit '/users/sign_in'
-    login_as(FactoryBot.create(:admin))
-    visit '/meetings'
-    click_link 'New Meeting'
-    fill_in 'Title', with: '1'
-    fill_in 'Attendees', with: 'test'
-    click_button 'Create Meeting'
-    expect(page).to have_content 'Attendees: test'
-    visit '/meetings'
-    expect(page).to have_content 'test'
-    login_as(FactoryBot.create(:student2))
-    visit '/ecfs'
-    click_link 'Create New ECF'
-    fill_in 'Details', with: 'Example User2'
-    fill_in 'Unit code', with: 'COM2008'
-    fill_in 'Assessment type', with: 'Exam'
-    select 'DEX - Deadline Extension', from: 'Requested action ', visible: false
-    click_button 'Submit Extenuating Circumstances Form'
-    login_as(FactoryBot.create(:admin))
-    visit '/ecfs'
-    click_link 'Edit', match: :first
-    find_field('agenda_meeting_id').set('1')
-    click_button 'Add to meeting'
-    expect(page).to have_content 'ECF was successfully added to the meeting.'
-    find_field('agenda_meeting_id').set('1')
-    click_button 'Add to meeting'
-    expect(page).to have_content 'This ECF has already been added to the meeting!'
-  end
-end
-
-describe 'ecf' do
-  # log in as a user
-  it 'Fail to Add ECF to a meeting ' do
-    # login in as student and make an ecf
-    visit '/users/sign_in'
-    login_as(FactoryBot.create(:admin))
-    visit '/meetings'
-    click_link 'New Meeting'
-    fill_in 'Title', with: '1'
-    fill_in 'Attendees', with: 'test'
-    click_button 'Create Meeting'
-    expect(page).to have_content 'Attendees: test'
-    visit '/meetings'
-    expect(page).to have_content 'test'
-    login_as(FactoryBot.create(:student2))
-    visit '/ecfs'
-    click_link 'Create New ECF'
-    fill_in 'Details', with: 'Example User2'
-    fill_in 'Unit code', with: 'COM2008'
-    fill_in 'Assessment type', with: 'Exam'
-    select 'DEX - Deadline Extension', from: 'Requested action ', visible: false
-    click_button 'Submit Extenuating Circumstances Form'
-    login_as(FactoryBot.create(:admin))
-    visit '/ecfs'
-    click_link 'Edit', match: :first
-    find_field('agenda_meeting_id').set('h')
-    click_button 'Add to meeting'
-    expect(page).to have_content 'Must enter a meeting ID.'
-  end
-end
-
-describe 'ecf' do
   it 'uploads evidence to ecf', js: true do
     visit '/users/sign_in'
     login_as(FactoryBot.create(:student2))
@@ -170,9 +113,11 @@ describe 'ecf' do
     expect(page).to have_content 'Listing ECFs'
     click_link 'Create New ECF'
     fill_in 'Details', with: 'Example User2'
-    fill_in 'Unit code', with: 'COM2008'
-    fill_in 'Assessment type', with: 'Exam'
-    select 'DEX - Deadline Extension', from: 'Requested action ', visible: false
+    fill_in 'ecf[affected_units_attributes][0][unit_code]', with: 'COM2008'
+    fill_in 'ecf[affected_units_attributes][0][assessment_type]', with: 'Exam'
+    fill_in 'ecf[affected_units_attributes][0][date_from]', with: '2022-05-16'
+    fill_in 'ecf[affected_units_attributes][0][date_to]', with: '2022-05-16'
+    select 'DEX - Deadline Extension', from: 'ecf[affected_units_attributes][0][requested_action]', visible: false
     click_button 'Submit Extenuating Circumstances Form'
     logout(:student)
     login_as(FactoryBot.create(:admin))
@@ -193,11 +138,13 @@ describe 'ecf', js: true do
     expect(page).to have_content 'Listing ECFs'
     click_link 'Create New ECF'
     fill_in 'Details', with: 'Example User2'
-    fill_in 'Unit code', with: 'COM2008'
-    fill_in 'Assessment type', with: 'Exam'
-    select 'DEX - Deadline Extension', from: 'Requested action ', visible: false
+    fill_in 'ecf[affected_units_attributes][0][unit_code]', with: 'COM2008'
+    fill_in 'ecf[affected_units_attributes][0][assessment_type]', with: 'Exam'
+    fill_in 'ecf[affected_units_attributes][0][date_from]', with: '2022-05-16'
+    fill_in 'ecf[affected_units_attributes][0][date_to]', with: '2022-05-16'
+    select 'DEX - Deadline Extension', from: 'ecf[affected_units_attributes][0][requested_action]', visible: false
     click_button 'Submit Extenuating Circumstances Form'
-    logout(:student)
+    logout(:student2)
     login_as(FactoryBot.create(:admin))
     visit '/ecfs'
     click_link 'Edit', match: :first
@@ -232,11 +179,25 @@ describe 'ecf', js: true do
     visit '/users/sign_in'
     login_as(FactoryBot.create(:admin))
     FactoryBot.create(:ecf)
+    visit '/meetings'
+    click_link 'New Meeting'
+    fill_in 'meeting[title]', with: 'test'
+    fill_in 'meeting[attendees]', with: 'test'
+    click_button 'Create Meeting'
+    expect(page).to have_content 'Meeting attendees should have received email invitation.'
+    click_link 'List ECFs', match: :first
+    click_link 'Add to meeting #', match: :first
+    visit '/outcomes'
+    click_link 'New Outcome'
+    fill_in 'outcome[name]', with: 'Approved'
+    fill_in 'outcome[short_name]', with: 'Approved'
+    fill_in 'outcome[description]', with: 'Y'
+    click_button 'Create Outcome'
     visit '/ecfs'
     click_link 'Edit', match: :first
-    click_button '+ Add Decision', match: :first
-    click_button 'Add decisions to meeting', match: :first
-    expect(page).to have_content 'Meeting was successfully updated.'
+    select 'Approved', from: 'decision[outcome_id]'
+    find('#decision_button').click
+    expect(page).to have_content 'Decisions for test'
   end
 end
 
@@ -245,11 +206,24 @@ describe 'ecf', js: true do
     visit '/users/sign_in'
     login_as(FactoryBot.create(:admin))
     FactoryBot.create(:ecf)
+    visit '/meetings'
+    click_link 'New Meeting'
+    fill_in 'meeting[title]', with: 'test'
+    fill_in 'meeting[attendees]', with: 'test'
+    click_button 'Create Meeting'
+    expect(page).to have_content 'Meeting attendees should have received email invitation.'
+    click_link 'List ECFs', match: :first
+    click_link 'Add to meeting #', match: :first
+    visit '/outcomes'
+    click_link 'New Outcome'
+    fill_in 'outcome[name]', with: 'Approved'
+    fill_in 'outcome[short_name]', with: 'Approved'
+    fill_in 'outcome[description]', with: 'Y'
+    click_button 'Create Outcome'
     visit '/ecfs'
     click_link 'Edit', match: :first
-
-    click_button 'Add decisions to meeting', match: :first
-    expect(page).to have_content 'No decisions added.'
+    find('#decision_button').click
+    expect(page).not_to have_content 'Decisions for test'
   end
 end
 
@@ -261,18 +235,23 @@ describe 'notes' do
     expect(page).to have_content 'Listing ECFs'
     click_link 'Create New ECF'
     fill_in 'Details', with: 'Example User2'
-    fill_in 'Unit code', with: 'COM2008'
-    fill_in 'Assessment type', with: 'Exam'
-    select 'DEX - Deadline Extension', from: 'Requested action ', visible: false
+    fill_in 'ecf[affected_units_attributes][0][unit_code]', with: 'COM2008'
+    fill_in 'ecf[affected_units_attributes][0][assessment_type]', with: 'Exam'
+    fill_in 'ecf[affected_units_attributes][0][date_from]', with: '2022-05-16'
+    fill_in 'ecf[affected_units_attributes][0][date_to]', with: '2022-05-16'
+    select 'DEX - Deadline Extension', from: 'ecf[affected_units_attributes][0][requested_action]', visible: false
     click_button 'Submit Extenuating Circumstances Form'
-    logout(:student)
+    logout(:student2)
     login_as(FactoryBot.create(:admin))
     visit '/ecfs'
     click_link 'Edit', match: :first
     expect(page).to have_content 'Edit ECF'
     expect(page).to have_content '+ Add a Student note'
-    click_link 'Add Decision', match: :first
-    click_button 'Submit decision'
+    click_button '+ Add a Student note', match: :first
+    find(:xpath, '/html/body/main/div/div/div/form[3]/div/div/div[2]/input').set('test')
+
+    # fill_in 'ecf[ecf_notes_attributes][1652750355512][description]', with: 'test'
+    click_button 'Submit note'
     expect(page).to have_content 'Form was successfully updated.'
     click_link 'Delete note'
     expect(page).to have_content 'Note was successfully deleted.'
