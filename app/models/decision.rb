@@ -12,6 +12,9 @@
 #  agenda_id        :integer
 #  outcome_id       :string
 #
+
+# This relates a decision to an agenda.
+# Each decision will have an outcome.
 class Decision < ApplicationRecord
   belongs_to :agenda
   belongs_to :outcome

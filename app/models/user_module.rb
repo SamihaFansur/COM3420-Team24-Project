@@ -8,6 +8,7 @@
 #  updated_at  :datetime         not null
 #  user_id     :string
 #
+# A model to represent a user's module.
 class UserModule < ApplicationRecord
   # assigns a module_code to a user
   belongs_to :user

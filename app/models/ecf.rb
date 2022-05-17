@@ -23,6 +23,7 @@
 #
 #  fk_rails_...  (user_id => users.id)
 #
+# A model to represent an ECF.
 class Ecf < ApplicationRecord
   belongs_to :user
 

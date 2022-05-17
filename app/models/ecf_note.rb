@@ -15,6 +15,7 @@
 #  fk_rails_...  (ecf_id => ecfs.id)
 #  fk_rails_...  (user_id => users.id)
 #
+# A note is can be made to an ECF by/to student, module leader, or scrutiny panel member.
 class EcfNote < ApplicationRecord
   belongs_to :ecf
   belongs_to :user

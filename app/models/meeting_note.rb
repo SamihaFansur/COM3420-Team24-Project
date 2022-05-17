@@ -9,6 +9,7 @@
 #  updated_at  :datetime         not null
 #  meeting_id  :integer
 #
+# A model to represent a note created in a meeting.
 class MeetingNote < ApplicationRecord
   belongs_to :meeting
 end

@@ -17,7 +17,7 @@
 #  index_affected_units_on_ecf_id  (ecf_id)
 #
 class AffectedUnit < ApplicationRecord
-  # relation - an AffectedUnit is a type of assessment for a module,
+  # Eelation - an AffectedUnit is a type of assessment for a module,
   # that a student is requesting actions for (e.g., deadline extension) on an ecf.
   belongs_to :ecf
   

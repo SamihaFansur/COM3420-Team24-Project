@@ -9,6 +9,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+# A model to represent a meeting.
 class Meeting < ApplicationRecord
   # a meeting, to which decisions for an ecf are assigned
   has_many :decisions
