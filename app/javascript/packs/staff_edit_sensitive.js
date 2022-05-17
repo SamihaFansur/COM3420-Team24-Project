@@ -1,4 +1,20 @@
 window.onload=function(){
+
+    var coll = document.getElementsByClassName("collapsible"); //get all collapsible elements
+    var i;
+  
+    for (i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.display === "block") {
+          content.style.display = "none";
+        } else {
+          content.style.display = "block";
+        }
+      });
+    }
+
     var text_area = document.getElementsByClassName("exampleFormControlTextarea1");
     for(var i = 0; i < text_area.length; i++){
         text_area.item(i).onfocus = function () {

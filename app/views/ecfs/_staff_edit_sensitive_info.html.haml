@@ -30,7 +30,9 @@
 
 %p
   %b Details of Circumstances:
-  %textarea.exampleFormControlTextarea1.form-control.rounded-0{:readonly => "readonly", :rows => "10"}= @ecf.details
+  %br
+  %textarea.basic-textarea
+    = @ecf.details
 
 %br
 %h4 Supporting evidence
@@ -38,7 +40,7 @@
   - @ecf.upload_medical_evidence.each do |medical_evidence|
     %p
       = link_to medical_evidence.filename, medical_evidence, target: :_blank ,class:"btn btn-outline-primary"
-      = link_to "Delete attachment", purge_attachment_path(medical_evidence), method: :delete,class: "btn btn-outline-danger"
+      = link_to "Delete attachment", purge_attachment_path(medical_evidence), method: :delete
 
 %p
   = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
@@ -47,39 +49,5 @@
     = f.file_field :upload_medical_evidence, multiple: true, accept: 'application/pdf'
     %br
     .text-note (Note: uploaded evidence will be visible to the student.)
-    #update_evi_btn= f.button :submit, value: 'Update evidence',class: 'btn btn-outline-primary btn-sm '
-
-%p
-  %br
-  %h4 Outcomes:
-  - @ecf.agendas.each do |agenda, index|
-    %p
-      %b= "Decisions for #{agenda.meeting.title} [Meeting # #{agenda.meeting.id}, #{agenda.meeting.time}]:"
-      - if agenda.decisions.empty?
-        .text-note There are currently no decisions for this meeting.
-      - else
-        .nested-wrapper
-          %table.table.table-responsive.mt-5
-            %thead
-              %tr
-                %th{:scope => "col"} Module Code
-                %th{:scope => "col"} Assessment Type
-                %th{:scope => "col"} Requested Action
-                %th{:scope => "col"} Extension date
-                %th{:scope => "col"} Outcome
-            %tbody
-              - agenda.decisions.each do |decision|
-                %tr
-                  %th{:scope => "row"}
-                    = decision.module_code
-                  %td
-                    = decision.assessment_type
-                  %td.overflow-auto
-                    = decision.requested_action
-                  
-                  - if decision.requested_action.include?("DEX")
-                    %td.overflow-auto= decision.extension_date
-                  - else
-                    %td.overflow-auto= 'N/A'
-                  %td.overflow-auto
-                    = decision.outcome&.name
+    %br
+    #update_evi_btn= f.button :submit, value: 'Update evidence',class: 'btn btn-primary btn-sm '

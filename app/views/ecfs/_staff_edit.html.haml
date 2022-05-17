@@ -34,7 +34,7 @@
       %br
       = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
         = f.select :status, options_for_select(["Pending", "Complete"], @ecf.status)
-        = f.button :submit, value: 'Update status',class: 'btn btn-outline-primary btn-sm ml-5'
+        = f.button :submit, value: 'Update status',class: 'btn btn-primary btn-sm'
 
     - if @ecf.highly_sensitive
       - if current_user.role == "student" || current_user.role == "admin"
@@ -88,10 +88,50 @@
                     - else
                       %i No meetings to add decisions for.
 
+    - if current_user.scrutiny? || current_user.admin?
+      %p
+        %br
+        %h4 Previous decisions:
+        - if @ecf.agendas.empty?
+          .text-note No decisions to show.
+        - else
+          - @ecf.agendas.each do |agenda, index|
+            %p
+              %b= "Decisions for #{agenda.meeting.title} [Meeting # #{agenda.meeting.id}, #{agenda.meeting.time}]:"
+              - if agenda.decisions.empty?
+                .text-note There are currently no decisions for this meeting.
+              - else
+                .basic-wrapper
+                  %table.table.table-responsive.mt-5
+                    %thead
+                      %tr
+                        %th{:scope => "col"} Module Code
+                        %th{:scope => "col"} Assessment Type
+                        %th{:scope => "col"} Requested Action
+                        %th{:scope => "col"} Extension date
+                        %th{:scope => "col"} Outcome
+                    %tbody
+                      - agenda.decisions.each do |decision|
+                        %tr
+                          %th{:scope => "row"}
+                            = decision.module_code
+                          %td
+                            = decision.assessment_type
+                          %td.overflow-auto
+                            = decision.requested_action
+                          
+                          - if decision.requested_action.include?("DEX")
+                            %td.overflow-auto= decision.extension_date
+                          - else
+                            %td.overflow-auto= 'N/A'
+                          %td.overflow-auto
+                            = decision.outcome&.name
 
+    %br
     %p
-      %br
-      %h4 Student notes
+      %h4 Notes
+      %h6 
+        %b Student notes
       = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover " } }) do |f|
         = link_to_add_nested(f, :ecf_notes, '#ecf-notes-student', partial: 'ecf_notes/ecf_note_student_fields') do
           %button + Add a Student note
@@ -115,7 +155,8 @@
                   = link_to "Delete note", ecf_note_path(ecf_note), method: :delete
 
     %p
-      %h4 Module leader notes
+      %h6 
+        %b Module Leader notes
       = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
         = link_to_add_nested(f, :ecf_notes, '#ecf-notes-module-leader', partial: 'ecf_notes/ecf_note_module_leader_fields',link_classes: "mt-5") do
           %button + Add a Module Leader note
@@ -139,7 +180,8 @@
                   = link_to "Delete note", ecf_note_path(ecf_note), method: :delete
 
     %p
-      %h4 Scrutiny panel notes
+      %h6 
+        %b Scrutiny panel notes
       = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
         = link_to_add_nested(f, :ecf_notes, '#ecf-notes-scrutiny', partial: 'ecf_notes/ecf_note_scrutiny_fields') do
           %button + Add a Scrutiny Panel note
@@ -163,7 +205,8 @@
                   = link_to "Delete note", ecf_note_path(ecf_note), method: :delete
 
     %p
-      %h4 Scrutiny chair notes
+      %h6 
+        %b Scrutiny chair notes
       = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
         = link_to_add_nested(f, :ecf_notes, '#ecf-notes-admin', partial: 'ecf_notes/ecf_note_admin_fields') do
           %button#add_note + Add a Scrutiny Chair note
@@ -196,7 +239,7 @@
         - @ecf.upload_conversations.each do |conversation|
           %p
           = link_to conversation.filename, conversation, target: :_blank
-      = simple_form_for(@ecf, :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
+      = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
         = f.label :upload_conversations
         = f.file_field :upload_conversations, multiple: true, accept: 'application/pdf'
         #update_conv_btn.mt-3= f.button :submit, value: "Upload email conversation(s)", class:"btn, btn-primary"

@@ -59,6 +59,10 @@
       %ul
         %p
           %b Please upload any relevant evidence to support your circumstances here:
+          - @ecf.upload_medical_evidence.each do |medical_evidence|
+            %p
+              = link_to medical_evidence.filename, medical_evidence, target: :_blank ,class:"btn btn-outline-primary btn-sml"
+              = link_to "Delete attachment", purge_attachment_path(medical_evidence), method: :delete
           %br
           %div.col.align-self-start
             = f.file_field :upload_medical_evidence, multiple: true, accept: 'application/pdf'
