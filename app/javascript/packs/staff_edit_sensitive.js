@@ -14,18 +14,6 @@ window.onload=function(){
         }
       });
     }
-
-    var text_area = document.getElementsByClassName("exampleFormControlTextarea1");
-    for(var i = 0; i < text_area.length; i++){
-        text_area.item(i).onfocus = function () {
-            this.setAttribute('style', 'height: 200px !important') // for better input
-            this.style.borderStyle = "outset"
-        }
-        text_area.item(i).onblur = function () {
-            this.style.borderStyle = "inset"
-            this.setAttribute('style', 'height: 100px !important') // for better input
-        }
-    }
     // checks the file type of each uploaded document from file explorer; ensure it is a pdf.
     const upload_file = document.getElementById("ecf_upload_medical_evidence");
     upload_file.onchange = function(e) {
@@ -75,6 +63,22 @@ window.onload=function(){
         if (file_number == 0) {
             handleClickBtn(e); //prevent error page, handle case of no evidence
             alert("please select a file");
+        }
+    }
+    var expand_btn = document.getElementById("expandAll");
+    var count = 0;
+    expand_btn.onclick=function (){
+        count = count + 1;
+        for (i = 0; i < coll.length; i++) {
+            var content = coll[i].nextElementSibling;
+            coll[i].classList.remove("active");
+            if (count%2 === 0) {
+                expand_btn.innerText = "Expand all";
+                content.style.display = "none";
+            }else {
+                content.style.display = "block";
+                expand_btn.innerText = "Hide all";
+            }
         }
     }
 
