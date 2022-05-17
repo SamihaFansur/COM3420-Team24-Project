@@ -1,0 +1,63 @@
+%link{:href => "https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap", :rel => "stylesheet"}/
+= javascript_pack_tag "ecf_preview"
+%body-1
+%section.ftco-section
+  .container.animate__animated.animate__fadeIn
+    .row.justify-content-center
+      .col-md-6.text-center.mb-5
+        %h2.heading-section Listing ECFs
+
+    .row.justify-content-center
+      .ecf-preview
+        .row
+          .col
+            %p.txt-centre#col1
+              You have
+              %span#num1= @ecfs.size
+              ecfs.
+
+        - if can? :create, Ecf
+          .row.justify-content-center.mb-5
+            .col-md-6.text-center
+              %br
+              %a.button.btn.btn-outline-primary.btn-sm{:href => new_ecfs_path} Create New ECF
+
+        .table-responsive
+          %table.table
+          -if @ecfs.empty?
+            %p.text-note There are no ecfs to list.
+          -else
+            .table-responsive
+              %table.table
+                %thead
+                  %tr
+                    %th{:scope => "col"} Status
+                    %th{:scope => "col"} Date Submitted
+                    %th{:scope => "col"} Affected Units and Requested actions
+                %tbody
+                  - @ecfs.each do |ecf|
+                    %tr
+                      %td= ecf.status
+                      %td= ecf.created_at.strftime("%Y-%m-%d")
+                      %td
+                        - ecf.affected_units.limit(5).each do |affected_unit|
+                          %b= "#{affected_unit.unit_code} : "
+                          %i= affected_unit.requested_action
+                          %br
+                      %td= link_to 'Show', ecf
+                      - if can? :edit, Ecf
+                        -if current_user.student?
+                          -if ecf.decisions.size == 0
+                            %td= link_to 'Edit', edit_ecf_path(ecf)
+                          -else
+                            %td ECF reviewed - cannot edit
+                        -else
+                          %td= link_to 'Edit', edit_ecf_path(ecf)
+                      - if(params.has_key?(:meeting_id))
+                        %td= link_to "Add to meeting ##{params[:meeting_title]}", agendas_path(:agenda => {:ecf_id => ecf.id, :meeting_id => params[:meeting_id]}), :method => :post
+
+
+
+
+
+
