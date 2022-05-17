@@ -34,15 +34,15 @@ class User < ApplicationRecord
 
   enum role: { guest: 0, student: 1, module_leader: 2, scrutiny: 3, admin: 4 }
 
-  # def generate_attributes_from_ldap
-  #   self.username = uid
-  #   self.email = mail
-  #   self.first_name = givenname
-  #   self.last_name = sn
-  #   self.department_code = ou
-  #   self.person_code = dn
-  #   super
-  # end
+  def generate_attributes_from_ldap
+    self.username = uid
+    self.email = mail
+    self.first_name = givenname
+    self.last_name = sn
+    self.department_code = ou
+    self.person_code = dn
+    super
+  end
 
   # this sets role before a database CREATE executes.
   before_create do

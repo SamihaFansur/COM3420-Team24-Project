@@ -148,21 +148,6 @@ describe 'User specs' do
       visit '/users'
       click_link 'CSV Upload'
       expect(page).to have_content 'File'
-      attach_file('user[file]', Rails.root + 'spec/features/csv_test.csv')
-      # save users
-      click_button 'Save User'
-      expect(page).to have_content 'Users imported successfully.'
-    end
-  end
-
-  describe 'user' do
-    it 'tests csv user upload failed due to wrong file format', js: true do
-      # login
-      visit '/users/sign_in'
-      login_as(FactoryBot.create(:admin))
-      visit '/users'
-      click_link 'CSV Upload'
-      expect(page).to have_content 'File'
       attach_file('user[file]', Rails.root + 'spec/features/csv_test_fail.csv')
       # save users
       click_button 'Save User'
@@ -185,6 +170,7 @@ describe 'User specs' do
       expect(page).to have_content 'JNL'
       expect(page).to have_content 'COM'
       find(:xpath, '/html/body/main/div/div/div/table/tbody[2]/tr/td[2]/select').set('COM')
+
       click_button 'Search'
       expect(page).to have_content 'COM'
       visit '/users'
