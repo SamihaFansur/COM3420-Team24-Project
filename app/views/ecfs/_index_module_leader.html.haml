@@ -56,6 +56,7 @@
                           %td
                             - ecf.affected_units.where(unit_code: current_user.user_modules.pluck(:module_code)).limit(5).each do |affected_unit|
                               %b= "#{affected_unit.unit_code} : "
+                              %i= "#{affected_unit.assessment_type} "
                               %i= affected_unit.requested_action.split(' ')[0]
                               %br
                           %td= link_to 'Show', ecf
@@ -107,6 +108,7 @@
                           %td
                             - ecf.affected_units.where(unit_code: current_user.user_modules.pluck(:module_code)).limit(5).each do |affected_unit|
                               %b= "#{affected_unit.unit_code} : "
+                              %i= affected_unit.assessment_type
                               %i= affected_unit.requested_action.split(' ')[0]
                               - latest = ecf.decisions.where(module_code: affected_unit.unit_code, requested_action: affected_unit.requested_action).order(:created_at).last
                               %i= latest.outcome.name

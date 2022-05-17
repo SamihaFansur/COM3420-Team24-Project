@@ -42,6 +42,7 @@
                       %td
                         - ecf.affected_units.limit(5).each do |affected_unit|
                           %b= "#{affected_unit.unit_code} : "
+                          %i= affected_unit.assessment_type
                           %i= affected_unit.requested_action
                           %br
                       %td= link_to 'Show', ecf

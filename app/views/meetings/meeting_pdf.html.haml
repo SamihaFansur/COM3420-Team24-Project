@@ -44,6 +44,7 @@
         %th{:scope => "col"} Email
         %th{:scope => "col"} Username
         %th{:scope => "col"} Department
+        %th{:scope => "col"} Affected Units
         %th{:scope => "col"} Outcomes
     %tbody
       - @agendas.each do |agenda|
@@ -54,6 +55,13 @@
           %td= agenda.ecf.user.mail
           %td= agenda.ecf.user.uid
           %td= agenda.ecf.user.ou
+          %td
+            - agenda.ecf.affected_units.limit(5).each do |affected_unit|
+              %b
+                = affected_unit.unit_code
+              = "#{affected_unit.assessment_type}:"
+              = affected_unit.requested_action.split(' ')[0]
+              %br
           %td
             - agenda.decisions.each do |decision|
               %b= decision.module_code
