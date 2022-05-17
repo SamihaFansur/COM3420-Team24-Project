@@ -2,7 +2,8 @@
   %b Details:
 
   %p
-    %textarea.basic-textarea= @ecf.details
+    %textarea.basic-textarea{:readonly => "readonly"}
+      = @ecf.details
 
   %p
     %b Type(s) of Circumstances: 

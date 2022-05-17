@@ -32,7 +32,7 @@
                   - if can? :update, Meeting
                     %td= link_to 'Edit', edit_meeting_path(meeting)
                   - if can? :destroy, Meeting
-                    %td= link_to 'Destroy', meeting, :method => :delete, :data => { :confirm => 'Are you sure?' }x
+                    %td= link_to 'Destroy', meeting, :method => :delete, :data => { :confirm => 'Are you sure?' }
             %br
   %h3.mt-4.mb-4 Past Meetings
   .login-wrap.py-5
