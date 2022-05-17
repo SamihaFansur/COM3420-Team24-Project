@@ -1,3 +1,4 @@
+-# Haml file to show the information on a single ecf
 = javascript_pack_tag "show_ecf"
 - if can? :showECFs, User
   %p= link_to 'Show all of users ECFs', showECFs_user_path(@ecf.user), class: 'btn btn-primary'
