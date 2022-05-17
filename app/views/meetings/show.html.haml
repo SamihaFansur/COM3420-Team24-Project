@@ -74,6 +74,7 @@
                   - agenda.ecf.affected_units.limit(5).each do |affected_unit|
                     %b
                       = affected_unit.unit_code
+                    = "#{affected_unit.assessment_type}:"
                     = affected_unit.requested_action.split(' ')[0]
                     %br
                 %td
