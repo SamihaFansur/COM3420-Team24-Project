@@ -110,6 +110,7 @@
                   %th{:scope => "col"} Assessment Type
                   %th{:scope => "col"} Requested Action
                   %th{:scope => "col"} Outcome
+                  %th{:scope => "col"} Extension Date
               %tbody
                 - agenda.decisions.each do |decision|
                   %tr
@@ -121,6 +122,9 @@
                       = decision.requested_action
                     %td.overflow-auto
                       = decision.outcome&.name
+                    %td.overflow-auto
+                      - if decision.requested_action.include?("DEX") or decision.requested_action.include?("NP")
+                        = decision.extension_date
 
     - if @ecf.status == "Complete"
       %br
@@ -146,7 +150,7 @@
                   %td= decision.assessment_type
                   %td= decision.requested_action
                   %td= decision.outcome&.name
-                  - if decision.requested_action == "DEX - Deadline Extension" or decision.requested_action == "NP - No penalty for late submission"
+                  - if decision.requested_action.include?("DEX") or decision.requested_action.include?("NP")
                     %td= decision.extension_date
                   - else
                     %td

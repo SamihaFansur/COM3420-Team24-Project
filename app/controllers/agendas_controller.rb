@@ -25,32 +25,32 @@ class AgendasController < ApplicationController
   end
 
   # POST to /ecf/1
-  def update
-    if !decision_params.empty?
-      @decision = @agenda.decisions.where(decision_params.slice(:module_code, :assessment_type,
-                                                                :requested_action)).first_or_initialize
+  # def update
+  #   if !decision_params.empty?
+  #     @decision = @agenda.decisions.where(decision_params.slice(:module_code, :assessment_type,
+  #                                                               :requested_action)).first_or_initialize
 
-      if @decision.persisted?
-        @decision.update(decision_params.slice(:extension_date, :outcome_id))
-      else
-        @decision.extension_date = decision_params[:extension_date]
-        @decision.outcome_id = decision_params[:outcome_id]
-        @decision.save
-      end
-      #
-      # flash[:alert] = 'No decisions added.'
-      redirect_back(fallback_location: meetings_path)
-    elsif @agenda.update(agenda_params)
-      flash[:notice] = 'Meeting was successfully updated.'
+  #     if @decision.persisted?
+  #       @decision.update(decision_params.slice(:extension_date, :outcome_id))
+  #     else
+  #       @decision.extension_date = decision_params[:extension_date]
+  #       @decision.outcome_id = decision_params[:outcome_id]
+  #       @decision.save
+  #     end
+  #     #
+  #     # flash[:alert] = 'No decisions added.'
+  #     redirect_back(fallback_location: meetings_path)
+  #   elsif @agenda.update(agenda_params)
+  #     flash[:notice] = 'Meeting was successfully updated.'
 
-      EmailMailer.with(agenda: @agenda).ecf_added_to_updated_agenda.deliver_now
-      flash[:success] = 'Student notified of scrutiny panel meeting.'
+  #     EmailMailer.with(agenda: @agenda).ecf_added_to_updated_agenda.deliver_now
+  #     flash[:success] = 'Student notified of scrutiny panel meeting.'
 
-      redirect_back(fallback_location: meetings_path)
-    else
-      render :edit
-    end
-  end
+  #     redirect_back(fallback_location: meetings_path)
+  #   else
+  #     render :edit
+  #   end
+  # end
 
   # DELETE /agendas/1
   def destroy

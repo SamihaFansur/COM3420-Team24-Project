@@ -23,7 +23,7 @@
               = link_to 'INFORMATION', root_path, title: 'Go to the ecf information page', class: 'nav-link-2'
             - if user_signed_in? and can? :guest_prompt, User
               %li
-                = link_to 'GUEST PROMPT', guest_page_path, title: 'Go to the guest prompt page', class: 'nav-link-2'
+                = link_to 'GUEST INFO', guest_page_path, title: 'Go to the guest prompt page', class: 'nav-link-2'
             - if !user_signed_in? # show only when user is not logged in
               %li
                 = link_to 'LOGIN', ecfs_path, title: 'Go to the login page', class: 'nav-link-2'
@@ -33,6 +33,9 @@
             - if can? :read, Ecf
               %li
                 = link_to 'SHOW ECFS', ecfs_path, title: 'Go to the ECFs page with a search functionality', class: 'nav-link-2'
+            - if can? :create, Ecf
+              %li
+                = link_to 'NEW ECF', new_ecf_path, title: 'Create a new ECF', class: 'nav-link-2'
             - if can? :read, Meeting
               %li
                 = link_to 'SHOW MEETINGS', meetings_path, title: 'Go to the meetings page', class: 'nav-link-2'

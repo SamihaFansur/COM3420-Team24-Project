@@ -39,7 +39,7 @@ describe 'search' do
     fill_in 'ecf[affected_units_attributes][0][date_to]', with: '2022-05-16'
     select 'DEX - Deadline Extension', from: 'ecf[affected_units_attributes][0][requested_action]', visible: false
     click_button 'Submit Extenuating Circumstances Form'
-    expect(page).to have_content 'aca20sf'
+    expect(page).to have_content 'COM2008'
     login_as(FactoryBot.create(:admin))
     visit '/ecfs'
     expect(page).to have_content 'aca20sf' # first ecf check

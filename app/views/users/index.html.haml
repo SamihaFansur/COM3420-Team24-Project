@@ -6,8 +6,18 @@
   }
 
 .container.animate__animated.animate__fadeIn
-
+  
   %h1 Listing users
+
+  %ul.list-group.list-group-flush
+    %li.list-group-item
+      %p
+        Click below to import user to the system:
+        #btn_new_user= link_to 'New User', new_user_path, class: 'btn btn-outline-primary btn-sml'
+    %li.list-group-item
+      %p
+        Click below to upload a CSV file and add new module leaders and their associated modules:
+        #btn_csv_upload= link_to 'CSV Upload', csv_upload_users_path, class: 'btn btn-outline-primary btn-sml'
 
   %p#col1
     There #{@users.size == 1 ? 'is' : 'are'}
@@ -40,16 +50,6 @@
               = f.select(:role_eq, options_for_select(User.roles.map {|k, v| [k.humanize.capitalize, v]}, f.object.role_eq), { include_blank: true })
             %td
               =f.submit "Search"
-
-  %ul.list-group.list-group-flush
-    %li.list-group-item
-      %p<
-        Click below to add a new user to the system:
-        #btn_new_user= link_to 'New User', new_user_path, class: 'btn btn-primary'
-    %li.list-group-item
-      %p<
-        Click below to upload a CSV file and add new module leaders and their associated modules:
-        #btn_csv_upload= link_to 'CSV Upload', csv_upload_users_path, class: 'btn btn-primary'
 
     %li.list-group-item
       .table-responsive

@@ -141,7 +141,7 @@ describe 'User specs' do
   end
 
   describe 'user' do
-    it 'tests csv user upload failed due to wrong file format', js: true do
+    it 'tests csv user upload', js: true do
       # login
       visit '/users/sign_in'
       login_as(FactoryBot.create(:admin))
@@ -150,7 +150,7 @@ describe 'User specs' do
       expect(page).to have_content 'File'
       attach_file('user[file]', Rails.root + 'spec/features/csv_test.csv')
       # save users
-      click_button 'Save User'
+      click_button 'Import users'
       expect(page).to have_content 'Users imported successfully.'
     end
   end
@@ -165,7 +165,7 @@ describe 'User specs' do
       expect(page).to have_content 'File'
       attach_file('user[file]', Rails.root + 'spec/features/csv_test_fail.csv')
       # save users
-      click_button 'Save User'
+      click_button 'Import users'
       expect(page).to have_content 'Failed to upload users - CSV file is of the incorrect format.'
     end
   end
