@@ -14,13 +14,9 @@ Please note that for the following to work you MUST be connected to the Sheffiel
 ### URLs
 If hosting locally, go to `http://localhost:3000/`
 
-### URLs
-If hosting locally, go to `http://localhost:3000/`
-
 ### Testing
-Please note that our tests are slightly outdated as of 05/05/2022, due to refactoring views, so a high amount of tests may fail.
 Instructions:
-* Run specs with `rspec`
+* Run specs with `rspec spec`
 
 ### Directory Structure
 The majority of our code can be found in app/

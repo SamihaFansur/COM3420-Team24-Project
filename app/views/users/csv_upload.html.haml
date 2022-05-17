@@ -13,11 +13,19 @@
 		}}}
 .container
 	.row.justify-content-center
-		.col-md-6.col-lg-4
+		.col-md-6
 			.login-wrap.py-5
 				= simple_form_for :user, :url => '/users/import' do |f|
 					= f.input :file, as: :file, label: 'CSV File', required: true, input_html: { accept: 'text/csv' }
-					.mt-4
-					#csv_submit= f.button :submit, class: 'btn btn-outline-primary btn-block '
+					%p
+						The uploaded file must be of the '.csv' format, with two columns: 'module_code', and 'email'.
+					%p
+						Importing will add all the staff members under 'email' to the system, and the module in their row.
+						To assign multiple modules to a staff member, add another row with their email and module.
+					%p
+						You can download an example of the table format 
+						= link_to 'here.', '/upload_test.csv'
+					.mt-4.txt-centre
+						#csv_submit= f.button :submit, 'Import users', class: 'btn btn-outline-primary btn-block '
 					.mt-4
 					= link_to 'Back', users_path, :class => 'btn btn-outline-info'

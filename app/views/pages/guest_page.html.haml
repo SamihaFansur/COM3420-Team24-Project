@@ -3,5 +3,14 @@
 
   .row.justify-content-center
     .col.text-center
-      %h3.alert.alert-info Please contact an administrator to give you the correct privileges.
+      %h6 
+        %b You do not have access to the online ECF system!
+      %h6 
+        %p
+        If you are a student, then an error has occured and you should contact an administrator.
+        %p
+        If you are only a staff member, you may not have privileges to access this system.
+        %p
+          If you are a module leader or a member of the scrutiny panel, you should also contact an administrator to grant you access.
+      %h3.alert.alert-info To access the ECF system, contact an administrator.
       %a.btn.btn-outline-primary.mt-4{:href => "https://students.sheffield.ac.uk/extenuating-circumstances", :role => "button", :target => "_blank"} Contact
