@@ -31,25 +31,23 @@
 %p
   %b Details of Circumstances:
   %br
-  %textarea.basic-textarea{:readonly => "readonly"}
+  %textarea.basic-textarea
     = @ecf.details
-%button.collapsible#overview.mt-5{:type => "button"}
-  %h4 ● Supporting evidence
-  %span.caret
-.content.lh-lg.fw-normal.font-monospace.mt-4
-  %br
-  %p
-    - @ecf.upload_medical_evidence.each do |medical_evidence|
-      %p
-        = link_to medical_evidence.filename, medical_evidence, target: :_blank ,class:"btn btn-outline-primary"
-        = link_to "Delete attachment", purge_attachment_path(medical_evidence), method: :delete
 
-  %p
-    = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
-      %b Add supporting evidence:
-      %br
-      = f.file_field :upload_medical_evidence, multiple: true, accept: 'application/pdf'
-      %br
-      .text-note (Note: uploaded evidence will be visible to the student.)
-      %br
-      #update_evi_btn= f.button :submit, value: 'Update evidence',class: 'btn btn-primary btn-sm '
+%br
+%h4 Supporting evidence
+%p 
+  - @ecf.upload_medical_evidence.each do |medical_evidence|
+    %p
+      = link_to medical_evidence.filename, medical_evidence, target: :_blank ,class:"btn btn-outline-primary"
+      = link_to "Delete attachment", purge_attachment_path(medical_evidence), method: :delete
+
+%p
+  = simple_form_for(@ecf, :url => update_persist_ecf_path(@ecf), :defaults => { :input_html => { :class => "cursor_hover" } }) do |f|
+    %b Add supporting evidence:
+    %br
+    = f.file_field :upload_medical_evidence, multiple: true, accept: 'application/pdf'
+    %br
+    .text-note (Note: uploaded evidence will be visible to the student.)
+    %br
+    #update_evi_btn= f.button :submit, value: 'Update evidence',class: 'btn btn-primary btn-sm '
