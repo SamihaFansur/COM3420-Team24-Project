@@ -1,4 +1,4 @@
-// javascript for /ecfs/show
+// Javascript for /ecfs/show
 window.onload = function() {
   var coll = document.getElementsByClassName("collapsible"); //get all collapsible elements
   var i;

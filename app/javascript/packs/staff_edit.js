@@ -1,3 +1,4 @@
+// Javascript for staff edit of an ecf
 window.onload=function (){
     var coll = document.getElementsByClassName("collapsible"); //get all collapsible elements
     var i;
