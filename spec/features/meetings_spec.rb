@@ -199,9 +199,11 @@ describe 'meeting' do
     visit '/ecfs'
     click_link 'Create New ECF'
     fill_in 'Details', with: 'Example User2'
-    fill_in 'Unit code', with: 'COM2008'
-    fill_in 'Assessment type', with: 'Exam'
-    select 'DEX - Deadline Extension', from: 'Requested action ', visible: false
+    fill_in 'ecf[affected_units_attributes][0][unit_code]', with: 'COM2008'
+    fill_in 'ecf[affected_units_attributes][0][assessment_type]', with: 'Exam'
+    fill_in 'ecf[affected_units_attributes][0][date_from]', with: '2022-05-16'
+    fill_in 'ecf[affected_units_attributes][0][date_to]', with: '2022-05-16'
+    select 'DEX - Deadline Extension', from: 'ecf[affected_units_attributes][0][requested_action]', visible: false
     click_button 'Submit Extenuating Circumstances Form'
     login_as(FactoryBot.create(:admin))
     visit '/meetings'
@@ -210,21 +212,15 @@ describe 'meeting' do
     fill_in 'meeting[attendees]', with: 'test'
     click_button 'Create Meeting'
     expect(page).to have_content 'Attendees: test'
-    visit '/meetings'
-    expect(page).to have_content '1'
-    expect(Meeting.count).to eq 1
-    visit '/meetings/1'
-    find(:xpath, '/html/body/main/div/div/div/p[4]/a').click
+
+    click_link 'List ECFs', match: :first
     expect(page).to have_content 'Listing ECFs'
-    find(:xpath, '/html/body/main/div/body-1/section/div/div[2]/div/div[3]/div/table/tbody/tr/td[9]/a',
-         text: 'Edit').click
-    fill_in 'agenda[meeting_id]', with: '1'
-    click_button 'Add to meeting'
+    click_link 'Add to meeting #', match: :first
     expect(page).to have_content 'ECF was successfully added to the meeting'
     visit '/meetings'
-    find(:xpath, '/html/body/main/div/div[2]/div/div/table/tbody/tr/td[5]/a', text: 'Show').click
-    expect(page).to have_content 'Pending'
-    find(:xpath, '/html/body/main/div/div/div/div[1]/table/tbody/tr/td[11]/a', text: 'Remove ECF').click
+    find(:xpath, '/html/body/main/div/div[2]/div/div/table/tbody/tr[1]/td[5]/a', text: 'Show').click
+    expect(page).to have_content 'ECFs on the agenda are listed below.'
+    click_link 'Remove ECF', match: :first
     page.driver.browser.switch_to.alert.accept
     expect(page).to have_content 'Successfully removed ECF from agenda'
   end

@@ -78,10 +78,12 @@ describe 'the page links' do
     visit '/'
     click_link 'SHOW ECFS'
     click_link 'Create New ECF'
-    fill_in 'Details', with: 'DEX'
-    fill_in 'Unit code', with: 'COMtest'
-    fill_in 'Assessment type', with: 'Test'
-    select 'NP - No penalty for late submission', from: 'Requested action ', visible: false
+    fill_in 'Details', with: 'Example User2'
+    fill_in 'ecf[affected_units_attributes][0][unit_code]', with: 'COM2008'
+    fill_in 'ecf[affected_units_attributes][0][assessment_type]', with: 'Exam'
+    fill_in 'ecf[affected_units_attributes][0][date_from]', with: '2022-05-16'
+    fill_in 'ecf[affected_units_attributes][0][date_to]', with: '2022-05-16'
+    select 'DEX - Deadline Extension', from: 'ecf[affected_units_attributes][0][requested_action]', visible: false
     click_button 'Submit Extenuating Circumstances Form'
     click_link 'Edit'
     expect(page).to have_content 'DEX'
@@ -95,10 +97,12 @@ describe 'the page links' do
     visit '/'
     click_link 'SHOW ECFS'
     click_link 'Create New ECF'
-    fill_in 'Details', with: 'Details about ecf'
-    fill_in 'Unit code', with: 'COMtest'
-    fill_in 'Assessment type', with: 'Test'
-    select 'NP - No penalty for late submission', from: 'Requested action ', visible: false
+    fill_in 'Details', with: 'Example User2'
+    fill_in 'ecf[affected_units_attributes][0][unit_code]', with: 'COM2008'
+    fill_in 'ecf[affected_units_attributes][0][assessment_type]', with: 'Exam'
+    fill_in 'ecf[affected_units_attributes][0][date_from]', with: '2022-05-16'
+    fill_in 'ecf[affected_units_attributes][0][date_to]', with: '2022-05-16'
+    select 'DEX - Deadline Extension', from: 'ecf[affected_units_attributes][0][requested_action]', visible: false
     click_button 'Submit Extenuating Circumstances Form'
     click_link 'Show'
     expect(page).to have_content 'ECF Details'
