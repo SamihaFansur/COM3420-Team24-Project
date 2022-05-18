@@ -20,12 +20,14 @@ class EmailMailer < ApplicationMailer
   
   def module_leader_note_added_to_ecf
     @ecf = params[:ecf]
-    mail(to:  $scrutiny_chair_user_emails, subject: 'Module leader has added a note')
-    # scrutiny_chair_users = User.find_by_sql ['SELECT * FROM users where role = 4', ]
-    print("\n-----------------IN METHODDDDD------------------\n")
-    print($scrutiny_chair_user_emails)
-    print("\n-----------------------------------\n")
+    mail(to:  $scrutiny_chair_user_emails_note_added, subject: 'Module leader has added a note')
   end
+  
+  
+  # def module_leader_note_removed_from_ecf
+  #   @ecf = params[:ecf]
+  #   mail(to:  $scrutiny_chair_user_emails_note_removed, subject: 'Module leader has removed a note')
+  # end
   
   def ecf_status_complete
     @ecf = params[:ecf]

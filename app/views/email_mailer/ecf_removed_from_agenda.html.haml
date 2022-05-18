@@ -1,11 +1,9 @@
 %body
 %p
-  The following ecf has been removed from next scrutiny panel meetings' agenda which is being held on #{@agenda.meeting.time}. You will be notified when your ecf is added to the next scrutiny panel meetings' agenda.
+  The following ECF has been removed from next scrutiny panel meetings' agenda which is being held on #{@agenda.meeting.time}. You will be notified when your ECF is added to the next scrutiny panel meetings' agenda.
   %br -------------------------------------------------------------------------------------------------------------------------------------
 
 %p
   Name: #{@agenda.ecf.user.givenname} #{@agenda.ecf.user.sn}
-%p
   Submitted at: #{@agenda.ecf.created_at}
-%p
   Details: #{@agenda.ecf.details}

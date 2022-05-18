@@ -85,23 +85,15 @@ class EcfsController < ApplicationController
         EmailMailer.with(ecf: @ecf).ecf_status_complete.deliver_now
         flash[:notice] = 'Form successfully updated and marked as complete. Student notified through email.'
       end
-      if current_user.module_leader?        
-        print("\n-----------------------------------\n")
-        print("module leader atm \n")
-        print(current_user.role)
-        print("\n")
+      if current_user.module_leader?    
+        $module_leader_name_fn = current_user.givenname
+        $module_leader_name_sn = current_user.sn
         admin_role = admin_role_number("admin")
-        print(admin_role)
         scrutiny_chair_users = User.find_by_sql ['SELECT email FROM users where role = ?', admin_role]
-        $scrutiny_chair_user_emails = []
+        $scrutiny_chair_user_emails_note_added = []
         scrutiny_chair_users.each do |user|
-          $scrutiny_chair_user_emails.push(user.email)
-          print(user.email)
-          print("\n")
-        end
-        print($scrutiny_chair_user_emails)
-        print("\n-----------------------------------\n")
-        
+          $scrutiny_chair_user_emails_note_added.push(user.email)
+        end        
         EmailMailer.with(ecf: @ecf).module_leader_note_added_to_ecf.deliver_now
         flash[:notice] = 'Note was successfully added. Scrutiny chair notified.'
       end

@@ -1,11 +1,10 @@
 %body
 %p
-  Module Leader has added a note
-  %br --------------------------
+  Module Leader has added a note to the following ECF:
+  %br ------------------------------------------------
 
--# %p
--#   Name: #{@ecf.user.givenname} #{@ecf.user.sn}
--# %p
--#   Submitted at: #{@ecf.created_at}
--# %p
--#   Details: #{@ecf.details}
+%p
+  Module Leader: #{$module_leader_name_fn} #{$module_leader_name_sn}
+  Student Name: #{@ecf.user.givenname} #{@ecf.user.sn}
+  ECF Submitted at: #{@ecf.created_at}
+  ECF Details: #{@ecf.details}
