@@ -18,7 +18,7 @@
         .d-flex.flex-wrap.align-items-center.justify-content-center.justify-content-lg-start
           %a.d-flex.align-items-center.mb-2.mb-lg-0.text-dark.text-decoration-none{:href => "/"}
           %ul.nav.col-12.col-lg-auto.me-lg-auto.mb-2.justify-content-center.mb-md-0
-            =image_tag("University_of_Sheffield.svg",width: "92px", height: "50px")
+            =image_tag("University_of_Sheffield.svg",width: "92px", height: "50px",alt: "University of Sheffield logo")
             %li
               = link_to 'INFORMATION', root_path, title: 'Go to the ecf information page', class: 'nav-link-2'
             - if user_signed_in? and can? :guest_prompt, User
@@ -45,7 +45,7 @@
           - if user_signed_in?
 
             %a.btn#logout_btn{"data-method" => "delete", :href => "/users/sign_out", :rel => "nofollow"}
-              =image_tag("box-arrow-right.svg",onclick: "document.getElementById('logout_btn').click();",style: "cursor: pointer;")
+              =image_tag("box-arrow-right.svg",onclick: "document.getElementById('logout_btn').click();",style: "cursor: pointer;",alt: "Logout button icon")
               Logout
 
     .flash-messages

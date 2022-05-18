@@ -22,7 +22,7 @@
         .row.justify-content-center
           .col-md-6.col-lg-4
             .login-wrap.py-5
-              .img
+              .img{:title => "the University of Sheffield logo", :alt => "the University of Sheffield logo"}
               %h3.text-center.mb-0 Welcome
               = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
                 .form-group
