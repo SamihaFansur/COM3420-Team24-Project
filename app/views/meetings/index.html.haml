@@ -32,38 +32,38 @@
                     %td= link_to 'Destroy', meeting, :method => :delete, :data => { :confirm => 'Are you sure?' }
             %br
   %h3.mt-4.mb-4 Past Meetings
-  .login-wrap.py-5
-    - if @past_meetings.empty?
-      %i There are no past meetings.
-    - else
-      .table-responsive
-        %table.table.table-hover
-          %thead
-            %tr
-              %th Title
-              %th ID
-              %th Time
-              %th Attendees
-          %tbody
-            - @past_meetings.each do |meeting|
+  .row.justify-content-center
+    .login-wrap.py-5
+      - if @past_meetings.empty?
+        %i There are no past meetings.
+      - else
+        .table-responsive
+          %table.table.table-hover
+            %thead
               %tr
-                %td= meeting.title
-                %td= meeting.id
-                %td= meeting.time
-                %td= meeting.attendees
-                %td= link_to 'Show', meeting
-                - if can? :update, Meeting
-                  %td= link_to 'Edit', edit_meeting_path(meeting)
-                - if can? :destroy, Meeting
-                  %td= link_to 'Destroy', meeting, :method => :delete, :data => { :confirm => 'Are you sure?' }
+                %th Title
+                %th ID
+                %th Time
+                %th Attendees
+            %tbody
+              - @past_meetings.each do |meeting|
+                %tr
+                  %td= meeting.title
+                  %td= meeting.id
+                  %td= meeting.time
+                  %td= meeting.attendees
+                  %td= link_to 'Show', meeting
+                  - if can? :update, Meeting
+                    %td= link_to 'Edit', edit_meeting_path(meeting)
+                  - if can? :destroy, Meeting
+                    %td= link_to 'Destroy', meeting, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %p
 - if can? :create, Meeting
-  .mt-5
-  = link_to 'New Meeting', new_meeting_path, :class => 'btn btn-primary'
+  %p
+    = link_to 'New Meeting', new_meeting_path, :class => 'btn btn-primary'
 
   %br
   %i All types of outcome available for ECFs can be accessed here:
   %br
   =link_to 'Outcomes', outcomes_path, :class => 'btn btn-outline-primary'
-
