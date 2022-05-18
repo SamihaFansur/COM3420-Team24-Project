@@ -67,6 +67,12 @@ class EcfsController < ApplicationController
       render :edit
     end
   end
+  
+  def admin_role_number(user_role)
+    if user_role == "admin"
+      return 4
+    end
+  end
 
   # update method that refreshes, instead of returning to ecfs page. used in nested form submission.
   def update_persist
@@ -77,9 +83,28 @@ class EcfsController < ApplicationController
       end
       if @ecf.status == "Complete"
         EmailMailer.with(ecf: @ecf).ecf_status_complete.deliver_now
-        flash[:notice] = 'Form marked as complete. Student notified through email.'
+        flash[:notice] = 'Form successfully updated and marked as complete. Student notified through email.'
       end
-      flash[:notice] = 'Form was successfully updated.'
+      if current_user.module_leader?        
+        print("\n-----------------------------------\n")
+        print("module leader atm \n")
+        print(current_user.role)
+        print("\n")
+        admin_role = admin_role_number("admin")
+        print(admin_role)
+        scrutiny_chair_users = User.find_by_sql ['SELECT email FROM users where role = ?', admin_role]
+        $scrutiny_chair_user_emails = []
+        scrutiny_chair_users.each do |user|
+          $scrutiny_chair_user_emails.push(user.email)
+          print(user.email)
+          print("\n")
+        end
+        print($scrutiny_chair_user_emails)
+        print("\n-----------------------------------\n")
+        
+        EmailMailer.with(ecf: @ecf).module_leader_note_added_to_ecf.deliver_now
+        flash[:notice] = 'Note was successfully added. Scrutiny chair notified.'
+      end
       redirect_back(fallback_location: ecfs_path)
     else
       redirect_back(fallback_location: :edit)

@@ -18,6 +18,15 @@ class EmailMailer < ApplicationMailer
     mail(to: @ecf.user.mail, subject: 'Successfully updated an ecf')
   end
   
+  def module_leader_note_added_to_ecf
+    @ecf = params[:ecf]
+    mail(to:  $scrutiny_chair_user_emails, subject: 'Module leader has added a note')
+    # scrutiny_chair_users = User.find_by_sql ['SELECT * FROM users where role = 4', ]
+    print("\n-----------------IN METHODDDDD------------------\n")
+    print($scrutiny_chair_user_emails)
+    print("\n-----------------------------------\n")
+  end
+  
   def ecf_status_complete
     @ecf = params[:ecf]
     mail(to: @ecf.user.mail, subject: 'ECF decision made')
