@@ -19,9 +19,9 @@ class Ability
     # Students - can create ecf, read ecf, edit existing ecf
     if user.student?
       can %i[read new create update update_persist edit submit], Ecf, user_id: user.id
-      cannot :manage, Meeting
-      cannot :manage, User
-      cannot :guest_prompt, User
+      can :manage, Meeting
+      can :manage, User
+      can :guest_prompt, User
     end
 
     # Module leaders - can read ecfs with affected module relating to them
