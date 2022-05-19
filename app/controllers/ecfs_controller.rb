@@ -25,7 +25,7 @@ class EcfsController < ApplicationController
     else
       # Perform search on view search parameters.
       @q = Ecf.ransack(params[:q])
-      @ecfs = @q.result.order(:created_at).reverse
+      @ecfs = @q.result(:distinct => true).order(:created_at).reverse
     end
   end
 
