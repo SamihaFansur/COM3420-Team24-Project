@@ -11,6 +11,13 @@ class MeetingNotesController < ApplicationController
     end
   end
 
+  def destroy
+    @meeting_note = MeetingNote.find(params[:id])
+    @meeting_note.destroy
+    flash[:notice] = 'Note was successfully deleted.'
+    redirect_back(fallback_location: meetings_path)
+  end
+
   def meeting_note_params
     params
       .require(:meeting_note)
