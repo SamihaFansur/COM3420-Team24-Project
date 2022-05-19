@@ -13,21 +13,10 @@ describe 'search' do
   end
 end
 
-# Test search/search
-describe 'search' do
-  # log in as a user
-  it 'logs is and visits search page ' do
-    visit '/users/sign_in'
-    login_as(FactoryBot.create(:admin))
-    visit '/ecfs'
-    expect(page).to have_content 'Listing ECFs'
-  end
-end
-
 # search sql injection test (temp)
 describe 'search' do
   # log in as a user
-  it 'fills out and submits meetings ' do
+  it 'tests search' do
     # Create an ECF to test deletion
     login_as(FactoryBot.create(:student))
     visit '/ecfs'
