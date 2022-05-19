@@ -157,16 +157,13 @@ describe 'meeting', js: true do
     click_button 'Create Meeting'
     expect(page).to have_content 'Attendees: test'
     visit '/meetings'
-    # find(:xpath, '/html/body/main/div/div[2]/div/div/table/tbody/tr[1]/td[6]/a', text: 'Edit').click
     click_link 'Edit', match: :first
     expect(page).to have_content 'Editing meeting'
     fill_in 'Title', with: 'new test'
     click_button 'Update Meeting'
     expect(page).to have_content 'new test'
     visit '/meetings'
-    # find(:xpath, '/html/body/main/div/div[2]/div/div/table/tbody/tr[1]/td[5]/a', text: 'Show').click
     click_link 'Show', match: :first
-
     # Confirms test updates
     expect(page).to have_content 'new test'
   end
@@ -192,15 +189,12 @@ describe 'meeting' do
     fill_in 'meeting[attendees]', with: 'test'
     click_button 'Create Meeting'
     expect(page).to have_content 'Attendees: test'
-
     click_link 'List ECFs', match: :first
     expect(page).to have_content 'Listing ECFs'
     click_link 'Add to meeting #', match: :first
     expect(page).to have_content 'ECF was successfully added to the meeting'
     visit '/meetings'
-    # find(:xpath, '/html/body/main/div/div[2]/div/div/table/tbody/tr[1]/td[5]/a', text: 'Show').click
     click_link 'Show', match: :first
-
     expect(page).to have_content 'ECFs on the agenda are listed below.'
     click_link 'Remove ECF', match: :first
     page.driver.browser.switch_to.alert.accept
@@ -219,9 +213,7 @@ describe 'meeting', js: true do
     click_button 'Create Meeting'
     expect(page).to have_content 'Attendees: test'
     visit '/meetings'
-    # find(:xpath, '/html/body/main/div/div[2]/div/div/table/tbody/tr[1]/td[7]/a', text: 'Destroy').click
     click_link 'Destroy', match: :first
-
     page.driver.browser.switch_to.alert.accept
     expect(page).to have_content 'Meeting was successfully destroyed.'
   end
@@ -239,9 +231,7 @@ describe 'meeting', js: true do
     click_button 'Create Meeting'
     expect(page).to have_content 'Attendees: test'
     visit '/meetings'
-    # find(:xpath, '/html/body/main/div/div[2]/div/div/table/tbody/tr[1]/td[6]/a', text: 'Edit').click
     click_link 'Edit', match: :first
-
     expect(page).to have_content 'Editing meeting'
     click_link 'Show'
     fill_in 'meeting_note[name]', with: 'test'
@@ -262,9 +252,7 @@ describe 'meeting', js: true do
     click_button 'Create Meeting'
     expect(page).to have_content 'Attendees: test'
     visit '/meetings'
-    # find(:xpath, '/html/body/main/div/div[2]/div/div/table/tbody/tr[1]/td[5]/a', text: 'Show').click
     click_link 'Show', match: :first
-
     expect(page).to have_content 'test'
     click_link 'Add all pending ECFs'
     expect(page).to have_content 'Added any pending ECFs.'
@@ -282,9 +270,7 @@ describe 'meeting', js: true do
     click_button 'Create Meeting'
     expect(page).to have_content 'Attendees: test'
     visit '/meetings'
-    # find(:xpath, '/html/body/main/div/div[2]/div/div/table/tbody/tr[1]/td[6]/a', text: 'Edit').click
     click_link 'Edit', match: :first
-
     expect(page).to have_content 'Editing'
     fill_in 'meeting[title]', with: 'test2'
     fill_in 'meeting[attendees]', with: 'test2'
