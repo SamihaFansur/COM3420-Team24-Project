@@ -128,7 +128,7 @@ describe 'User specs' do
   end
 
   describe 'user' do
-    it 'tests csv user upload ', js: true do
+    it 'tests user upload ', js: true do
       # login
       visit"/users/sign_in"
       login_as(FactoryBot.create(:admin))
