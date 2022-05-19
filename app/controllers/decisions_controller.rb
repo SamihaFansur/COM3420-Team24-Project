@@ -12,6 +12,13 @@ class DecisionsController < ApplicationController
     end
   end
 
+  def destroy
+    @decision = Decision.find(params[:id])
+    @decision.destroy
+    flash[:notice] = 'Decision was successfully deleted.'
+    redirect_back(fallback_location: ecfs_path)
+  end
+
   # Setting the decision parameters
   def decision_params
     params

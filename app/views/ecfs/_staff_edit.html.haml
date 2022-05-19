@@ -128,6 +128,8 @@
                           %td.overflow-auto
                             - if decision.requested_action.include?("DEX") || decision.requested_action.include?("NP")
                               = decision.extension_date
+                            - if agenda.meeting.time >= Time.zone.now.days_ago(1) 
+                              = link_to "Delete decision", decision_path(decision), method: :delete
 
     %br
     %p
