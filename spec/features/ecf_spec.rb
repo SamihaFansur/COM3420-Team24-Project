@@ -37,7 +37,7 @@ describe 'ecf' do
     visit '/users/sign_in'
     login_as(FactoryBot.create(:student2))
     visit '/ecfs'
-    click_link 'SHOW ECFS'
+    click_link 'SHOW ECF'
     # Check that student 1 user ecf doesnt show up for student 2
     expect(page).not_to have_content 'aca20sg'
     # Create ecf for student 2
@@ -101,7 +101,7 @@ describe 'ecf' do
     click_link 'Edit', match: :first
     find_field('ecf_status').set('Complete')
     click_button 'Update status'
-    expect(page).to have_content 'Form was successfully updated.'
+    expect(page).to have_content 'Form was successfully updated'
   end
 end
 
@@ -126,7 +126,7 @@ describe 'ecf' do
     expect(page).to have_content 'Edit ECF'
     attach_file 'ecf[upload_medical_evidence][]', 'spec/features/test.pdf'
     click_button 'Update evidence'
-    expect(page).to have_content 'Form was successfully updated.'
+    expect(page).to have_content 'Form was successfully updated'
   end
 end
 
@@ -151,7 +151,7 @@ describe 'ecf', js: true do
     expect(page).to have_content 'Edit ECF'
     attach_file 'ecf[upload_medical_evidence][]', 'spec/features/test.pdf'
     click_button 'Update evidence'
-    expect(page).to have_content 'Form was successfully updated.'
+    expect(page).to have_content 'Form was successfully updated'
     click_link 'Delete attachment'
     expect(page).to have_content 'Successfully deleted attachment'
   end
@@ -236,7 +236,7 @@ describe 'ecf', js: true do
     click_link 'Edit', match: :first
     select 'Complete', from: 'ecf[status]', visible: false
     click_button 'Update status'
-    expect(page).to have_content 'Form was successfully updated.'
+    expect(page).to have_content 'Form was successfully updated'
   end
 end
 
@@ -261,7 +261,7 @@ describe 'ecf', js: true do
     fill_in 'Details', with: 'test'
     sleep(0.5)
     click_button 'Submit Extenuating Circumstances Form'
-    expect(page).to have_content 'Form was successfully updated.'
+    expect(page).to have_content 'Form was successfully updated'
   end
 end
 

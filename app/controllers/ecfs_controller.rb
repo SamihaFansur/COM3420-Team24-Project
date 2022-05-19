@@ -97,6 +97,9 @@ class EcfsController < ApplicationController
         EmailMailer.with(ecf: @ecf).module_leader_note_added_to_ecf.deliver_now
         flash[:notice] = 'Note was successfully added. Scrutiny chair notified.'
       end
+      if current_user.admin?
+        flash[:notice] = 'Form was successfully updated.'
+      end
       redirect_back(fallback_location: ecfs_path)
     else
       redirect_back(fallback_location: :edit)
