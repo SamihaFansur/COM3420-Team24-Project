@@ -9,7 +9,7 @@
   = link_to_add_nested(f, :user_modules, '#user_modules', partial: 'user_modules/user_module_fields',link_classes: 'btn btn-outline-primary btn-sm')
 
   %p
-
+    .text-note Please note that module codes are case sensitive.
   #user_modules
     = f.fields_for :user_modules do |user_module_f| 
       = render 'user_modules/user_module_fields', form: user_module_f
