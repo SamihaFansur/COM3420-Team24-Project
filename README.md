@@ -16,7 +16,7 @@ This project handles creation and submission of ECFs, viewing ECFs, scrutiny pan
 
 Clone the project, then:
 
-* `cp config/database_sample.yml config/database.yml` and change credentials as appropriate.
+* `cp config/database_sample-pg.yml config/database.yml` and change credentials as appropriate.
 * Please note that for the following to work you MUST be connected to the Sheffield VPN, when running locally.
 * `bundle install`
 * `yarn install`
@@ -24,6 +24,9 @@ Clone the project, then:
 * `bin/webpack-dev-server` for live reloading in one terminal.
 * `rails s` to start the server in another terminal.
   Log in to the site using your University credentials (again you must be connected to the Sheffield VPN.)
+
+If you experience a 'connection to server' error in the above steps, start a postgresql server using:
+* `sudo service postgresql start`
 
 ### Setting User Role
 
