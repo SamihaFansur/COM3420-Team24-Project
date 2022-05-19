@@ -60,7 +60,7 @@ class AgendasController < ApplicationController
     EmailMailer.with(agenda: @agenda).ecf_removed_from_agenda.deliver_now
     flash[:success] = 'Student notified of ecf removal from next scrutiny panel meeting.'
 
-    redirect_to meetings_path, notice: 'Successfully removed ECF from agenda.'
+    redirect_back(fallback_location: meetings_path)
   end
 
   private

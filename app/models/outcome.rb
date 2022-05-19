@@ -9,7 +9,7 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
-# A model to represent an outcome.
 class Outcome < ApplicationRecord
   # outcome - sets the outcomes available in the staff_edit ecf form
+  has_many :decisions
 end

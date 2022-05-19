@@ -25,7 +25,6 @@
 #  index_users_on_email     (email)
 #  index_users_on_username  (username)
 #
-# A model to represent a user.
 class User < ApplicationRecord
   include EpiCas::DeviseHelper
 

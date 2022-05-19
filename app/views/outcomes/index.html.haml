@@ -2,7 +2,7 @@
 %p The following outcomes are available to scrutiny panel members when adding a decision to an ECF.
 %p
   - if current_user.admin?
-    %i Please be cautious when destroying outcomes - deleted outcomes will appear as blank if they have been used in a decision.
+    %i Please be aware that after an outcome has been used in a decision, it can no longer be deleted.
 %section.ftco-section
   -if @outcomes.empty?
     %p.alert.alert-primary No outcomes found.
@@ -26,6 +26,7 @@
                   %td= link_to 'Show', outcome
                   - if can? :manage, outcome
                     %td= link_to 'Edit', edit_outcome_path(outcome)
+                  - if !outcome.decisions.exists?
                     %td= link_to 'Destroy', outcome, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
   %br
