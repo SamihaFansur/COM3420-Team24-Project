@@ -55,7 +55,7 @@ describe 'the page links' do
     visit '/users/sign_in'
     login_as(FactoryBot.create(:student2))
     visit '/'
-    click_link 'SHOW ECFS'
+    click_link 'SHOW ECF'
     click_link 'Create New ECF'
     expect(page).to have_content 'Start of circumstances'
   end
@@ -66,7 +66,7 @@ describe 'the page links' do
     visit '/users/sign_in'
     login_as(FactoryBot.create(:student2))
     visit '/ecfs'
-    click_link 'SHOW ECFS'
+    click_link 'SHOW ECF'
     expect(page).to have_content 'Listing ECFs'
   end
 end
@@ -76,7 +76,7 @@ describe 'the page links' do
     visit '/users/sign_in'
     login_as(FactoryBot.create(:student2))
     visit '/'
-    click_link 'SHOW ECFS'
+    click_link 'SHOW ECF'
     click_link 'Create New ECF'
     fill_in 'Details', with: 'Example User2'
     fill_in 'ecf[affected_units_attributes][0][unit_code]', with: 'COM2008'
@@ -95,7 +95,7 @@ describe 'the page links' do
     visit '/users/sign_in'
     login_as(FactoryBot.create(:student2))
     visit '/'
-    click_link 'SHOW ECFS'
+    click_link 'SHOW ECF'
     click_link 'Create New ECF'
     fill_in 'Details', with: 'Example User2'
     fill_in 'ecf[affected_units_attributes][0][unit_code]', with: 'COM2008'
@@ -131,11 +131,11 @@ describe 'the page links' do
 end
 
 describe 'the page links' do
-  it 'login as module leader + visit SHOW ecfs page ' do
+  it 'login as module leader + visit SHOW ECF page ' do
     visit '/users/sign_in'
     login_as(FactoryBot.create(:module_leader))
     visit '/ecfs'
-    click_link 'SHOW ECFS'
+    click_link 'SHOW ECF'
     expect(page).to have_content 'Listing ECFs'
   end
 end
@@ -162,11 +162,11 @@ describe 'the page links' do
 end
 
 describe 'the page links' do
-  it 'login as Scrutiny Panel + visit SHOW ecfs page ' do
+  it 'login as Scrutiny Panel + visit SHOW ECF page ' do
     visit '/users/sign_in'
     login_as(FactoryBot.create(:scrutiny_panel))
     visit '/ecfs'
-    click_link 'SHOW ECFS'
+    click_link 'SHOW ECF'
     expect(page).to have_content 'Listing ECFs'
   end
 end
@@ -229,11 +229,11 @@ describe 'the page links' do
 end
 
 describe 'the page links' do
-  it 'login as admin + visit SHOW ecfs page ' do
+  it 'login as admin + visit SHOW ECF page ' do
     visit '/users/sign_in'
     login_as(FactoryBot.create(:admin))
     visit '/ecfs'
-    click_link 'SHOW ECFS'
+    click_link 'SHOW ECF'
     expect(page).to have_content 'Listing ECFs'
   end
 end

@@ -27,7 +27,7 @@ describe 'notes' do
     click_button '+ Add a Student note', match: :first
     fill_in 'Description *', with: 'test'
     click_button 'Submit note'
-    expect(page).to have_content 'Form was successfully updated.'
+    expect(page).to have_content 'Form was successfully updated'
   end
 end
 
@@ -54,7 +54,7 @@ describe 'notes' do
     click_button '+ Add a Student note', match: :first
     find(:xpath, '/html/body/main/div/div/div/form[3]/div/div/div[2]/input').set('test')
     click_button 'Submit note'
-    expect(page).to have_content 'Form was successfully updated.'
+    expect(page).to have_content 'Form was successfully updated'
     click_link 'Delete note'
     expect(page).to have_content 'Note was successfully deleted.'
   end

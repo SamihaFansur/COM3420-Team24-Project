@@ -1,6 +1,10 @@
 %h1.mt-4.mb-4 Meeting Schedule
 
 
+- if can? :create, Meeting
+  %p
+    = link_to 'New Meeting', new_meeting_path, :class => 'btn btn-primary'
+
 -if @meetings.empty?
   %p.alert.alert-primary No meeting schedule found.
 -if ! @meetings.empty?
@@ -31,6 +35,7 @@
                   - if can? :destroy, Meeting
                     %td= link_to 'Destroy', meeting, :method => :delete, :data => { :confirm => 'Are you sure?' }
             %br
+    
   %h3.mt-4.mb-4 Past Meetings
   .row.justify-content-center
     .login-wrap.py-5
@@ -58,10 +63,6 @@
                   - if can? :destroy, Meeting
                     %td= link_to 'Destroy', meeting, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
-%p
-- if can? :create, Meeting
-  %p
-    = link_to 'New Meeting', new_meeting_path, :class => 'btn btn-primary'
 
   %br
   %i All types of outcome available for ECFs can be accessed here:

@@ -37,7 +37,7 @@ describe 'ecf' do
     visit '/users/sign_in'
     login_as(FactoryBot.create(:student2))
     visit '/ecfs'
-    click_link 'SHOW ECFS'
+    click_link 'SHOW ECF'
     # Check that student 1 user ecf doesnt show up for student 2
     expect(page).not_to have_content 'aca20sg'
     # Create ecf for student 2
@@ -57,7 +57,7 @@ end
 
 describe 'ecf' do
   # log in as a user
-  it 'Submit Extenuating Circumstances Form ' do
+  it 'Submit Extenuating Circumstances Form and view ' do
     # login in as student and make an ecf
     visit '/users/sign_in'
     login_as(FactoryBot.create(:student2))
@@ -101,7 +101,7 @@ describe 'ecf' do
     click_link 'Edit', match: :first
     find_field('ecf_status').set('Complete')
     click_button 'Update status'
-    expect(page).to have_content 'Form was successfully updated.'
+    expect(page).to have_content 'Form was successfully updated'
   end
 end
 
@@ -126,7 +126,7 @@ describe 'ecf' do
     expect(page).to have_content 'Edit ECF'
     attach_file 'ecf[upload_medical_evidence][]', 'spec/features/test.pdf'
     click_button 'Update evidence'
-    expect(page).to have_content 'Form was successfully updated.'
+    expect(page).to have_content 'Form was successfully updated'
   end
 end
 
@@ -151,7 +151,7 @@ describe 'ecf', js: true do
     expect(page).to have_content 'Edit ECF'
     attach_file 'ecf[upload_medical_evidence][]', 'spec/features/test.pdf'
     click_button 'Update evidence'
-    expect(page).to have_content 'Form was successfully updated.'
+    expect(page).to have_content 'Form was successfully updated'
     click_link 'Delete attachment'
     expect(page).to have_content 'Successfully deleted attachment'
   end
@@ -236,14 +236,14 @@ describe 'ecf', js: true do
     click_link 'Edit', match: :first
     select 'Complete', from: 'ecf[status]', visible: false
     click_button 'Update status'
-    expect(page).to have_content 'Form was successfully updated.'
+    expect(page).to have_content 'Form was successfully updated'
   end
 end
 
 
 
 describe 'ecf', js: true do
-  it 'uploads evidence to ecf then deletes it', js: true do
+  it 'edits ecf details', js: true do
     visit '/users/sign_in'
     login_as(FactoryBot.create(:student2))
     visit '/ecfs'
@@ -261,7 +261,7 @@ describe 'ecf', js: true do
     fill_in 'Details', with: 'test'
     sleep(0.5)
     click_button 'Submit Extenuating Circumstances Form'
-    expect(page).to have_content 'Form was successfully updated.'
+    expect(page).to have_content 'Form was successfully updated'
   end
 end
 
@@ -293,38 +293,3 @@ describe 'outcome', js: true do
   end
 end
 
-# describe 'ecf', js: true do
-#   it 'module leader view ecfs', js: true do
-#     visit '/users/sign_in'
-#     login_as(FactoryBot.create(:student))
-#     visit '/ecfs'
-#     click_link 'Create New ECF'
-#     fill_in 'Details', with: 'Example User2'
-#     fill_in 'ecf[affected_units_attributes][0][unit_code]', with: 'com3420'
-#     fill_in 'ecf[affected_units_attributes][0][assessment_type]', with: 'Exam'
-#     fill_in 'ecf[affected_units_attributes][0][date_from]', with: '2022-05-16'
-#     fill_in 'ecf[affected_units_attributes][0][date_to]', with: '2022-05-16'
-#     select 'DEX - Deadline Extension', from: 'ecf[affected_units_attributes][0][requested_action]', visible: false
-#     click_button 'Submit Extenuating Circumstances Form'
-#     # Check that ecf is listed fro student 1
-#     expect(page).to have_content 'com3420'
-#     find(:xpath, '/html/body/header/div/div/a[2]', text: 'Logout').click
-#     visit '/users/sign_in'
-#     login_as(FactoryBot.create(:module_leader))
-#     # find(:xpath, '/html/body/header/div/div/a[2]', text: 'Logout').click
-#     visit '/users/sign_in'
-#     login_as(FactoryBot.create(:admin))
-#     visit '/users'
-#     find(:xpath, "//tr[contains(.,'module leader')]/td/a", :text => 'Edit').click
-#     expect(page).to have_content 'ac1arx'
-#     find(:xpath, "/html/body/main/div/div[2]/div/form/a").click
-#     fill_in 'Module code', with: 'com3420'
-#     click_button 'Update User'
-#     expect(page).to have_content 'User was successfully updated.'
-#     find(:xpath, '/html/body/header/div/div/a[2]', text: 'Logout').click
-#     visit '/users/sign_in'
-#     login_as(FactoryBot.create(:module_leader))
-#     visit '/ecfs'
-#     expect(page).to have_content 'There are 1 ecfs'
-#   end
-# end
