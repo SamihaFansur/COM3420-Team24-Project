@@ -1,5 +1,4 @@
 .git      export-ignore
 csvs      export-ignore
 features  export-ignore
-
 *.gem filter=lfs diff=lfs merge=lfs -text
