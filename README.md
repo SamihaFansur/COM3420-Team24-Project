@@ -54,10 +54,11 @@ We use RSpec for our test suite. Run it with the command `rspec spec`.
 
 We use the `epi-deploy` gem for deployment. 
 
-```bash
+```bash```
 bundle exec epi_deploy release -d demo
 
 > Please note that this may require access to our team's GitLab repository and also being on the University's VPN.
+
 
 ## Tech Stack
 
