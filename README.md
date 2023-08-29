@@ -1,142 +1,90 @@
-# Extenuating Circumstances Form
+![Banner Image](./app/assets/images/ecf-webpage.png)
 
-## App / Project Info
+# Extenuating Circumstances Form (ECF) System
 
-Team 24:
-An online Extenuating Circumstances System for the University of Sheffield.
+## Overview
 
-### Description
+An intuitive, web-based Extenuating Circumstances Form (ECF) management system, designed to modernize the University of Sheffield's process for handling ECF submissions. Created by Team 24, this system aims to substitute traditional paper forms and spreadsheet tracking with an efficient, user-friendly platform. 
 
-This system aims to replace the current system of paper forms and spreadsheet meetings, to streamline the
-process of submitting and handling ECFs.
+Our ECF System is built on Ruby version 3.2.2, using the Rails framework (version 6.1.4), PostgreSQL for the database, and Hamlit for view templating. It offers a range of functionalities such as ECF creation, viewing, decision making, as well as advanced features for different user roles.
 
-This project handles creation and submission of ECFs, viewing ECFs, scrutiny panel meetings, decisions for ECFs and more.
+## Features
 
-### Getting Started
+- **Students**: ECF creation, viewing, file evidence uploading, tracking of ECF status, email notifications.
+- **Module Leaders**: ECF overview, module-related ECF insights, communication with the scrutiny panel.
+- **Scrutiny Panel Member & Chair**: ECF management, meeting creation and attendance, decision making, user management, bulk upload, and more.
 
-Clone the project, then:
+## User Roles
 
-* `cp config/database_sample-pg.yml config/database.yml` and change credentials as appropriate.
-* Please note that for the following to work you MUST be connected to the Sheffield VPN, when running locally.
-* `bundle install`
-* `yarn install`
-* `rails db:setup`
-* `bin/webpack-dev-server` for live reloading in one terminal.
-* `rails s` to start the server in another terminal.
-  Log in to the site using your University credentials (again you must be connected to the Sheffield VPN.)
+- **Guest** (0): Can view public information.
+- **Student** (1): Full student features access.
+- **Module Leader** (2): Access to module-related ECFs and related features.
+- **Scrutiny Panel Member** (3): Can view and decide on ECFs.
+- **Scrutiny Panel Chair/Admin** (4): Full system access, user management, meeting creation, and more.
 
-If you experience a 'connection to server' error in the above steps, start a postgresql server using:
-* `sudo service postgresql start`
+## Quick Start Guide
 
-### Setting User Role
+1. Clone the repository and navigate into the directory.
+2. Copy the sample database configuration file and set your credentials.
+    ```bash
+    cp config/database_sample-pg.yml config/database.yml
+    ```
+3. Install the required Ruby gems and Javascript dependencies.
+    ```bash
+    bundle install
+    yarn install
+    ```
+4. Setup the database.
+    ```bash
+    rails db:setup
+    ```
+5. Start the server and the webpack-dev-server for live reloading.
+    ```bash
+    bin/webpack-dev-server
+    rails s
+    ```
+6. Log in to the site using your University credentials. Ensure you are connected to the Sheffield VPN when running locally.
+7. If needed, change your user role using the Rails console. Use `User.find({id}).update(:role => {role number})`. For instance, `User.find(1).update(:role => 4)` sets the user with id 1 as an admin.
 
-After logging in when deploying locally, you may notice that you are only signed in as a guest or student.
-To change your role, do
+## Running Tests
 
-* `rails console`
-* `User.all`
-  Find your user, and note the user's 'id' value.
-  The role numbers for each role are:
-  0 - guest,  1 - student,  2 - module leader,  3 - scrutiny panel member,  4 - scrutiny panel chair (admin).
-  To set the user to one of the above roles, in the rails console do:
-* `User.find({id}).update(:role => {role number}])`
-  e.g., User.find(1).update(:role => 4).
-  After setting your role, refresh the website and you should have the correct level of access.
+We use RSpec for our test suite. Run it with the command `rspec spec`.
 
-### URLs
+## Deployment
 
-If hosting locally, go to `http://localhost:3000/`  
-If deployed to demo site team 24 go to `https://team24.demo4.hut.shefcompsci.org.uk/`
+We use the `epi-deploy` gem for deployment. 
 
-### Testing
+```bash```
+bundle exec epi_deploy release -d demo
 
-Instructions:
+> Please note that this may require access to our team's GitLab repository and also being on the University's VPN.
 
-* Run our tests with `rspec spec`
 
-### Deployment
+## Tech Stack
 
-Using the `epi-deploy` gem...
+- [Ruby 3.2.2](https://www.ruby-lang.org/en/news/2021/07/07/ruby-3-2-2-released/)
+- [Rails 6.1.4](https://rubyonrails.org/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [Hamlit](https://github.com/k0kubun/hamlit)
+- [Bootstrap](https://getbootstrap.com/)
+- [Webpacker](https://github.com/rails/webpacker)
+- [RSpec](https://rspec.info/)
 
-* `bundle exec epi_deploy release -d demo`
-  Please note that this may require access to our team's GitLab repository and also being on the University's VPN.
+More details can be found in the [Gemfile](https://github.com/username/repository/blob/main/Gemfile).
 
-### Roles
+## Contact
 
-**Student:**  
-University Students who wish to submit ECFs.  
-**Module Leader:**  
-University Module Leaders who wish to view ECFs pertaining to their module.  
-**Scrutiny Panel Member:**  
-University Scrutiny Panel Members who wish to view students' ECFs and make decisions.    
-**Scrutiny Panel Chair / Admin:**    
-University Scrutiny Panel Chairs, have full access to the system. They can also create new users and edit them.
-They can view sensitive information within an ECF.
+Please reach out to the following members for any inquiries:
 
-### Features
+- Ezra Bell: ebell3@sheffield.ac.uk
+- Ariful Haque: ahaque3@sheffield.ac.uk
+- Samiha Fansur: sfansur1@sheffield.ac.uk
+- Jakub Bolcun: jbolcun1@sheffield.ac.uk
+- Mehar Aziz: maziz3@sheffield.ac.uk
+- Qinghao Du: qdu3@sheffield.ac.uk
+- Euan Goodbrand: egoodbrand1@sheffield.ac.uk
+- Charlie Petch: cpetch1@sheffield.ac.uk
 
-**Students:**  
-ECF creation, with multiple affected units  
-Viewing information relevant to extenuating circumstances  
-Uploading file evidence to support an ECF  
-Listing previously submitted ECFs  
-Viewing final decisions made on the ECF  
-Receiving email notifications for when an ECF is to be reviewed and when an ECF has been marked as 'complete'
 
-For guidance on using the following staff features, please refer to the 'User Guides' provided by Team 24.
-**Module Leaders:**  
-Viewing all ECFs affecting their modules, separated into ongoing and complete  
-Seeing the affected units, affected assessments and requested actions of their modules for an ECF  
-Seeing whether an ECF includes a 'DEX request'  
-Communicating with scrutiny panel via 'module leader notes' - which notify the scrutiny panel via email
 
-**Staff:**  
-Attending meetings  
-Searching ECFs by field, department, requested action...  
-Importing ECFs into a meeting  
-Viewing and appending evidence files to existing ECFs  
-Tracking email communications via email pdf upload   
-Adding 'note ECFs' to a meeting  
-Adding decisions to ECFs, specific to a meeting  
-Exporting a meeting's minutes as a .pdf, including all meetings on the agenda, the affected units, any note ECFs and any decisions  
-Tracking and viewing all previous meetings and the ECFs and decisions reviewed in them  
-Viewing previous sets of decisions for an ECF  
-Adding notes to ECF for future panels, and to module leaders
-
-**Scrutiny Chair:**  
-Creation of meetings  
-Notification of a meeting sent to all attendees  
-User overview and management  
-Importing users and details to the system from Sheffield's LDAP database  
-Showing all ECFs belonging to a particular user  
-Uploading module leader to module assignments in bulk via .csv  
-Viewing ECFs marked as confidential  
-Private 'scrutiny chair' notes for each ECF  
-Creating custom 'outcomes' for use in adding decisions.
-
-### Directory Structure
-
-The majority of our code can be found in app/
-
-For JavaScript (.js), go to app/javascript/packs
-For Ruby (.rb), go to app/controllers or app/models
-For HTML / HAML (.html.haml) go to app/views
-
-Tests can be found in spec/
-
-### Code Styling standards
-
-Our code has been styled according to general JavaScript, Ruby and HAML standards.
-We have also used gem rubocop to to analyse our code styling.
-
-### Team Contact
-
-Should you have any inquiries about the system, please contact one of the team members:  
-Ezra Bell (Client Contact): ebell3@sheffield.ac.uk  
-Ariful Haque: ahaque3@sheffield.ac.uk  
-Samiha Fansur: sfansur1@sheffield.ac.uk  
-Jakub Bolcun: jbolcun1@sheffield.ac.uk  
-Mehar Aziz: maziz3@sheffield.ac.uk  
-Qinghao Du: qdu3@sheffield.ac.uk  
-Euan Goodbrand: egoodbrand1@sheffield.ac.uk  
-Charlie Petch: cpetch1@sheffield.ac.uk  
+Please replace `'BannerImageUrl'` with the actual URL of the banner image, and `'username'` and `'repository'` in the Gemfile link with your actual GitHub username and repository name.
